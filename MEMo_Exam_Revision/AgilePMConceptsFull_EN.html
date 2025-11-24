@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgilePM® v3 Certification Portal: Detailed 12 Chapters</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom Styles for Aesthetics and Responsiveness */
+        :root {
+            --primary-color: #0b2f56; /* Dark Blue */
+            --secondary-color: #2980b9; /* Bright Blue */
+            --accent-color: #f39c12; /* Orange */
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--light-color);
+            padding: 80px 0;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+
+        .chapter-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            overflow: hidden;
+            border-left: 6px solid var(--accent-color);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        
+        .chapter-card.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-header-custom {
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            padding: 18px 25px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-bottom: 3px solid var(--accent-color);
+        }
+
+        .card-body h5, .card-body h3 {
+            color: var(--primary-color);
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            border-bottom: 2px solid var(--light-color);
+            padding-bottom: 5px;
+        }
+
+        .btn-custom {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: var(--dark-color);
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+            border-radius: 8px;
+        }
+
+        .btn-custom:hover {
+            background-color: #e67e22;
+            border-color: #e67e22;
+            color: var(--dark-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .table-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f7f9fb;
+            border-radius: 10px;
+            border: 1px solid #e0e6ed;
+        }
+
+        .table-section h4 {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            margin-bottom: 15px;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        th, td {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #eaf2f8;
+            font-weight: 600;
+        }
+        td strong {
+            color: var(--primary-color);
+        }
+
+        /* Navigation improvements */
+        .nav-container {
+            position: sticky;
+            top: 70px;
+            z-index: 999;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+
+        .nav-chapters {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .nav-chapters a {
+            padding: 8px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .nav-chapters a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .nav-chapters a.active {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        /* Mobile menu toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 1024px) {
+            .nav-container {
+                position: static;
+                margin-bottom: 10px;
+            }
+            
+            .nav-chapters {
+                flex-direction: column;
+                align-items: center;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+            
+            .nav-chapters.expanded {
+                max-height: 500px;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a class="text-white text-xl font-bold" href="#"><i class="fas fa-book-reader me-2"></i>AgilePM® v3 Revision</a>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="hidden lg:flex" id="navbarNav">
+                <ul class="flex ml-auto" id="nav-chapters">
+                    <!-- Navigation links will be populated by the script -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sticky Navigation Menu -->
+    <div class="nav-container">
+        <div class="container mx-auto px-4">
+            <div class="nav-chapters" id="stickyNavChapters">
+                <!-- Sticky navigation links will be populated by the script -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="hero-section text-center">
+        <div class="container mx-auto px-4">
+            <h1>AgilePM® v3 Certification Portal</h1>
+            <p class="text-xl">In-depth preparation guide covering the 12 core chapters with 7 detailed tables each.</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4">
+        <!-- Progress Bar -->
+        <div class="mb-6">
+            <div class="progress h-8 bg-gray-200 rounded-full" role="progressbar" aria-label="Revision Progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar progress-bar-custom h-8 rounded-full text-center text-sm flex items-center justify-center font-semibold text-white" id="revisionProgress" style="width: 0%">0% Completed</div>
+            </div>
+        </div>
+
+        <!-- Revision Content (Chapters) -->
+        <div class="flex justify-center">
+            <div class="w-full lg:w-10/12">
+
+                <!-- 1. Introduction -->
+                <section id="introduction" class="chapter-card" data-chapter="introduction">
+                    <div class="card-header-custom"><i class="fas fa-search me-2"></i>1. Introduction to AgilePM and DSDM</div>
+                    <div class="card-body p-6">
+                        <p class="mb-4">AgilePM is a sophisticated framework for Agile Project Management, built upon the **Dynamic Systems Development Method (DSDM)**. It aims to bridge the gap between high-level corporate governance and rapid, iterative product development. It focuses on delivering the right solution at the right time through disciplined collaboration.</p>
+                        <h3>The DSDM Philosophy</h3>
+                        <p>The DSDM philosophy is **'The best business value emerges when projects are aligned to clear business goals, frequently deliver reliable products, and involve collaboration from empowered teams.'** AgilePM is DSDM-compliant and provides a structured, enterprise-level approach, emphasizing fitness for business purpose and active stakeholder involvement.</p>
+                        
+
+                        <div class="table-section">
+                            <h3 class="text-xl font-bold mb-3">Chapter 1: Detailed Tables (7)</h3>
+                            
+                            <h4>Table 1.1: AgilePM vs. Traditional Project Management</h4>
+                            <table>
+                                <thead><tr><th>Parameter</th><th>AgilePM (DSDM)</th><th>Traditional (Waterfall)</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Time & Cost</td><td>Fixed, non-negotiable.</td><td>Variable, estimated.</td></tr>
+                                    <tr><td>Scope & Quality</td><td>Variable (Scope flexes), Quality is Fixed.</td><td>Fixed Scope, Quality may flex under pressure.</td></tr>
+                                    <tr><td>Stakeholder Involvement</td><td>High, continuous and active.</td><td>Low, primarily at start and end of phases.</td></tr>
+                                </tbody>
+                            </table>
+                            
+                            <h4>Table 1.2: AgilePM's Value Proposition</h4>
+                            <table>
+                                <thead><tr><th>Aspect</th><th>Focus</th><th>Benefit</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Business Value</td><td>Aligning project work with business objectives.</td><td>Ensures the delivered product provides real, measurable benefit.</td></tr>
+                                    <tr><td>Risk Reduction</td><td>Short timeboxes and frequent delivery.</td><td>Reduces risk of failure by exposing problems early.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 1.3: DSDM Fundamentals</h4>
+                            <table>
+                                <thead><tr><th>Fundamental</th><th>Description</th><th>Associated Chapter</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Principles</td><td>8 Guiding Rules (The 'How').</td><td>Chapter 2</td></tr>
+                                    <tr><td>People</td><td>Defined roles and collaborative teams (The 'Who').</td><td>Chapter 5</td></tr>
+                                    <tr><td>Process</td><td>5-phase lifecycle (The 'When').</td><td>Chapter 7</td></tr>
+                                    <tr><td>Products</td><td>Management and Solution documentation (The 'What').</td><td>Chapter 12</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 1.4: Key Terminology</h4>
+                            <table>
+                                <thead><tr><th>Term</th><th>Definition</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Timebox</td><td>A fixed period of time (usually 2-4 weeks) at the end of which a goal must be achieved.</td></tr>
+                                    <tr><td>Evolutionary Development</td><td>The iterative and incremental process of building the solution.</td></tr>
+                                    <tr><td>MUST</td><td>Minimum Usable SubseT - the mandatory requirements for a successful deployment.</td></tr>
+                                </tbody>
+                            </table>
+                            
+                            <h4>Table 1.5: AgilePM Context</h4>
+                            <table>
+                                <thead><tr><th>Context</th><th>Requirement</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Project Size</td><td>Scalable from small to large (supports Program/Portfolio).</td></tr>
+                                    <tr><td>Tooling</td><td>Minimal prescriptive tools, emphasis on transparency.</td></tr>
+                                    <tr><td>Methodology</td><td>Focus on *Management*, not just development technique.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 1.6: Benefits of the AgilePM Approach</h4>
+                            <table>
+                                <thead><tr><th>Benefit</th><th>Explanation</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Early ROI</td><td>Frequent deliveries of working software provide business value sooner.</td></tr>
+                                    <tr><td>Engagement</td><td>Active user involvement leads to higher adoption and better product fit.</td></tr>
+                                    <tr><td>Predictability</td><td>Fixed time and cost provide high certainty on project boundaries.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 1.7: When AgilePM is Most Applicable</h4>
+                            <table>
+                                <thead><tr><th>Scenario</th><th>Reason</th></tr></thead>
+                                <tbody>
+                                    <tr><td>High Risk/Uncertainty</td><td>Allows for adaptation and frequent feedback loops.</td></tr>
+                                    <tr><td>Tight Deadlines</td><td>Fixing the date and flexing scope ensures on-time delivery.</td></tr>
+                                    <tr><td>Complex Stakeholders</td><td>Formal roles and frequent communication manage diverse interests.</td></tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-end p-4">
+                        <button class="btn-custom py-2 px-4 rounded-lg next-btn" data-next="key-concepts">Next <i class="fas fa-arrow-right ms-2"></i></button>
+                    </div>
+                </section>
+
+                <!-- 2. Key Concepts -->
+                <section id="key-concepts" class="chapter-card" data-chapter="key-concepts">
+                    <div class="card-header-custom"><i class="fas fa-lightbulb me-2"></i>2. Key Concepts, Principles, and Variables</div>
+                    <div class="card-body p-6">
+                        <p class="mb-4">The core of AgilePM lies in its approach to project variables and its commitment to the **8 Principles**. Unlike traditional methods where scope is fixed, AgilePM fixes Time, Cost, and Quality, using scope (features) as the primary variable to absorb pressure.</p>
+                        <h3>The 8 Principles (Non-Negotiable)</h3>
+                        <p>These principles are the non-negotiable rules for any project wishing to be DSDM compliant. They guide every decision and activity in the project lifecycle. Failure to follow even one principle compromises the entire approach.</p>
+                        <ol class="list-decimal list-inside ml-5">
+                            <li>Focus on the Business Need</li>
+                            <li>Deliver on Time</li>
+                            <li>Collaborate</li>
+                            <li>Never Compromise Quality</li>
+                            <li>Build Incrementally from Firm Foundations</li>
+                            <li>Develop Iteratively</li>
+                            <li>Communicate Continuously and Clearly</li>
+                            <li>Demonstrate Control</li>
+                        </ol>
+                        
+
+                        <div class="table-section">
+                            <h3 class="text-xl font-bold mb-3">Chapter 2: Detailed Tables (7)</h3>
+                            
+                            <h4>Table 2.1: Fixed vs. Variable Parameters</h4>
+                            <table>
+                                <thead><tr><th>Fixed (Never Compromised)</th><th>Variable (Flexes to Meet Deadline)</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Time / Deadline</td><td>Features / Scope (via MoSCoW)</td></tr>
+                                    <tr><td>Cost / Budget</td><td>Resources (Team size, subject to budget constraints)</td></tr>
+                                    <tr><td>Quality (Level of Fitness-for-purpose)</td><td>Documentation Level (Can be kept lean)</td></tr>
+                                </tbody>
+                            </table>
+                            
+                            <h4>Table 2.2: Focus of the 8 Principles</h4>
+                            <table>
+                                <thead><tr><th>Principle</th><th>Key Focus Area</th><th>Risk Mitigation</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Focus on the Business Need</td><td>Value</td><td>Building the wrong product.</td></tr>
+                                    <tr><td>Deliver on Time</td><td>Schedule</td><td>Overrunning deadlines and budgets.</td></tr>
+                                    <tr><td>Collaborate</td><td>Teamwork</td><td>Misunderstandings and low morale.</td></tr>
+                                    <tr><td>Never Compromise Quality</td><td>Integrity</td><td>Technical debt and unfitness for purpose.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 2.3: Defining 'Quality' in AgilePM</h4>
+                            <table>
+                                <thead><tr><th>Quality Aspect</th><th>Definition</th><th>Measurement</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Fitness-for-Purpose</td><td>The solution meets the defined Must Haves.</td><td>Testing & Acceptance criteria.</td></tr>
+                                    <tr><td>Integrity</td><td>The robustness and maintainability of the technical solution.</td><td>Non-functional requirements, technical reviews.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 2.4: The Timebox Concept</h4>
+                            <table>
+                                <thead><tr><th>Characteristic</th><th>Description</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Fixed Duration</td><td>Duration cannot be changed (typically 2-4 weeks).</td></tr>
+                                    <tr><td>Fixed Team</td><td>Team members do not change during the Timebox.</td></tr>
+                                    <tr><td>MoSCoW Prioritized Scope</td><td>Scope is selected from the PRL and prioritized internally.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 2.5: Key Practices and Their Principles</h4>
+                            <table>
+                                <thead><tr><th>Practice</th><th>Core Principles Supported</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Timeboxing</td><td>Deliver on Time, Demonstrate Control.</td></tr>
+                                    <tr><td>MoSCoW</td><td>Focus on the Business Need, Deliver on Time.</td></tr>
+                                    <tr><td>Facilitated Workshops</td><td>Collaborate, Communicate Continuously.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 2.6: Common Pitfalls in Applying Principles</h4>
+                            <table>
+                                <thead><tr><th>Pitfall</th><th>Violated Principle</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Allowing rework/scope creep after deadline.</td><td>Deliver on Time.</td></tr>
+                                    <tr><td>Ignoring technical standards for speed.</td><td>Never Compromise Quality.</td></tr>
+                                    <tr><td>Developers working in isolation.</td><td>Collaborate.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 2.7: Levels of Requirements Definition</h4>
+                            <table>
+                                <thead><tr><th>Level</th><th>AgilePM Product</th><th>Level of Detail</th></tr></thead>
+                                <tbody>
+                                    <tr><td>High-Level Goal</td><td>Business Case, Vision</td><td>Very broad, strategic.</td></tr>
+                                    <tr><td>Feature-Level</td><td>Prioritised Requirements List (PRL)</td><td>Functional, prioritized, testable.</td></tr>
+                                    <tr><td>Detailed Task-Level</td><td>Timebox Plan</td><td>Specific development tasks.</td></tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between p-4">
+                        <button class="btn-custom py-2 px-4 rounded-lg prev-btn" data-prev="introduction"><i class="fas fa-arrow-left me-2"></i> Previous</button>
+                        <button class="btn-custom py-2 px-4 rounded-lg next-btn" data-next="scrum">Next <i class="fas fa-arrow-right ms-2"></i></button>
+                    </div>
+                </section>
+
+                <!-- 3. Scrum -->
+                <section id="scrum" class="chapter-card" data-chapter="scrum">
+                    <div class="card-header-custom"><i class="fas fa-running me-2"></i>3. Scrum and AgilePM: Comparison and Integration</div>
+                    <div class="card-body p-6">
+                        <p class="mb-4">While often confused, AgilePM (DSDM) and Scrum serve different purposes. AgilePM is a robust **Project Management** framework covering the entire lifecycle from concept to delivery and benefits realization. Scrum is an **Empirical Process Control** framework focused on product development (the 'doing').</p>
+                        <h3>Integration Opportunities</h3>
+                        <p>AgilePM can incorporate Scrum-like practices, particularly within its **Evolutionary Development (Evo Dev)** phase. The daily stand-up, iterative delivery, and focus on a small, cross-functional team are common ground. However, AgilePM provides the governance wrapper (Sponsor, Project Manager, Business Case, etc.) that Scrum often assumes is handled externally.</p>
+                        
+
+                        <div class="table-section">
+                            <h3 class="text-xl font-bold mb-3">Chapter 3: Detailed Tables (7)</h3>
+                            
+                            <h4>Table 3.1: Roles Comparison: AgilePM vs. Scrum</h4>
+                            <table>
+                                <thead><tr><th>AgilePM Role</th><th>Closest Scrum Role</th><th>Key Difference</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Business Visionary</td><td>Product Owner</td><td>Visionary is more strategic; PO is tactical (managing Backlog).</td></tr>
+                                    <tr><td>Project Manager</td><td>N/A (Scrum Master is not PM)</td><td>PM manages budget, schedule, governance, and external stakeholders.</td></tr>
+                                    <tr><td>Team Leader</td><td>Scrum Master / Senior Dev</td><td>TL focuses on technical quality; SM on process enablement.</td></tr>
+                                    <tr><td>Business Ambassador</td><td>Product Owner / Key Stakeholder</td><td>Ambassador is dedicated to requirements and testing.</td></tr>
+                                </tbody>
+                            </table>
+                            
+                            <h4>Table 3.2: Terminology Mapping</h4>
+                            <table>
+                                <thead><tr><th>AgilePM Term</th><th>Scrum Equivalent</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Timebox</td><td>Sprint</td></tr>
+                                    <tr><td>Prioritised Requirements List (PRL)</td><td>Product Backlog</td></tr>
+                                    <tr><td>Daily Stand-up</td><td>Daily Scrum</td></tr>
+                                    <tr><td>Iteration Review</td><td>Sprint Review</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 3.3: Lifecycle Coverage</h4>
+                            <table>
+                                <thead><tr><th>Phase/Area</th><th>AgilePM Coverage</th><th>Scrum Coverage</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Pre-Project & Feasibility</td><td>Explicit and mandatory.</td><td>Assumed to be done externally.</td></tr>
+                                    <tr><td>Development</td><td>Evolutionary Development Phase.</td><td>Sprints.</td></tr>
+                                    <tr><td>Post-Project (Benefits Realization)</td><td>Explicit phase and review.</td><td>Assumed by Product Owner/Organization.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 3.4: Stance on Change</h4>
+                            <table>
+                                <thead><tr><th>Framework</th><th>Approach to Change</th></tr></thead>
+                                <tbody>
+                                    <tr><td>AgilePM</td><td>Accepts change, but manages it strictly through MoSCoW within fixed timeboxes. Change outside the timebox must be formally reviewed.</td></tr>
+                                    <tr><td>Scrum</td><td>Accepts change, allowing Product Backlog to be re-prioritized at any time by the Product Owner.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 3.5: Key Meetings Comparison</h4>
+                            <table>
+                                <thead><tr><th>AgilePM</th><th>Scrum</th><th>Frequency</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Timebox Planning</td><td>Sprint Planning</td><td>Start of Timebox/Sprint</td></tr>
+                                    <tr><td>Daily Stand-up</td><td>Daily Scrum</td><td>Daily, 15 minutes max</td></tr>
+                                    <tr><td>Timebox Review/Demonstration</td><td>Sprint Review</td><td>End of Timebox/Sprint</td></tr>
+                                </table>
+
+                            <h4>Table 3.6: Where AgilePM Adds Value to a Scrum Environment</h4>
+                            <table>
+                                <thead><tr><th>Added Value</th><th>AgilePM Product/Role</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Clear Project Scope & Constraints</td><td>Project Manager, Business Case</td></tr>
+                                    <tr><td>Pre-Defined Quality Standards</td><td>Development Approach Definition</td></tr>
+                                    <tr><td>Explicit Stakeholder Engagement Model</td><td>Business Ambassador Role</td></tr>
+                                </table>
+                            
+                            <h4>Table 3.7: Scrum's Empirical Pillars and DSDM Principles</h4>
+                            <table>
+                                <thead><tr><th>Scrum Pillar</th><th>Corresponding DSDM Principle</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Transparency</td><td>Communicate Continuously and Clearly, Demonstrate Control</td></tr>
+                                    <tr><td>Inspection</td><td>Develop Iteratively, Never Compromise Quality</td></tr>
+                                    <tr><td>Adaptation</td><td>Focus on the Business Need, Deliver on Time</td></tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between p-4">
+                        <button class="btn-custom py-2 px-4 rounded-lg prev-btn" data-prev="key-concepts"><i class="fas fa-arrow-left me-2"></i> Previous</button>
+                        <button class="btn-custom py-2 px-4 rounded-lg next-btn" data-next="fundamentals">Next <i class="fas fa-arrow-right ms-2"></i></button>
+                    </div>
+                </section>
+
+                <!-- 4. AgilePM Fundamentals -->
+                <section id="fundamentals" class="chapter-card" data-chapter="fundamentals">
+                    <div class="card-header-custom"><i class="fas fa-balance-scale me-2"></i>4. AgilePM Fundamentals: The Four Pillars</div>
+                    <div class="card-body p-6">
+                        <p class="mb-4">AgilePM success hinges on the alignment of four fundamental factors: **Principles, People, Process, and Products**. These four pillars ensure that a project is not just using Agile techniques, but is truly DSDM compliant and capable of delivering value within fixed constraints.</p>
+                        <h3>Interdependence of Fundamentals</h3>
+                        <p>The Principles provide the mindset, the People execute the work within the defined Process, and the Products ensure governance and control. For instance, the 'Collaborate' Principle (People) is enabled by the Facilitated Workshop technique (Process) and results in agreed requirements (Product).</p>
+                        
+
+                        <div class="table-section">
+                            <h3 class="text-xl font-bold mb-3">Chapter 4: Detailed Tables (7)</h3>
+                            
+                            <h4>Table 4.1: The Four Fundamentals of AgilePM</h4>
+                            <table>
+                                <thead><tr><th>Fundamental</th><th>Core Question</th><th>Enabling Factor</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Principles</td><td>How do we work?</td><td>The 8 rules (Mindset).</td></tr>
+                                    <tr><td>People</td><td>Who is involved?</td><td>Defined roles, empowered teams.</td></tr>
+                                    <tr><td>Process</td><td>When do we do things?</td><td>The 5-phase lifecycle (Structure).</td></tr>
+                                    <tr><td>Products</td><td>What do we produce?</td><td>Documents for scope, plan, and control (Governance).</td></tr>
+                                </tbody>
+                            </table>
+                            
+                            <h4>Table 4.2: Principles and Their Corresponding Goals</h4>
+                            <table>
+                                <thead><tr><th>Principle</th><th>Primary Goal</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Focus on the Business Need</td><td>Maximise Business Value.</td></tr>
+                                    <tr><td>Deliver on Time</td><td>Ensure Project Predictability.</td></tr>
+                                    <tr><td>Never Compromise Quality</td><td>Eliminate Technical Debt.</td></tr>
+                                    <tr><td>Communicate Continuously and Clearly</td><td>Maintain Transparency.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 4.3: The 'People' Fundamental: Team Dynamics</h4>
+                            <table>
+                                <thead><tr><th>Team Characteristic</th><th>AgilePM Requirement</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Empowerment</td><td>Individuals must be able to make decisions appropriate to their role.</td></tr>
+                                    <tr><td>Stability</td><td>Team members should remain consistent, especially during Evo Dev.</td></tr>
+                                    <tr><td>Dedication</td><td>Team members (especially the Development Team) should be dedicated full-time.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 4.4: The 'Process' Fundamental: Key Phases and Timeboxes</h4>
+                            <table>
+                                <thead><tr><th>Process Element</th><th>Focus</th><th>Duration Type</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Foundations Phase</td><td>Planning and agreement.</td><td>Variable (Until 'Firm Foundations' are established).</td></tr>
+                                    <tr><td>Evolutionary Development</td><td>Building the solution.</td><td>Fixed (Series of Timeboxes).</td></tr>
+                                </table>
+
+                            <h4>Table 4.5: The 'Products' Fundamental: Categories and Purpose</h4>
+                            <table>
+                                <thead><tr><th>Product Category</th><th>Example</th><th>Purpose</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Management Products</td><td>Project Approach Questionnaire (PAQ)</td><td>Define how the project will be managed.</td></tr>
+                                    <tr><td>Requirements Products</td><td>Prioritised Requirements List (PRL)</td><td>Document the scope of the solution.</td></tr>
+                                    <tr><td>Solution Products</td><td>Tested System, Deployment Plan</td><td>Define and support the delivered increment.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 4.6: Critical Success Factors (CSFs) Alignment</h4>
+                            <table>
+                                <thead><tr><th>AgilePM CSF</th><th>Related Fundamental</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Effective Stakeholder Engagement</td><td>People, Principles (Collaborate)</td></tr>
+                                    <tr><td>Iterative Development, Testing and Incremental Delivery</td><td>Process, Products</td></tr>
+                                    <tr><td>Clear Communication and Control</td><td>Principles, Products</td></tr>
+                                </table>
+                            
+                            <h4>Table 4.7: Mindset vs. Method</h4>
+                            <table>
+                                <thead><tr><th>Concept</th><th>Description</th></tr></thead>
+                                <tbody>
+                                    <tr><td>AgilePM Mindset</td><td>The adoption of the 8 Principles (e.g., Never Compromise Quality).</td></tr>
+                                    <tr><td>AgilePM Method</td><td>The structured approach defined by the Roles, Process, and Products.</td></tr>
+                                    <tr><td>Necessity</td><td>Both the Mindset and the Method are necessary for DSDM compliance.</td></tr>
+                                </table>
+
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between p-4">
+                        <button class="btn-custom py-2 px-4 rounded-lg prev-btn" data-prev="scrum"><i class="fas fa-arrow-left me-2"></i> Previous</button>
+                        <button class="btn-custom py-2 px-4 rounded-lg next-btn" data-next="individuals">Next <i class="fas fa-arrow-right ms-2"></i></button>
+                    </div>
+                </section>
+
+                <!-- 5. Individuals and Interactions (Roles) -->
+                <section id="individuals" class="chapter-card" data-chapter="individuals">
+                    <div class="card-header-custom"><i class="fas fa-user-tie me-2"></i>5. Individuals and Interactions: The AgilePM Roles</div>
+                    <div class="card-body p-6">
+                        <p class="mb-4">AgilePM specifies 13 defined roles to ensure clear lines of accountability and communication across the project and business. These roles are grouped into three primary categories: **Business**, **Management**, and **Technical**. All key stakeholders, especially those in Business and Management, must be actively involved.</p>
+                        <h3>The Three Role Categories</h3>
+                        <p>The **Business** roles define the 'what' and 'why' (e.g., Sponsor, Visionary, Ambassador). The **Management** roles oversee the 'how' and 'when' (e.g., Project Manager). The **Technical** roles focus on the delivery and quality of the solution (e.g., Team Leader, Developers).</p>
+                        
+
+                        <div class="table-section">
+                            <h3 class="text-xl font-bold mb-3">Chapter 5: Detailed Tables (7)</h3>
+                            
+                            <h4>Table 5.1: Key Business Roles</h4>
+                            <table>
+                                <thead><tr><th>Role</th><th>Primary Responsibility</th><th>Key Product/Output</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Business Sponsor</td><td>Project funding, strategic direction, and ultimate project authority.</td><td>Business Case, sign-off on Foundation products.</td></tr>
+                                    <tr><td>Business Visionary</td><td>Interpreting the Sponsor's needs; defining the high-level business solution.</td><td>Product Vision, high-level acceptance of solution.</td></tr>
+                                    <tr><td>Business Ambassador</td><td>Provides detailed requirements and testing/acceptance on behalf of the users.</td><td>Prioritised Requirements List (PRL).</td></tr>
+                                </tbody>
+                            </table>
+                            
+                            <h4>Table 5.2: Management Roles</h4>
+                            <table>
+                                <thead><tr><th>Role</th><th>Primary Focus</th><th>Key Interaction</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Project Manager (PM)</td><td>Manages the overall project process, governance, and external interface.</td><td>Liaises with Business Sponsor and Team Leader.</td></tr>
+                                    <tr><td>Team Leader (TL)</td><td>Coaches the Development Team; manages the Timebox; ensures technical quality.</td><td>Works closely with Business Ambassador and Developers.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 5.3: Technical Roles</h4>
+                            <table>
+                                <thead><tr><th>Role</th><th>Primary Responsibility</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Solution Developer</td><td>Designs, builds, and unit tests the solution increment.</td></tr>
+                                    <tr><td>Solution Tester</td><td>Designs and executes tests (functional and non-functional).</td></tr>
+                                    <tr><td>Technical Coordinator</td><td>Defines the solution architecture and technical environment.</td></tr>
+                                </tbody>
+                            
+                            </table>
+
+                            <h4>Table 5.4: Supporting Roles</h4>
+                            <table>
+                                <thead><tr><th>Role</th><th>Key Contribution</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Business Advisor</td><td>Provides specialist input on legal, finance, or compliance issues.</td></tr>
+                                    <tr><td>Workshop Facilitator</td><td>Manages the workshop process to ensure objectives are met effectively.</td></tr>
+                                    <tr><td>DSDM Coach</td><td>Advises the team on AgilePM practice and compliance.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 5.5: Importance of Empowerment</h4>
+                            <table>
+                                <thead><tr><th>Role Category</th><th>Empowerment Required</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Business Ambassador</td><td>Authority to define, refine, and sign-off on requirements.</td></tr>
+                                    <tr><td>Team Leader</td><td>Authority to protect the Timebox and manage the day-to-day work.</td></tr>
+                                    <tr><td>Project Manager</td><td>Authority to manage the project to meet the Project Plan.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 5.6: Interaction and Communication Matrix</h4>
+                            <table>
+                                <thead><tr><th>Communicates With</th><th>Business Sponsor</th><th>Project Manager</th><th>Team Leader</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Business Visionary</td><td>High (Strategic)</td><td>High (Strategic alignment)</td><td>Low</td></tr>
+                                    <tr><td>Business Ambassador</td><td>Low</td><td>High (Progress reporting)</td><td>High (Requirements details)</td></tr>
+                                </tbody>
+                            </table>
+                            
+                            <h4>Table 5.7: Role Dedication Level</h4>
+                            <table>
+                                <thead><tr><th>Role</th><th>Recommended Dedication</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Solution Developer / Tester</td><td>Full-time (100%) during Evo Dev.</td></tr>
+                                    <tr><td>Business Ambassador / Team Leader</td><td>High (70-100%) during Evo Dev.</td></tr>
+                                    <tr><td>Project Manager / Business Visionary</td><td>Part-time (25-50%), depending on project size.</td></tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between p-4">
+                        <button class="btn-custom py-2 px-4 rounded-lg prev-btn" data-prev="fundamentals"><i class="fas fa-arrow-left me-2"></i> Previous</button>
+                        <button class="btn-custom py-2 px-4 rounded-lg next-btn" data-next="collaboration">Next <i class="fas fa-arrow-right ms-2"></i></button>
+                    </div>
+                </section>
+
+                <!-- 6. Collaboration and Communication -->
+                <section id="collaboration" class="chapter-card" data-chapter="collaboration">
+                    <div class="card-header-custom"><i class="fas fa-comments me-2"></i>6. Collaboration and Communication (Principles 3 & 7)</div>
+                    <div class="card-body p-6">
+                        <p class="mb-4">The principles of **Collaborate** and **Communicate Continuously and Clearly** underpin the AgilePM approach. Active, continuous involvement from all stakeholders (especially the Business Ambassador) is key. The most effective method for requirements gathering and decision-making is the **Facilitated Workshop**.</p>
+                        <h3>Techniques for Effective Communication</h3>
+                        <p>AgilePM prefers **rich communication** (face-to-face) over lean communication (written documents) whenever possible to prevent misunderstandings and accelerate decision-making. Techniques like **Modeling** (UML, wireframes, prototypes) are used to clarify requirements visually, and **Iterative Development** itself acts as a communication mechanism by providing a tangible product for feedback.</p>
+                        
+
+                        <div class="table-section">
+                            <h3 class="text-xl font-bold mb-3">Chapter 6: Detailed Tables (7)</h3>
+                            
+                            <h4>Table 6.1: The Three Types of Facilitated Workshops</h4>
+                            <table>
+                                <thead><tr><th>Workshop Type</th><th>Primary Objective</th><th>When Used</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Requirements Gathering</td><td>To define, prioritize, and agree on the scope (PRL).</td><td>Foundations and early Evo Dev.</td></tr>
+                                    <tr><td>Review</td><td>To examine and agree on a product or document.</td><td>End of Timeboxes, Foundations.</td></tr>
+                                    <tr><td>Planning</td><td>To agree on Timebox content and tasks.</td><td>Start of Timeboxes.</td></tr>
+                                </tbody>
+                            </table>
+                            
+                            <h4>Table 6.2: Collaboration vs. Cooperation</h4>
+                            <table>
+                                <thead><tr><th>Concept</th><th>Definition</th><th>AgilePM Relevance</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Cooperation</td><td>Working together, but with separate goals/priorities.</td><td>Insufficient for AgilePM.</td></tr>
+                                    <tr><td>Collaboration</td><td>Working together towards a common goal, making shared decisions.</td><td>Mandatory (Principle 3).</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 6.3: Communication Techniques</h4>
+                            <table>
+                                <thead><tr><th>Technique</th><th>Principle Supported</th><th>Key Benefit</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Daily Stand-up</td><td>Communicate Continuously</td><td>Rapid identification of impediments.</td></tr>
+                                    <tr><td>Modeling/Prototyping</td><td>Develop Iteratively</td><td>Reduces ambiguity and validates design early.</td></tr>
+                                    <tr><td>Timebox Review</td><td>Demonstrate Control</td><td>Formal acceptance and feedback mechanism.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 6.4: Rules for Effective Workshops</h4>
+                            <table>
+                                <thead><tr><th>Rule</th><th>Rationale</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Clear Objective</td><td>Ensures the session has focus and a measurable output.</td></tr>
+                                    <tr><td>Right Attendees</td><td>Must include the appropriate decision-makers (e.g., Business Ambassador).</td></tr>
+                                    <tr><td>Neutral Facilitator</td><td>Keeps the group focused and manages conflicts objectively.</td></tr>
+                                </table>
+
+                            <h4>Table 6.5: Key Communication Products</h4>
+                            <table>
+                                <thead><tr><th>Product</th><th>Receiver</th><th>Information Conveyed</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Project Status Report</td><td>Business Sponsor, Project Board</td><td>Overall health, risks, and progress.</td></tr>
+                                    <tr><td>Timebox Review Minutes</td><td>Development Team, Business Ambassador</td><td>Decisions made, acceptance status, next steps.</td></tr>
+                                </table>
+
+                            <h4>Table 6.6: Challenges in Collaboration</h4>
+                            <table>
+                                <thead><tr><th>Challenge</th><th>Mitigation Strategy</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Geographical Separation</td><td>Use video conferencing tools, dedicated 'virtual stand-ups'.</td></tr>
+                                    <tr><td>Unavailable Stakeholders</td><td>Ensure Sponsor mandates time commitment (Principle: Collaborate).</td></tr>
+                                    <tr><td>Conflicting Priorities</td><td>Enforce MoSCoW prioritization and the Project Manager's decision-making authority.</td></tr>
+                                </table>
+                            
+                            <h4>Table 6.7: Rich vs. Lean Communication Examples</h4>
+                            <table>
+                                <thead><tr><th>Rich (Preferred)</th><th>Lean (Formal Record)</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Facilitated Workshop</td><td>Prioritised Requirements List (PRL)</td></tr>
+                                    <tr><td>Daily Stand-up</td><td>Project Status Report</td></tr>
+                                    <tr><td>Team Demonstration</td><td>Timebox Review Minutes</td></tr>
+                                </table>
+
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between p-4">
+                        <button class="btn-custom py-2 px-4 rounded-lg prev-btn" data-prev="individuals"><i class="fas fa-arrow-left me-2"></i> Previous</button>
+                        <button class="btn-custom py-2 px-4 rounded-lg next-btn" data-next="lifecycle">Next <i class="fas fa-arrow-right ms-2"></i></button>
+                    </div>
+                </section>
+
+                <!-- 7. AgilePM Process Framework and the Project Lifecycle -->
+				<!-- 7. AgilePM Process Framework and the Project Lifecycle -->
+<section id="lifecycle" class="chapter-card" data-chapter="lifecycle">
+    <div class="card-header-custom"><i class="fas fa-sync-alt me-2"></i>7. AgilePM Process Framework and the Project Lifecycle</div>
+    <div class="card-body p-6">
+        <p class="mb-4">The AgilePM lifecycle is a structured, six-phase model designed to provide necessary governance and control without losing the benefits of Agile iteration. This process ensures the project remains aligned with the business need from start to finish and delivers tangible business value.</p>
+        <h3>The Six Phases</h3>
+        <p>The phases are <strong>Pre-Project</strong> (Initiation), <strong>Feasibility</strong> (Viability Check), <strong>Foundations</strong> (Detailed Planning and Firm Foundations), <strong>Evolutionary Development</strong> (Iterative Build and Review), <strong>Deployment</strong> (Solution Delivery to Business), and <strong>Post-Project</strong> (Benefits Realization). The Evo Dev phase is the core of the project where Timeboxes occur, followed by the critical Deployment phase.</p>
+        
+        <div class="table-section">
+            <h3 class="text-xl font-bold mb-3">Chapter 7: Detailed Tables (7)</h3>
+            
+            <h4>Table 7.1: The Six Phases and their Objectives</h4>
+            <table>
+                <thead><tr><th>Phase</th><th>Primary Objective</th><th>Key Decision Point</th></tr></thead>
+                <tbody>
+                    <tr><td>Pre-Project</td><td>Formally authorize the start of the project and ensure it aligns with business strategy.</td><td>Go/No-Go to Feasibility.</td></tr>
+                    <tr><td>Feasibility</td><td>Establish viability (technical, business, and practical).</td><td>Go/No-Go to Foundations.</td></tr>
+                    <tr><td>Foundations</td><td>Establish the 'Firm Foundations' (plan, scope, architecture, team).</td><td>Go/No-Go to Evolutionary Development.</td></tr>
+                    <tr><td>Evolutionary Development</td><td>Iteratively build, test, and review the solution incrementally.</td><td>Is the solution ready for deployment?</td></tr>
+                    <tr><td>Deployment</td><td>Deliver the tested solution into the live business environment.</td><td>Formal handover to business operations.</td></tr>
+                    <tr><td>Post-Project</td><td>Review the project and confirm benefits realization.</td><td>Formal project closure and lessons learned.</td></tr>
+                </tbody>
+            </table>
+            
+            <h4>Table 7.2: Products Initiated per Phase</h4>
+            <table>
+                <thead><tr><th>Phase</th><th>Management Product Initiated</th><th>Requirements Product Initiated</th><th>Solution Product Initiated</th></tr></thead>
+                <tbody>
+                    <tr><td>Pre-Project</td><td>Terms of Reference (ToR)</td><td>N/A</td><td>N/A</td></tr>
+                    <tr><td>Feasibility</td><td>Project Approach Questionnaire (PAQ)</td><td>High-Level Prioritised Requirements List (PRL)</td><td>Feasibility Assessment</td></tr>
+                    <tr><td>Foundations</td><td>Project Plan, Delivery Plan</td><td>Detailed PRL, Solution Architecture Definition</td><td>Development Approach Definition</td></tr>
+                    <tr><td>Evolutionary Development</td><td>Timebox Plans, Project Status Reports</td><td>Refined PRL, Acceptance Criteria</td><td>Tested System Increments</td></tr>
+                    <tr><td>Deployment</td><td>Deployment Plan, Handover Documentation</td><td>User Acceptance Testing Results</td><td>Deployed Solution, Training Materials</td></tr>
+                    <tr><td>Post-Project</td><td>Project Review Report, Benefits Assessment</td><td>N/A</td><td>N/A</td></tr>
+                </tbody>
+            </table>
+
+            <h4>Table 7.3: Evolutionary Development Cycles (within Evo Dev Phase)</h4>
+            <table>
+                <thead><tr><th>Cycle Step</th><th>Focus</th><th>Goal</th><th>Key Roles Involved</th></tr></thead>
+                <tbody>
+                    <tr><td>Investigate</td><td>Business requirements, context, and detail analysis.</td><td>Understand what needs to be built and why.</td><td>Business Ambassador, Solution Developer</td></tr>
+                    <tr><td>Refine</td><td>Technical analysis, design, and modeling.</td><td>Prepare the design for coding and testing.</td><td>Team Leader, Technical Coordinator</td></tr>
+                    <tr><td>Consolidate</td><td>Development, testing, and integration activities.</td><td>Create a tested, integrated increment.</td><td>Solution Developer, Solution Tester</td></tr>
+                    <tr><td>Review</td><td>Demonstrate product and gather feedback.</td><td>Gain acceptance from the Business Ambassador and stakeholders.</td><td>Business Ambassador, Business Visionary</td></tr>
+                </tbody>
+            </table>
+
+            <h4>Table 7.4: Time Management in Phases</h4>
+            <table>
+                <thead><tr><th>Phase</th><th>Timebox Use</th><th>Duration</th><th>Flexibility</th></tr></thead>
+                <tbody>
+                    <tr><td>Pre-Project</td><td>No</td><td>Short (Days/Weeks)</td><td>Variable</td></tr>
+                    <tr><td>Feasibility</td><td>No</td><td>Short (Days/Weeks)</td><td>Variable</td></tr>
+                    <tr><td>Foundations</td><td>No (Time is variable)</td><td>Medium (Weeks)</td><td>Variable until firm foundations</td></tr>
+                    <tr><td>Evolutionary Development</td><td>Yes (Fixed Timeboxes)</td><td>Longest phase (Months)</td><td>Fixed time, flexible scope</td></tr>
+                    <tr><td>Deployment</td><td>No</td><td>Short (Days/Weeks)</td><td>Variable based on complexity</td></tr>
+                    <tr><td>Post-Project</td><td>No</td><td>Short (Days/Weeks)</td><td>Variable</td></tr>
+                </table>
+
+            <h4>Table 7.5: Deployment Phase Activities</h4>
+            <table>
+                <thead><tr><th>Activity</th><th>Responsible Role</th><th>Purpose</th><th>Key Outputs</th></tr></thead>
+                <tbody>
+                    <tr><td>Final Testing & Acceptance</td><td>Business Ambassador, Solution Tester</td><td>Ensure solution meets all Must Have requirements</td><td>User Acceptance Sign-off</td></tr>
+                    <tr><td>Data Migration</td><td>Technical Coordinator, Solution Developers</td><td>Transfer existing data to new system</td><td>Migrated Data, Validation Reports</td></tr>
+                    <tr><td>User Training</td><td>Business Ambassador, Workshop Facilitator</td><td>Enable users to effectively use the new system</td><td>Training Materials, User Guides</td></tr>
+                    <tr><td>System Implementation</td><td>Technical Coordinator, Project Manager</td><td>Install and configure solution in live environment</td><td>Live System, Implementation Report</td></tr>
+                    <tr><td>Handover to Operations</td><td>Project Manager, Business Sponsor</td><td>Formal transfer of ownership to business</td><td>Handover Documentation, Support Plan</td></tr>
+                </table>
+
+            <h4>Table 7.6: Post-Project Activities</h4>
+            <table>
+                <thead><tr><th>Activity</th><th>Responsible Role</th><th>Purpose</th><th>Timing</th></tr></thead>
+                <tbody>
+                    <tr><td>Benefits Assessment</td><td>Business Sponsor / Visionary</td><td>Confirm that the expected benefits have been realized</td><td>3-6 months after deployment</td></tr>
+                    <tr><td>Project Review</td><td>Project Manager</td><td>Document lessons learned for future projects</td><td>Immediately after project closure</td></tr>
+                    <tr><td>Team Performance Review</td><td>Team Leader, Project Manager</td><td>Assess team performance and identify improvements</td><td>During project review</td></tr>
+                    <tr><td>Formal Closure</td><td>Project Manager / Sponsor</td><td>Hand over ownership and shut down the project team</td><td>After benefits assessment</td></tr>
+                    <tr><td>Knowledge Transfer</td><td>All team members</td><td>Share experiences and best practices</td><td>Throughout closure process</td></tr>
+                </table>
+            
+            <h4>Table 7.7: Risk Exposure by Phase</h4>
+            <table>
+                <thead><tr><th>Phase</th><th>Primary Risk Exposed</th><th>Mitigation Strategy</th><th>Monitoring Frequency</th></tr></thead>
+                <tbody>
+                    <tr><td>Feasibility</td><td>Project is not viable or lacks business alignment</td><td>Project Approach Questionnaire (PAQ) and Business Case review</td><td>Continuous during phase</td></tr>
+                    <tr><td>Foundations</td><td>Requirements are unclear or architecture is unstable</td><td>Time and effort dedicated to 'Firm Foundations', facilitated workshops</td><td>Weekly reviews</td></tr>
+                    <tr><td>Evo Dev</td><td>Scope is not met within the fixed time, quality issues</td><td>MoSCoW prioritization, Timebox control, continuous testing</td><td>Daily stand-ups, Timebox reviews</td></tr>
+                    <tr><td>Deployment</td><td>Technical failures, user resistance, data loss</td><td>Comprehensive testing, training, rollback plans, stakeholder engagement</td><td>Daily during deployment</td></tr>
+                    <tr><td>Post-Project</td><td>Benefits not realized, lessons not captured</td><td>Formal benefits tracking, structured review process</td><td>Quarterly benefits reviews</td></tr>
+                </table>
+        </div>
+    </div>
+    <div class="card-footer d-flex justify-content-between p-4">
+        <button class="btn-custom py-2 px-4 rounded-lg prev-btn" data-prev="collaboration"><i class="fas fa-arrow-left me-2"></i> Previous</button>
+        <button class="btn-custom py-2 px-4 rounded-lg next-btn" data-next="estimation">Next <i class="fas fa-arrow-right ms-2"></i></button>
+    </div>
+</section>
+
+                <!-- 8. Defining and Estimating the Work of the Project -->
+                <section id="estimation" class="chapter-card" data-chapter="estimation">
+                    <div class="card-header-custom"><i class="fas fa-calculator me-2"></i>8. Defining and Estimating the Work of the Project</div>
+                    <div class="card-body p-6">
+                        <p class="mb-4">Requirements are captured in the **Prioritised Requirements List (PRL)**. They are written in an appropriate format (e.g., User Stories or Features) and must be clear, testable, and prioritized using MoSCoW. Estimation is an ongoing activity that becomes more accurate as the project progresses.</p>
+                        <h3>Estimation Techniques</h3>
+                        <p>AgilePM prefers relative sizing (e.g., Story Points, T-shirt sizes) over absolute days/hours for requirements. The estimate represents the **effort required**, allowing the Team Leader to determine what fits into the fixed Timebox duration. The team performing the work must be involved in the estimation.</p>
+                        
+
+                        <div class="table-section">
+                            <h3 class="text-xl font-bold mb-3">Chapter 8: Detailed Tables (7)</h3>
+                            
+                            <h4>Table 8.1: Requirements Products Hierarchy</h4>
+                            <table>
+                                <thead><tr><th>Product</th><th>Level</th><th>Key Stakeholder</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Business Case</td><td>Strategic (Why)</td><td>Business Sponsor, Visionary</td></tr>
+                                    <tr><td>PRL (Prioritised Requirements List)</td><td>Feature (What)</td><td>Business Ambassador, Visionary</td></tr>
+                                    <tr><td>Timebox Plan</td><td>Task (How)</td><td>Team Leader, Solution Developers</td></tr>
+                                </tbody>
+                            </table>
+                            
+                            <h4>Table 8.2: Requirements Quality Checklist (INVEST)</h4>
+                            <table>
+                                <thead><tr><th>Criterion</th><th>Description</th></tr></thead>
+                                <tbody>
+                                    <tr><td>I - Independent</td><td>The requirement can be developed on its own.</td></tr>
+                                    <tr><td>N - Negotiable</td><td>Can be discussed/changed (unless Must Have).</td></tr>
+                                    <tr><td>V - Valuable</td><td>Must deliver measurable business value.</td></tr>
+                                    <tr><td>E - Estimable</td><td>Can be sized by the Development Team.</td></tr>
+                                    <tr><td>S - Small</td><td>Small enough to fit within a single Timebox.</td></tr>
+                                    <tr><td>T - Testable</td><td>Can be verified against acceptance criteria.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 8.3: Agile Estimation Techniques</h4>
+                            <table>
+                                <thead><tr><th>Technique</th><th>Unit</th><th>Best Used For</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Planning Poker</td><td>Story Points</td><td>Team consensus and relative sizing.</td></tr>
+                                    <tr><td>T-Shirt Sizing (S, M, L)</td><td>Relative Size</td><td>High-level estimates (Foundations Phase).</td></tr>
+                                    <tr><td>Ideal Days</td><td>Absolute Time (Effort)</td><td>Detailed Timebox planning.</td></tr>
+                                </table>
+
+                            <h4>Table 8.4: The Purpose of Estimation</h4>
+                            <table>
+                                <thead><tr><th>Purpose</th><th>Description</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Determining Scope</td><td>To determine how much work (scope) can fit into the fixed time/cost.</td></tr>
+                                    <tr><td>Tracking Progress</td><td>To measure Velocity (work completed per timebox).</td></tr>
+                                    <tr><td>Forecasting</td><td>To predict the likelihood of completing the Must Haves.</td></tr>
+                                </table>
+
+                            <h4>Table 8.5: Dealing with Estimate Uncertainty</h4>
+                            <table>
+                                <thead><tr><th>Scenario</th><th>AgilePM Action</th></tr></thead>
+                                <tbody>
+                                    <tr><td>High Uncertainty</td><td>Break down the requirement further; conduct a feasibility study/prototype.</td></tr>
+                                    <tr><td>Estimate Disagreement</td><td>Use Planning Poker to understand differences; follow up with discussion.</td></tr>
+                                </table>
+
+                            <h4>Table 8.6: Non-Functional Requirements (NFRs)</h4>
+                            <table>
+                                <thead><tr><th>NFR Type</th><th>Example</th><th>AgilePM Status</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Performance</td><td>System must respond in under 2 seconds.</td><td>Must Haves (part of Quality).</td></tr>
+                                    <tr><td>Security</td><td>All data transmission must be encrypted.</td><td>Must Haves (part of Quality).</td></tr>
+                                    <tr><td>Usability</td><td>The interface must be accessible by 90% of users.</td><td>MoSCoW prioritized like functional requirements.</td></tr>
+                                </table>
+                            
+                            <h4>Table 8.7: Requirements Traceability</h4>
+                            <table>
+                                <thead><tr><th>Traceability Link</th><th>Purpose</th></tr></thead>
+                                <tbody>
+                                    <tr><td>PRL to Business Case</td><td>Ensures the requirement aligns with the strategic objective.</td></tr>
+                                    <tr><td>PRL to Test Script</td><td>Ensures every requirement is tested and verifiable.</td></tr>
+                                    <tr><td>Test Script to Solution Component</td><td>Ensures the delivered code addresses the requirement.</td></tr>
+                                </table>
+
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between p-4">
+                        <button class="btn-custom py-2 px-4 rounded-lg prev-btn" data-prev="lifecycle"><i class="fas fa-arrow-left me-2"></i> Previous</button>
+                        <button class="btn-custom py-2 px-4 rounded-lg next-btn" data-next="moscow">Next <i class="fas fa-arrow-right ms-2"></i></button>
+                    </div>
+                </section>
+
+                <!-- 9. MoSCoW Prioritization -->
+                <section id="moscow" class="chapter-card" data-chapter="moscow">
+                    <div class="card-header-custom"><i class="fas fa-gavel me-2"></i>9. MoSCoW Prioritization</div>
+                    <div class="card-body p-6">
+                        <p class="mb-4">MoSCoW is the essential prioritization technique used in AgilePM to manage and flex scope while ensuring the **Deliver on Time** principle is maintained. It ensures focus on the most critical features first.</p>
+                        <h3>The Categories and Allocation</h3>
+                        <p>The total effort of all requirements must be considered against the available capacity of the team. A typical rule of thumb is that **Must Haves** should account for no more than 60% of the effort, allowing time for testing, quality, and the inclusion of Should Haves and Could Haves which provide contingency.</p>
+                        
+
+                        <div class="table-section">
+                            <h3 class="text-xl font-bold mb-3">Chapter 9: Detailed Tables (7)</h3>
+                            
+                            <h4>Table 9.1: MoSCoW Definitions and Key Criteria</h4>
+                            <table>
+                                <thead><tr><th>Category</th><th>Definition</th><th>Impact if Missing</th></tr></thead>
+                                <tbody>
+                                    <tr><td>M - Must Have</td><td>Fundamental to project success.</td><td>Delivery will be useless. Cannot be deployed.</td></tr>
+                                    <tr><td>S - Should Have</td><td>Important, high-priority, but not vital.</td><td>Delivery is possible but will be inconvenient or inefficient.</td></tr>
+                                    <tr><td>C - Could Have</td><td>Desirable, low-cost features.</td><td>Delivery is possible, a noticeable, but minor, impact.</td></tr>
+                                    <tr><td>W - Won't Have</td><td>Agreed features to be delivered later (Deferred).</td><td>No impact, as agreed to be deferred.</td></tr>
+                                </tbody>
+                            </table>
+                            
+                            <h4>Table 9.2: Recommended Effort Allocation (Contingency)</h4>
+                            <table>
+                                <thead><tr><th>Category</th><th>Maximum Recommended Effort (%)</th><th>Purpose of Remaining Capacity</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Must Have (M)</td><td>60%</td><td>Buffer for unforseen effort and consolidation.</td></tr>
+                                    <tr><td>Should Have (S)</td><td>20%</td><td>Deliver next most valuable features.</td></tr>
+                                    <tr><td>Could Have (C)</td><td>20%</td><td>Deliver if time and capacity allows.</td></tr>
+                                    <tr><td>Won't Have (W)</td><td>0% (Deferred)</td><td>Manages expectations for future releases.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 9.3: MoSCoW Rules of Application</h4>
+                            <table>
+                                <thead><tr><th>Rule</th><th>Rationale</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Prioritize Musts First</td><td>Ensures the core value is always delivered.</td></tr>
+                                    <tr><td>Quality is Always 'M'</td><td>The principle 'Never Compromise Quality' must be adhered to.</td></tr>
+                                    <tr><td>Defer 'W' Early</td><td>Avoids scope creep and manages stakeholder expectations upfront.</td></tr>
+                                    <tr><td>MoSCoW within Timeboxes</td><td>Used to manage daily tasks and absorb unexpected work.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 9.4: MoSCoW and Risk Mitigation</h4>
+                            <table>
+                                <thead><tr><th>Risk</th><th>MoSCoW Mitigation</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Time overrun</td><td>Dropping 'S' or 'C' features (flexing scope).</td></tr>
+                                    <tr><td>Budget overrun</td><td>Prioritizing features that require low cost implementation.</td></tr>
+                                    <tr><td>Delivery of low value</td><td>Focusing the 60% 'M' on the highest business value.</td></tr>
+                                </table>
+
+                            <h4>Table 9.5: MoSCoW vs. Simple High/Medium/Low</h4>
+                            <table>
+                                <thead><tr><th>Criterion</th><th>MoSCoW</th><th>H/M/L</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Clarity of Trade-off</td><td>High (The "W" provides explicit trade-off).</td><td>Low (H vs. H is unclear).</td></tr>
+                                    <tr><td>Contingency Built-in</td><td>Explicitly allocated via S/C categories.</td><td>Must be manually added.</td></tr>
+                                </table>
+
+                            <h4>Table 9.6: MoSCoW for Non-Functional Requirements</h4>
+                            <table>
+                                <thead><tr><th>NFR Example</th><th>MoSCoW Category</th><th>Reason</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Security (Basic Encryption)</td><td>Must Have</td><td>Relates to Quality Principle.</td></tr>
+                                    <tr><td>Specific performance metric</td><td>Should Have / Could Have</td><td>If a minimum is met (M), specific tuning is S/C.</td></tr>
+                                </table>
+                            
+                            <h4>Table 9.7: Role of the Business Ambassador in MoSCoW</h4>
+                            <table>
+                                <thead><tr><th>Activity</th><th>Responsibility</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Assigning Categories</td><td>Primary decision-maker for initial MoSCoW rating.</td></tr>
+                                    <tr><td>Defending Priorities</td><td>Explaining the business value of 'M' and 'S' to the team.</td></tr>
+                                    <tr><td>Trade-off Decisions</td><td>Authorized to decide what to drop (S/C) if time is tight.</td></tr>
+                                </table>
+
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between p-4">
+                        <button class="btn-custom py-2 px-4 rounded-lg prev-btn" data-prev="estimation"><i class="fas fa-arrow-left me-2"></i> Previous</button>
+                        <button class="btn-custom py-2 px-4 rounded-lg next-btn" data-next="planning">Next <i class="fas fa-arrow-right ms-2"></i></button>
+                    </div>
+                </section>
+
+                <!-- 10. Planning and Controlling the Work of the Project -->
+                <section id="planning" class="chapter-card" data-chapter="planning">
+                    <div class="card-header-custom"><i class="fas fa-chart-line me-2"></i>10. Planning and Controlling the Work of the Project</div>
+                    <div class="card-body p-6">
+                        <p class="mb-4">Planning in AgilePM occurs at three distinct levels, each corresponding to a different product: **Project (Project Plan)**, **Phase (Delivery Plan)**, and **Timebox (Timebox Plan)**. Control is achieved by measuring progress against these plans and upholding the fixed Time, Cost, and Quality parameters.</p>
+                        <h3>Control Mechanisms</h3>
+                        <p>The principle of **Demonstrate Control** is vital. Control is maintained through daily monitoring (Daily Stand-up), regular reporting (Project Status Report), and formal reviews (Timebox Review and Project Review). If a Timebox is at risk, the immediate action is to **flex scope (drop 'C' or 'S' requirements)**, not extend time.</p>
+                        
+
+                        <div class="table-section">
+                            <h3 class="text-xl font-bold mb-3">Chapter 10: Detailed Tables (7)</h3>
+                            
+                            <h4>Table 10.1: Three Levels of Planning</h4>
+                            <table>
+                                <thead><tr><th>Level</th><th>Plan Name</th><th>Phase Created</th><th>Owner</th></tr></thead>
+                                <tbody>
+                                    <tr><td>High (Project)</td><td>Project Plan</td><td>Foundations</td><td>Project Manager</td></tr>
+                                    <tr><td>Medium (Phase/Cycle)</td><td>Delivery Plan</td><td>Foundations</td><td>Project Manager</td></tr>
+                                    <tr><td>Low (Iteration)</td><td>Timebox Plan</td><td>Evolutionary Development</td><td>Team Leader</td></tr>
+                                </tbody>
+                            </table>
+                            
+                            <h4>Table 10.2: Timebox Structure and Milestones</h4>
+                            <table>
+                                <thead><tr><th>Timebox Step</th><th>Duration</th><th>Key Activity</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Kick-off</td><td>Start of Timebox</td><td>Finalize scope, agree on MoSCoW and tasks.</td></tr>
+                                    <tr><td>Development</td><td>~80% of time</td><td>Investigate, Refine, Consolidate cycles.</td></tr>
+                                    <tr><td>Review</td><td>End of Timebox</td><td>Demonstration to Business Ambassador; Formal Acceptance.</td></tr>
+                                    <tr><td>Wrap-up</td><td>End of Timebox</td><td>Update PRL and Project Status Report; Lessons Learned.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 10.3: Progress Measurement Tools</h4>
+                            <table>
+                                <thead><tr><th>Tool/Metric</th><th>Data Source</th><th>Purpose</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Timebox Forecast</td><td>Task estimates in the Timebox Plan.</td><td>Daily check against actual progress.</td></tr>
+                                    <tr><td>Daily Stand-up</td><td>Team reports.</td><td>Identification of immediate impediments.</td></tr>
+                                    <tr><td>Velocity</td><td>Completed Story Points/Features per Timebox.</td><td>Forecasting future capacity and completion.</td></tr>
+                                </table>
+
+                            <h4>Table 10.4: Corrective Actions for Timebox Risk</h4>
+                            <table>
+                                <thead><tr><th>Risk Level</th><th>Action</th><th>Principle Maintained</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Low Risk (Minor Delay)</td><td>Team works on 'C' tasks first, deferring them if necessary.</td><td>Deliver on Time (by flexing 'C').</td></tr>
+                                    <tr><td>Medium Risk (Significant Delay)</td><td>Drop all 'C' requirements; review 'S' requirements for deferral.</td><td>Deliver on Time (by flexing 'S').</td></tr>
+                                    <tr><td>High Risk (Musts at Risk)</td><td>Project Manager escalates to Sponsor; potential replanning or deferral of non-Musts.</td><td>Never Compromise Quality (by protecting 'M').</td></tr>
+                                </table>
+
+                            <h4>Table 10.5: Key Control Products</h4>
+                            <table>
+                                <thead><tr><th>Product</th><th>Purpose</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Project Status Report</td><td>Formal communication to the Project Board/Sponsor on health.</td></tr>
+                                    <tr><td>Timebox Review Record</td><td>Formal evidence of acceptance or rejection of increments.</td></tr>
+                                    <tr><td>Risk Log</td><td>Tracking and managing threats and opportunities.</td></tr>
+                                </table>
+
+                            <h4>Table 10.6: Fixed vs. Variable Planning Items</h4>
+                            <table>
+                                <thead><tr><th>Fixed (Timebox)</th><th>Variable (Timebox)</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Timebox duration</td><td>Tasks / User Stories (via MoSCoW)</td></tr>
+                                    <tr><td>Team composition</td><td>Development resource allocation (tasks assigned)</td></tr>
+                                </table>
+                            
+                            <h4>Table 10.7: Project Manager's Focus on Control</h4>
+                            <table>
+                                <thead><tr><th>Control Area</th><th>PM Activity</th></tr></thead>
+                                <tbody>
+                                    <tr><td>External Control</td><td>Managing interfaces, reporting, and scope changes outside the PRL.</td></tr>
+                                    <tr><td>Internal Control</td><td>Ensuring the Team Leader follows the Timebox Plan and addresses risks.</td></tr>
+                                </table>
+
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between p-4">
+                        <button class="btn-custom py-2 px-4 rounded-lg prev-btn" data-prev="moscow"><i class="fas fa-arrow-left me-2"></i> Previous</button>
+                        <button class="btn-custom py-2 px-4 rounded-lg next-btn" data-next="risk">Next <i class="fas fa-arrow-right ms-2"></i></button>
+                    </div>
+                </section>
+
+                <!-- 11. Risk Management and the Project Approach -->
+                <section id="risk" class="chapter-card" data-chapter="risk">
+                    <div class="card-header-custom"><i class="fas fa-shield-alt me-2"></i>11. Risk Management and the Project Approach</div>
+                    <div class="card-body p-6">
+                        <p class="mb-4">Risk management is proactive in AgilePM, starting early in the Feasibility phase. The **Project Approach Questionnaire (PAQ)** is a formal tool used to assess the environment, stakeholders, and technology to determine the optimal deployment of AgilePM for the specific project context.</p>
+                        <h3>PAQ Factors</h3>
+                        <p>The PAQ assesses project factors such as **Team Capability**, **Stakeholder Commitment**, and **Environmental Stability**. High scores indicate a high-risk environment but also a high potential for success with a structured Agile approach. Risk is captured in the **Risk Log** and reviewed at the Project, Phase, and Timebox levels.</p>
+                        
+
+                        <div class="table-section">
+                            <h3 class="text-xl font-bold mb-3">Chapter 11: Detailed Tables (7)</h3>
+                            
+                            <h4>Table 11.1: Project Approach Questionnaire (PAQ) Factors</h4>
+                            <table>
+                                <thead><tr><th>Factor Category</th><th>Focus Area</th><th>Associated Risk</th></tr></thead>
+                                <tbody>
+                                    <tr><td>People</td><td>Team stability, decision-making authority, collaboration.</td><td>Requirements misalignment, low morale.</td></tr>
+                                    <tr><td>Process</td><td>Experience with AgilePM/DSDM, governance structure.</td><td>Inconsistent application of principles.</td></tr>
+                                    <tr><td>Technology</td><td>Availability of tools, stability of architecture.</td><td>Technical debt, deployment failure.</td></tr>
+                                </tbody>
+                            </table>
+                            
+                            <h4>Table 11.2: AgilePM as Risk Mitigation</h4>
+                            <table>
+                                <thead><tr><th>Risk</th><th>AgilePM/DSDM Mitigation</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Building the wrong product.</td><td>Focus on the Business Need; continuous Business Ambassador involvement.</td></tr>
+                                    <tr><td>Project failure due to technical issues.</td><td>Build Incrementally; frequent testing; Technical Coordinator oversight.</td></tr>
+                                    <tr><td>Time/Budget overrun.</td><td>Deliver on Time principle; MoSCoW prioritization.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 11.3: Risk Log Management</h4>
+                            <table>
+                                <thead><tr><th>Field</th><th>Purpose</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Description</td><td>Clear statement of the risk event.</td></tr>
+                                    <tr><td>Probability/Impact</td><td>Quantifying the potential threat.</td></tr>
+                                    <tr><td>Proximity</td><td>When the risk may occur (Timebox or Phase).</td></tr>
+                                    <tr><td>Mitigation/Contingency</td><td>Actions to prevent or respond to the risk.</td></tr>
+                                    <tr><td>Owner</td><td>Role responsible for tracking and managing the risk.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 11.4: PAQ Scoring Outcomes</h4>
+                            <table>
+                                <thead><tr><th>Score Level</th><th>Recommended Approach</th><th>Reason</th></tr></thead>
+                                <tbody>
+                                    <tr><td>High Score</td><td>Full DSDM/AgilePM application.</td><td>Environment is supportive of iterative development.</td></tr>
+                                    <tr><td>Medium Score</td><td>Tailored DSDM/AgilePM application; address weaknesses first.</td><td>Some challenges exist, but manageable.</td></tr>
+                                    <tr><td>Low Score</td><td>Traditional/Waterfall approach recommended.</td><td>Environment is highly hostile to Agile principles.</td></tr>
+                                </table>
+
+                            <h4>Table 11.5: Assurance and Quality Checks</h4>
+                            <table>
+                                <thead><tr><th>Assurance Type</th><th>Role Responsible</th><th>Timing</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Technical Assurance</td><td>Technical Coordinator</td><td>Throughout Evo Dev; focuses on architecture and code.</td></tr>
+                                    <tr><td>Business Assurance</td><td>Business Visionary/Sponsor</td><td>Foundations and Timebox Reviews; focuses on business value.</td></tr>
+                                    <tr><td>Project Assurance</td><td>Project Manager</td><td>Throughout the lifecycle; focuses on process and governance.</td></tr>
+                                </table>
+
+                            <h4>Table 11.6: Common Risks in AgilePM Projects</h4>
+                            <table>
+                                <thead><tr><th>Risk</th><th>Example</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Scope Volatility</td><td>Stakeholders constantly changing Must Haves.</td></tr>
+                                    <tr><td>Technical Debt</td><td>Compromising quality to meet a Timebox deadline.</td></tr>
+                                    <tr><td>Stakeholder Fatigue</td><td>Business Ambassador burns out due to high time commitment.</td></tr>
+                                </table>
+                            
+                            <h4>Table 11.7: Proactive Risk Management (The DSDM Mindset)</h4>
+                            <table>
+                                <thead><tr><th>Proactive Action</th><th>Principle Supported</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Involving the Business Ambassador daily.</td><td>Collaborate.</td></tr>
+                                    <tr><td>Building working software every Timebox.</td><td>Develop Iteratively.</td></tr>
+                                    <tr><td>Refining the PRL frequently.</td><td>Focus on the Business Need.</td></tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between p-4">
+                        <button class="btn-custom py-2 px-4 rounded-lg prev-btn" data-prev="planning"><i class="fas fa-arrow-left me-2"></i> Previous</button>
+                        <button class="btn-custom py-2 px-4 rounded-lg next-btn" data-next="governance">Next <i class="fas fa-arrow-right ms-2"></i></button>
+                    </div>
+                </section>
+
+                <!-- 12. Governance, Compliance, and the AgilePM Products -->
+                <section id="governance" class="chapter-card" data-chapter="governance">
+                    <div class="card-header-custom"><i class="fas fa-clipboard-check me-2"></i>12. Governance, Compliance, and the AgilePM Products</div>
+                    <div class="card-body p-6">
+                        <p class="mb-4">Governance in AgilePM is the structure that ensures the project operates within organizational standards and remains aligned with strategic goals. This structure is primarily provided by the formal **Products** (documentation) created throughout the lifecycle.</p>
+                        <h3>The Three Product Categories</h3>
+                        <p>Products fall into three categories: **Management** (how the project is run), **Requirements** (what the solution must do), and **Solution** (the delivered system and its deployment). Compliance ensures the project adheres to both the 8 Principles and the organizational PM standards.</p>
+                        [Image of the AgilePM Product Lifecycle showing product creation and use]
+
+                        <div class="table-section">
+                            <h3 class="text-xl font-bold mb-3">Chapter 12: Detailed Tables (7)</h3>
+                            
+                            <h4>Table 12.1: Key Management Products</h4>
+                            <table>
+                                <thead><tr><th>Product</th><th>Phase Created</th><th>Owner</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Business Case</td><td>Pre-Project</td><td>Business Sponsor</td></tr>
+                                    <tr><td>Project Approach Questionnaire (PAQ)</td><td>Feasibility</td><td>Project Manager</td></tr>
+                                    <tr><td>Project Plan</td><td>Foundations</td><td>Project Manager</td></tr>
+                                    <tr><td>Project Status Report</td><td>Evo Dev (Regularly)</td><td>Project Manager</td></tr>
+                                </tbody>
+                            </table>
+                            
+                            <h4>Table 12.2: Key Requirements Products</h4>
+                            <table>
+                                <thead><tr><th>Product</th><th>Detail Level</th><th>Owner</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Prioritised Requirements List (PRL)</td><td>Feature Level (MoSCoW)</td><td>Business Visionary / Ambassador</td></tr>
+                                    <tr><td>Requirements & Testing Documentation</td><td>Detailed Acceptance Criteria</td><td>Business Ambassador / Tester</td></tr>
+                                    <tr><td>Timebox Plan</td><td>Task Level</td><td>Team Leader</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 12.3: Key Solution Products</h4>
+                            <table>
+                                <thead><tr><th>Product</th><th>Purpose</th><th>Owner</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Solution Architecture Definition (SAD)</td><td>Technical blueprint for the solution.</td><td>Technical Coordinator</td></tr>
+                                    <tr><td>Tested System</td><td>The actual working software increment.</td><td>Solution Developers / Testers</td></tr>
+                                    <tr><td>Deployment Plan</td><td>The strategy for rolling out the final system.</td><td>Project Manager / Technical Coordinator</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Table 12.4: Compliance Checklist (Foundation Exam Focus)</h4>
+                            <table>
+                                <thead><tr><th>Compliance Item</th><th>Check Point</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Principles Adherence</td><td>Are all 8 Principles being followed without compromise?</td></tr>
+                                    <tr><td>MoSCoW Application</td><td>Is scope flexed using MoSCoW, protecting the 60% Must-Have rule?</td></tr>
+                                    <tr><td>Timebox Discipline</td><td>Is the Timebox duration fixed and never extended?</td></tr>
+                                    <tr><td>Role Fulfillment</td><td>Are the key roles (PM, BA, TL) performing their non-negotiable duties?</td></tr>
+                                </table>
+
+                            <h4>Table 12.5: Quality Review Techniques (Assurance)</h4>
+                            <table>
+                                <thead><tr><th>Technique</th><th>Description</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Timebox Review</td><td>Formal demonstration and acceptance of the tested increment by the Business Ambassador.</td></tr>
+                                    <tr><td>Technical Review</td><td>Peers review the Solution Architecture and code to check integrity.</td></tr>
+                                    <tr><td>Independent Review</td><td>An external party (Assurance Coordinator) checks project adherence to the Project Plan/PAQ.</td></tr>
+                                </table>
+
+                            <h4>Table 12.6: Management Product Sign-off Authority</h4>
+                            <table>
+                                <thead><tr><th>Product</th><th>Sign-off Role</th><th>Importance</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Business Case</td><td>Business Sponsor</td><td>Approves the 'Why' (funding/strategic alignment).</td></tr>
+                                    <tr><td>Delivery Plan</td><td>Project Manager / Business Visionary</td><td>Approves the 'When' (schedule/phase structure).</td></tr>
+                                    <tr><td>Timebox Review Record</td><td>Business Ambassador</td><td>Approves the 'What' (acceptance of the built features).</td></tr>
+                                </table>
+                            
+                            <h4>Table 12.7: Role of the Project Board/Sponsor in Governance</h4>
+                            <table>
+                                <thead><tr><th>Governance Activity</th><th>Role</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Authorization</td><td>Business Sponsor (Pre-Project, Foundations decision).</td></tr>
+                                    <tr><td>Monitoring</td><td>Project Board (Receiving Project Status Reports).</td></tr>
+                                    <tr><td>Strategic Guidance</td><td>Business Visionary (Throughout the project lifecycle).</td></tr>
+                                </table>
+
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between p-4">
+                        <button class="btn-custom py-2 px-4 rounded-lg prev-btn" data-prev="risk"><i class="fas fa-arrow-left me-2"></i> Previous</button>
+                        <button class="btn-custom py-2 px-4 rounded-lg next-btn" data-next="end-revision">Finish <i class="fas fa-check ms-2"></i></button>
+                    </div>
+                </section>
+
+                <!-- 13. End of Revision -->
+                <section id="end-revision" class="chapter-card text-center" data-chapter="end-revision">
+                    <div class="card-header-custom"><i class="fas fa-trophy me-2"></i>13. End of Revision</div>
+                    <div class="card-body p-5">
+                        <h2 class="text-3xl text-green-600 mb-4 font-bold">Congratulations!</h2>
+                        <p class="text-xl">You have successfully completed the comprehensive review of all 12 core AgilePM® v3 chapters, including detailed text and 7 tables per chapter.</p>
+                        <p class="text-lg mt-3">This level of detail is excellent for tackling the Practitioner exam case study questions, as it covers the relationships between roles, products, principles, and the process lifecycle.</p>
+                        <button class="btn-custom py-3 px-6 rounded-lg mt-5 text-lg" onclick="showChapter('introduction')"><i class="fas fa-redo me-2"></i> Restart Revision</button>
+                    </div>
+                    <div class="card-footer d-flex justify-content-start p-4">
+                        <button class="btn-custom py-2 px-4 rounded-lg prev-btn" data-prev="governance"><i class="fas fa-arrow-left me-2"></i> Previous</button>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center py-4 mt-10 text-sm">
+        <div class="container mx-auto px-4">
+            <p>&copy; 2025 AgilePM Revision Portal. All rights reserved. AgilePM® is a registered trademark.</p>
+        </div>
+    </footer>
+
+    <script>
+        // List of all 12 main chapters for navigation and indexing
+        const chapterList = [
+            { id: 'introduction', title: 'Intro' },
+            { id: 'key-concepts', title: 'Key Concepts' },
+            { id: 'scrum', title: 'Scrum' },
+            { id: 'fundamentals', title: 'Fundamentals' },
+            { id: 'individuals', title: 'Individuals' },
+            { id: 'collaboration', title: 'Collaboration' },
+            { id: 'lifecycle', title: 'Lifecycle' },
+            { id: 'estimation', title: 'Estimation' },
+            { id: 'moscow', title: 'MoSCoW' },
+            { id: 'planning', title: 'Planning' },
+            { id: 'risk', title: 'Risk Mgt' },
+            { id: 'governance', title: 'Governance' }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const chapters = document.querySelectorAll('.chapter-card');
+            const nextButtons = document.querySelectorAll('.next-btn');
+            const prevButtons = document.querySelectorAll('.prev-btn');
+            const progressBar = document.getElementById('revisionProgress');
+            const navMenu = document.getElementById('nav-chapters');
+            const stickyNavMenu = document.getElementById('stickyNavChapters');
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const totalChapters = chapterList.length;
+
+            // 1. Populate Navigation Menus
+            chapterList.forEach(chapter => {
+                // Main navigation
+                const li = document.createElement('li');
+                li.className = 'nav-item';
+                li.innerHTML = `<a class="text-white hover:text-yellow-400 px-3 py-2 block" href="#${chapter.id}">${chapter.title}</a>`;
+                navMenu.appendChild(li);
+                
+                // Sticky navigation
+                const a = document.createElement('a');
+                a.className = 'text-gray-700 hover:text-gray-900';
+                a.href = `#${chapter.id}`;
+                a.textContent = chapter.title;
+                stickyNavMenu.appendChild(a);
+            });
+            
+            const navLinks = document.querySelectorAll('#nav-chapters a');
+            const stickyNavLinks = document.querySelectorAll('#stickyNavChapters a');
+
+            // Mobile menu toggle
+            mobileMenuToggle.addEventListener('click', function() {
+                stickyNavMenu.classList.toggle('expanded');
+            });
+
+            /**
+             * Updates the progress bar based on the currently active chapter index.
+             * @param {string} currentChapterId - The ID of the currently visible chapter.
+             */
+            function updateProgress(currentChapterId) {
+                let completedIndex = chapterList.findIndex(c => c.id === currentChapterId) + 1;
+                
+                // If it's the final 'end-revision' section, set to 100%
+                if (currentChapterId === 'end-revision') {
+                    completedIndex = totalChapters;
+                }
+
+                // Calculate progress (use totalChapters for 100% max)
+                const progressPercentage = Math.min(100, Math.round((completedIndex / totalChapters) * 100));
+                
+                progressBar.style.width = progressPercentage + '%';
+                progressBar.textContent = `${progressPercentage}% Completed (${completedIndex}/${totalChapters} Chapters)`;
+            }
+
+            /**
+             * Shows the specified chapter and updates navigation and progress.
+             * @param {string} chapterId - The ID of the chapter to show.
+             */
+            window.showChapter = function(chapterId) {
+                // Hide all chapters
+                chapters.forEach(chapter => {
+                    chapter.classList.remove('active');
+                });
+
+                // Show the target chapter
+                const targetChapter = document.getElementById(chapterId);
+                if (targetChapter) {
+                    targetChapter.classList.add('active');
+
+                    // Scroll to the top of the chapter area
+                    window.scrollTo({
+                        top: targetChapter.offsetTop - 90, // Offset for fixed navbar
+                        behavior: 'smooth'
+                    });
+
+                    // Update progress bar
+                    updateProgress(chapterId);
+
+                    // Update active link in both navigations
+                    updateActiveNavLink(chapterId);
+                }
+            }
+
+            /**
+             * Updates the active state for navigation links
+             * @param {string} chapterId - The ID of the active chapter
+             */
+            function updateActiveNavLink(chapterId) {
+                // Update main navigation
+                navLinks.forEach(link => {
+                    link.classList.remove('active', 'text-yellow-400');
+                    link.classList.add('text-white');
+                    if (link.getAttribute('href') === `#${chapterId}`) {
+                        link.classList.add('active', 'text-yellow-400');
+                        link.classList.remove('text-white');
+                    }
+                });
+
+                // Update sticky navigation
+                stickyNavLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${chapterId}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            // Initial load: show the first chapter
+            showChapter('introduction');
+
+            // Add event listeners to next buttons
+            nextButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const nextChapter = this.getAttribute('data-next');
+                    showChapter(nextChapter);
+                });
+            });
+
+            // Add event listeners to previous buttons
+            prevButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const prevChapter = this.getAttribute('data-prev');
+                    showChapter(prevChapter);
+                });
+            });
+
+            // Smooth scrolling and chapter visibility logic for navigation links
+            function setupNavLinks(links) {
+                links.forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        
+                        const targetId = this.getAttribute('href').substring(1); // Get ID without '#'
+                        if (targetId) {
+                            showChapter(targetId);
+                        }
+                    });
+                });
+            }
+
+            // Setup both navigation menus
+            setupNavLinks(navLinks);
+            setupNavLinks(stickyNavLinks);
+        });
+    </script>
+</body>
+</html>

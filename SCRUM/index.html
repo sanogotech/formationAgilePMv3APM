@@ -1,0 +1,2048 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portail Agile & Scrum</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --accent-color: #e74c3c;
+      --light-bg: #f8f9fa;
+      --dark-bg: #343a40;
+      --scrum-orange: #ff7f2a;
+      --agile-blue: #4d8af0;
+    }
+
+    body {
+      background-color: var(--light-bg);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .navbar {
+      background-color: var(--primary-color);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      color: white;
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--agile-blue) 100%);
+      color: white;
+      padding: 4rem 0;
+      margin-bottom: 3rem;
+      border-radius: 0 0 20px 20px;
+    }
+
+    .card {
+      border: none;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .card-header {
+      background-color: var(--primary-color);
+      color: white;
+      font-weight: 600;
+    }
+
+    .module-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--secondary-color);
+    }
+
+    .btn-primary {
+      background-color: var(--agile-blue);
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #3a7bd5;
+    }
+
+    .btn-scrum {
+      background-color: var(--scrum-orange);
+      color: white;
+    }
+
+    .btn-scrum:hover {
+      background-color: #e66a1a;
+      color: white;
+    }
+
+    .btn-outline-primary {
+      color: var(--agile-blue);
+      border-color: var(--agile-blue);
+    }
+
+    .btn-outline-primary:hover {
+      background-color: var(--agile-blue);
+      color: white;
+    }
+
+    .simulation-container {
+      background-color: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+
+    .process-step {
+      position: relative;
+      padding-left: 30px;
+      margin-bottom: 20px;
+    }
+
+    .process-step:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      background-color: var(--agile-blue);
+      border-radius: 50%;
+    }
+
+    .process-step:after {
+      content: "";
+      position: absolute;
+      left: 9px;
+      top: 20px;
+      width: 2px;
+      height: 100%;
+      background-color: var(--agile-blue);
+    }
+
+    .process-step:last-child:after {
+      display: none;
+    }
+
+    .data-table {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+
+    .data-table th {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .highlight-box {
+      background-color: rgba(77, 138, 240, 0.1);
+      border-left: 4px solid var(--agile-blue);
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .scrum-highlight {
+      background-color: rgba(255, 127, 42, 0.1);
+      border-left: 4px solid var(--scrum-orange);
+    }
+
+    .linked-modules {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .linked-module {
+      background-color: var(--light-bg);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      color: var(--primary-color);
+      border: 1px solid #ddd;
+    }
+
+    .tab-content {
+      padding: 1.5rem 0;
+    }
+
+    footer {
+      background-color: var(--dark-bg);
+      color: white;
+      padding: 2rem 0;
+      margin-top: 3rem;
+    }
+
+    /* Animation pour les cartes */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .module-card {
+      animation: fadeIn 0.5s ease forwards;
+      opacity: 0;
+    }
+
+    /* Délai d'animation pour chaque carte */
+    .module-card:nth-child(1) { animation-delay: 0.1s; }
+    .module-card:nth-child(2) { animation-delay: 0.2s; }
+    .module-card:nth-child(3) { animation-delay: 0.3s; }
+    .module-card:nth-child(4) { animation-delay: 0.4s; }
+    .module-card:nth-child(5) { animation-delay: 0.5s; }
+    .module-card:nth-child(6) { animation-delay: 0.6s; }
+    .module-card:nth-child(7) { animation-delay: 0.7s; }
+
+    /* Scrum board styles */
+    .scrum-board {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+    }
+
+    .scrum-column {
+      min-width: 300px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .scrum-column-header {
+      font-weight: bold;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #ddd;
+      text-align: center;
+    }
+
+    .scrum-card {
+      background-color: white;
+      border-radius: 6px;
+      padding: 0.75rem;
+      margin-bottom: 0.75rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      cursor: grab;
+    }
+
+    .scrum-card:active {
+      cursor: grabbing;
+    }
+
+    .scrum-card h6 {
+      margin-bottom: 0.5rem;
+    }
+
+    .scrum-card p {
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .scrum-card .badge {
+      font-size: 0.7rem;
+    }
+
+    .burndown-chart {
+      background-color: white;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      height: 300px;
+      position: relative;
+    }
+
+    .chart-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: #666;
+      font-style: italic;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 2rem 0;
+      }
+
+      .module-icon {
+        font-size: 1.5rem;
+      }
+
+      .scrum-board {
+        flex-direction: column;
+      }
+
+      .scrum-column {
+        min-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark mb-4">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="bi bi-kanban me-2"></i>Portail Agile & Scrum
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#concepts">Concepts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#scrum">Scrum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#simulations">Simulations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#cas-pratiques">Cas pratiques</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#outils">Outils</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#vie-courante">Vie courante</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#ressources">Ressources</a>
+          </li>
+		  
+		  <li class="nav-item">
+            <a class="nav-link" href="quiztestniveau.html">Quiz</a>
+			
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero-section">
+    <div class="container text-center">
+      <h1 class="display-4 fw-bold mb-3">Maîtrisez la gestion de projet agile avec Scrum</h1>
+      <p class="lead mb-4">Découvrez les concepts, méthodologies et outils pour mener à bien vos projets de manière flexible et efficace</p>
+      <div class="d-flex justify-content-center gap-3">
+        <a href="#concepts" class="btn btn-light btn-lg px-4">Démarrer l'apprentissage</a>
+        <a href="#simulations" class="btn btn-outline-light btn-lg px-4">Essayer les simulations</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container mb-5">
+    <section class="mb-5">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center">
+          <h2 class="mb-4">Pourquoi adopter les méthodes agiles ?</h2>
+          <p class="lead">Dans un monde en constante évolution, les méthodes agiles permettent aux équipes de s'adapter rapidement aux changements, de livrer de la valeur plus tôt et d'améliorer continuellement leurs produits.</p>
+          <div class="d-flex justify-content-center mt-4">
+            <div class="px-4 text-center">
+              <i class="bi bi-lightning-charge fs-1 text-primary"></i>
+              <p class="mt-2 fw-bold">Flexibilité</p>
+            </div>
+            <div class="px-4 text-center">
+              <i class="bi bi-people fs-1 text-primary"></i>
+              <p class="mt-2 fw-bold">Collaboration</p>
+            </div>
+            <div class="px-4 text-center">
+              <i class="bi bi-graph-up-arrow fs-1 text-primary"></i>
+              <p class="mt-2 fw-bold">Amélioration continue</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="concepts" class="mb-5">
+      <h2 class="text-center mb-4">Concepts clés de l'agilité</h2>
+      
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-journal-bookmark me-2"></i>
+              <h5 class="mb-0">Manifeste Agile</h5>
+            </div>
+            <div class="card-body">
+              <p>Le manifeste agile, publié en 2001, définit 4 valeurs et 12 principes fondateurs :</p>
+              <div class="highlight-box">
+                <p><strong>Valeurs :</strong></p>
+                <ul>
+                  <li>Les individus et leurs interactions plus que les processus et les outils</li>
+                  <li>Des logiciels opérationnels plus qu'une documentation exhaustive</li>
+                  <li>La collaboration avec les clients plus que la négociation contractuelle</li>
+                  <li>L'adaptation au changement plus que le suivi d'un plan</li>
+                </ul>
+              </div>
+              <button class="btn btn-primary btn-sm mt-3" onclick="showDetails('manifeste')">
+                <i class="bi bi-info-circle me-1"></i>Voir les 12 principes
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-diagram-3 me-2"></i>
+              <h5 class="mb-0">Méthodes Agiles</h5>
+            </div>
+            <div class="card-body">
+              <p>Plusieurs méthodologies s'inscrivent dans le cadre agile :</p>
+              <div class="linked-modules">
+                <span class="linked-module">Scrum</span>
+                <span class="linked-module">Kanban</span>
+                <span class="linked-module">XP (eXtreme Programming)</span>
+                <span class="linked-module">Lean</span>
+                <span class="linked-module">SAFe</span>
+                <span class="linked-module">Crystal</span>
+              </div>
+              <p class="mt-3">Chaque méthode a ses spécificités mais partage les mêmes valeurs fondamentales.</p>
+              <button class="btn btn-primary btn-sm mt-2" onclick="showDetails('methodes')">
+                <i class="bi bi-info-circle me-1"></i>Comparer les méthodes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-arrow-repeat me-2"></i>
+              <h5 class="mb-0">Itérations</h5>
+            </div>
+            <div class="card-body">
+              <p>Travail en cycles courts (1-4 semaines) permettant des ajustements fréquents.</p>
+              <p>Chaque itération produit un incrément de produit potentiellement livrable.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-chat-square-text me-2"></i>
+              <h5 class="mb-0">User Stories</h5>
+            </div>
+            <div class="card-body">
+              <p>Description simple d'une fonctionnalité du point de vue de l'utilisateur.</p>
+              <p>Format type : "En tant que [type d'utilisateur], je veux [action] afin de [bénéfice]".</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-arrow-left-right me-2"></i>
+              <h5 class="mb-0">Feedback continu</h5>
+            </div>
+            <div class="card-body">
+              <p>Intégration régulière des retours des utilisateurs et parties prenantes.</p>
+              <p>Permet d'ajuster le produit en fonction des besoins réels.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="scrum" class="mb-5">
+      <h2 class="text-center mb-4">Scrum en détail</h2>
+      
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center bg-scrum" style="background-color: var(--scrum-orange);">
+              <i class="bi bi-kanban me-2"></i>
+              <h5 class="mb-0">Cadre Scrum</h5>
+            </div>
+            <div class="card-body">
+              <p>Scrum est un cadre de travail léger qui aide les équipes à générer de la valeur à travers des solutions adaptatives à des problèmes complexes.</p>
+              
+              <div class="scrum-highlight highlight-box mt-3">
+                <p><strong>Piliers de Scrum :</strong></p>
+                <ul>
+                  <li><strong>Transparence :</strong> Les aspects significatifs du processus doivent être visibles</li>
+                  <li><strong>Inspection :</strong> Vérification fréquente des progrès vers l'objectif</li>
+                  <li><strong>Adaptation :</strong> Ajustements si l'inspection révèle des écarts inacceptables</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center bg-scrum" style="background-color: var(--scrum-orange);">
+              <i class="bi bi-people me-2"></i>
+              <h5 class="mb-0">Rôles Scrum</h5>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4 text-center mb-3">
+                  <i class="bi bi-person-workspace fs-3 text-scrum" style="color: var(--scrum-orange);"></i>
+                  <p class="fw-bold mt-2">Product Owner</p>
+                  <p>Maximise la valeur du produit</p>
+                </div>
+                <div class="col-md-4 text-center mb-3">
+                  <i class="bi bi-kanban fs-3 text-scrum" style="color: var(--scrum-orange);"></i>
+                  <p class="fw-bold mt-2">Scrum Master</p>
+                  <p>Facilite le processus</p>
+                </div>
+                <div class="col-md-4 text-center mb-3">
+                  <i class="bi bi-people-fill fs-3 text-scrum" style="color: var(--scrum-orange);"></i>
+                  <p class="fw-bold mt-2">Équipe Dev</p>
+                  <p>Livrent les incréments</p>
+                </div>
+              </div>
+              <button class="btn btn-scrum btn-sm mt-2" onclick="showDetails('roles')">
+                <i class="bi bi-info-circle me-1"></i>Détails des rôles
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center bg-scrum" style="background-color: var(--scrum-orange);">
+              <i class="bi bi-calendar-event me-2"></i>
+              <h5 class="mb-0">Événements Scrum</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Sprint :</strong> Itération de 1-4 semaines</li>
+                <li class="list-group-item"><strong>Planning :</strong> Planifie le travail du sprint</li>
+                <li class="list-group-item"><strong>Daily :</strong> Synchronisation quotidienne</li>
+                <li class="list-group-item"><strong>Review :</strong> Présentation de l'incrément</li>
+                <li class="list-group-item"><strong>Rétrospective :</strong> Amélioration du processus</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center bg-scrum" style="background-color: var(--scrum-orange);">
+              <i class="bi bi-clipboard-data me-2"></i>
+              <h5 class="mb-0">Artéfacts Scrum</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Product Backlog :</strong> Liste priorisée des fonctionnalités</li>
+                <li class="list-group-item"><strong>Sprint Backlog :</strong> Travail sélectionné pour le sprint</li>
+                <li class="list-group-item"><strong>Increment :</strong> Résultat du sprint</li>
+                <li class="list-group-item"><strong>Definition of Done :</strong> Critères d'acceptation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center bg-scrum" style="background-color: var(--scrum-orange);">
+              <i class="bi bi-graph-up me-2"></i>
+              <h5 class="mb-0">Métriques Scrum</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Velocity :</strong> Capacité de l'équipe</li>
+                <li class="list-group-item"><strong>Burndown :</strong> Progression du sprint</li>
+                <li class="list-group-item"><strong>Lead Time :</strong> Temps de réalisation</li>
+                <li class="list-group-item"><strong>CFD :</strong> Flux de travail</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="simulations" class="mb-5">
+      <h2 class="text-center mb-4">Simulations interactives</h2>
+
+      <ul class="nav nav-tabs justify-content-center mb-4" id="simulationTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="scrum-board-tab" data-bs-toggle="tab" data-bs-target="#scrum-board" type="button" role="tab">Tableau Scrum</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="sprint-planning-tab" data-bs-toggle="tab" data-bs-target="#sprint-planning" type="button" role="tab">Planning Sprint</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="daily-scrum-tab" data-bs-toggle="tab" data-bs-target="#daily-scrum" type="button" role="tab">Daily Scrum</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="sprint-review-tab" data-bs-toggle="tab" data-bs-target="#sprint-review" type="button" role="tab">Sprint Review</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="retrospective-tab" data-bs-toggle="tab" data-bs-target="#retrospective" type="button" role="tab">Rétrospective</button>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="simulationTabContent">
+        <div class="tab-pane fade show active" id="scrum-board" role="tabpanel">
+          <div class="simulation-container">
+            <h3 class="mb-4"><i class="bi bi-kanban me-2"></i>Tableau Scrum interactif</h3>
+            <p>Cette simulation vous permet d'expérimenter la gestion d'un tableau Scrum pour un sprint de développement d'une application mobile.</p>
+            
+            <div class="scrum-board" id="scrumBoard">
+              <div class="scrum-column">
+                <div class="scrum-column-header">Backlog Sprint</div>
+                <div class="scrum-card" draggable="true" data-id="1">
+                  <h6>US-1 : Connexion utilisateur</h6>
+                  <p>Créer l'écran de connexion avec email/mot de passe</p>
+                  <span class="badge bg-primary">5 points</span>
+                </div>
+                <div class="scrum-card" draggable="true" data-id="2">
+                  <h6>US-2 : Profil utilisateur</h6>
+                  <p>Afficher les informations du profil utilisateur</p>
+                  <span class="badge bg-primary">3 points</span>
+                </div>
+                <div class="scrum-card" draggable="true" data-id="3">
+                  <h6>US-3 : Liste des produits</h6>
+                  <p>Afficher la liste des produits avec images</p>
+                  <span class="badge bg-primary">8 points</span>
+                </div>
+              </div>
+              
+              <div class="scrum-column">
+                <div class="scrum-column-header">À faire</div>
+                <div class="scrum-card" draggable="true" data-id="4">
+                  <h6>US-4 : Recherche produits</h6>
+                  <p>Implémenter la fonctionnalité de recherche</p>
+                  <span class="badge bg-primary">5 points</span>
+                </div>
+              </div>
+              
+              <div class="scrum-column">
+                <div class="scrum-column-header">En cours</div>
+                <div class="scrum-card" draggable="true" data-id="5">
+                  <h6>US-5 : Détail produit</h6>
+                  <p>Créer l'écran de détail d'un produit</p>
+                  <span class="badge bg-primary">3 points</span>
+                </div>
+              </div>
+              
+              <div class="scrum-column">
+                <div class="scrum-column-header">À tester</div>
+                <div class="scrum-card" draggable="true" data-id="6">
+                  <h6>US-6 : Panier d'achat</h6>
+                  <p>Implémenter le panier avec ajout/suppression</p>
+                  <span class="badge bg-primary">8 points</span>
+                </div>
+              </div>
+              
+              <div class="scrum-column">
+                <div class="scrum-column-header">Terminé</div>
+                <div class="scrum-card" draggable="true" data-id="7">
+                  <h6>US-7 : Page d'accueil</h6>
+                  <p>Créer la page d'accueil avec bannière</p>
+                  <span class="badge bg-primary">2 points</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-4">
+              <button class="btn btn-primary me-2" onclick="addUserStory()">
+                <i class="bi bi-plus-circle me-1"></i>Ajouter une User Story
+              </button>
+              <button class="btn btn-outline-primary" onclick="resetScrumBoard()">
+                <i class="bi bi-arrow-counterclockwise me-1"></i>Réinitialiser
+              </button>
+            </div>
+            
+            <div class="burndown-chart mt-4">
+              <div class="scrum-column-header">Graphique Burndown</div>
+              <div class="chart-placeholder">
+                <p>Le graphique montrera la progression du sprint lorsque vous déplacerez des cartes</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="sprint-planning" role="tabpanel">
+          <div class="simulation-container">
+            <h3 class="mb-4"><i class="bi bi-calendar-check me-2"></i>Simulation de Sprint Planning</h3>
+            <p>Cette simulation vous guide à travers les étapes clés d'une session de planification de sprint.</p>
+
+            <div class="process-step">
+              <h5>1. Préparation du Product Backlog</h5>
+              <div class="mb-3">
+                <button class="btn btn-sm btn-outline-primary" onclick="simulatePlanningStep('prepareBacklog')">Simuler cette étape</button>
+                <div id="prepareBacklogResult" class="mt-3" style="display:none;">
+                  <div class="alert alert-success">
+                    <p>Le Product Owner a préparé et priorisé le Product Backlog :</p>
+                    <ul>
+                      <li>US-1 : Connexion utilisateur (5 points)</li>
+                      <li>US-2 : Profil utilisateur (3 points)</li>
+                      <li>US-3 : Liste des produits (8 points)</li>
+                      <li>US-4 : Recherche produits (5 points)</li>
+                      <li>US-5 : Détail produit (3 points)</li>
+                    </ul>
+                    <p>La capacité de l'équipe est estimée à 20 points pour ce sprint de 2 semaines.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="process-step">
+              <h5>2. Sélection des User Stories</h5>
+              <div class="mb-3">
+                <button class="btn btn-sm btn-outline-primary" id="selectStoriesBtn" disabled onclick="simulatePlanningStep('selectStories')">Simuler cette étape</button>
+                <div id="selectStoriesResult" style="display:none;">
+                  <div class="alert alert-success">
+                    <p>L'équipe a sélectionné les User Stories suivantes pour le Sprint Backlog :</p>
+                    <ul>
+                      <li>US-1 : Connexion utilisateur (5 points)</li>
+                      <li>US-2 : Profil utilisateur (3 points)</li>
+                      <li>US-5 : Détail produit (3 points)</li>
+                      <li>US-4 : Recherche produits (5 points)</li>
+                    </ul>
+                    <p>Total : 16 points (80% de la capacité pour laisser de la marge)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="process-step">
+              <h5>3. Découpage en tâches</h5>
+              <div class="mb-3">
+                <button class="btn btn-sm btn-outline-primary" id="breakdownTasksBtn" disabled onclick="simulatePlanningStep('breakdownTasks')">Simuler cette étape</button>
+                <div id="breakdownTasksResult" style="display:none;">
+                  <div class="alert alert-success">
+                    <p>Les User Stories ont été découpées en tâches techniques :</p>
+                    <table class="table table-sm">
+                      <thead>
+                        <tr><th>User Story</th><th>Tâches</th><th>Estimation (h)</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>US-1</td>
+                          <td>Créer écran login, Implémenter auth API, Tests unitaires</td>
+                          <td>12</td>
+                        </tr>
+                        <tr>
+                          <td>US-2</td>
+                          <td>Design profil, Intégration API, Tests</td>
+                          <td>8</td>
+                        </tr>
+                        <tr>
+                          <td>US-5</td>
+                          <td>Écran détail, Carrousel images, Tests</td>
+                          <td>8</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="process-step">
+              <h5>4. Engagement de l'équipe</h5>
+              <div class="mb-3">
+                <button class="btn btn-sm btn-outline-primary" id="teamCommitmentBtn" disabled onclick="simulatePlanningStep('teamCommitment')">Simuler cette étape</button>
+                <div id="teamCommitmentResult" style="display:none;">
+                  <div class="alert alert-success">
+                    <p>L'équipe s'engage à livrer les User Stories sélectionnées à la fin du sprint.</p>
+                    <p>Le Scrum Master note les risques identifiés :</p>
+                    <ul>
+                      <li>Disponibilité réduite de Jean les jeudis</li>
+                      <li>Nouvelle API à intégrer pour l'authentification</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <button class="btn btn-primary" onclick="resetPlanningSimulation()">Réinitialiser la simulation</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="daily-scrum" role="tabpanel">
+          <div class="simulation-container">
+            <h3 class="mb-4"><i class="bi bi-calendar-day me-2"></i>Simulation de Daily Scrum</h3>
+            <p>Cette simulation reproduit une réunion quotidienne typique de l'équipe Scrum.</p>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card mb-4">
+                  <div class="card-header bg-scrum" style="background-color: var(--scrum-orange);">
+                    <h5 class="mb-0 text-white">Participants</h5>
+                  </div>
+                  <div class="card-body">
+                    <ul class="list-group list-group-flush" id="dailyParticipants">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Sophie (PO)
+                        <span class="badge bg-primary rounded-pill">Product Owner</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Marc (SM)
+                        <span class="badge bg-scrum rounded-pill" style="background-color: var(--scrum-orange);">Scrum Master</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Jean
+                        <span class="badge bg-success rounded-pill">Dev Front</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Alice
+                        <span class="badge bg-success rounded-pill">Dev Back</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Thomas
+                        <span class="badge bg-warning text-dark rounded-pill">QA</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-md-6">
+                <div class="card mb-4">
+                  <div class="card-header bg-scrum" style="background-color: var(--scrum-orange);">
+                    <h5 class="mb-0 text-white">Paramètres</h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="mb-3">
+                      <label class="form-label">Jour du sprint :</label>
+                      <select class="form-select" id="sprintDay">
+                        <option value="1">Jour 1</option>
+                        <option value="2">Jour 2</option>
+                        <option value="3">Jour 3</option>
+                        <option value="4">Jour 4</option>
+                        <option value="5">Jour 5</option>
+                        <option value="6">Jour 6</option>
+                        <option value="7">Jour 7</option>
+                        <option value="8">Jour 8</option>
+                        <option value="9">Jour 9</option>
+                        <option value="10">Jour 10</option>
+                      </select>
+                    </div>
+                    <button class="btn btn-scrum w-100" onclick="startDailyScrum()">
+                      <i class="bi bi-play-circle me-1"></i>Commencer le Daily
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="card">
+              <div class="card-header bg-scrum" style="background-color: var(--scrum-orange);">
+                <h5 class="mb-0 text-white">Déroulement du Daily</h5>
+              </div>
+              <div class="card-body">
+                <div id="dailyScrumOutput" style="min-height: 300px; max-height: 400px; overflow-y: auto; background-color: #f8f9fa; padding: 15px; border-radius: 5px;">
+                  <p class="text-muted">Le déroulement du Daily Scrum apparaîtra ici...</p>
+                </div>
+                
+                <div class="mt-3" id="dailyActions" style="display: none;">
+                  <h6>Actions identifiées :</h6>
+                  <ul class="list-group mb-3" id="actionItems">
+                  </ul>
+                  
+                  <button class="btn btn-primary" onclick="finishDaily()">
+                    <i class="bi bi-check-circle me-1"></i>Terminer le Daily
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="sprint-review" role="tabpanel">
+          <div class="simulation-container">
+            <h3 class="mb-4"><i class="bi bi-eye me-2"></i>Simulation de Sprint Review</h3>
+            <p>Cette simulation montre comment se déroule une revue de sprint avec les parties prenantes.</p>
+
+            <div class="process-step">
+              <h5>1. Préparation de la démo</h5>
+              <div class="mb-3">
+                <button class="btn btn-sm btn-outline-primary" onclick="simulateReviewStep('prepareDemo')">Simuler cette étape</button>
+                <div id="prepareDemoResult" class="mt-3" style="display:none;">
+                  <div class="alert alert-success">
+                    <p>L'équipe a préparé une démonstration des fonctionnalités terminées :</p>
+                    <ul>
+                      <li>Écran de connexion (US-1) - Terminé à 100%</li>
+                      <li>Profil utilisateur (US-2) - Terminé à 80% (manque photo)</li>
+                      <li>Détail produit (US-5) - Terminé à 100%</li>
+                    </ul>
+                    <p>La recherche produits (US-4) n'a pas pu être terminée et retourne au Product Backlog.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="process-step">
+              <h5>2. Présentation aux parties prenantes</h5>
+              <div class="mb-3">
+                <button class="btn btn-sm btn-outline-primary" id="presentDemoBtn" disabled onclick="simulateReviewStep('presentDemo')">Simuler cette étape</button>
+                <div id="presentDemoResult" style="display:none;">
+                  <div class="alert alert-success">
+                    <p>Les parties prenantes (Directeur Marketing, Responsable Produit, Équipe Support) assistent à la démo.</p>
+                    <p>Feedback reçu :</p>
+                    <ul>
+                      <li>L'écran de connexion est très réussi</li>
+                      <li>Le profil utilisateur doit absolument inclure la photo pour la release</li>
+                      <li>Demande d'ajouter un bouton "Contactez-nous" sur l'écran produit</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="process-step">
+              <h5>3. Mise à jour du Product Backlog</h5>
+              <div class="mb-3">
+                <button class="btn btn-sm btn-outline-primary" id="updateBacklogBtn" disabled onclick="simulateReviewStep('updateBacklog')">Simuler cette étape</button>
+                <div id="updateBacklogResult" style="display:none;">
+                  <div class="alert alert-success">
+                    <p>Le Product Owner met à jour le Product Backlog :</p>
+                    <ul>
+                      <li>Ajout de "Bouton Contact sur écran produit" (3 points)</li>
+                      <li>Repriorisation de "Upload photo profil" (2 points) pour le prochain sprint</li>
+                      <li>La recherche produits (US-4) est repriorisée pour le sprint suivant</li>
+                    </ul>
+                    <p>La vélocité de l'équipe pour ce sprint est de 13 points (sur 16 prévus).</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <button class="btn btn-primary" onclick="resetReviewSimulation()">Réinitialiser la simulation</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="retrospective" role="tabpanel">
+          <div class="simulation-container">
+            <h3 class="mb-4"><i class="bi bi-chat-square-text me-2"></i>Simulation de Rétrospective</h3>
+            <p>Cette simulation montre comment l'équipe peut améliorer son processus lors d'une rétrospective de sprint.</p>
+
+            <div class="process-step">
+              <h5>1. Préparation de l'espace</h5>
+              <div class="mb-3">
+                <button class="btn btn-sm btn-outline-primary" onclick="simulateRetroStep('prepareSpace')">Simuler cette étape</button>
+                <div id="prepareSpaceResult" class="mt-3" style="display:none;">
+                  <div class="alert alert-success">
+                    <p>Le Scrum Master a préparé la salle avec :</p>
+                    <ul>
+                      <li>Tableau blanc et post-its</li>
+                      <li>Zones "Ce qui a bien fonctionné", "À améliorer", "Actions"</li>
+                      <li>Matériel pour un icebreaker (ballon)</li>
+                    </ul>
+                    <p>L'équipe est prête à commencer dans une atmosphère détendue et bienveillante.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="process-step">
+              <h5>2. Icebreaker et retour sur le sprint</h5>
+              <div class="mb-3">
+                <button class="btn btn-sm btn-outline-primary" id="icebreakerBtn" disabled onclick="simulateRetroStep('icebreaker')">Simuler cette étape</button>
+                <div id="icebreakerResult" style="display:none;">
+                  <div class="alert alert-success">
+                    <p>L'équipe participe à un icebreaker rapide (chacun dit un mot qui résume son sprint).</p>
+                    <p>Retour sur les événements marquants du sprint :</p>
+                    <ul>
+                      <li>Problème d'intégration API résolu après 2 jours</li>
+                      <li>Jean absent 2 jours pour formation</li>
+                      <li>Démo bien reçue par le marketing</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="process-step">
+              <h5>3. Collecte des feedbacks</h5>
+              <div class="mb-3">
+                <button class="btn btn-sm btn-outline-primary" id="collectFeedbackBtn" disabled onclick="simulateRetroStep('collectFeedback')">Simuler cette étape</button>
+                <div id="collectFeedbackResult" style="display:none;">
+                  <div class="alert alert-success">
+                    <p>Chaque membre de l'équipe partage ses observations :</p>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <h6>Ce qui a bien fonctionné :</h6>
+                        <ul>
+                          <li>Communication quotidienne</li>
+                          <li>Pair programming sur l'authentification</li>
+                          <li>Rapidité de résolution des bugs</li>
+                        </ul>
+                      </div>
+                      <div class="col-md-4">
+                        <h6>À améliorer :</h6>
+                        <ul>
+                          <li>Estimation des tâches trop optimiste</li>
+                          <li>Tests manquants sur le profil</li>
+                          <li>Interruptions fréquentes</li>
+                        </ul>
+                      </div>
+                      <div class="col-md-4">
+                        <h6>Idées :</h6>
+                        <ul>
+                          <li>Réserver des créaux "focus"</li>
+                          <li>Revue des estimations en équipe</li>
+                          <li>Automatiser plus de tests</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="process-step">
+              <h5>4. Définition des actions d'amélioration</h5>
+              <div class="mb-3">
+                <button class="btn btn-sm btn-outline-primary" id="defineActionsBtn" disabled onclick="simulateRetroStep('defineActions')">Simuler cette étape</button>
+                <div id="defineActionsResult" style="display:none;">
+                  <div class="alert alert-success">
+                    <p>L'équipe a défini 3 actions d'amélioration pour le prochain sprint :</p>
+                    <ol>
+                      <li><strong>Créer des créneaux "focus" :</strong> 2h chaque matin sans réunions ni interruptions</li>
+                      <li><strong>Revue collective des estimations :</strong> Avant de finaliser le sprint backlog</li>
+                      <li><strong>Ajouter 2 tests automatisés :</strong> Pour le module profil utilisateur</li>
+                    </ol>
+                    <p>Le Scrum Master suivra la mise en œuvre de ces actions.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <button class="btn btn-primary" onclick="resetRetroSimulation()">Réinitialiser la simulation</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cas-pratiques" class="mb-5">
+      <h2 class="text-center mb-4">Cas pratiques</h2>
+      
+      <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-phone me-2"></i>
+              <h5 class="mb-0">Développement d'appli mobile</h5>
+            </div>
+            <div class="card-body">
+              <p>Une startup veut développer une application de fitness en 3 mois avec une équipe de 5 personnes.</p>
+              <p><strong>Défis :</strong> Fonctionnalités complexes, délai court, besoin de feedback utilisateur rapide.</p>
+              <button class="btn btn-primary btn-sm mt-2" onclick="showCaseStudy('mobile')">
+                <i class="bi bi-journal-text me-1"></i>Voir la solution agile
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-cart me-2"></i>
+              <h5 class="mb-0">Site e-commerce</h5>
+            </div>
+            <div class="card-body">
+              <p>Un retailer veut migrer son site e-commerce vers une nouvelle plateforme avec des centaines de produits.</p>
+              <p><strong>Défis :</strong> Migration progressive, minimiser les perturbations, intégrer de nouvelles fonctionnalités.</p>
+              <button class="btn btn-primary btn-sm mt-2" onclick="showCaseStudy('ecommerce')">
+                <i class="bi bi-journal-text me-1"></i>Voir la solution agile
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-building me-2"></i>
+              <h5 class="mb-0">Transformation digitale</h5>
+            </div>
+            <div class="card-body">
+              <p>Une entreprise traditionnelle veut digitaliser ses processus métiers sur 12 mois.</p>
+              <p><strong>Défis :</strong> Résistance au changement, processus complexes, multiples parties prenantes.</p>
+              <button class="btn btn-primary btn-sm mt-2" onclick="showCaseStudy('transformation')">
+                <i class="bi bi-journal-text me-1"></i>Voir la solution agile
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-globe me-2"></i>
+              <h5 class="mb-0">Projet international</h5>
+            </div>
+            <div class="card-body">
+              <p>Une équipe distribuée dans 3 pays doit développer un produit logiciel.</p>
+              <p><strong>Défis :</strong> Fuseaux horaires, cultures différentes, coordination complexe.</p>
+              <button class="btn btn-primary btn-sm mt-2" onclick="showCaseStudy('international')">
+                <i class="bi bi-journal-text me-1"></i>Voir la solution agile
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="outils" class="mb-5">
+      <h2 class="text-center mb-4">Outils Agile & Scrum</h2>
+      
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-kanban me-2"></i>
+              <h5 class="mb-0">Gestion de projets</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Jira
+                  <span class="badge bg-primary rounded-pill">Populaire</span>
+                </li>
+                <li class="list-group-item">Trello</li>
+                <li class="list-group-item">Azure DevOps</li>
+                <li class="list-group-item">Asana</li>
+                <li class="list-group-item">ClickUp</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-git me-2"></i>
+              <h5 class="mb-0">Développement</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Git/GitHub/GitLab</li>
+                <li class="list-group-item">Jenkins</li>
+                <li class="list-group-item">CircleCI</li>
+                <li class="list-group-item">SonarQube</li>
+                <li class="list-group-item">Docker</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-people me-2"></i>
+              <h5 class="mb-0">Collaboration</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Slack</li>
+                <li class="list-group-item">Microsoft Teams</li>
+                <li class="list-group-item">Miro</li>
+                <li class="list-group-item">Mural</li>
+                <li class="list-group-item">Zoom</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="vie-courante" class="mb-5">
+      <h2 class="text-center mb-4">Agilité dans la vie courante</h2>
+      
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-house me-2"></i>
+              <h5 class="mb-0">Organiser un déménagement</h5>
+            </div>
+            <div class="card-body">
+              <p><strong>Approche traditionnelle :</strong> Tout planifier à l'avance, emballer tout d'un coup, déménager en un jour.</p>
+              <p><strong>Approche agile :</strong></p>
+              <ol>
+                <li>Prioriser les pièces (salle de bain en premier)</li>
+                <li>Déménager par itérations (pièce par pièce)</li>
+                <li>Ajuster en fonction des retours (ce qui manque)</li>
+                <li>Livrer une maison fonctionnelle à chaque étape</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-book me-2"></i>
+              <h5 class="mb-0">Préparer un examen</h5>
+            </div>
+            <div class="card-body">
+              <p><strong>Approche traditionnelle :</strong> Lire tout le syllabus dans l'ordre, puis faire des exercices.</p>
+              <p><strong>Approche agile :</strong></p>
+              <ol>
+                <li>Identifier les chapitres les plus importants (backlog)</li>
+                <li>Étudier par sprints de 2-3 jours</li>
+                <li>Auto-évaluation après chaque sprint</li>
+                <li>Adapter la suite en fonction des points faibles</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-tree me-2"></i>
+              <h5 class="mb-0">Planifier un voyage</h5>
+            </div>
+            <div class="card-body">
+              <p><strong>Approche traditionnelle :</strong> Tout organiser à l'avance (hôtels, activités, restaurants).</p>
+              <p><strong>Approche agile :</strong></p>
+              <ol>
+                <li>Définir une vision (type de voyage)</li>
+                <li>Planifier les 2-3 premiers jours</li>
+                <li>S'adapter en fonction des découvertes</li>
+                <li>Prioriser ce qui plaît vraiment</li>
+                <li>Rétrospective chaque semaine</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-egg-fried me-2"></i>
+              <h5 class="mb-0">Préparer un repas</h5>
+            </div>
+            <div class="card-body">
+              <p><strong>Approche traditionnelle :</strong> Suivre une recette à la lettre du début à la fin.</p>
+              <p><strong>Approche agile :</strong></p>
+              <ol>
+                <li>Dégustation et feedback après chaque étape</li>
+                <li>Ajuster les assaisonnements</li>
+                <li>Livrer un plat comestible à chaque itération</li>
+                <li>Timeboxing pour chaque phase</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ressources" class="mb-5">
+      <h2 class="text-center mb-4">Ressources supplémentaires</h2>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-header">
+              <h5 class="mb-0">Livres recommandés</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">"Scrum: The Art of Doing Twice the Work in Half the Time" - Jeff Sutherland</li>
+                <li class="list-group-item">"Agile Estimating and Planning" - Mike Cohn</li>
+                <li class="list-group-item">"User Stories Applied" - Mike Cohn</li>
+                <li class="list-group-item">"The Lean Startup" - Eric Ries</li>
+                <li class="list-group-item">"Drive" - Daniel Pink (motivation des équipes)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-header">
+              <h5 class="mb-0">Certifications</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Professional Scrum Master (PSM) - Scrum.org</li>
+                <li class="list-group-item">Certified ScrumMaster (CSM) - Scrum Alliance</li>
+                <li class="list-group-item">PMI Agile Certified Practitioner (PMI-ACP)</li>
+                <li class="list-group-item">SAFe Agilist (Scaled Agile Framework)</li>
+                <li class="list-group-item">ICAgile Certified Professional</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">Communautés et événements</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4">
+              <h6>Meetups</h6>
+              <ul>
+                <li>Agile Tour (mondial)</li>
+                <li>Scrum User Groups</li>
+                <li>Lean Coffee</li>
+              </ul>
+            </div>
+            <div class="col-md-4">
+              <h6>Conférences</h6>
+              <ul>
+                <li>Agile France</li>
+                <li>Scrum Day</li>
+                <li>Agile Games</li>
+              </ul>
+            </div>
+            <div class="col-md-4">
+              <h6>En ligne</h6>
+              <ul>
+                <li>Scrum.org forums</li>
+                <li>Agile Alliance</li>
+                <li>LinkedIn Groups</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container text-center">
+      <p class="mb-0">Portail Agile & Scrum - Outil pédagogique</p>
+      <p class="mb-0">© 2023 - Tous droits réservés</p>
+    </div>
+  </footer>
+
+  <!-- Modal for details -->
+  <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="detailsModalLabel">Détails</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="detailsModalContent">
+          Chargement...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Simulation states
+    let planningSimulationState = {
+      prepareBacklog: false,
+      selectStories: false,
+      breakdownTasks: false,
+      teamCommitment: false
+    };
+
+    let dailyScrumState = {
+      started: false,
+      currentParticipant: 0,
+      day: 1
+    };
+
+    let reviewSimulationState = {
+      prepareDemo: false,
+      presentDemo: false,
+      updateBacklog: false
+    };
+
+    let retroSimulationState = {
+      prepareSpace: false,
+      icebreaker: false,
+      collectFeedback: false,
+      defineActions: false
+    };
+
+    // DOM elements
+    const detailsModal = new bootstrap.Modal(document.getElementById('detailsModal'));
+    const detailsModalTitle = document.getElementById('detailsModalLabel');
+    const detailsModalContent = document.getElementById('detailsModalContent');
+
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+      setupScrumBoard();
+    });
+
+    // Show details in modal
+    function showDetails(type) {
+      let title = '';
+      let content = '';
+
+      switch(type) {
+        case 'manifeste':
+          title = 'Les 12 principes du manifeste agile';
+          content = `
+            <ol>
+              <li>Notre plus haute priorité est de satisfaire le client en livrant rapidement et régulièrement des fonctionnalités à grande valeur ajoutée.</li>
+              <li>Accueillir positivement les changements de besoins, même tard dans le projet. Les processus agiles exploitent le changement pour donner un avantage compétitif au client.</li>
+              <li>Livrer fréquemment un logiciel opérationnel, toutes les deux semaines à deux mois, avec une préférence pour les plus courts délais.</li>
+              <li>Les utilisateurs ou leurs représentants et les développeurs doivent travailler ensemble quotidiennement tout au long du projet.</li>
+              <li>Construire des projets autour d'individus motivés. Leur donner l'environnement et le soutien dont ils ont besoin et leur faire confiance pour atteindre les objectifs fixés.</li>
+              <li>La méthode la plus simple et la plus efficace pour transmettre de l'information à l'équipe de développement et à l'intérieur de celle-ci est le dialogue en face à face.</li>
+              <li>Un logiciel opérationnel est la principale mesure d'avancement.</li>
+              <li>Les processus agiles encouragent un rythme de développement soutenable. Ensemble, les commanditaires, les développeurs et les utilisateurs devraient être capables de maintenir indéfiniment un rythme constant.</li>
+              <li>Une attention continue à l'excellence technique et à une bonne conception renforce l'agilité.</li>
+              <li>La simplicité - c'est-à-dire l'art de minimiser la quantité de travail inutile - est essentielle.</li>
+              <li>Les meilleures architectures, spécifications et conceptions émergent d'équipes auto-organisées.</li>
+              <li>À intervalles réguliers, l'équipe réfléchit aux moyens de devenir plus efficace, puis règle et modifie son comportement en conséquence.</li>
+            </ol>
+          `;
+          break;
+        case 'methodes':
+          title = 'Comparaison des méthodes agiles';
+          content = `
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>Méthode</th>
+                  <th>Focus</th>
+                  <th>Particularités</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Scrum</strong></td>
+                  <td>Cadre de gestion de projet</td>
+                  <td>Sprints, rôles définis, événements structurés</td>
+                </tr>
+                <tr>
+                  <td><strong>Kanban</strong></td>
+                  <td>Flux de travail</td>
+                  <td>Visualisation, limite WIP, amélioration continue</td>
+                </tr>
+                <tr>
+                  <td><strong>XP</strong></td>
+                  <td>Pratiques d'ingénierie</td>
+                  <td>Pair programming, TDD, intégration continue</td>
+                </tr>
+                <tr>
+                  <td><strong>Lean</strong></td>
+                  <td>Elimination des gaspillages</td>
+                  <td>Valeur client, flux tiré, perfection</td>
+                </tr>
+                <tr>
+                  <td><strong>SAFe</strong></td>
+                  <td>Agilité à l'échelle</td>
+                  <td>Cadre pour grandes organisations</td>
+                </tr>
+              </tbody>
+            </table>
+          `;
+          break;
+        case 'roles':
+          title = 'Rôles Scrum en détail';
+          content = `
+            <div class="row">
+              <div class="col-md-4">
+                <div class="card h-100">
+                  <div class="card-header bg-primary text-white">
+                    <h6>Product Owner</h6>
+                  </div>
+                  <div class="card-body">
+                    <p><strong>Responsabilités :</strong></p>
+                    <ul>
+                      <li>Maximiser la valeur du produit</li>
+                      <li>Gérer le Product Backlog</li>
+                      <li>Définir les priorités</li>
+                      <li>Communiquer la vision</li>
+                    </ul>
+                    <p><strong>Compétences :</strong> Connaissance métier, prise de décision, communication</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card h-100">
+                  <div class="card-header" style="background-color: var(--scrum-orange); color: white;">
+                    <h6>Scrum Master</h6>
+                  </div>
+                  <div class="card-body">
+                    <p><strong>Responsabilités :</strong></p>
+                    <ul>
+                      <li>Faciliter les événements Scrum</li>
+                      <li>Éliminer les obstacles</li>
+                      <li>Coacher l'équipe</li>
+                      <li>Promouvoir l'agilité</li>
+                    </ul>
+                    <p><strong>Compétences :</strong> Leadership, facilitation, résolution de conflits</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card h-100">
+                  <div class="card-header bg-success text-white">
+                    <h6>Équipe Dev</h6>
+                  </div>
+                  <div class="card-body">
+                    <p><strong>Responsabilités :</strong></p>
+                    <ul>
+                      <li>Livrer des incréments</li>
+                      <li>Estimer le travail</li>
+                      <li>Auto-organisation</li>
+                      <li>Amélioration continue</li>
+                    </ul>
+                    <p><strong>Compétences :</strong> Techniques, collaboration, polyvalence</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+          break;
+        case 'mobile':
+          title = 'Cas pratique : Application mobile de fitness';
+          content = `
+            <h5>Solution Agile proposée :</h5>
+            <ol>
+              <li><strong>Créer une vision produit :</strong> Définir les personas et besoins clés (suivi entraînement, nutrition, communauté)</li>
+              <li><strong>Prioriser par valeur :</strong> Commencer par le suivi d'entraînement (MVP)</li>
+              <li><strong>Équipe pluridisciplinaire :</strong> 2 dev mobile, 1 dev back, 1 designer, 1 PO</li>
+              <li><strong>Sprints de 2 semaines :</strong> Livrer des fonctionnalités testables rapidement</li>
+              <li><strong>Tests utilisateurs :</strong> Après chaque sprint avec un groupe beta</li>
+              <li><strong>Adaptation :</strong> Ajuster le backlog en fonction des retours</li>
+            </ol>
+            
+            <h5 class="mt-4">Résultats :</h5>
+            <ul>
+              <li>Version beta en 6 semaines (au lieu de 3 mois prévus initialement)</li>
+              <li>50% des fonctionnalités repensées grâce au feedback précoce</li>
+              <li>Équipe plus motivée par les livraisons fréquentes</li>
+            </ul>
+          `;
+          break;
+        case 'ecommerce':
+          title = 'Cas pratique : Migration de site e-commerce';
+          content = `
+            <h5>Solution Agile proposée :</h5>
+            <ol>
+              <li><strong>Migration par composants :</strong> Panier, catalogue, paiement séparément</li>
+              <li><strong>Feature flags :</strong> Activer/désactiver les nouvelles fonctionnalités</li>
+              <li><strong>Équipes en tribus :</strong> Une équipe par composant majeur</li>
+              <li><strong>Kanban :</strong> Pour gérer le flux de migration</li>
+              <li><strong>Monitoring :</strong> Comparer les métriques avant/après chaque migration</li>
+              <li><strong>Rollback facile :</strong> Pour chaque composant migré</li>
+            </ol>
+            
+            <h5 class="mt-4">Résultats :</h5>
+            <ul>
+              <li>Migration complète en 5 mois sans interruption de service</li>
+              <li>30% de réduction des bugs grâce aux tests continus</li>
+              <li>Nouvelles fonctionnalités livrées pendant la migration</li>
+            </ul>
+          `;
+          break;
+      }
+
+      detailsModalTitle.textContent = title;
+      detailsModalContent.innerHTML = content;
+      detailsModal.show();
+    }
+
+    function showCaseStudy(caseId) {
+      let title = '';
+      let content = '';
+
+      switch(caseId) {
+        case 'mobile':
+          title = 'Développement d\'application mobile';
+          content = `
+            <h5>Contexte :</h5>
+            <p>Une startup veut développer une application de fitness en 3 mois avec une équipe de 5 personnes. L'application doit inclure :</p>
+            <ul>
+              <li>Suivi des séances d'entraînement</li>
+              <li>Conseils nutritionnels</li>
+              <li>Communauté d'utilisateurs</li>
+              <li>Défis hebdomadaires</li>
+            </ul>
+            
+            <h5 class="mt-4">Défis :</h5>
+            <ul>
+              <li>Fonctionnalités complexes avec intégrations multiples (capteurs santé, API nutrition)</li>
+              <li>Délai court pour sortir avant la saison des bonnes résolutions</li>
+              <li>Besoin de feedback utilisateur rapide pour ajuster les priorités</li>
+              <li>Équipe petite mais pluridisciplinaire</li>
+            </ul>
+            
+            <h5 class="mt-4">Solution Agile :</h5>
+            <ol>
+              <li><strong>Créer une vision produit claire :</strong> Atelier avec les fondateurs pour définir les personas et besoins clés</li>
+              <li><strong>Prioriser par valeur :</strong> Commencer par le suivi d'entraînement (MVP) puis ajouter les autres modules</li>
+              <li><strong>Équipe pluridisciplinaire :</strong> 2 développeurs mobile, 1 développeur back-end, 1 designer UX/UI, 1 Product Owner</li>
+              <li><strong>Sprints de 2 semaines :</strong> Livrer des fonctionnalités testables rapidement</li>
+              <li><strong>Tests utilisateurs :</strong> Après chaque sprint avec un groupe beta de 50 utilisateurs</li>
+              <li><strong>Adaptation continue :</strong> Ajuster le backlog en fonction des retours et des mesures d'engagement</li>
+            </ol>
+            
+            <h5 class="mt-4">Résultats :</h5>
+            <ul>
+              <li>Version beta publiée en seulement 6 semaines (au lieu de 3 mois prévus initialement)</li>
+              <li>50% des fonctionnalités repensées grâce au feedback précoce des utilisateurs</li>
+              <li>Équipe plus motivée par les livraisons fréquentes et les retours positifs</li>
+              <li>Application finale mieux adaptée aux besoins réels des utilisateurs</li>
+            </ul>
+            
+            <div class="alert alert-info mt-4">
+              <p><strong>Leçon clé :</strong> En se concentrant d'abord sur le MVP et en intégrant rapidement les retours utilisateurs, l'équipe a pu livrer un produit de meilleure qualité en moins de temps.</p>
+            </div>
+          `;
+          break;
+        case 'ecommerce':
+          title = 'Migration de site e-commerce';
+          content = `
+            <h5>Contexte :</h5>
+            <p>Un retailer établi veut migrer son site e-commerce vieillissant vers une nouvelle plateforme moderne. Le site actuel :</p>
+            <ul>
+              <li>Gère des centaines de produits avec stocks multiples</li>
+              <li>Intègre avec un système ERP legacy</li>
+              <li>Reçoit 10 000 visites/jour</li>
+              <li>Doit rester opérationnel pendant la migration</li>
+            </ul>
+            
+            <h5 class="mt-4">Défis :</h5>
+            <ul>
+              <li>Migration progressive sans perturber les ventes existantes</li>
+              <li>Intégration avec plusieurs systèmes backend complexes</li>
+              <li>Nécessité d'ajouter de nouvelles fonctionnalités pendant la migration</li>
+              <li>Multiples parties prenantes avec des priorités différentes</li>
+            </ul>
+            
+            <h5 class="mt-4">Solution Agile :</h5>
+            <ol>
+              <li><strong>Migration par composants :</strong> Découper le site en modules indépendants (panier, catalogue, paiement, etc.)</li>
+              <li><strong>Feature flags :</strong> Permettre d'activer/désactiver les nouvelles fonctionnalités instantanément</li>
+              <li><strong>Équipes en tribus :</strong> Une équipe autonome par composant majeur avec des objectifs clairs</li>
+              <li><strong>Kanban :</strong> Pour visualiser et gérer le flux de migration avec limites de WIP</li>
+              <li><strong>Monitoring continu :</strong> Comparer les métriques avant/après chaque composant migré</li>
+              <li><strong>Rollback facile :</strong> Pour chaque composant migré en cas de problème</li>
+              <li><strong>Livraison continue :</strong> Déploiements fréquents et petits pour minimiser les risques</li>
+            </ol>
+            
+            <h5 class="mt-4">Résultats :</h5>
+            <ul>
+              <li>Migration complète réalisée en 5 mois sans interruption de service</li>
+              <li>30% de réduction des bugs grâce aux tests automatisés et déploiements progressifs</li>
+              <li>Nouvelles fonctionnalités (recommandations personnalisées) livrées pendant la migration</li>
+              <li>Meilleure collaboration entre les équipes techniques et métier</li>
+              <li>Augmentation de 15% du taux de conversion après la migration</li>
+            </ul>
+            
+            <div class="alert alert-info mt-4">
+              <p><strong>Leçon clé :</strong> En traitant la migration comme une série de petites améliorations plutôt qu'un "big bang", l'entreprise a pu réduire les risques tout en continuant à innover.</p>
+            </div>
+          `;
+          break;
+      }
+
+      detailsModalTitle.textContent = title;
+      detailsModalContent.innerHTML = content;
+      detailsModal.show();
+    }
+
+    // Scrum Board functions
+    function setupScrumBoard() {
+      const cards = document.querySelectorAll('.scrum-card');
+      const columns = document.querySelectorAll('.scrum-column');
+      
+      cards.forEach(card => {
+        card.addEventListener('dragstart', dragStart);
+        card.addEventListener('dragend', dragEnd);
+      });
+      
+      columns.forEach(column => {
+        column.addEventListener('dragover', dragOver);
+        column.addEventListener('dragenter', dragEnter);
+        column.addEventListener('dragleave', dragLeave);
+        column.addEventListener('drop', dragDrop);
+      });
+    }
+    
+    let draggedCard = null;
+    
+    function dragStart() {
+      draggedCard = this;
+      setTimeout(() => {
+        this.style.opacity = '0.5';
+      }, 0);
+    }
+    
+    function dragEnd() {
+      this.style.opacity = '1';
+    }
+    
+    function dragOver(e) {
+      e.preventDefault();
+    }
+    
+    function dragEnter(e) {
+      e.preventDefault();
+      this.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+    }
+    
+    function dragLeave() {
+      this.style.backgroundColor = '';
+    }
+    
+    function dragDrop() {
+      this.style.backgroundColor = '';
+      if (draggedCard.parentElement !== this) {
+        this.querySelector('.scrum-column-header').insertAdjacentElement('afterend', draggedCard);
+        updateBurndownChart();
+      }
+    }
+    
+    function updateBurndownChart() {
+      const doneColumn = document.querySelector('.scrum-column:nth-child(5)');
+      const doneCards = doneColumn.querySelectorAll('.scrum-card');
+      const totalPoints = 31; // Somme des points de toutes les cartes
+      const donePoints = Array.from(doneCards).reduce((sum, card) => {
+        const pointsBadge = card.querySelector('.badge');
+        return sum + parseInt(pointsBadge.textContent);
+      }, 0);
+      
+      const progress = (donePoints / totalPoints) * 100;
+      const chartPlaceholder = document.querySelector('.chart-placeholder');
+      chartPlaceholder.innerHTML = `
+        <div>
+          <p>Progression du sprint : ${progress.toFixed(0)}%</p>
+          <div class="progress" style="height: 20px;">
+            <div class="progress-bar" role="progressbar" style="width: ${progress}%">${donePoints}/${totalPoints} points</div>
+          </div>
+          <p class="mt-2">${doneCards.length} user stories terminées</p>
+        </div>
+      `;
+    }
+    
+    function addUserStory() {
+      const backlogColumn = document.querySelector('.scrum-column:first-child');
+      const newId = Math.floor(Math.random() * 1000);
+      const newCard = document.createElement('div');
+      newCard.className = 'scrum-card';
+      newCard.draggable = true;
+      newCard.dataset.id = newId;
+      newCard.innerHTML = `
+        <h6>US-${newId} : Nouvelle fonctionnalité</h6>
+        <p>Description de la nouvelle user story</p>
+        <span class="badge bg-primary">3 points</span>
+      `;
+      backlogColumn.appendChild(newCard);
+      
+      // Add event listeners to new card
+      newCard.addEventListener('dragstart', dragStart);
+      newCard.addEventListener('dragend', dragEnd);
+    }
+    
+    function resetScrumBoard() {
+      const scrumBoard = document.getElementById('scrumBoard');
+      scrumBoard.innerHTML = `
+        <div class="scrum-column">
+          <div class="scrum-column-header">Backlog Sprint</div>
+          <div class="scrum-card" draggable="true" data-id="1">
+            <h6>US-1 : Connexion utilisateur</h6>
+            <p>Créer l'écran de connexion avec email/mot de passe</p>
+            <span class="badge bg-primary">5 points</span>
+          </div>
+          <div class="scrum-card" draggable="true" data-id="2">
+            <h6>US-2 : Profil utilisateur</h6>
+            <p>Afficher les informations du profil utilisateur</p>
+            <span class="badge bg-primary">3 points</span>
+          </div>
+          <div class="scrum-card" draggable="true" data-id="3">
+            <h6>US-3 : Liste des produits</h6>
+            <p>Afficher la liste des produits avec images</p>
+            <span class="badge bg-primary">8 points</span>
+          </div>
+        </div>
+        
+        <div class="scrum-column">
+          <div class="scrum-column-header">À faire</div>
+          <div class="scrum-card" draggable="true" data-id="4">
+            <h6>US-4 : Recherche produits</h6>
+            <p>Implémenter la fonctionnalité de recherche</p>
+            <span class="badge bg-primary">5 points</span>
+          </div>
+        </div>
+        
+        <div class="scrum-column">
+          <div class="scrum-column-header">En cours</div>
+          <div class="scrum-card" draggable="true" data-id="5">
+            <h6>US-5 : Détail produit</h6>
+            <p>Créer l'écran de détail d'un produit</p>
+            <span class="badge bg-primary">3 points</span>
+          </div>
+        </div>
+        
+        <div class="scrum-column">
+          <div class="scrum-column-header">À tester</div>
+          <div class="scrum-card" draggable="true" data-id="6">
+            <h6>US-6 : Panier d'achat</h6>
+            <p>Implémenter le panier avec ajout/suppression</p>
+            <span class="badge bg-primary">8 points</span>
+          </div>
+        </div>
+        
+        <div class="scrum-column">
+          <div class="scrum-column-header">Terminé</div>
+          <div class="scrum-card" draggable="true" data-id="7">
+            <h6>US-7 : Page d'accueil</h6>
+            <p>Créer la page d'accueil avec bannière</p>
+            <span class="badge bg-primary">2 points</span>
+          </div>
+        </div>
+      `;
+      
+      // Reset chart
+      document.querySelector('.chart-placeholder').innerHTML = '<p>Le graphique montrera la progression du sprint lorsque vous déplacerez des cartes</p>';
+      
+      // Re-setup event listeners
+      setupScrumBoard();
+    }
+
+    // Planning Simulation functions
+    function simulatePlanningStep(step) {
+      switch (step) {
+        case 'prepareBacklog':
+          document.getElementById('prepareBacklogResult').style.display = 'block';
+          planningSimulationState.prepareBacklog = true;
+          document.getElementById('selectStoriesBtn').disabled = false;
+          break;
+        case 'selectStories':
+          document.getElementById('selectStoriesResult').style.display = 'block';
+          planningSimulationState.selectStories = true;
+          document.getElementById('selectStoriesBtn').disabled = true;
+          document.getElementById('breakdownTasksBtn').disabled = false;
+          break;
+        case 'breakdownTasks':
+          document.getElementById('breakdownTasksResult').style.display = 'block';
+          planningSimulationState.breakdownTasks = true;
+          document.getElementById('breakdownTasksBtn').disabled = true;
+          document.getElementById('teamCommitmentBtn').disabled = false;
+          break;
+        case 'teamCommitment':
+          document.getElementById('teamCommitmentResult').style.display = 'block';
+          planningSimulationState.teamCommitment = true;
+          document.getElementById('teamCommitmentBtn').disabled = true;
+          break;
+      }
+    }
+
+    function resetPlanningSimulation() {
+      planningSimulationState = {
+        prepareBacklog: false,
+        selectStories: false,
+        breakdownTasks: false,
+        teamCommitment: false
+      };
+
+      document.getElementById('prepareBacklogResult').style.display = 'none';
+      document.getElementById('selectStoriesResult').style.display = 'none';
+      document.getElementById('breakdownTasksResult').style.display = 'none';
+      document.getElementById('teamCommitmentResult').style.display = 'none';
+
+      document.getElementById('selectStoriesBtn').disabled = true;
+      document.getElementById('breakdownTasksBtn').disabled = true;
+      document.getElementById('teamCommitmentBtn').disabled = true;
+    }
+
+    // Daily Scrum Simulation functions
+    function startDailyScrum() {
+      const day = parseInt(document.getElementById('sprintDay').value);
+      dailyScrumState.day = day;
+      dailyScrumState.started = true;
+      dailyScrumState.currentParticipant = 0;
+      
+      const output = document.getElementById('dailyScrumOutput');
+      output.innerHTML = `
+        <p><strong>Daily Scrum - Jour ${day} du sprint</strong></p>
+        <p>Le Scrum Master (Marc) ouvre la réunion :</p>
+        <p>"Bonjour à tous, nous allons faire le tour de table comme d'habitude. Chacun dit :</p>
+        <ol>
+          <li>Ce qu'il a fait hier</li>
+          <li>Ce qu'il prévoit de faire aujourd'hui</li>
+          <li>Les obstacles éventuels</li>
+        </ol>
+        <p>Nous commençons par Sophie."</p>
+      `;
+      
+      document.getElementById('dailyActions').style.display = 'none';
+      nextDailyParticipant();
+    }
+    
+    function nextDailyParticipant() {
+      if (!dailyScrumState.started) return;
+      
+      const participants = [
+        { name: 'Sophie', role: 'PO', done: 'Priorisé le backlog pour le sprint suivant', todo: 'Rencontrer les utilisateurs pour feedback', blocker: '' },
+        { name: 'Jean', role: 'Dev Front', done: 'Terminé l\'écran de connexion', todo: 'Commencer l\'écran de profil', blocker: 'Besoin de specs pour la photo de profil' },
+        { name: 'Alice', role: 'Dev Back', done: 'Implémenté l\'API de connexion', todo: 'Travailler sur l\'API de profil', blocker: 'Problème de performance avec la base de données' },
+        { name: 'Thomas', role: 'QA', done: 'Testé l\'écran de connexion', todo: 'Écrire les tests pour l\'écran de profil', blocker: '' },
+        { name: 'Marc', role: 'SM', done: 'Résolu le problème de salle de réunion', todo: 'S\'occuper du problème de base de données', blocker: '' }
+      ];
+      
+      if (dailyScrumState.currentParticipant >= participants.length) {
+        finishDaily();
+        return;
+      }
+      
+      const participant = participants[dailyScrumState.currentParticipant];
+      const output = document.getElementById('dailyScrumOutput');
+      
+      let blockerText = participant.blocker ? `<li><strong>Obstacle :</strong> ${participant.blocker}</li>` : '';
+      
+      output.innerHTML += `
+        <div class="mt-3 p-3 bg-light rounded">
+          <p><strong>${participant.name} (${participant.role}) :</strong></p>
+          <ul>
+            <li><strong>Hier :</strong> ${participant.done}</li>
+            <li><strong>Aujourd'hui :</strong> ${participant.todo}</li>
+            ${blockerText}
+          </ul>
+        </div>
+      `;
+      
+      // Add action items for blockers
+      if (participant.blocker) {
+        const actionItems = document.getElementById('actionItems');
+        actionItems.innerHTML += `
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            ${participant.blocker}
+            <span class="badge bg-primary rounded-pill">${participant.name}</span>
+          </li>
+        `;
+      }
+      
+      dailyScrumState.currentParticipant++;
+      output.scrollTop = output.scrollHeight;
+      
+      // Auto-advance after delay
+      setTimeout(nextDailyParticipant, 2000);
+    }
+    
+    function finishDaily() {
+      dailyScrumState.started = false;
+      const output = document.getElementById('dailyScrumOutput');
+      output.innerHTML += `
+        <div class="mt-3 p-3 bg-success text-white rounded">
+          <p>Le Scrum Master (Marc) conclut : "Merci à tous, la réunion est terminée. Nous nous retrouvons demain à la même heure."</p>
+          <p>Durée totale : 14 minutes</p>
+        </div>
+      `;
+      
+      document.getElementById('dailyActions').style.display = 'block';
+      output.scrollTop = output.scrollHeight;
+    }
+
+    // Review Simulation functions
+    function simulateReviewStep(step) {
+      switch (step) {
+        case 'prepareDemo':
+          document.getElementById('prepareDemoResult').style.display = 'block';
+          reviewSimulationState.prepareDemo = true;
+          document.getElementById('presentDemoBtn').disabled = false;
+          break;
+        case 'presentDemo':
+          document.getElementById('presentDemoResult').style.display = 'block';
+          reviewSimulationState.presentDemo = true;
+          document.getElementById('presentDemoBtn').disabled = true;
+          document.getElementById('updateBacklogBtn').disabled = false;
+          break;
+        case 'updateBacklog':
+          document.getElementById('updateBacklogResult').style.display = 'block';
+          reviewSimulationState.updateBacklog = true;
+          document.getElementById('updateBacklogBtn').disabled = true;
+          break;
+      }
+    }
+
+    function resetReviewSimulation() {
+      reviewSimulationState = {
+        prepareDemo: false,
+        presentDemo: false,
+        updateBacklog: false
+      };
+
+      document.getElementById('prepareDemoResult').style.display = 'none';
+      document.getElementById('presentDemoResult').style.display = 'none';
+      document.getElementById('updateBacklogResult').style.display = 'none';
+
+      document.getElementById('presentDemoBtn').disabled = true;
+      document.getElementById('updateBacklogBtn').disabled = true;
+    }
+
+    // Retrospective Simulation functions
+    function simulateRetroStep(step) {
+      switch (step) {
+        case 'prepareSpace':
+          document.getElementById('prepareSpaceResult').style.display = 'block';
+          retroSimulationState.prepareSpace = true;
+          document.getElementById('icebreakerBtn').disabled = false;
+          break;
+        case 'icebreaker':
+          document.getElementById('icebreakerResult').style.display = 'block';
+          retroSimulationState.icebreaker = true;
+          document.getElementById('icebreakerBtn').disabled = true;
+          document.getElementById('collectFeedbackBtn').disabled = false;
+          break;
+        case 'collectFeedback':
+          document.getElementById('collectFeedbackResult').style.display = 'block';
+          retroSimulationState.collectFeedback = true;
+          document.getElementById('collectFeedbackBtn').disabled = true;
+          document.getElementById('defineActionsBtn').disabled = false;
+          break;
+        case 'defineActions':
+          document.getElementById('defineActionsResult').style.display = 'block';
+          retroSimulationState.defineActions = true;
+          document.getElementById('defineActionsBtn').disabled = true;
+          break;
+      }
+    }
+
+    function resetRetroSimulation() {
+      retroSimulationState = {
+        prepareSpace: false,
+        icebreaker: false,
+        collectFeedback: false,
+        defineActions: false
+      };
+
+      document.getElementById('prepareSpaceResult').style.display = 'none';
+      document.getElementById('icebreakerResult').style.display = 'none';
+      document.getElementById('collectFeedbackResult').style.display = 'none';
+      document.getElementById('defineActionsResult').style.display = 'none';
+
+      document.getElementById('icebreakerBtn').disabled = true;
+      document.getElementById('collectFeedbackBtn').disabled = true;
+      document.getElementById('defineActionsBtn').disabled = true;
+    }
+  </script>
+</body>
+</html>

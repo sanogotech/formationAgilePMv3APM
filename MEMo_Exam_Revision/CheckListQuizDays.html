@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formation AgilePM v3 - Quiz et Checklist</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --light-color: #ecf0f1;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .checklist-day {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        
+        .checklist-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            font-weight: bold;
+        }
+        
+        .checklist-item {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+        
+        .checklist-item input {
+            margin-right: 10px;
+        }
+        
+        .quiz-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .question {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .result-container {
+            display: none;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .progress-container {
+            margin: 1.5rem 0;
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
+        
+        .recommendation {
+            background-color: var(--light-color);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .day-progress {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+        
+        .day-progress-item {
+            text-align: center;
+            flex: 1;
+            padding: 0.5rem;
+        }
+        
+        .day-progress-item.active {
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 5px;
+        }
+        
+        .quiz-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        
+        .quiz-counter {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header text-center">
+        <div class="container">
+            <h1>Formation AgilePM v3</h1>
+            <p class="lead">Quiz interactif et checklist de maîtrise quotidienne</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Section de progression par jour -->
+        <div class="day-progress mb-4">
+            <div class="day-progress-item active" id="day1-progress">
+                <h5>Jour 1</h5>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+            <div class="day-progress-item" id="day2-progress">
+                <h5>Jour 2</h5>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+            <div class="day-progress-item" id="day3-progress">
+                <h5>Jour 3</h5>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checklist Jour 1 -->
+        <div class="checklist-day" id="day1-checklist">
+            <div class="checklist-header">
+                ✅ Checklist Fin de Jour 1
+            </div>
+            <div class="checklist-body">
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day1-item1">
+                    <label class="form-check-label" for="day1-item1">Je comprends la différence entre AgilePM et Scrum</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day1-item2">
+                    <label class="form-check-label" for="day1-item2">Je peux nommer les 4 groupes de rôles et leur objectif</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day1-item3">
+                    <label class="form-check-label" for="day1-item3">Je connais la séquence des 6 phases</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day1-item4">
+                    <label class="form-check-label" for="day1-item4">Je comprends l'importance de la valeur métier</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day1-item5">
+                    <label class="form-check-label" for="day1-item5">Je connais les principes fondamentaux d'AgilePM</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day1-item6">
+                    <label class="form-check-label" for="day1-item6">Je comprends le rôle du Business Sponsor</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day1-item7">
+                    <label class="form-check-label" for="day1-item7">Je sais expliquer le concept de livraison itérative</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day1-item8">
+                    <label class="form-check-label" for="day1-item8">Je maîtrise le vocabulaire de base d'AgilePM</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checklist Jour 2 -->
+        <div class="checklist-day" id="day2-checklist">
+            <div class="checklist-header">
+                ✅ Checklist Fin de Jour 2
+            </div>
+            <div class="checklist-body">
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day2-item1">
+                    <label class="form-check-label" for="day2-item1">Je peux réciter les 5 sous-ensembles de Timebox dans l'ordre</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day2-item2">
+                    <label class="form-check-label" for="day2-item2">Je comprends la différence entre Must, Should, Could, Won't</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day2-item3">
+                    <label class="form-check-label" for="day2-item3">Je connais les 5 Work Products les plus importants</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day2-item4">
+                    <label class="form-check-label" for="day2-item4">Je sais qui fait quoi dans chaque sous-ensemble Timebox</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day2-item5">
+                    <label class="form-check-label" for="day2-item5">Je comprends le rôle du Timebox Plan</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day2-item6">
+                    <label class="form-check-label" for="day2-item6">Je maîtrise la technique de priorisation MoSCoW</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day2-item7">
+                    <label class="form-check-label" for="day2-item7">Je connais les différents types de tests en AgilePM</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day2-item8">
+                    <label class="form-check-label" for="day2-item8">Je comprends le concept de "management by exception"</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checklist Jour 3 -->
+        <div class="checklist-day" id="day3-checklist">
+            <div class="checklist-header">
+                ✅ Checklist Fin de Jour 3 - Prêt pour l'Examen!
+            </div>
+            <div class="checklist-body">
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day3-item1">
+                    <label class="form-check-label" for="day3-item1">Je maîtrise l'alignement AgilePM/Scrum</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day3-item2">
+                    <label class="form-check-label" for="day3-item2">Je connais les 5 pièges mortels de l'examen</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day3-item3">
+                    <label class="form-check-label" for="day3-item3">Je peux expliquer chaque sous-ensemble de Timebox</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day3-item4">
+                    <label class="form-check-label" for="day3-item4">Je suis capable de prioriser correctement avec MoSCoW</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day3-item5">
+                    <label class="form-check-label" for="day3-item5">Je me sens confiant pour l'examen</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day3-item6">
+                    <label class="form-check-label" for="day3-item6">Je connais les 7 principes d'AgilePM</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day3-item7">
+                    <label class="form-check-label" for="day3-item7">Je maîtrise les techniques d'estimation Agile</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day3-item8">
+                    <label class="form-check-label" for="day3-item8">Je comprends le rôle des différents artefacts</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day3-item9">
+                    <label class="form-check-label" for="day3-item9">Je sais gérer les risques en environnement Agile</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" class="form-check-input" id="day3-item10">
+                    <label class="form-check-label" for="day3-item10">Je peux expliquer le cycle de vie du projet AgilePM</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Section -->
+        <div class="quiz-container">
+            <h2 class="mb-4">Quiz AgilePM v3</h2>
+            <div class="quiz-counter">Question <span id="current-question">1</span> sur <span id="total-questions">15</span></div>
+            <form id="quiz-form">
+                <!-- Questions Jour 1 -->
+                <div class="question day1-questions">
+                    <h5>1. Quelle est la principale différence entre AgilePM et Scrum?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q1" id="q1a" value="a">
+                        <label class="form-check-label" for="q1a">
+                            AgilePM est plus adapté aux grands projets avec une structure plus formelle
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q1" id="q1b" value="b">
+                        <label class="form-check-label" for="q1b">
+                            Scrum est plus adapté aux projets de développement logiciel uniquement
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q1" id="q1c" value="c">
+                        <label class="form-check-label" for="q1c">
+                            AgilePM n'a pas de rôles définis contrairement à Scrum
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question day1-questions">
+                    <h5>2. Quels sont les 4 groupes de rôles en AgilePM?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q2" id="q2a" value="a">
+                        <label class="form-check-label" for="q2a">
+                            Business, Solution, Management, Technique
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q2" id="q2b" value="b">
+                        <label class="form-check-label" for="q2b">
+                            Développement, Test, Déploiement, Support
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q2" id="q2c" value="c">
+                        <label class="form-check-label" for="q2c">
+                            Stratégie, Exécution, Contrôle, Clôture
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question day1-questions">
+                    <h5>3. Quel est le rôle principal du Business Sponsor?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q3" id="q3a" value="a">
+                        <label class="form-check-label" for="q3a">
+                            Représenter les intérêts métier et fournir le financement
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q3" id="q3b" value="b">
+                        <label class="form-check-label" for="q3b">
+                            Gérer l'équipe de développement au quotidien
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q3" id="q3c" value="c">
+                        <label class="form-check-label" for="q3c">
+                            Écrire les user stories et les critères d'acceptation
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question day1-questions">
+                    <h5>4. Combien de phases comprend le cycle de vie AgilePM?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q4" id="q4a" value="a">
+                        <label class="form-check-label" for="q4a">
+                            6 phases
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q4" id="q4b" value="b">
+                        <label class="form-check-label" for="q4b">
+                            5 phases
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q4" id="q4c" value="c">
+                        <label class="form-check-label" for="q4c">
+                            4 phases
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question day1-questions">
+                    <h5>5. Quel est l'objectif principal de la phase de pré-projet?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q5" id="q5a" value="a">
+                        <label class="form-check-label" for="q5a">
+                            S'assurer que le projet est viable et justifié
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q5" id="q5b" value="b">
+                        <label class="form-check-label" for="q5b">
+                            Développer la solution technique
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q5" id="q5c" value="c">
+                        <label class="form-check-label" for="q5c">
+                            Tester les fonctionnalités développées
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Questions Jour 2 -->
+                <div class="question day2-questions">
+                    <h5>6. Quel est l'ordre correct des 5 sous-ensembles de Timebox?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q6" id="q6a" value="a">
+                        <label class="form-check-label" for="q6a">
+                            Kick-off, Investigation, Refinement, Consolidation, Close-out
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q6" id="q6b" value="b">
+                        <label class="form-check-label" for="q6b">
+                            Investigation, Refinement, Consolidation, Close-out, Kick-off
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q6" id="q6c" value="c">
+                        <label class="form-check-label" for="q6c">
+                            Kick-off, Investigation, Refinement, Consolidation, Close-out
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question day2-questions">
+                    <h5>7. Dans la méthode MoSCoW, que signifie "Should"?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q7" id="q7a" value="a">
+                        <label class="form-check-label" for="q7a">
+                            Fonctionnalité importante mais pas critique
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q7" id="q7b" value="b">
+                        <label class="form-check-label" for="q7b">
+                            Fonctionnalité essentielle au projet
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q7" id="q7c" value="c">
+                        <label class="form-check-label" for="q7c">
+                            Fonctionnalité qui serait agréable à avoir
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question day2-questions">
+                    <h5>8. Quel est le principal objectif de la phase de consolidation?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q8" id="q8a" value="a">
+                        <label class="form-check-label" for="q8a">
+                            S'assurer que le travail est de qualité et prêt pour la revue
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q8" id="q8b" value="b">
+                        <label class="form-check-label" for="q8b">
+                            Planifier les activités du timebox
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q8" id="q8c" value="c">
+                        <label class="form-check-label" for="q8c">
+                            Identifier les exigences détaillées
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question day2-questions">
+                    <h5>9. Quel Work Product décrit la vision globale du projet?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q9" id="q9a" value="a">
+                        <label class="form-check-label" for="q9a">
+                            Business Case
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q9" id="q9b" value="b">
+                        <label class="form-check-label" for="q9b">
+                            Project Approach
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q9" id="q9c" value="c">
+                        <label class="form-check-label" for="q9c">
+                            Solution Architecture Definition
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question day2-questions">
+                    <h5>10. Qui est responsable de la priorisation des exigences en AgilePM?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q10" id="q10a" value="a">
+                        <label class="form-check-label" for="q10a">
+                            Business Analyst
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q10" id="q10b" value="b">
+                        <label class="form-check-label" for="q10b">
+                            Business Ambassador
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q10" id="q10c" value="c">
+                        <label class="form-check-label" for="q10c">
+                            Project Manager
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Questions Jour 3 -->
+                <div class="question day3-questions">
+                    <h5>11. Quel est l'un des pièges mortels de l'examen AgilePM?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q11" id="q11a" value="a">
+                        <label class="form-check-label" for="q11a">
+                            Ne pas comprendre la différence entre les rôles Business Analyst et Solution Developer
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q11" id="q11b" value="b">
+                        <label class="form-check-label" for="q11b">
+                            Confondre les phases du projet avec les sous-ensembles de Timebox
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q11" id="q11c" value="c">
+                        <label class="form-check-label" for="q11c">
+                            Les deux réponses ci-dessus
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question day3-questions">
+                    <h5>12. Quel principe AgilePM met l'accent sur la livraison fréquente de produits?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q12" id="q12a" value="a">
+                        <label class="form-check-label" for="q12a">
+                            Focus on the Business Need
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q12" id="q12b" value="b">
+                        <label class="form-check-label" for="q12b">
+                            Deliver on Time
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q12" id="q12c" value="c">
+                        <label class="form-check-label" for="q12c">
+                            Iterate Development
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question day3-questions">
+                    <h5>13. Quelle technique est utilisée pour estimer en AgilePM?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q13" id="q13a" value="a">
+                        <label class="form-check-label" for="q13a">
+                            Planning Poker
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q13" id="q13b" value="b">
+                        <label class="form-check-label" for="q13b">
+                            Diagramme de Gantt
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q13" id="q13c" value="c">
+                        <label class="form-check-label" for="q13c">
+                            PERT
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question day3-questions">
+                    <h5>14. Quel est le principal avantage du management by exception?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q14" id="q14a" value="a">
+                        <label class="form-check-label" for="q14a">
+                            Permettre l'autonomie des équipes tout en gardant le contrôle
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q14" id="q14b" value="b">
+                        <label class="form-check-label" for="q14b">
+                            Réduire la documentation nécessaire
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q14" id="q14c" value="c">
+                        <label class="form-check-label" for="q14c">
+                            Accélérer les prises de décision
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question day3-questions">
+                    <h5>15. Quel rôle est responsable de la qualité de la solution en AgilePM?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q15" id="q15a" value="a">
+                        <label class="form-check-label" for="q15a">
+                            Solution Developer
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q15" id="q15b" value="b">
+                        <label class="form-check-label" for="q15b">
+                            Tester
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q15" id="q15c" value="c">
+                        <label class="form-check-label" for="q15c">
+                            Toute l'équipe de solution
+                        </label>
+                    </div>
+                </div>
+
+                <div class="quiz-nav">
+                    <button type="button" class="btn btn-outline-primary" id="prev-question">Question précédente</button>
+                    <button type="button" class="btn btn-primary" id="submit-quiz">Calculer mon score</button>
+                    <button type="button" class="btn btn-outline-primary" id="next-question">Question suivante</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Résultats et Recommandations -->
+        <div class="result-container" id="result-container">
+            <h2 class="mb-4">Résultats et Recommandations</h2>
+            <div class="progress-container">
+                <h5>Score global: <span id="score-value">0</span>%</h5>
+                <div class="progress">
+                    <div class="progress-bar" id="score-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+            
+            <div id="recommendations">
+                <!-- Les recommandations seront ajoutées ici dynamiquement -->
+            </div>
+            
+            <button type="button" class="btn btn-outline-primary mt-3" id="reset-quiz">Recommencer le quiz</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Réponses correctes
+            const correctAnswers = {
+                q1: 'a',
+                q2: 'a',
+                q3: 'a',
+                q4: 'a',
+                q5: 'a',
+                q6: 'c',
+                q7: 'a',
+                q8: 'a',
+                q9: 'a',
+                q10: 'b',
+                q11: 'c',
+                q12: 'b',
+                q13: 'a',
+                q14: 'a',
+                q15: 'c'
+            };
+
+            // Éléments DOM
+            const quizForm = document.getElementById('quiz-form');
+            const submitButton = document.getElementById('submit-quiz');
+            const resetButton = document.getElementById('reset-quiz');
+            const resultContainer = document.getElementById('result-container');
+            const scoreValue = document.getElementById('score-value');
+            const scoreBar = document.getElementById('score-bar');
+            const recommendationsDiv = document.getElementById('recommendations');
+            const prevButton = document.getElementById('prev-question');
+            const nextButton = document.getElementById('next-question');
+            const currentQuestionSpan = document.getElementById('current-question');
+            const totalQuestionsSpan = document.getElementById('total-questions');
+            
+            // Variables pour la navigation
+            let currentQuestionIndex = 1;
+            const totalQuestions = Object.keys(correctAnswers).length;
+            totalQuestionsSpan.textContent = totalQuestions;
+            
+            // Initialiser l'affichage des questions
+            showQuestion(currentQuestionIndex);
+
+            // Mise à jour de la progression des checklists
+            function updateProgress() {
+                // Jour 1
+                const day1Items = document.querySelectorAll('#day1-checklist input[type="checkbox"]');
+                const day1Checked = document.querySelectorAll('#day1-checklist input[type="checkbox"]:checked').length;
+                const day1Progress = (day1Checked / day1Items.length) * 100;
+                document.querySelector('#day1-progress .progress-bar').style.width = `${day1Progress}%`;
+                
+                // Jour 2
+                const day2Items = document.querySelectorAll('#day2-checklist input[type="checkbox"]');
+                const day2Checked = document.querySelectorAll('#day2-checklist input[type="checkbox"]:checked').length;
+                const day2Progress = (day2Checked / day2Items.length) * 100;
+                document.querySelector('#day2-progress .progress-bar').style.width = `${day2Progress}%`;
+                
+                // Jour 3
+                const day3Items = document.querySelectorAll('#day3-checklist input[type="checkbox"]');
+                const day3Checked = document.querySelectorAll('#day3-checklist input[type="checkbox"]:checked').length;
+                const day3Progress = (day3Checked / day3Items.length) * 100;
+                document.querySelector('#day3-progress .progress-bar').style.width = `${day3Progress}%`;
+            }
+
+            // Afficher une question spécifique
+            function showQuestion(index) {
+                // Masquer toutes les questions
+                const questions = document.querySelectorAll('.question');
+                questions.forEach(q => q.style.display = 'none');
+                
+                // Afficher la question actuelle
+                const currentQuestion = document.querySelector(`.question:nth-child(${index})`);
+                if (currentQuestion) {
+                    currentQuestion.style.display = 'block';
+                }
+                
+                // Mettre à jour le compteur
+                currentQuestionSpan.textContent = index;
+                
+                // Gérer l'état des boutons de navigation
+                prevButton.disabled = index === 1;
+                nextButton.disabled = index === totalQuestions;
+            }
+
+            // Navigation entre les questions
+            prevButton.addEventListener('click', function() {
+                if (currentQuestionIndex > 1) {
+                    currentQuestionIndex--;
+                    showQuestion(currentQuestionIndex);
+                }
+            });
+
+            nextButton.addEventListener('click', function() {
+                if (currentQuestionIndex < totalQuestions) {
+                    currentQuestionIndex++;
+                    showQuestion(currentQuestionIndex);
+                }
+            });
+
+            // Calcul du score et affichage des résultats
+            submitButton.addEventListener('click', function() {
+                let score = 0;
+                const totalQuestions = Object.keys(correctAnswers).length;
+                
+                // Calculer le score
+                for (const question in correctAnswers) {
+                    const selectedAnswer = document.querySelector(`input[name="${question}"]:checked`);
+                    if (selectedAnswer && selectedAnswer.value === correctAnswers[question]) {
+                        score++;
+                    }
+                }
+                
+                const percentage = (score / totalQuestions) * 100;
+                
+                // Afficher le score
+                scoreValue.textContent = percentage.toFixed(0);
+                scoreBar.style.width = `${percentage}%`;
+                scoreBar.setAttribute('aria-valuenow', percentage);
+                
+                // Générer les recommandations
+                generateRecommendations(percentage, score, totalQuestions);
+                
+                // Afficher les résultats
+                resultContainer.style.display = 'block';
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // Réinitialiser le quiz
+            resetButton.addEventListener('click', function() {
+                quizForm.reset();
+                resultContainer.style.display = 'none';
+                currentQuestionIndex = 1;
+                showQuestion(currentQuestionIndex);
+            });
+
+            // Générer les recommandations basées sur le score
+            function generateRecommendations(percentage, score, totalQuestions) {
+                recommendationsDiv.innerHTML = '';
+                
+                if (percentage >= 80) {
+                    recommendationsDiv.innerHTML += `
+                        <div class="recommendation">
+                            <h5><i class="bi bi-check-circle-fill text-success"></i> Excellent travail!</h5>
+                            <p>Vous avez obtenu ${score}/${totalQuestions} bonnes réponses. Vous maîtrisez bien les concepts AgilePM. Continuez à réviser les détails pour perfectionner votre préparation.</p>
+                        </div>
+                    `;
+                } else if (percentage >= 60) {
+                    recommendationsDiv.innerHTML += `
+                        <div class="recommendation">
+                            <h5><i class="bi bi-exclamation-triangle-fill text-warning"></i> Bon score mais peut être amélioré</h5>
+                            <p>Vous avez obtenu ${score}/${totalQuestions} bonnes réponses. Concentrez-vous sur les domaines où vous avez fait des erreurs et révisez les concepts correspondants.</p>
+                        </div>
+                    `;
+                } else {
+                    recommendationsDiv.innerHTML += `
+                        <div class="recommendation">
+                            <h5><i class="bi bi-exclamation-circle-fill text-danger"></i> Besoin de plus de préparation</h5>
+                            <p>Vous avez obtenu ${score}/${totalQuestions} bonnes réponses. Nous vous recommandons de revoir les concepts fondamentaux d'AgilePM avant de passer l'examen.</p>
+                        </div>
+                    `;
+                }
+                
+                // Recommandations spécifiques basées sur les réponses incorrectes
+                let specificRecommendations = '';
+                
+                for (const question in correctAnswers) {
+                    const selectedAnswer = document.querySelector(`input[name="${question}"]:checked`);
+                    if (!selectedAnswer || selectedAnswer.value !== correctAnswers[question]) {
+                        switch(question) {
+                            case 'q1':
+                            case 'q2':
+                            case 'q3':
+                            case 'q4':
+                            case 'q5':
+                                specificRecommendations += '<li>Révisez les concepts fondamentaux du Jour 1</li>';
+                                break;
+                            case 'q6':
+                            case 'q7':
+                            case 'q8':
+                            case 'q9':
+                            case 'q10':
+                                specificRecommendations += '<li>Révisez les mécanismes d\'exécution du Jour 2</li>';
+                                break;
+                            case 'q11':
+                            case 'q12':
+                            case 'q13':
+                            case 'q14':
+                            case 'q15':
+                                specificRecommendations += '<li>Révisez les concepts avancés du Jour 3</li>';
+                                break;
+                        }
+                    }
+                }
+                
+                if (specificRecommendations) {
+                    recommendationsDiv.innerHTML += `
+                        <div class="recommendation">
+                            <h5><i class="bi bi-lightbulb-fill text-info"></i> Domaines à améliorer</h5>
+                            <ul>${specificRecommendations}</ul>
+                        </div>
+                    `;
+                }
+                
+                // Recommandations basées sur la progression des checklists
+                const day1Progress = document.querySelector('#day1-progress .progress-bar').style.width;
+                const day2Progress = document.querySelector('#day2-progress .progress-bar').style.width;
+                const day3Progress = document.querySelector('#day3-progress .progress-bar').style.width;
+                
+                if (parseInt(day1Progress) < 100) {
+                    recommendationsDiv.innerHTML += `
+                        <div class="recommendation">
+                            <h5><i class="bi bi-list-check"></i> Complétez la checklist du Jour 1</h5>
+                            <p>Assurez-vous de maîtriser tous les concepts du premier jour avant de continuer.</p>
+                        </div>
+                    `;
+                }
+                
+                if (parseInt(day2Progress) < 100) {
+                    recommendationsDiv.innerHTML += `
+                        <div class="recommendation">
+                            <h5><i class="bi bi-list-check"></i> Complétez la checklist du Jour 2</h5>
+                            <p>Les concepts du deuxième jour sont essentiels pour comprendre les mécanismes d'AgilePM.</p>
+                        </div>
+                    `;
+                }
+                
+                if (parseInt(day3Progress) < 100) {
+                    recommendationsDiv.innerHTML += `
+                        <div class="recommendation">
+                            <h5><i class="bi bi-list-check"></i> Complétez la checklist du Jour 3</h5>
+                            <p>La maîtrise des concepts du troisième jour est cruciale pour réussir l'examen.</p>
+                        </div>
+                    `;
+                }
+            }
+
+            // Mettre à jour la progression quand une case est cochée/décochée
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateProgress);
+            });
+
+            // Initialiser la progression
+            updateProgress();
+        });
+    </script>
+</body>
+</html>

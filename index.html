@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgilePM v3 - Guide Complet</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(52, 152, 219, 0.8)), url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 20px;
+            height: 100%;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 10px 10px 0 0 !important;
+            padding: 15px 20px;
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .timeline:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--secondary-color);
+            left: 50%;
+            margin-left: -2px;
+        }
+        
+        .timeline-item {
+            margin-bottom: 40px;
+            position: relative;
+            width: 50%;
+            padding-right: 30px;
+            clear: both;
+        }
+        
+        .timeline-item:nth-child(even) {
+            float: right;
+            padding-right: 0;
+            padding-left: 30px;
+        }
+        
+        .timeline-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            top: 20px;
+            right: -10px;
+        }
+        
+        .timeline-item:nth-child(even):before {
+            right: auto;
+            left: -10px;
+        }
+        
+        .comparison-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .quiz-option {
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-option:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .quiz-option.correct {
+            background-color: rgba(46, 204, 113, 0.2);
+            border-color: var(--success-color);
+        }
+        
+        .quiz-option.incorrect {
+            background-color: rgba(231, 76, 60, 0.2);
+            border-color: var(--accent-color);
+        }
+        
+        .glossary-term {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .progress-bar {
+            background-color: var(--secondary-color);
+        }
+        
+        .badge-agile {
+            background-color: var(--secondary-color);
+        }
+        
+        .key-point {
+            background-color: rgba(52, 152, 219, 0.1);
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 40px 0;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .back-to-top.show {
+            opacity: 1;
+        }
+        
+        .lifecycle-phase {
+            margin-bottom: 30px;
+            border-left: 5px solid var(--secondary-color);
+            padding-left: 20px;
+        }
+        
+        .phase-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        
+        .phase-content {
+            display: inline-block;
+            width: calc(100% - 60px);
+            vertical-align: top;
+        }
+        
+        .role-card {
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .metric-card {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+        
+        .practice-card {
+            border-top: 4px solid var(--secondary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .timeline:before {
+                left: 20px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 50px;
+                padding-right: 0;
+            }
+            
+            .timeline-item:nth-child(even) {
+                float: none;
+                padding-left: 50px;
+            }
+            
+            .timeline-item:before {
+                left: 10px;
+                right: auto;
+            }
+            
+            .timeline-item:nth-child(even):before {
+                left: 10px;
+            }
+            
+            .phase-content {
+                width: 100%;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-rocket me-2"></i>
+                AgilePM v3
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#introduction">Introduction</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#history">Historique</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#lifecycle">Cycle de Vie</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#principles">Principes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#deliverables">Livrables</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#roles">Rôles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#metrics">Métriques</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#practices">Pratiques</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#comparison">Comparaisons</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#quiz">Quiz</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#glossary">Glossaire</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h1 class="display-4 fw-bold mb-4">Agile Project Management v3</h1>
+                    <p class="lead mb-4">Maîtrisez la dernière version du framework de gestion de projet agile en moins de 30 minutes</p>
+                    <div class="d-flex justify-content-center flex-wrap gap-3">
+                        <a href="#introduction" class="btn btn-light btn-lg">Commencer</a>
+                        <a href="#quiz" class="btn btn-outline-light btn-lg">Évaluation</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Introduction -->
+    <section id="introduction" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <h2 class="section-title">Introduction à AgilePM v3</h2>
+                    <p class="lead">AgilePM (Agile Project Management) est un framework de gestion de projet qui combine la flexibilité des méthodes agiles avec la rigueur et la gouvernance d'un cadre de projet structuré.</p>
+                    
+                    <div class="row mt-5">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Nouveautés de la version 3</h5>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">Accent renforcé sur la <strong>valeur business</strong></li>
+                                        <li class="list-group-item">Intégration des <strong>pratiques DevOps</strong></li>
+                                        <li class="list-group-item">Approche plus flexible pour les <strong>équipes distribuées</strong></li>
+                                        <li class="list-group-item">Nouveaux modèles de <strong>gouvernance agile</strong></li>
+                                        <li class="list-group-item">Meilleure intégration avec les <strong>écosystèmes digitaux</strong></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Avantages clés</h5>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">Flexibilité et adaptabilité</li>
+                                        <li class="list-group-item">Livraison rapide de valeur</li>
+                                        <li class="list-group-item">Meilleure satisfaction client</li>
+                                        <li class="list-group-item">Réduction des risques</li>
+                                        <li class="list-group-item">Transparence et collaboration</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="key-point mt-4">
+                        <h5><i class="fas fa-lightbulb me-2"></i>À retenir</h5>
+                        <p class="mb-0">AgilePM v3 conserve les principes fondamentaux de DSDM (Dynamic Systems Development Method) tout en s'adaptant aux environnements de projet modernes et aux nouvelles technologies.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History -->
+    <section id="history" class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <h2 class="section-title">Historique et Évolution</h2>
+                    <p class="lead">Comprendre l'évolution d'AgilePM aide à saisir ses principes fondamentaux et son approche unique.</p>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h5>1994</h5>
+                                <p>Création de DSDM (Dynamic Systems Development Method) par un consortium d'entreprises britanniques.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h5>2001</h5>
+                                <p>Publication du Manifeste Agile, influençant toutes les méthodes agiles existantes.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h5>2010</h5>
+                                <p>Première version d'AgilePM, adaptant DSDM pour un public plus large.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h5>2014</h5>
+                                <p>AgilePM v2 introduit des améliorations basées sur les retours d'expérience.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h5>2020</h5>
+                                <p>Lancement d'AgilePM v3 avec un accent renforcé sur la valeur business et l'intégration DevOps.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lifecycle -->
+    <section id="lifecycle" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <h2 class="section-title">Cycle de Vie AgilePM v3</h2>
+                    <p class="lead">Le cycle de vie AgilePM v3 comprend 6 phases distinctes qui guident le projet de l'initiation à la réalisation de la valeur.</p>
+                    
+                    <div class="lifecycle-phase">
+                        <span class="phase-number">1</span>
+                        <div class="phase-content">
+                            <h4>Pre-project</h4>
+                            <p><strong>Objectif :</strong> S'assurer que seuls les bons projets sont lancés et qu'ils sont correctement configurés, basés sur un objectif clairement défini.</p>
+                            <p>Cette phase initiale permet de valider l'alignement stratégique du projet et de s'assurer qu'il répond à un besoin business réel avant d'engager des ressources significatives.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="lifecycle-phase">
+                        <span class="phase-number">2</span>
+                        <div class="phase-content">
+                            <h4>Feasibility</h4>
+                            <p><strong>Objectif :</strong> Effectuer une analyse initiale de haut niveau des aspects Business, Solution Development et Management du projet avec un focus principal sur la détermination de la faisabilité du projet.</p>
+                            <p>Cette phase évalue la viabilité technique, économique et opérationnelle du projet pour déterminer s'il peut être réalisé avec succès.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="lifecycle-phase">
+                        <span class="phase-number">3</span>
+                        <div class="phase-content">
+                            <h4>Foundations</h4>
+                            <p><strong>Objectif :</strong> Établir des bases solides et durables pour le projet des perspectives Business, Solution Development et Management, incluant l'accord sur un Business Case réaliste.</p>
+                            <p>Cette phase définit les fondations sur lesquelles le projet sera construit, y compris la portée, les contraintes et les approches de gestion.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="lifecycle-phase">
+                        <span class="phase-number">4</span>
+                        <div class="phase-content">
+                            <h4>Development</h4>
+                            <p><strong>Activités clés :</strong></p>
+                            <ul>
+                                <li><strong>Équipes agiles</strong> - travaillent sur une série de Sprints pour livrer des incréments de produit</li>
+                                <li><strong>Project Manager</strong> - s'assure que les éléments de solution sont synchronisés et que le déploiement est planifié. Facilite l'engagement des parties prenantes dans le Backlog Refinement et participe aux Sprint Reviews pour mesurer les progrès et encourager l'apprentissage.</li>
+                            </ul>
+                            <p>Cette phase est itérative et incrémentale, avec des livraisons régulières de valeur.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="lifecycle-phase">
+                        <span class="phase-number">5</span>
+                        <div class="phase-content">
+                            <h4>Deployment</h4>
+                            <p><strong>Trois étapes séquentielles avec des objectifs distincts :</strong></p>
+                            <ul>
+                                <li><strong>Assemble</strong> - rassembler tous les éléments de solution prêts pour le déploiement</li>
+                                <li><strong>Review</strong> - prendre la décision finale de déployer ou non la solution telle qu'elle existe actuellement et, le cas échéant, déclencher une « prochaine étape » dans l'évolution de la solution</li>
+                                <li><strong>Deploy</strong> - réaliser toutes les activités nécessaires pour mettre la solution en usage réel afin qu'elle puisse délivrer la valeur business prévue</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="lifecycle-phase">
+                        <span class="phase-number">6</span>
+                        <div class="phase-content">
+                            <h4>Realisation</h4>
+                            <p><strong>Objectif :</strong> S'assurer que la valeur latente dans la solution déployée est réellement réalisée au fil du temps.</p>
+                            <p>Cette phase finale se concentre sur la maximisation du retour sur investissement et la mesure des bénéfices business réels.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="key-point mt-4">
+                        <h5><i class="fas fa-lightbulb me-2"></i>À retenir</h5>
+                        <p class="mb-0">Le cycle de vie AgilePM v3 offre un équilibre entre flexibilité et structure, permettant une adaptation aux changements tout en maintenant une gouvernance solide tout au long du projet.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Principles -->
+    <section id="principles" class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <h2 class="section-title">Principes Fondamentaux</h2>
+                    <p class="lead">AgilePM v3 repose sur 8 principes fondamentaux qui guident toutes les activités du projet.</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">1. Focus sur les besoins business</h5>
+                                    <p class="card-text">Le projet doit toujours livrer ce qui est le plus important pour l'organisation.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">2. Livraison dans les délais</h5>
+                                    <p class="card-text">Le temps est une contrainte fixe, le périmètre est variable.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">3. Collaboration</h5>
+                                    <p class="card-text">Toutes les parties prenantes travaillent ensemble de manière transparente.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">4. Qualité sans compromis</h5>
+                                    <p class="card-text">La qualité est définie au début et maintenue tout au long du projet.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">5. Développement itératif</h5>
+                                    <p class="card-text">Le produit est développé par petits incréments testables.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">6. Démonstration continue</h5>
+                                    <p class="card-text">Des démonstrations régulières valident que le produit répond aux attentes.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">7. Communication ouverte et fréquente</h5>
+                                    <p class="card-text">L'information circule librement entre toutes les parties prenantes.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">8. Contrôle</h5>
+                                    <p class="card-text">Le projet est contrôlé par des cycles de planification et de revue courts.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deliverables -->
+    <section id="deliverables" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <h2 class="section-title">Livrables Principaux par Phase</h2>
+                    <p class="lead">AgilePM définit des livrables spécifiques pour chaque phase du cycle de vie du projet.</p>
+                    
+                    <div class="accordion mt-4" id="deliverablesAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                    Phase Pre-project
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#deliverablesAccordion">
+                                <div class="accordion-body">
+                                    <ul>
+                                        <li><strong>Terms of Reference</strong> - Document définissant les objectifs et le périmètre initial</li>
+                                        <li><strong>Project Mandate</strong> - Autorisation formelle de lancer le projet</li>
+                                        <li><strong>Outline Business Case</strong> - Justification économique initiale du projet</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                    Phase Feasibility
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#deliverablesAccordion">
+                                <div class="accordion-body">
+                                    <ul>
+                                        <li><strong>Feasibility Assessment</strong> - Évaluation de la faisabilité du projet</li>
+                                        <li><strong>Outline Solution Architecture</strong> - Architecture de solution de haut niveau</li>
+                                        <li><strong>Feasibility Report</strong> - Rapport concluant sur la viabilité du projet</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                                    Phase Foundations
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#deliverablesAccordion">
+                                <div class="accordion-body">
+                                    <ul>
+                                        <li><strong>Business Case</strong> - Justification économique détaillée</li>
+                                        <li><strong>Prioritized Requirements List (PRL)</strong> - Liste des exigences priorisées</li>
+                                        <li><strong>Solution Architecture Definition</strong> - Architecture détaillée de la solution</li>
+                                        <li><strong>Delivery Plan</strong> - Plan de livraison détaillé</li>
+                                        <li><strong>Management Approach</strong> - Approche de gestion du projet</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
+                                    Phase Development
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#deliverablesAccordion">
+                                <div class="accordion-body">
+                                    <ul>
+                                        <li><strong>Timebox Plans</strong> - Plans pour chaque timebox de développement</li>
+                                        <li><strong>Tested Solution</strong> - Solution testée et validée</li>
+                                        <li><strong>Implemented Solution</strong> - Solution implémentée</li>
+                                        <li><strong>Deployed Solution</strong> - Solution déployée en environnement cible</li>
+                                        <li><strong>Evolutionary Development Records</strong> - Documentation d'évolution de la solution</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive">
+                                    Phase Deployment
+                                </button>
+                            </h2>
+                            <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#deliverablesAccordion">
+                                <div class="accordion-body">
+                                    <ul>
+                                        <li><strong>Deployment Plan</strong> - Plan de déploiement détaillé</li>
+                                        <li><strong>Assembled Solution</strong> - Solution assemblée et prête au déploiement</li>
+                                        <li><strong>Deployment Review Report</strong> - Rapport d'évaluation pré-déploiement</li>
+                                        <li><strong>Deployed Solution</strong> - Solution déployée en production</li>
+                                        <li><strong>User Documentation</strong> - Documentation utilisateur finale</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix">
+                                    Phase Realisation
+                                </button>
+                            </h2>
+                            <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#deliverablesAccordion">
+                                <div class="accordion-body">
+                                    <ul>
+                                        <li><strong>Benefits Assessment</strong> - Évaluation des bénéfices réalisés</li>
+                                        <li><strong>Project Review Report</strong> - Rapport de revue du projet</li>
+                                        <li><strong>Lessons Learned Report</strong> - Rapport des leçons apprises</li>
+                                        <li><strong>Benefits Realization Plan</strong> - Plan de réalisation des bénéfices</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roles -->
+    <section id="roles" class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <h2 class="section-title">Rôles et Responsabilités</h2>
+                    <p class="lead">AgilePM définit des rôles clairs avec des responsabilités spécifiques pour assurer le succès du projet.</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 role-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Business Sponsor</h5>
+                                    <p class="card-text">Représente l'entreprise, prend les décisions finales et est responsable du succès business du projet.</p>
+                                    <ul>
+                                        <li>Définit la vision business</li>
+                                        <li>Approuve le budget et les ressources</li>
+                                        <li>Prend les décisions stratégiques</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 role-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Project Manager</h5>
+                                    <p class="card-text">Responsable de la gestion du projet selon les principes AgilePM et de la livraison dans les contraintes.</p>
+                                    <ul>
+                                        <li>Planifie et contrôle le projet</li>
+                                        <li>Facilite la communication</li>
+                                        <li>Gère les risques et issues</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 role-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Business Analyst</h5>
+                                    <p class="card-text">Facilite la communication entre les parties prenantes business et techniques.</p>
+                                    <ul>
+                                        <li>Élabore les exigences</li>
+                                        <li>Facilite les ateliers</li>
+                                        <li>Assure l'alignement business/technique</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 role-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Team Leader</h5>
+                                    <p class="card-text">Responsable de l'équipe de développement et de la livraison des incréments de solution.</p>
+                                    <ul>
+                                        <li>Coordonne les activités de développement</li>
+                                        <li>Assure la qualité technique</li>
+                                        <li>Facilite la collaboration d'équipe</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 role-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Business Ambassador</h5>
+                                    <p class="card-text">Représente les utilisateurs finaux et le métier au sein de l'équipe projet.</p>
+                                    <ul>
+                                        <li>Fournit l'expertise métier</li>
+                                        <li>Prend des décisions au jour le jour</li>
+                                        <li>Valide les livrables</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 role-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Solution Developer</h5>
+                                    <p class="card-text">Responsable de la conception, construction et test des éléments de solution.</p>
+                                    <ul>
+                                        <li>Développe les composants solution</li>
+                                        <li>Participe aux tests</li>
+                                        <li>Documente les aspects techniques</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Metrics -->
+    <section id="metrics" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <h2 class="section-title">Métriques et Mesures</h2>
+                    <p class="lead">AgilePM v3 utilise des métriques spécifiques pour suivre les progrès et mesurer le succès du projet.</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 metric-card">
+                                <div class="metric-value">95%</div>
+                                <h5>Business Value Delivered</h5>
+                                <p>Pourcentage de la valeur business prioritaire livrée par rapport aux objectifs initiaux.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 metric-card">
+                                <div class="metric-value">85%</div>
+                                <h5>Timebox Adherence</h5>
+                                <p>Taux d'adhésion aux timeboxes planifiés, mesurant la prévisibilité des livraisons.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 metric-card">
+                                <div class="metric-value">12</div>
+                                <h5>Velocity</h5>
+                                <p>Nombre moyen d'éléments de backlog livrés par sprint, indicateur de capacité d'équipe.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 metric-card">
+                                <div class="metric-value">98%</div>
+                                <h5>Quality Metrics</h5>
+                                <p>Taux de réussite aux tests automatisés et manuels, indicateur de qualité de la solution.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 metric-card">
+                                <div class="metric-value">4.5/5</div>
+                                <h5>Stakeholder Satisfaction</h5>
+                                <p>Niveau de satisfaction des parties prenantes mesuré régulièrement pendant le projet.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 metric-card">
+                                <div class="metric-value">15%</div>
+                                <h5>ROI Improvement</h5>
+                                <p>Amélioration du retour sur investissement grâce aux pratiques AgilePM v3.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="key-point mt-4">
+                        <h5><i class="fas fa-chart-line me-2"></i>À retenir</h5>
+                        <p class="mb-0">Les métriques AgilePM v3 se concentrent sur la valeur business livrée plutôt que sur le simple suivi des tâches accomplies. L'accent est mis sur l'impact business réel plutôt que sur l'activité.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Practices -->
+    <section id="practices" class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <h2 class="section-title">Pratiques Recommandées</h2>
+                    <p class="lead">AgilePM v3 recommande un ensemble de pratiques éprouvées pour maximiser les chances de succès des projets.</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 practice-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">MoSCoW Prioritization</h5>
+                                    <p class="card-text">Technique de priorisation qui classe les exigences en quatre catégories : Must have, Should have, Could have, et Won't have.</p>
+                                    <ul>
+                                        <li>Facilite la prise de décision</li>
+                                        <li>Clarifie les attentes</li>
+                                        <li>Permet des compromis éclairés</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 practice-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Timeboxing</h5>
+                                    <p class="card-text">Pratique consistant à allouer des périodes fixes pour réaliser des activités spécifiques, avec des livrables définis.</p>
+                                    <ul>
+                                        <li>Améliore la focus et la discipline</li>
+                                        <li>Facilite la planification</li>
+                                        <li>Réduit les dérives de périmètre</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 practice-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Iterative Development</h5>
+                                    <p class="card-text">Approche de développement par petits incréments, chacun ajoutant de la valeur et étant potentiellement livrable.</p>
+                                    <ul>
+                                        <li>Réduit les risques</li>
+                                        <li>Permet des retours précoces</li>
+                                        <li>Facilite l'adaptation aux changements</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 practice-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Facilitated Workshops</h5>
+                                    <p class="card-text">Sessions collaboratives structurées pour résoudre des problèmes, prendre des décisions ou créer des livrables.</p>
+                                    <ul>
+                                        <li>Accélère la prise de décision</li>
+                                        <li>Améliore l'engagement</li>
+                                        <li>Favorise l'alignement</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 practice-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Modeling</h5>
+                                    <p class="card-text">Création de représentations visuelles des aspects du système pour faciliter la compréhension et la communication.</p>
+                                    <ul>
+                                        <li>Clarifie les concepts complexes</li>
+                                        <li>Facilite les revues</li>
+                                        <li>Améliore la qualité</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 practice-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Frequent Demonstration</h5>
+                                    <p class="card-text">Pratique consistant à montrer régulièrement les progrès aux parties prenantes pour validation et feedback.</p>
+                                    <ul>
+                                        <li>Valide la direction</li>
+                                        <li>Identifie les écarts tôt</li>
+                                        <li>Renforce la confiance</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison -->
+    <section id="comparison" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <h2 class="section-title">Comparaison avec Autres Méthodes</h2>
+                    <p class="lead">AgilePM se distingue des autres frameworks de gestion de projet par son approche équilibrée.</p>
+                    
+                    <div class="table-responsive mt-4">
+                        <table class="table table-striped table-hover comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Méthode</th>
+                                    <th>Focus Principal</th>
+                                    <th>Flexibilité</th>
+                                    <th>Gouvernance</th>
+                                    <th>Meilleur Pour</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>AgilePM</strong></td>
+                                    <td>Équilibre entre agilité et gouvernance</td>
+                                    <td>Élevée (périmètre variable)</td>
+                                    <td>Solide</td>
+                                    <td>Projets avec contraintes business fortes</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Scrum</strong></td>
+                                    <td>Livraison itérative</td>
+                                    <td>Élevée</td>
+                                    <td>Légère</td>
+                                    <td>Équipes petites et autonomes</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>PRINCE2</strong></td>
+                                    <td>Contrôle et gouvernance</td>
+                                    <td>Faible</td>
+                                    <td>Très solide</td>
+                                    <td>Environnements fortement réglementés</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>PMP</strong></td>
+                                    <td>Processus standardisés</td>
+                                    <td>Faible</td>
+                                    <td>Solide</td>
+                                    <td>Grands projets complexes</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Kanban</strong></td>
+                                    <td>Amélioration continue du flux</td>
+                                    <td>Élevée</td>
+                                    <td>Légère</td>
+                                    <td>Maintenance et amélioration continue</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Lean</strong></td>
+                                    <td>Élimination des gaspillages</td>
+                                    <td>Élevée</td>
+                                    <td>Variable</td>
+                                    <td>Optimisation des processus</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="row mt-5">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Points forts d'AgilePM</h5>
+                                </div>
+                                <div class="card-body">
+                                    <ul>
+                                        <li>Cadre complet avec gouvernance intégrée</li>
+                                        <li>Équilibre entre flexibilité et contrôle</li>
+                                        <li>Adaptable à différents types de projets</li>
+                                        <li>Focus sur la valeur business</li>
+                                        <li>Approche pragmatique et éprouvée</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Quand utiliser AgilePM</h5>
+                                </div>
+                                <div class="card-body">
+                                    <ul>
+                                        <li>Projets avec délais fixes</li>
+                                        <li>Environnements nécessitant une gouvernance</li>
+                                        <li>Projets avec exigences changeantes</li>
+                                        <li>Organisations en transition agile</li>
+                                        <li>Projets de taille moyenne à grande</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz -->
+    <section id="quiz" class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <h2 class="section-title">Quiz d'Évaluation</h2>
+                    <p class="lead">Testez vos connaissances sur AgilePM v3 avec ce quiz de 20 questions.</p>
+                    
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h5 class="mb-0">Question <span id="current-question">1</span>/20</h5>
+                            <div class="progress mt-2">
+                                <div class="progress-bar" role="progressbar" style="width: 5%" id="quiz-progress"></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 id="question-text">What is the primary focus of AgilePM?</h5>
+                            
+                            <div id="options-container">
+                                <div class="quiz-option" data-correct="false">
+                                    A. Maximizing team velocity
+                                </div>
+                                <div class="quiz-option" data-correct="true">
+                                    B. Delivering business value
+                                </div>
+                                <div class="quiz-option" data-correct="false">
+                                    C. Following a strict process
+                                </div>
+                                <div class="quiz-option" data-correct="false">
+                                    D. Minimizing documentation
+                                </div>
+                            </div>
+                            
+                            <div id="explanation" class="mt-3 p-3 bg-light rounded d-none">
+                                <h6>Explanation:</h6>
+                                <p id="explanation-text">AgilePM focuses on delivering business value through iterative development and continuous alignment with business needs.</p>
+                            </div>
+                            
+                            <div class="d-flex justify-content-between mt-4">
+                                <button class="btn btn-secondary" id="prev-btn" disabled>Previous</button>
+                                <button class="btn btn-primary" id="next-btn">Next Question</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mt-4 d-none" id="results-card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Quiz Results</h5>
+                        </div>
+                        <div class="card-body text-center">
+                            <h3 id="score-text">Your Score: 0/20</h3>
+                            <p id="performance-message" class="lead">Based on your score, we recommend reviewing the fundamentals of AgilePM.</p>
+                            <button class="btn btn-primary mt-3" id="restart-btn">Restart Quiz</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Glossary -->
+    <section id="glossary" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <h2 class="section-title">Glossaire</h2>
+                    <p class="lead">Termes clés et définitions dans AgilePM v3.</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <dl>
+                                <dt class="glossary-term">Business Case</dt>
+                                <dd>Document justifiant le projet en termes de bénéfices, coûts et risques.</dd>
+                                
+                                <dt class="glossary-term">MoSCoW</dt>
+                                <dd>Technique de priorisation: Must have, Should have, Could have, Won't have.</dd>
+                                
+                                <dt class="glossary-term">Timebox</dt>
+                                <dd>Période fixe pendant laquelle une activité doit être réalisée.</dd>
+                                
+                                <dt class="glossary-term">Solution Development Team</dt>
+                                <dd>Équipe responsable du développement de la solution.</dd>
+                                
+                                <dt class="glossary-term">Project Approach Questionnaire</dt>
+                                <dd>Questionnaire permettant de déterminer l'approche appropriée pour le projet.</dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-6">
+                            <dl>
+                                <dt class="glossary-term">Facilitated Workshop</dt>
+                                <dd>Session collaborative structurée pour résoudre des problèmes ou prendre des décisions.</dd>
+                                
+                                <dt class="glossary-term">Prioritized Requirements List (PRL)</dt>
+                                <dd>Liste des exigences du projet classées par priorité.</dd>
+                                
+                                <dt class="glossary-term">Incremental Delivery</dt>
+                                <dd>Livraison du produit par petits incréments fonctionnels.</dd>
+                                
+                                <dt class="glossary-term">Empowered Team</dt>
+                                <dd>Équipe ayant l'autorité de prendre des décisions sur la mise en œuvre.</dd>
+                                
+                                <dt class="glossary-term">Project Manager</dt>
+                                <dd>Rôle responsable de la gestion du projet selon les principes AgilePM.</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exam Preparation -->
+    <section id="exam-prep" class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <h2 class="section-title">Préparation à l'Examen</h2>
+                    <p class="lead">Conseils et stratégies pour réussir la certification AgilePM v3.</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Structure de l'Examen</h5>
+                                </div>
+                                <div class="card-body">
+                                    <ul>
+                                        <li><strong>Format:</strong> Examen en ligne surveillé</li>
+                                        <li><strong>Durée:</strong> 60 minutes</li>
+                                        <li><strong>Questions:</strong> 50 questions à choix multiples</li>
+                                        <li><strong>Score de passage:</strong> 50% (25/50)</li>
+                                        <li><strong>Prérequis:</strong> Aucun, mais une expérience en gestion de projet est recommandée</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Domaines Clés</h5>
+                                </div>
+                                <div class="card-body">
+                                    <ul>
+                                        <li>Philosophie et principes (20%)</li>
+                                        <li>Préparation et définition (20%)</li>
+                                        <li>Cycle de vie du projet (20%)</li>
+                                        <li>Produits et livrables (15%)</li>
+                                        <li>Rôles et responsabilités (15%)</li>
+                                        <li>Techniques et pratiques (10%)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h5 class="mb-0">Conseils de Préparation</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6>Étude des Concepts</h6>
+                                    <ul>
+                                        <li>Maîtriser les 8 principes fondamentaux</li>
+                                        <li>Comprendre le cycle de vie du projet</li>
+                                        <li>Mémoriser les rôles et responsabilités</li>
+                                        <li>Connaître les produits et livrables</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>Stratégies d'Examen</h6>
+                                    <ul>
+                                        <li>Lire attentivement chaque question</li>
+                                        <li>Éliminer les options manifestement incorrectes</li>
+                                        <li>Gérer son temps (environ 1 minute par question)</li>
+                                        <li>Revoir les questions difficiles en fin d'examen</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="key-point mt-4">
+                        <h5><i class="fas fa-check-circle me-2"></i>À retenir pour l'examen</h5>
+                        <p class="mb-0">L'examen AgilePM Foundation teste votre compréhension des concepts et principes plutôt que votre capacité à mémoriser des détails. Concentrez-vous sur la compréhension de la philosophie et de l'approche globale.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>AgilePM v3 - Guide Complet</h5>
+                    <p>Ce portail éducatif fournit une vue d'ensemble complète d'AgilePM v3 pour faciliter l'apprentissage et la préparation à la certification.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Liens Rapides</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#introduction" class="text-light">Introduction</a></li>
+                        <li><a href="#lifecycle" class="text-light">Cycle de Vie</a></li>
+                        <li><a href="#roles" class="text-light">Rôles</a></li>
+                        <li><a href="#quiz" class="text-light">Quiz</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Ressources</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">Site Officiel AgilePM</a></li>
+                        <li><a href="#" class="text-light">Guide d'Étude</a></li>
+                        <li><a href="#" class="text-light">Simulateurs d'Examen</a></li>
+                        <li><a href="#" class="text-light">Formations Certifiantes</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-light">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2023 AgilePM v3 Guide. À des fins éducatives seulement.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">Conçu pour l'apprentissage accéléré en moins de 30 minutes</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Quiz questions data
+        const quizQuestions = [
+            {
+                question: "What is the primary focus of AgilePM?",
+                options: [
+                    "Maximizing team velocity",
+                    "Delivering business value",
+                    "Following a strict process",
+                    "Minimizing documentation"
+                ],
+                correct: 1,
+                explanation: "AgilePM focuses on delivering business value through iterative development and continuous alignment with business needs."
+            },
+            {
+                question: "Which of the following is NOT one of the 8 principles of AgilePM?",
+                options: [
+                    "Focus on the business need",
+                    "Deliver on time",
+                    "Never compromise quality",
+                    "Maximize team size for efficiency"
+                ],
+                correct: 3,
+                explanation: "Maximizing team size is not an AgilePM principle. In fact, AgilePM emphasizes collaborative teams of appropriate size."
+            },
+            {
+                question: "What does the MoSCoW prioritization technique stand for?",
+                options: [
+                    "Must, Should, Could, Won't",
+                    "Major, Secondary, Critical, Optional, Wish",
+                    "Mandatory, Strategic, Conditional, Optional, Wishlist",
+                    "Mission, Strategy, Capability, Objective, Wish"
+                ],
+                correct: 0,
+                explanation: "MoSCoW stands for Must have, Should have, Could have, and Won't have - a prioritization technique used in AgilePM."
+            },
+            {
+                question: "In AgilePM, what is a Timebox?",
+                options: [
+                    "A fixed period for planning the entire project",
+                    "A fixed period for a specific activity with a defined deadline",
+                    "A flexible period that can be extended if needed",
+                    "A period dedicated exclusively to testing"
+                ],
+                correct: 1,
+                explanation: "A Timebox is a fixed period for a specific activity with a defined deadline, helping to maintain focus and discipline."
+            },
+            {
+                question: "Which role in AgilePM is responsible for ensuring the project delivers value?",
+                options: [
+                    "Project Manager",
+                    "Business Analyst",
+                    "Business Ambassador",
+                    "Solution Developer"
+                ],
+                correct: 2,
+                explanation: "The Business Ambassador represents business interests and ensures the project delivers value to the organization."
+            },
+            {
+                question: "What is the main purpose of the Feasibility Assessment in AgilePM?",
+                options: [
+                    "To create a detailed project plan",
+                    "To determine if the project is viable and worthwhile",
+                    "To assign team roles and responsibilities",
+                    "To define the technical architecture"
+                ],
+                correct: 1,
+                explanation: "The Feasibility Assessment evaluates whether the project is viable, achievable, and worthwhile before committing significant resources."
+            },
+            {
+                question: "Which AgilePM principle emphasizes that requirements can change throughout the project?",
+                options: [
+                    "Collaborate",
+                    "Develop iteratively",
+                    "Communicate continuously and clearly",
+                    "Demonstrate control"
+                ],
+                correct: 1,
+                explanation: "The 'Develop iteratively' principle acknowledges that requirements can change and evolve throughout the project lifecycle."
+            },
+            {
+                question: "What is the Prioritized Requirements List (PRL) used for in AgilePM?",
+                options: [
+                    "To track team velocity",
+                    "To manage the project budget",
+                    "To capture and prioritize project requirements",
+                    "To schedule team meetings"
+                ],
+                correct: 2,
+                explanation: "The PRL captures all requirements and prioritizes them using techniques like MoSCoW to guide development efforts."
+            },
+            {
+                question: "In AgilePM, what is the purpose of the Solution Architecture Definition?",
+                options: [
+                    "To define the business processes",
+                    "To outline the high-level structure of the solution",
+                    "To create user documentation",
+                    "To plan testing activities"
+                ],
+                correct: 1,
+                explanation: "The Solution Architecture Definition outlines the high-level structure of the solution, including technical components and their relationships."
+            },
+            {
+                question: "Which of the following is a key difference between AgilePM and Scrum?",
+                options: [
+                    "AgilePM has fixed roles while Scrum doesn't",
+                    "AgilePM includes more formal governance",
+                    "Scrum doesn't support iterative development",
+                    "AgilePM doesn't have time-boxed iterations"
+                ],
+                correct: 1,
+                explanation: "AgilePM includes more formal governance structures compared to Scrum's lighter framework, making it suitable for organizations requiring more control."
+            },
+            {
+                question: "What is the main responsibility of the Project Manager in AgilePM?",
+                options: [
+                    "To develop the technical solution",
+                    "To represent business interests",
+                    "To facilitate daily stand-up meetings",
+                    "To manage the project and ensure it stays on track"
+                ],
+                correct: 3,
+                explanation: "The Project Manager in AgilePM is responsible for managing the project, facilitating communication, and ensuring it stays on track to deliver business value."
+            },
+            {
+                question: "Which AgilePM principle states that 'the right quality is built in from the start'?",
+                options: [
+                    "Focus on the business need",
+                    "Never compromise quality",
+                    "Build incrementally from firm foundations",
+                    "Develop iteratively"
+                ],
+                correct: 1,
+                explanation: "The 'Never compromise quality' principle emphasizes that the right quality should be built in from the start rather than added later."
+            },
+            {
+                question: "What is the purpose of Facilitated Workshops in AgilePM?",
+                options: [
+                    "To provide training to team members",
+                    "To collaboratively solve problems and make decisions",
+                    "To demonstrate the solution to stakeholders",
+                    "To conduct performance reviews"
+                ],
+                correct: 1,
+                explanation: "Facilitated Workshops bring stakeholders together to collaboratively solve problems, make decisions, and reach consensus quickly."
+            },
+            {
+                question: "In AgilePM, what does the term 'Empowered Team' mean?",
+                options: [
+                    "A team that can change project deadlines",
+                    "A team that has authority to make implementation decisions",
+                    "A team that reports directly to senior management",
+                    "A team that works without any supervision"
+                ],
+                correct: 1,
+                explanation: "An Empowered Team has the authority to make decisions about how to implement the solution within the agreed constraints."
+            },
+            {
+                question: "Which document in AgilePM justifies the project in terms of benefits, costs, and risks?",
+                options: [
+                    "Project Brief",
+                    "Business Case",
+                    "Feasibility Assessment",
+                    "Outline Plan"
+                ],
+                correct: 1,
+                explanation: "The Business Case documents the justification for the project, including expected benefits, costs, and risks."
+            },
+            {
+                question: "What is the main purpose of the Project Approach Questionnaire in AgilePM?",
+                options: [
+                    "To evaluate team member skills",
+                    "To determine the most suitable approach for the project",
+                    "To gather requirements from stakeholders",
+                    "To assess project risks"
+                ],
+                correct: 1,
+                explanation: "The Project Approach Questionnaire helps determine the most suitable approach for the project based on its characteristics and constraints."
+            },
+            {
+                question: "Which AgilePM role is responsible for the technical aspects of the solution?",
+                options: [
+                    "Business Ambassador",
+                    "Solution Developer",
+                    "Technical Coordinator",
+                    "Project Manager"
+                ],
+                correct: 2,
+                explanation: "The Technical Coordinator is responsible for the technical aspects of the solution and ensuring it meets quality standards."
+            },
+            {
+                question: "What is Incremental Delivery in AgilePM?",
+                options: [
+                    "Delivering documentation before the solution",
+                    "Delivering the solution in small, functional pieces",
+                    "Delivering the entire solution at the end of the project",
+                    "Delivering only the most critical features"
+                ],
+                correct: 1,
+                explanation: "Incremental Delivery means delivering the solution in small, functional pieces that provide value to the business as early as possible."
+            },
+            {
+                question: "Which phase in the AgilePM lifecycle comes after the Feasibility phase?",
+                options: [
+                    "Post-Project",
+                    "Development",
+                    "Foundation",
+                    "Evolution"
+                ],
+                correct: 2,
+                explanation: "After the Feasibility phase comes the Foundation phase, where the project foundations are established before development begins."
+            },
+            {
+                question: "What is the main benefit of using AgilePM over traditional waterfall approaches?",
+                options: [
+                    "More detailed documentation",
+                    "Better ability to accommodate changing requirements",
+                    "Stricter control over project scope",
+                    "Less stakeholder involvement"
+                ],
+                correct: 1,
+                explanation: "AgilePM's iterative approach provides better ability to accommodate changing requirements compared to traditional waterfall methods."
+            }
+        ];
+
+        // Quiz state
+        let currentQuestion = 0;
+        let userAnswers = new Array(quizQuestions.length).fill(null);
+        let quizCompleted = false;
+
+        // DOM elements
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const explanationDiv = document.getElementById('explanation');
+        const explanationText = document.getElementById('explanation-text');
+        const currentQuestionSpan = document.getElementById('current-question');
+        const quizProgress = document.getElementById('quiz-progress');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const resultsCard = document.getElementById('results-card');
+        const scoreText = document.getElementById('score-text');
+        const performanceMessage = document.getElementById('performance-message');
+        const restartBtn = document.getElementById('restart-btn');
+
+        // Initialize quiz
+        function initQuiz() {
+            displayQuestion(currentQuestion);
+            updateProgress();
+            
+            // Event listeners
+            prevBtn.addEventListener('click', goToPreviousQuestion);
+            nextBtn.addEventListener('click', goToNextQuestion);
+            restartBtn.addEventListener('click', restartQuiz);
+        }
+
+        // Display current question
+        function displayQuestion(index) {
+            const question = quizQuestions[index];
+            questionText.textContent = question.question;
+            
+            // Clear previous options
+            optionsContainer.innerHTML = '';
+            
+            // Create new options
+            question.options.forEach((option, i) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'quiz-option';
+                if (userAnswers[index] === i) {
+                    optionElement.classList.add(question.correct === i ? 'correct' : 'incorrect');
+                }
+                optionElement.textContent = `${String.fromCharCode(65 + i)}. ${option}`;
+                optionElement.dataset.index = i;
+                optionElement.addEventListener('click', () => selectOption(i));
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // Update navigation buttons
+            prevBtn.disabled = index === 0;
+            
+            if (index === quizQuestions.length - 1) {
+                nextBtn.textContent = 'Finish Quiz';
+            } else {
+                nextBtn.textContent = 'Next Question';
+            }
+            
+            // Show/hide explanation
+            if (userAnswers[index] !== null) {
+                explanationText.textContent = question.explanation;
+                explanationDiv.classList.remove('d-none');
+            } else {
+                explanationDiv.classList.add('d-none');
+            }
+            
+            // Update question counter
+            currentQuestionSpan.textContent = index + 1;
+        }
+
+        // Select an option
+        function selectOption(optionIndex) {
+            if (quizCompleted) return;
+            
+            userAnswers[currentQuestion] = optionIndex;
+            displayQuestion(currentQuestion);
+        }
+
+        // Go to next question
+        function goToNextQuestion() {
+            if (currentQuestion === quizQuestions.length - 1) {
+                finishQuiz();
+            } else {
+                currentQuestion++;
+                displayQuestion(currentQuestion);
+                updateProgress();
+            }
+        }
+
+        // Go to previous question
+        function goToPreviousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                displayQuestion(currentQuestion);
+                updateProgress();
+            }
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / quizQuestions.length) * 100;
+            quizProgress.style.width = `${progress}%`;
+        }
+
+        // Finish quiz and show results
+        function finishQuiz() {
+            quizCompleted = true;
+            
+            // Calculate score
+            let score = 0;
+            userAnswers.forEach((answer, index) => {
+                if (answer === quizQuestions[index].correct) {
+                    score++;
+                }
+            });
+            
+            // Display results
+            scoreText.textContent = `Your Score: ${score}/${quizQuestions.length}`;
+            
+            // Performance message
+            let message = '';
+            if (score >= 18) {
+                message = 'Excellent! You have a strong understanding of AgilePM v3.';
+            } else if (score >= 15) {
+                message = 'Good job! You have a solid understanding but could benefit from reviewing some areas.';
+            } else if (score >= 10) {
+                message = 'You have a basic understanding but should review the material more thoroughly.';
+            } else {
+                message = 'We recommend studying the AgilePM v3 fundamentals before attempting the certification.';
+            }
+            performanceMessage.textContent = message;
+            
+            // Show results card
+            resultsCard.classList.remove('d-none');
+        }
+
+        // Restart quiz
+        function restartQuiz() {
+            currentQuestion = 0;
+            userAnswers = new Array(quizQuestions.length).fill(null);
+            quizCompleted = false;
+            resultsCard.classList.add('d-none');
+            displayQuestion(currentQuestion);
+            updateProgress();
+        }
+
+        // Back to top button
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initQuiz);
+    </script>
+</body>
+</html>

@@ -1,0 +1,2939 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portail de Révision AgilePM® v3 - Score >95% Garanti</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --business: #3b82f6;
+            --solution: #10b981;
+            --project: #f59e0b;
+            --support: #8b5cf6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--dark);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        
+        .tagline {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .score-badge {
+            display: inline-block;
+            background: var(--success);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .tab-btn {
+            padding: 12px 25px;
+            background: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .tab-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .content-section {
+            display: none;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        h3 {
+            color: var(--secondary);
+            margin: 25px 0 15px;
+        }
+        
+        h4 {
+            color: var(--primary);
+            margin: 20px 0 10px;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 20px 0;
+        }
+        
+        .card {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .card.business { border-left-color: var(--business); }
+        .card.solution { border-left-color: var(--solution); }
+        .card.project { border-left-color: var(--project); }
+        .card.support { border-left-color: var(--support); }
+        
+        .role-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .badge-business { background: var(--business); color: white; }
+        .badge-solution { background: var(--solution); color: white; }
+        .badge-project { background: var(--project); color: white; }
+        .badge-support { background: var(--support); color: white; }
+        
+        .mnemo-box {
+            background: #e0f2fe;
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .tip-box {
+            background: #f0fdf4;
+            border-left: 4px solid var(--success);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid var(--warning);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .danger-box {
+            background: #fee2e2;
+            border-left: 4px solid var(--danger);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        th {
+            background: var(--light);
+            color: var(--primary);
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        
+        tr:hover {
+            background: #f8fafc;
+        }
+        
+        .phase-timeline {
+            display: flex;
+            overflow-x: auto;
+            padding: 20px 0;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .phase-item {
+            min-width: 280px;
+            background: var(--light);
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--primary);
+        }
+        
+        .phase-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            line-height: 40px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .phase-roles {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        
+        .quiz-container {
+            background: var(--light);
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+        
+        .quiz-question {
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .quiz-option {
+            padding: 12px 18px;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .quiz-option:hover {
+            background: #f1f5f9;
+        }
+        
+        .quiz-option.correct {
+            background: #d1fae5;
+            border-left: 4px solid var(--success);
+        }
+        
+        .quiz-option.incorrect {
+            background: #fee2e2;
+            border-left: 4px solid var(--danger);
+        }
+        
+        .result-box {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .result-correct {
+            background: #d1fae5;
+            color: var(--success);
+        }
+        
+        .result-incorrect {
+            background: #fee2e2;
+            color: var(--danger);
+        }
+        
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+        
+        .concept-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: white;
+            margin-top: 30px;
+        }
+        
+        .role-group {
+            margin: 30px 0;
+            padding: 20px;
+            background: var(--light);
+            border-radius: 10px;
+        }
+        
+        .role-group h3 {
+            margin-top: 0;
+        }
+
+        .quiz-stats {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--success);
+            transition: width 0.3s;
+        }
+
+        .exam-tip {
+            background: #fff3cd;
+            border-left: 4px solid var(--warning);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .comparison-table {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .card-grid, .concept-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .phase-timeline {
+                flex-direction: column;
+            }
+            
+            .phase-item {
+                min-width: auto;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Portail de Révision AgilePM® v3</h1>
+            <div class="tagline">Guide Complet pour Obtenir Plus de 95% à l'Examen</div>
+            <div class="score-badge">Stratégies validées par les meilleurs scores</div>
+            <p>Basé sur l'analyse des retours d'expérience et des points clés de certification</p>
+        </header>
+        
+        <div class="nav-tabs">
+            <button class="tab-btn active" data-target="principles">✨ 8 Principes</button>
+            <button class="tab-btn" data-target="elements">⚛️ 5 Éléments</button>
+            <button class="tab-btn" data-target="concepts">🔑 Concepts Clés</button>
+            <button class="tab-btn" data-target="roles">👥 Rôles & Responsabilités</button>
+            <button class="tab-btn" data-target="process">🔄 Processus & Phases</button>
+            <button class="tab-btn" data-target="products">📝 Work Products</button>
+            <button class="tab-btn" data-target="timebox">⏱️ Timebox Détaillé</button>
+            <button class="tab-btn" data-target="moscow">🎯 MoSCoW v3</button>
+            <button class="tab-btn" data-target="scrum">🔄 AgilePM vs Scrum</button>
+            <button class="tab-btn" data-target="quiz">🧠 Quiz d'Entraînement</button>
+        </div>
+        
+        <!-- Section 8 Principes - CONTENU TRIPLÉ -->
+        <section id="principles" class="content-section active">
+            <h2>✨ Les 8 Principes Fondamentaux AgilePM® (DSDM)</h2>
+            
+            <div class="tip-box">
+                <strong>🎯 STRATÉGIE EXAMEN :</strong> Les 8 principes représentent la philosophie de base d'AgilePM. 
+                Ils sont testés indirectement dans de nombreuses questions. Comprenez l'esprit derrière chaque principe !
+            </div>
+
+            <div class="exam-tip">
+                <strong>💡 CONSEIL ULTIME :</strong> Mémorisez les 8 principes dans l'ordre et comprenez comment ils s'appliquent dans des scénarios pratiques.
+            </div>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h4>1. Focus on the Business Need</h4>
+                    <p><strong>Objectif :</strong> Toutes les décisions doivent être alignées sur les objectifs business et créer de la valeur pour l'organisation.</p>
+                    <p><strong>Application pratique :</strong> Le Business Case doit rester vivant et être régulièrement révisé.</p>
+                    <p><strong>Exemple concret :</strong> Si une fonctionnalité ne contribue pas directement aux objectifs business, elle doit être remise en question.</p>
+                    <div class="tip-box">
+                        <strong>📋 Work Product associé :</strong> Business Case, Business Vision, Benefits Assessment
+                    </div>
+                    <div class="warning-box">
+                        <strong>⚠️ Piège examen :</strong> Ne pas confondre avec "livrer toutes les fonctionnalités demandées". 
+                        L'objectif est la valeur business, pas le scope.
+                    </div>
+                    <div class="mnemo-box">
+                        <strong>🎯 Question type :</strong> "Quel principe justifie de reprioriser les exigences en cours de projet ?" → Focus on Business Need
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4>2. Deliver on Time</h4>
+                    <p><strong>Objectif :</strong> La livraison ponctuelle d'incréments permet de limiter les risques et de démontrer le progrès réel.</p>
+                    <p><strong>Application pratique :</strong> Les délais des Timeboxes sont fixes, le scope est variable (via MoSCoW).</p>
+                    <p><strong>Mécanisme :</strong> Timeboxing avec dates fixes pour chaque incrément de livraison.</p>
+                    <div class="mnemo-box">
+                        <strong>💡 Mnémotechnique :</strong> "Time Fixed, Scope Variable"
+                    </div>
+                    <div class="danger-box">
+                        <strong>🚨 ERREUR :</strong> Étendre les délais plutôt que d'ajuster le scope = violation du principe
+                    </div>
+                    <div class="tip-box">
+                        <strong>📊 Métrique clé :</strong> Ponctualité des livraisons d'incréments
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4>3. Collaborate</h4>
+                    <p><strong>Objectif :</strong> Adopter une approche "nous contre le problème" plutôt que "nous contre eux".</p>
+                    <p><strong>Application pratique :</strong> Implication continue des rôles Business dans le processus de développement.</p>
+                    <p><strong>Manifestations :</strong> Co-localisation, ateliers collaboratifs, démonstrations fréquentes.</p>
+                    <div class="tip-box">
+                        <strong>👥 Rôles clés :</strong> Business Ambassador, Business Visionary, toute l'équipe projet
+                    </div>
+                    <div class="warning-box">
+                        <strong>📝 Contre-exemple :</strong> Développement en silo sans interaction avec le métier
+                    </div>
+                    <div class="mnemo-box">
+                        <strong>🤝 Comportement attendu :</strong> Communication ouverte, feedback constructif, résolution collective des problèmes
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4>4. Never Compromise Quality</h4>
+                    <p><strong>Objectif :</strong> La qualité est définie au départ et ne peut être compromise pour respecter les délais.</p>
+                    <p><strong>Application pratique :</strong> On réduit le scope (Should/Could Have), jamais la qualité.</p>
+                    <p><strong>Définition de la qualité :</strong> Prédéfinie et acceptée par toutes les parties prenantes.</p>
+                    <div class="danger-box">
+                        <strong>🚨 ERREUR FRÉQUENTE :</strong> Réduire la qualité pour tenir les délais = violation du principe
+                    </div>
+                    <div class="tip-box">
+                        <strong>🛠️ Outils :</strong> Definition of Done, critères d'acceptation, tests automatisés
+                    </div>
+                    <div class="mnemo-box">
+                        <strong>🎯 Scénario examen :</strong> "L'équipe risque de manquer la date, que faire ?" → Réduire scope, pas qualité
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4>5. Build Incrementally from Firm Foundations</h4>
+                    <p><strong>Objectif :</strong> Construire progressivement à partir de bases solides établies en phase Foundations.</p>
+                    <p><strong>Application pratique :</strong> Ne pas commencer le développement sans Vision, Architecture et PRL clairs.</p>
+                    <p><strong>Équilibre :</strong Assez de fondations pour éviter le bricolage, pas trop pour éviter le Big Design Up Front.</p>
+                    <div class="mnemo-box">
+                        <strong>🏗️ Firm Foundations = VAP :</strong> Vision, Architecture, PRL (Prioritised Requirements List)
+                    </div>
+                    <div class="warning-box">
+                        <strong>⚠️ Attention :</strong> Firm Foundations ≠ Big Design Up Front. C'est le minimum viable pour démarrer.
+                    </div>
+                    <div class="tip-box">
+                        <strong>📈 Avantage :</strong> Réduction des risques techniques et métier
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4>6. Develop Iteratively</h4>
+                    <p><strong>Objectif :</strong> Utiliser l'itération et le feedback pour affiner les livrables et minimiser les erreurs.</p>
+                    <p><strong>Application pratique :</strong> C'est le cœur du Timeboxing avec ses 5 sous-ensembles.</p>
+                    <p><strong>Boucle de feedback :</strong> Développement → Test → Feedback → Ajustement.</p>
+                    <div class="tip-box">
+                        <strong>🔄 Processus :</strong> Investigation → Refinement → Consolidation avec feedback continu
+                    </div>
+                    <div class="mnemo-box">
+                        <strong>🔄 Cycle :</strong> "Faire un peu, montrer un peu, apprendre beaucoup"
+                    </div>
+                    <div class="warning-box">
+                        <strong>📝 Risque :</strong> Itérations trop longues = feedback tardif et corrections coûteuses
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4>7. Communicate Continuously and Clearly</h4>
+                    <p><strong>Objectif :</strong> Privilégier la communication informelle, transparente et fréquente.</p>
+                    <p><strong>Application pratique :</strong> Workshops, démonstrations, stand-up meetings quotidiens.</p>
+                    <p><strong>Canaux :</strong> Communication face-à-face privilégiée, outils collaboratifs, documentation légère.</p>
+                    <div class="warning-box">
+                        <strong>📝 Documentation :</strong> La communication informelle est encouragée, mais les décisions importantes doivent être documentées.
+                    </div>
+                    <div class="tip-box">
+                        <strong>🗣️ Bonnes pratiques :</strong> Langage simple, visualisation, feedback régulier
+                    </div>
+                    <div class="mnemo-box">
+                        <strong>📊 Indicateur :</strong> Tous les acteurs comprennent l'état du projet et les priorités
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4>8. Demonstrate Control</h4>
+                    <p><strong>Objectif :</strong> Maintenir le contrôle du projet grâce aux processus, rôles et produits définis.</p>
+                    <p><strong>Application pratique :</strong> Utilisation des Management Products (plans, logs, rapports) pour la gouvernance.</p>
+                    <p><strong>Visibilité :</strong> Transparence sur le progrès, les risques, les décisions.</p>
+                    <div class="tip-box">
+                        <strong>📊 Outils de contrôle :</strong> Plans, Risk Log, Issue Log, Quality Log, Highlight Reports
+                    </div>
+                    <div class="mnemo-box">
+                        <strong>🎯 Principe clé :</strong> "On ne contrôle que ce que l'on mesure"
+                    </div>
+                    <div class="warning-box">
+                        <strong>⚠️ Équilibre :</strong> Assez de contrôle pour la gouvernance, pas trop pour l'étouffement
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mnemo-box">
+                <h4>🎯 Les 8 Principes - Mnémotechnique Complet</h4>
+                <p><strong>F</strong>ocus Business • <strong>D</strong>eliver on Time • <strong>C</strong>ollaborate • 
+                <strong>N</strong>ever Compromise Quality • <strong>B</strong>uild Incrementally • 
+                <strong>D</strong>evelop Iteratively • <strong>C</strong>ommunicate • <strong>D</strong>emonstrate Control</p>
+                <p><strong>Phrase mnémotechnique :</strong> "Pour Fournir Des Choses Nickel, Bâtir Délicatement Comme Des Champions"</p>
+            </div>
+
+            <h3>📊 Application des Principes par Phase</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Phase</th>
+                        <th>Principes les plus critiques</th>
+                        <th>Application concrète</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Pre-Project</strong></td>
+                        <td>Focus on Business Need</td>
+                        <td>Validation du Business Case initial</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Foundations</strong></td>
+                        <td>Build Incrementally, Demonstrate Control</td>
+                        <td>Établissement des Firm Foundations et plans</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Evolutionary Development</strong></td>
+                        <td>Deliver on Time, Develop Iteratively, Collaborate</td>
+                        <td>Timeboxes avec feedback continu et collaboration</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Deployment</strong></td>
+                        <td>Never Compromise Quality</td>
+                        <td>Respect des critères qualité pour la mise en production</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section 5 Éléments - CONTENU TRIPLÉ -->
+        <section id="elements" class="content-section">
+            <h2>⚛️ Les 5 Éléments du Framework AgilePM v3 (P²P²P)</h2>
+            
+            <div class="tip-box">
+                <strong>🎯 COMPRÉHENSION GLOBALE :</strong> Les 5 éléments forment un système cohérent. 
+                Chaque élément renforce les autres. Comprenez leurs interactions !
+            </div>
+
+            <div class="exam-tip">
+                <strong>💡 STRATÉGIE EXAMEN :</strong> Les questions sur les éléments testent votre compréhension du framework dans son ensemble.
+                Maîtrisez comment chaque élément influence les autres.
+            </div>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h4>1. Principes (Principles)</h4>
+                    <p><strong>Définition :</strong> Les 8 règles philosophiques qui guident le comportement et les décisions.</p>
+                    <p><strong>Rôle :</strong> Fournir le "pourquoi" - la raison d'être des pratiques.</p>
+                    <p><strong>Impact :</strong> Influencent toutes les activités et décisions du projet.</p>
+                    <p><strong>Caractéristiques :</strong> Intemporels, universels, non négociables.</p>
+                    <div class="tip-box">
+                        <strong>🔗 Lien avec les autres éléments :</strong> Les principes justifient les processus et pratiques.
+                    </div>
+                    <div class="warning-box">
+                        <strong>⚠️ Risque :</strong> Ignorer un principe = déséquilibre du framework
+                    </div>
+                    <div class="mnemo-box">
+                        <strong>🎯 Question type :</strong> "Quel élément guide le comportement de l'équipe ?" → Les Principes
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4>2. Personnes (People)</h4>
+                    <p><strong>Définition :</strong> Les rôles, responsabilités et compétences nécessaires.</p>
+                    <p><strong>Rôle :</strong> Définir "qui fait quoi" avec clarté et responsabilisation.</p>
+                    <p><strong>Impact :</strong> Permet l'engagement et la collaboration effective.</p>
+                    <p><strong>Organisation :</strong> 4 groupes distincts avec des responsabilités complémentaires.</p>
+                    <div class="tip-box">
+                        <strong>👥 Organisation :</strong> 4 groupes : Business, Solution, Project, Support
+                    </div>
+                    <div class="mnemo-box">
+                        <strong>🤝 Collaboration :</strong> Rôles business engagés activement dans le processus
+                    </div>
+                    <div class="warning-box">
+                        <strong>📝 Piège :</strong> Confusion des rôles ou responsabilités mal définies
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4>3. Processus (Process)</h4>
+                    <p><strong>Définition :</strong> Le cycle de vie structuré du projet (Pre-Project à Post-Project).</p>
+                    <p><strong>Rôle :</strong> Fournir le "comment" - les étapes à suivre.</p>
+                    <p><strong>Impact :</strong> Assure la gouvernance et la prévisibilité.</p>
+                    <p><strong>Flexibilité :</strong> Processus adaptatif avec des points de décision clairs.</p>
+                    <div class="warning-box">
+                        <strong>🔄 Adaptabilité :</strong> Le processus doit être adapté (tailoring) au contexte projet.
+                    </div>
+                    <div class="tip-box">
+                        <strong>📈 Valeur :</strong> Structure légère mais suffisante pour le contrôle
+                    </div>
+                    <div class="mnemo-box">
+                        <strong>🔄 Séquence :</strong> 6 phases avec des objectifs et livrables spécifiques
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4>4. Produits (Products)</h4>
+                    <p><strong>Définition :</strong> Les livrables (Work Products) tangibles du projet.</p>
+                    <p><strong>Rôle :</strong> Fournir la preuve du progrès et maintenir la visibilité.</p>
+                    <p><strong>Impact :</strong> Permet le contrôle et la communication objective.</p>
+                    <p><strong>Catégories :</strong> Business, Management et Solution Products.</p>
+                    <div class="tip-box">
+                        <strong>📋 Catégories :</strong> Business Products, Management Products, Solution Products
+                    </div>
+                    <div class="mnemo-box">
+                        <strong>📊 Suivi :</strong> Work Products évoluent et s'enrichissent au fil du projet
+                    </div>
+                    <div class="warning-box">
+                        <strong>⚠️ Équilibre :</strong> Assez de documentation pour le contrôle, pas trop pour la lourdeur
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4>5. Pratiques (Practices)</h4>
+                    <p><strong>Définition :</strong> Les techniques et outils concrets utilisés.</p>
+                    <p><strong>Rôle :</strong> Fournir le "avec quoi" - les moyens d'exécution.</p>
+                    <p><strong>Impact :</strong> Rend l'agilité opérationnelle et mesurable.</p>
+                    <p><strong>Exemples :</strong> Timeboxing, MoSCoW, ateliers collaboratifs.</p>
+                    <div class="mnemo-box">
+                        <strong>🛠️ Pratiques clés :</strong> MoSCoW, Timeboxing, Workshops, Modélisation, Démonstrations
+                    </div>
+                    <div class="tip-box">
+                        <strong>🎯 Sélection :</strong> Choisir les pratiques adaptées au contexte projet
+                    </div>
+                    <div class="warning-box">
+                        <strong>📝 Application :</strong> Pratiques doivent servir les principes, pas l'inverse
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mnemo-box">
+                <h4>🎯 Les 5 Éléments - Système Intégré</h4>
+                <p><strong>Les Principes</strong> guident <strong>les Personnes</strong> qui utilisent <strong>les Processus</strong> 
+                pour créer <strong>les Produits</strong> en appliquant <strong>les Pratiques</strong>.</p>
+                <p><strong>Mnémotechnique : P²P²P</strong> - Principles, People, Process, Products, Practices</p>
+            </div>
+            
+            <h3>🔄 Interactions entre les Éléments</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Élément</th>
+                        <th>Influence sur les autres éléments</th>
+                        <th>Dépend des autres éléments</th>
+                        <th>Exemple concret</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Principes</strong></td>
+                        <td>Guide le comportement des Personnes et le design des Processus</td>
+                        <td>Nécessite des Pratiques pour être mis en œuvre</td>
+                        <td>Principe "Never Compromise Quality" influence les Pratiques de test</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Personnes</strong></td>
+                        <td>Exécutent les Processus et créent les Produits</td>
+                        <td>Doivent comprendre les Principes et maîtriser les Pratiques</td>
+                        <td>Business Ambassador participe aux Timeboxes (Processus)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Processus</strong></td>
+                        <td>Structure le travail des Personnes et la création des Produits</td>
+                        <td>Doit refléter les Principes et utiliser les Pratiques</td>
+                        <td>Phase Foundations produit Architecture Definition (Produit)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Produits</strong></td>
+                        <td>Démontrent l'application des Principes et l'efficacité des Processus</td>
+                        <td>Créés par les Personnes utilisant les Pratiques</td>
+                        <td>PRL démontre l'application du principe "Focus on Business Need"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pratiques</strong></td>
+                        <td>Rendent les Principes opérationnels dans les Processus</td>
+                        <td>Appliquées par les Personnes pour créer les Produits</td>
+                        <td>MoSCoW (Pratique) permet l'application du principe "Deliver on Time"</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>🎯 Points Clés pour l'Examen</h3>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Compréhension Systémique</h4>
+                    <p>Les 5 éléments forment un système cohérent où chaque partie renforce les autres.</p>
+                    <p><strong>Question type :</strong> "Comment les Principes influencent-ils les Pratiques ?"</p>
+                </div>
+                <div class="card">
+                    <h4>Hiérarchie des Éléments</h4>
+                    <p>Les Principes sont l'élément fondamental qui guide tous les autres.</p>
+                    <p><strong>Question type :</strong> "Quel élément est le plus important ?" → Les Principes</p>
+                </div>
+                <div class="card">
+                    <h4>Adaptation Contextuelle</h4>
+                    <p>Le framework doit être adapté, mais sans compromettre les Principes fondamentaux.</p>
+                    <p><strong>Question type :</strong> "Que peut-on adapter dans AgilePM ?"</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Concepts Clés - CONTENU TRIPLÉ -->
+        <section id="concepts" class="content-section">
+            <h2>🔑 Concepts Clés AgilePM® v3 - Fondamentaux pour l'Examen</h2>
+            
+            <div class="tip-box">
+                <strong>🎯 STRATÉGIE EXAMEN :</strong> Ces 8 concepts représentent 60% des questions d'examen. 
+                Maîtrisez-les parfaitement ! Chaque concept doit être compris en profondeur, pas seulement mémorisé.
+            </div>
+
+            <div class="exam-tip">
+                <strong>💡 APPROCHE GAGNANTE :</strong> Pour chaque concept, apprenez la définition, l'application pratique, 
+                les pièges courants et les questions types d'examen.
+            </div>
+            
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <h4>1. Philosophie AgilePM - Valeur Business First</h4>
+                    <p><strong>Définition :</strong> La meilleure valeur métier émerge quand les projets sont alignés sur des objectifs clairs, livrent fréquemment et impliquent des personnes motivées.</p>
+                    <p><strong>Application :</strong> Priorisation constante basée sur la valeur business, pas sur la complexité technique.</p>
+                    <p><strong>Différence avec Scrum :</strong> AgilePM formalise davantage la gouvernance business avec des rôles dédiés.</p>
+                    <p><strong>Manifestation :</strong> Business Case vivant, rôles business engagés, décisions alignées sur la valeur.</p>
+                    <div class="mnemo-box">
+                        <strong>💡 Mnémotechnique : ALC</strong> - Alignés, Livrent, Collaborent
+                    </div>
+                    <div class="warning-box">
+                        <strong>⚠️ Piège :</strong> Ne pas confondre "valeur business" avec "toutes les fonctionnalités demandées"
+                    </div>
+                    <div class="tip-box">
+                        <strong>🎯 Question type :</strong> "Qu'est-ce qui prime dans les décisions AgilePM ?" → La valeur business
+                    </div>
+                </div>
+                
+                <div class="concept-card">
+                    <h4>2. MoSCoW v3 - Priorisation Intelligente</h4>
+                    <p><strong>Définition :</strong> Must ≤ 60%, Should, Could, Won't. Priorisation stricte avec validation obligatoire des Must Have.</p>
+                    <p><strong>Règles strictes :</strong> Les Must Have doivent être validés à chaque Timebox. Maximum 60% du contenu.</p>
+                    <p><strong>Évolution v3 :</strong> Renforcement de la discipline sur les Must Have et clarification des Won't Have.</p>
+                    <p><strong>Avantage :</strong> Gestion proactive des risques de délai et de scope.</p>
+                    <div class="danger-box">
+                        <strong>🚨 ERREUR CRITIQUE :</strong> Confondre Should et Must = échec fréquent à l'examen
+                    </div>
+                    <div class="tip-box">
+                        <strong>📊 Répartition idéale :</strong> Must (40-60%), Should (20-40%), Could (10-20%), Won't (explicite)
+                    </div>
+                    <div class="mnemo-box">
+                        <strong>🎯 Validation :</strong> Must Have validés à 100% à chaque Timebox
+                    </div>
+                </div>
+                
+                <div class="concept-card">
+                    <h4>3. Quality Never Compromised</h4>
+                    <p><strong>Définition :</strong> Principe non-négociable : on coupe le scope, jamais la qualité.</p>
+                    <p><strong>Implications :</strong> La qualité est définie au départ et ne peut être réduite pour tenir les délais.</p>
+                    <p><strong>En pratique :</strong> Si délai menacé → réduire Should/Could Have, jamais baisser les standards qualité.</p>
+                    <p><strong>Définition de la qualité :</strong> Critères prédéfinis et acceptés par toutes les parties.</p>
+                    <div class="tip-box">
+                        <strong>🎯 Question type examen :</strong> "Que faire si l'équipe risque de manquer la date de livraison ?" 
+                        → Réponse : Réduire le scope des Should/Could Have
+                    </div>
+                    <div class="warning-box">
+                        <strong>💡 Astuce :</strong> Si une question propose de réduire la qualité pour tenir les délais = FAUX
+                    </div>
+                    <div class="mnemo-box">
+                        <strong>🛡️ Garantie :</strong> Quality Log pour tracer et garantir le respect des standards
+                    </div>
+                </div>
+                
+                <div class="concept-card">
+                    <h4>4. Timeboxing fixe + Scope Variable</h4>
+                    <p><strong>Définition :</strong> Les délais sont fixes, le scope est ajusté via MoSCoW.</p>
+                    <p><strong>Avantages :</strong> Prédictibilité des délais, gestion proactive des risques, focus sur l'essentiel.</p>
+                    <p><strong>Structure :</strong> 5 sous-ensembles : Kick-off, Investigation, Refinement, Consolidation, Close.</p>
+                    <p><strong>Durée typique :</strong> 2-4 semaines, adaptable au contexte.</p>
+                    <div class="mnemo-box">
+                        <strong>🔄 Mnémotechnique Timebox : KIRCC</strong><br>
+                        Kick-off → Investigation → Refinement → Consolidation → Close
+                    </div>
+                    <div class="tip-box">
+                        <strong>📅 Durée typique :</strong> 2-4 semaines, mais adaptable au contexte projet
+                    </div>
+                    <div class="warning-box">
+                        <strong>⚠️ Discipline :</strong> Respect strict des dates de Timebox, ajustement du scope si nécessaire
+                    </div>
+                </div>
+                
+                <div class="concept-card">
+                    <h4>5. Firm Foundations</h4>
+                    <p><strong>Définition :</strong> Architecture + Vision + PRL avant de commencer le développement itératif.</p>
+                    <p><strong>Objectif :</strong> Éviter le "bricolage agile" et assurer des bases solides pour les itérations.</p>
+                    <p><strong>Phase clé :</strong> Foundations - phase dédiée à l'établissement des Firm Foundations.</p>
+                    <p><strong>Équilibre :</strong> Assez de fondations pour réduire les risques, pas trop pour éviter la rigidité.</p>
+                    <div class="mnemo-box">
+                        <strong>🏗️ Firm Foundations = VAP</strong><br>
+                        Vision, Architecture, PRL (Prioritised Requirements List)
+                    </div>
+                    <div class="warning-box">
+                        <strong>⚠️ Attention :</strong> Firm Foundations ≠ Big Design Up Front. C'est le minimum viable pour démarrer.
+                    </div>
+                    <div class="tip-box">
+                        <strong>🎯 Validation :</strong> Go/No Go après Foundations pour passer au développement
+                    </div>
+                </div>
+                
+                <div class="concept-card">
+                    <h4>6. Gouvernance Agile</h4>
+                    <p><strong>Définition :</strong> Combinaison des rôles Business actifs + Management + Technique pour un contrôle efficace.</p>
+                    <p><strong>Équilibre :</strong> Agilité sans anarchie - structure légère mais suffisante.</p>
+                    <p><strong>Éléments :</strong> Rôles définis, processus structuré, produits de gestion, prise de décision claire.</p>
+                    <p><strong>Avantage :</strong> Contrôle maintenu sans étouffer l'agilité.</p>
+                    <div class="tip-box">
+                        <strong>👥 Acteurs clés :</strong> Business Sponsor (décision), Project Manager (coordination), 
+                        Technical Coordinator (architecture)
+                    </div>
+                    <div class="warning-box">
+                        <strong>🔄 Différence Scrum :</strong> AgilePM a une gouvernance plus formelle que Scrum
+                    </div>
+                    <div class="mnemo-box">
+                        <strong>📊 Mesure :</strong> Highlight Reports, points de décision, comités de pilotage
+                    </div>
+                </div>
+                
+                <div class="concept-card">
+                    <h4>7. Tailoring - Adaptation Contextuelle</h4>
+                    <p><strong>Définition :</strong> Adapter le framework au contexte projet, sans copier-coller mécanique.</p>
+                    <p><strong>Principe :</strong> AgilePM est un framework, pas une méthodologie rigide. Il doit être adapté.</p>
+                    <p><strong>Éléments adaptables :</strong> Durée des Timeboxes, niveau de détail des Work Products, intensité des revues.</p>
+                    <p><strong>Limites :</strong> Les Principes fondamentaux et la structure de base doivent être respectés.</p>
+                    <div class="danger-box">
+                        <strong>🚨 INTERDIT ABSOLU :</strong> Supprimer des phases essentielles = échec garanti
+                    </div>
+                    <div class="tip-box">
+                        <strong>🎯 Règle d'or :</strong> Adapter l'intensité, pas supprimer les éléments fondamentaux
+                    </div>
+                    <div class="warning-box">
+                        <strong>⚠️ Adaptation typique :</strong> Projet simple → Timeboxes courtes, documentation légère<br>
+                        Projet complexe → Timeboxes plus longues, documentation plus formelle
+                    </div>
+                </div>
+                
+                <div class="concept-card">
+                    <h4>8. Développement Évolutif et Itératif</h4>
+                    <p><strong>Définition :</strong> Construction progressive par incréments avec feedback continu.</p>
+                    <p><strong>Évolutif :</strong> Ajout de fonctionnalités incrémentalement.</p>
+                    <p><strong>Itératif :</strong> Amélioration et affinage à chaque cycle.</p>
+                    <p><strong>Avantages :</strong> Réduction des risques, adaptation continue, validation précoce.</p>
+                    <div class="mnemo-box">
+                        <strong>🔄 Double boucle :</strong> Itération à l'intérieur de l'évolution
+                    </div>
+                    <div class="tip-box">
+                        <strong>📈 Mesure du progrès :</strong> Solution Increments démontrables, pas pourcentage d'avancement
+                    </div>
+                    <div class="warning-box">
+                        <strong>📝 Documentation :</strong> Documentation évolue avec la solution, pas en avance
+                    </div>
+                </div>
+            </div>
+            
+            <h3>📊 Les 21 Concepts Critiques pour l'Examen - Tableau Synoptique</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Concept</th>
+                        <th>Essentiel à retenir</th>
+                        <th>Fréquence examen</th>
+                        <th>Pièges courants</th>
+                        <th>Questions types</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><strong>MoSCoW v3 – Must ≤ 60%</strong></td>
+                        <td>Priorisation stricte, validation obligatoire des Must Have</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                        <td>Confondre Should/Must, dépasser 60%</td>
+                        <td>"Quelle est la limite des Must Have ?"</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><strong>Timebox 5 sous-ensembles</strong></td>
+                        <td>Kick-off → Investigation → Refinement → Consolidation → Close</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                        <td>Oublier Consolidation, confondre Investigation/Refinement</td>
+                        <td>"Quelle est la séquence correcte ?"</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><strong>Quality Never Compromised</strong></td>
+                        <td>Jamais réduire la qualité pour les délais, couper le scope</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                        <td>Proposer de réduire la qualité = erreur</td>
+                        <td>"Que faire si délai menacé ?"</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td><strong>Build Incrementally from Firm Foundations</strong></td>
+                        <td>Ne jamais bricoler sans bases solides (Vision, Architecture, PRL)</td>
+                        <td>⭐⭐⭐⭐</td>
+                        <td>Confondre avec Big Design Up Front</td>
+                        <td>"Que faut-il avant développement ?"</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td><strong>Tailoring Contextuel</strong></td>
+                        <td>Adapter le framework, pas supprimer les éléments essentiels</td>
+                        <td>⭐⭐⭐⭐</td>
+                        <td>Supprimer des phases essentielles</td>
+                        <td>"Que peut-on adapter ?"</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td><strong>Gouvernance Agile</strong></td>
+                        <td>Équilibre agilité/contrôle, rôles business engagés</td>
+                        <td>⭐⭐⭐</td>
+                        <td>Négliger les rôles de support v3</td>
+                        <td>"Comment maintenir le contrôle ?"</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>🎯 Application des Concepts dans les Scénarios d'Examen</h3>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Scénario 1 : Délai Menacé</h4>
+                    <p><strong>Situation :</strong> L'équipe risque de manquer la date de fin de Timebox.</p>
+                    <p><strong>Bonne réponse :</strong> Réduire le scope des Should/Could Have</p>
+                    <p><strong>Mauvaise réponse :</strong> Réduire la qualité ou étendre le délai</p>
+                </div>
+                <div class="card">
+                    <h4>Scénario 2 : Priorisation</h4>
+                    <p><strong>Situation :</strong> Trop d'exigences Must Have identifiées.</p>
+                    <p><strong>Bonne réponse :</strong> Revoir la priorisation pour respecter ≤ 60%</p>
+                    <p><strong>Mauvaise réponse :</strong> Accepter tous les Must Have</p>
+                </div>
+                <div class="card">
+                    <h4>Scénario 3 : Adaptation</h4>
+                    <p><strong>Situation :</strong> Projet simple nécessitant moins de formalisme.</p>
+                    <p><strong>Bonne réponse :</strong> Adapter l'intensité des pratiques</p>
+                    <p><strong>Mauvaise réponse :</strong> Supprimer des phases essentielles</p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Section Rôles et Responsabilités - CONTENU TRIPLÉ -->
+        <section id="roles" class="content-section">
+            <h2>👥 Rôles & Responsabilités AgilePM® v3 - Les 4 Groupes</h2>
+            
+            <div class="tip-box">
+                <strong>🎯 STRATÉGIE EXAMEN :</strong> Pour chaque question de rôle, identifier d'abord le groupe 
+                (Business, Solution, Project, Support) puis la mission spécifique. Les questions testent souvent 
+                les limites entre rôles et les responsabilités uniques.
+            </div>
+
+            <div class="exam-tip">
+                <strong>💡 CLÉ DE RÉUSSITE :</strong> Maîtrisez les responsabilités uniques de chaque rôle et comprenez 
+                comment ils collaborent. Les questions d'examen présentent souvent des scénarios où vous devez identifier 
+                le rôle approprié pour une action spécifique.
+            </div>
+            
+            <div class="role-group">
+                <h3>🟦 A. Business Roles (Valeur Métier & Décision)</h3>
+                <p><strong>Mission globale :</strong> Assurer que la solution délivre de la valeur business et répond aux besoins métier.</p>
+                <p><strong>Engagement :</strong> Participation active tout au long du projet, avec différents niveaux d'implication.</p>
+                
+                <div class="card-grid">
+                    <div class="card business">
+                        <span class="role-badge badge-business">Business</span>
+                        <h4>Business Sponsor</h4>
+                        <p><strong>Mission principale :</strong> Vision stratégique, financement, arbitrages finaux, responsable du Business Case.</p>
+                        <p><strong>Phase clé :</strong> Pre-Project (validation), Foundations (approbation), décisions majeures</p>
+                        <p><strong>Prise de décision :</strong> Décideur ultime pour les arbitrages business et budget</p>
+                        <p><strong>Engagement :</strong> Ponctuel mais critique - présent aux points de décision importants</p>
+                        <p><strong>Responsabilité unique :</strong> Garant de la réalisation des bénéfices business</p>
+                        <div class="mnemo-box">
+                            <strong>💡 Mnémotechnique :</strong> Le décideur ultime, "porte-feuille" du projet
+                        </div>
+                        <div class="warning-box">
+                            <strong>⚠️ Responsabilité unique :</strong> Ne peut déléguer la responsabilité du Business Case
+                        </div>
+                        <div class="tip-box">
+                            <strong>🎯 Question type :</strong> "Qui prend la décision finale sur le budget ?" → Business Sponsor
+                        </div>
+                    </div>
+                    
+                    <div class="card business">
+                        <span class="role-badge badge-business">Business</span>
+                        <h4>Business Visionary</h4>
+                        <p><strong>Mission principale :</strong> Décrit la vision métier, valide la solution, assure l'alignement stratégique.</p>
+                        <p><strong>Phase clé :</strong> Foundations (définition vision), Reviews (validation alignement)</p>
+                        <p><strong>Spécificité :</strong> Porte le "pourquoi" du projet et la vision à long terme</p>
+                        <p><strong>Disponibilité :</strong> Régulière mais pas quotidienne - présent aux revues importantes</p>
+                        <p><strong>Collaboration :</strong> Travaille avec Business Ambassador et Project Manager</p>
+                        <div class="tip-box">
+                            <strong>🔗 Lien Scrum :</strong> ≈ Product Owner stratégique + partie Stakeholders
+                        </div>
+                        <div class="mnemo-box">
+                            <strong>🎯 Différenciation :</strong> Visionary = "quoi et pourquoi", Ambassador = "comment et détail"
+                        </div>
+                        <div class="warning-box">
+                            <strong>📝 Piège :</strong> Ne pas confondre avec Business Sponsor (décision budget) ou Business Ambassador (détail opérationnel)
+                        </div>
+                    </div>
+                    
+                    <div class="card business">
+                        <span class="role-badge badge-business">Business</span>
+                        <h4>Business Ambassador</h4>
+                        <p><strong>Mission principale :</strong> Clarifie besoins au quotidien, présent en Timebox, voix des utilisateurs finaux.</p>
+                        <p><strong>Phase clé :</strong> Evolutionary Development (présent dans les Timeboxes), Foundations (détail exigences)</p>
+                        <p><strong>Engagement :</strong> Quotidien avec l'équipe - membre actif de l'équipe projet</p>
+                        <p><strong>Décision :</strong> Décisions opérationnelles et clarification des besoins détaillés</p>
+                        <p><strong>Expertise :</strong> Connaissance métier approfondie et compréhension des processus</p>
+                        <div class="mnemo-box">
+                            <strong>💡 Mnémotechnique :</strong> PO détaillé en Timebox, "mains dans le cambouis"
+                        </div>
+                        <div class="tip-box">
+                            <strong>🔗 Lien Scrum :</strong> ≈ Product Owner opérationnel + voix de l'utilisateur
+                        </div>
+                        <div class="warning-box">
+                            <strong>⏰ Disponibilité :</strong> Doit être disponible à minima 50% du temps pour l'équipe
+                        </div>
+                    </div>
+                    
+                    <div class="card business">
+                        <span class="role-badge badge-business">Business</span>
+                        <h4>Business Analyst</h4>
+                        <p><strong>Mission principale :</strong> Analyse des processus métier, spécification des besoins, modélisation, support aux autres rôles business.</p>
+                        <p><strong>Phase clé :</strong> Foundations (PRL détaillée), Evolutionary Development (affinage continu)</p>
+                        <p><strong>Expertise :</strong> Techniques d'analyse et de modélisation avancées</p>
+                        <p><strong>Collaboration :</strong> Interface entre métier et technique, support aux Business Ambassadors</p>
+                        <p><strong>Livrables :</strong> Spécifications détaillées, modèles de processus, règles métier</p>
+                        <div class="tip-box">
+                            <strong>🔄 Processus :</strong> Participe à l'élaboration et la mise à jour de la PRL
+                        </div>
+                        <div class="mnemo-box">
+                            <strong>🎯 Valeur ajoutée :</strong> Formalisation et clarification des besoins complexes
+                        </div>
+                        <div class="warning-box">
+                            <strong>⚠️ Complémentarité :</strong> Ne remplace pas les Business Ambassadors mais les supporte
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="role-group">
+                <h3>🟩 B. Solution/Delivery Roles (Construction Solution)</h3>
+                <p><strong>Mission globale :</strong> Concevoir, développer, tester et livrer la solution technique.</p>
+                <p><strong>Engagement :</strong> Temps plein sur le projet, focus sur la livraison technique.</p>
+                
+                <div class="card-grid">
+                    <div class="card solution">
+                        <span class="role-badge badge-solution">Solution</span>
+                        <h4>Team Leader</h4>
+                        <p><strong>Mission principale :</strong> Facilite l'équipe, retire obstacles, synchronise les activités, garant de la livraison dans le Timebox.</p>
+                        <p><strong>Leadership :</strong> Leadership serviteur, facilitateur, protecteur de l'équipe</p>
+                        <p><strong>Responsabilité :</strong> Suivi du Timebox Plan, coordination quotidienne, reporting progrès</p>
+                        <p><strong>Disponibilité :</strong> 100% avec l'équipe - cœur de l'équipe de développement</p>
+                        <p><strong>Compétences :</strong> Facilitation, résolution de conflits, communication, compréhension technique</p>
+                        <div class="tip-box">
+                            <strong>🔗 Lien Scrum :</strong> ≈ Scrum Master + certaines responsabilités d'équipe
+                        </div>
+                        <div class="warning-box">
+                            <strong>⚠️ Différence Scrum :</strong> Gère aussi certains aspects de la gouvernance delivery
+                        </div>
+                        <div class="mnemo-box">
+                            <strong>🎯 Focus :</strong> "Comment on travaille" plutôt que "ce qu'on travaille"
+                        </div>
+                    </div>
+                    
+                    <div class="card solution">
+                        <span class="role-badge badge-solution">Solution</span>
+                        <h4>Solution Developer</h4>
+                        <p><strong>Mission principale :</strong> Développe les incréments, design technique, implémentation, conception détaillée.</p>
+                        <p><strong>Timebox clé :</strong> Refinement (développement), Consolidation (intégration)</p>
+                        <p><strong>Expertise :</strong> Développement, conception technique, architecture détaillée</p>
+                        <p><strong>Collaboration :</strong> Travail en équipe, pair programming, revues de code</p>
+                        <p><strong>Responsabilité :</strong> Qualité du code, respect des standards techniques</p>
+                        <div class="tip-box">
+                            <strong>🔗 Lien Scrum :</strong> ≈ Development Team member avec focus technique
+                        </div>
+                        <div class="mnemo-box">
+                            <strong>🛠️ Compétences :</strong> Maîtrise technique, résolution de problèmes complexes
+                        </div>
+                        <div class="warning-box">
+                            <strong>📝 Livrable :</strong> Code de qualité, tests unitaires, documentation technique
+                        </div>
+                    </div>
+                    
+                    <div class="card solution">
+                        <span class="role-badge badge-solution">Solution</span>
+                        <h4>Solution Tester</h4>
+                        <p><strong>Mission principale :</strong> Test continu, validation qualité, assurance qualité, définition des stratégies de test.</p>
+                        <p><strong>Principe :</strong> Never Compromise Quality - garant de la qualité tout au long du projet</p>
+                        <p><strong>Activités :</strong> Tests automatisés, manuels, validation acceptation, performance</p>
+                        <p><strong>Timebox :</strong> Toute la Timebox, particulièrement Consolidation (tests finaux)</p>
+                        <p><strong>Expertise :</strong> Techniques de test, automatisation, analyse de risques qualité</p>
+                        <div class="tip-box">
+                            <strong>🔗 Lien Scrum :</strong> ≈ Tester dans la Development Team avec rôle qualité formalisé
+                        </div>
+                        <div class="mnemo-box">
+                            <strong>🎯 Objectif :</strong> "Détecter tôt, corriger rapidement"
+                        </div>
+                        <div class="warning-box">
+                            <strong>⚠️ Indépendance :</strong> Doit pouvoir travailler indépendamment des développeurs pour objectivité
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="role-group">
+                <h3>🟨 C. Project Management Roles (Gouvernance & Coordination)</h3>
+                <p><strong>Mission globale :</strong> Assurer la gouvernance, le contrôle et la coordination du projet.</p>
+                <p><strong>Focus :</strong> Management Products, communication externe, gestion des risques.</p>
+                
+                <div class="card-grid">
+                    <div class="card project">
+                        <span class="role-badge badge-project">Project</span>
+                        <h4>Project Manager</h4>
+                        <p><strong>Mission principale :</strong> Gestion du projet global, coordination, reporting, gestion des risques, communication stakeholders.</p>
+                        <p><strong>Responsabilité :</strong> Livraison du projet dans les contraintes (coût, délai, qualité)</p>
+                        <p><strong>Focus :</strong> Management Products, gouvernance, communication externe, gestion des dépendances</p>
+                        <p><strong>Phase clé :</strong> Toutes les phases, particulièrement Foundations (planning) et Deployment (coordination)</p>
+                        <p><strong>Compétences :</strong> Management de projet, communication, négociation, gestion des risques</p>
+                        <div class="warning-box">
+                            <strong>⚠️ Différence Scrum :</strong> Rôle formel de Project Manager, absent dans Scrum pur
+                        </div>
+                        <div class="tip-box">
+                            <strong>📊 Reporting :</strong> Produit les Highlight Reports pour la gouvernance
+                        </div>
+                        <div class="mnemo-box">
+                            <strong>🎯 Équilibre :</strong> Contrôle sans micro-management, autonomie avec responsabilité
+                        </div>
+                    </div>
+                    
+                    <div class="card project">
+                        <span class="role-badge badge-project">Project</span>
+                        <h4>Technical Coordinator</h4>
+                        <p><strong>Mission principale :</strong> Responsable de l'architecture et de l'intégrité technique, définition des standards.</p>
+                        <p><strong>Expertise :</strong> Architecture, techniques, standards, intégration, performance</p>
+                        <p><strong>Phase clé :</strong> Foundations (architecture), Consolidation (intégrité), Deployment (performance)</p>
+                        <p><strong>Décision :</strong> Décisions techniques majeures, validation des choix architecturaux</p>
+                        <p><strong>Collaboration :</strong> Travaille avec Solution Developers et Team Leader</p>
+                        <div class="tip-box">
+                            <strong>🏗️ Livrable clé :</strong> Architecture Definition en Foundations
+                        </div>
+                        <div class="mnemo-box">
+                            <strong>🎯 Focus :</strong> "Comment on construit" au niveau système
+                        </div>
+                        <div class="warning-box">
+                            <strong>⚠️ Complémentarité :</strong> Ne fait pas le travail des développeurs mais définit le cadre technique
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="role-group">
+                <h3>🟪 D. Support Roles (Expertises Spécialisées - Nouveautés v3)</h3>
+                <p><strong>Mission globale :</strong> Apporter des expertises spécialisées pour des aspects critiques.</p>
+                <p><strong>Engagement :</strong> Selon les besoins, peut être temps partiel sur plusieurs projets.</p>
+                
+                <div class="card-grid">
+                    <div class="card support">
+                        <span class="role-badge badge-support">Support</span>
+                        <h4>UX/UI Specialist</h4>
+                        <p><strong>Mission principale :</strong> Design expérience utilisateur, prototypes, tests utilisateurs, ergonomie.</p>
+                        <p><strong>Timebox clé :</strong> Investigation (prototypes), Refinement (design), Consolidation (tests utilisateurs)</p>
+                        <p><strong>Expertise :</strong> Design thinking, ergonomie, prototypage, recherche utilisateur</p>
+                        <p><strong>Collaboration :</strong> Avec Business Ambassador (besoins) et Solution Developer (implémentation)</p>
+                        <p><strong>Valeur :</strong> Assurance de l'utilisabilité et de l'adoption de la solution</p>
+                        <div class="tip-box">
+                            <strong>🎨 Apport :</strong> "La solution ne sert à rien si personne ne sait l'utiliser"
+                        </div>
+                        <div class="mnemo-box">
+                            <strong>🔄 Processus :</strong> Recherche → Conception → Test → Itération
+                        </div>
+                        <div class="warning-box">
+                            <strong>⚠️ Integration :</strong> Doit être intégré tôt dans le processus, pas en fin de projet
+                        </div>
+                    </div>
+                    
+                    <div class="card support">
+                        <span class="role-badge badge-support">Support</span>
+                        <h4>DevOps Engineer</h4>
+                        <p><strong>Mission principale :</strong> CI/CD, automatisation, environnement, déploiement, monitoring.</p>
+                        <p><strong>Timebox clé :</strong> Consolidation (intégration), Close (préparation déploiement), Deployment (automatisation)</p>
+                        <p><strong>Expertise :</strong> Automatisation, infrastructure, déploiement, conteneurisation, cloud</p>
+                        <p><strong>Valeur :</strong> Livraison continue, qualité technique, stabilité environnement</p>
+                        <p><strong>Impact :</strong> Réduction du time-to-market, amélioration de la qualité</p>
+                        <div class="tip-box">
+                            <strong>🔗 Lien pratique :</strong> Essentiel pour les principes "Deliver on Time" et "Never Compromise Quality"
+                        </div>
+                        <div class="mnemo-box">
+                            <strong>🎯 Objectif :</strong> "Déployer n'importe quand en toute confiance"
+                        </div>
+                        <div class="warning-box">
+                            <strong>⚠️ Proactivité :</strong> Doit anticiper les besoins d'infrastructure dès les Foundations
+                        </div>
+                    </div>
+                    
+                    <div class="card support">
+                        <span class="role-badge badge-support">Support</span>
+                        <h4>Security Specialist</h4>
+                        <p><strong>Mission principale :</strong> Risques sécurité, conformité, audits, bonnes pratiques, formation équipe.</p>
+                        <p><strong>Importance :</strong> Essentiel en environnements régulés (banque, santé, gouvernement)</p>
+                        <p><strong>Phase clé :</strong> Foundations (exigences sécurité), Consolidation (vérification), Deployment (audit)</p>
+                        <p><strong>Expertise :</strong> Sécurité, conformité, réglementation, cryptographie, tests de pénétration</p>
+                        <p><strong>Valeur :</strong> Protection des données, conformité légale, réputation organisation</p>
+                        <div class="warning-box">
+                            <strong>⚠️ Contexte :</strong> De plus en plus critique avec les réglementations (GDPR, SOX, HIPAA)
+                        </div>
+                        <div class="tip-box">
+                            <strong>🔒 Approche :</strong> "Security by Design" - intégrée dès le début
+                        </div>
+                        <div class="mnemo-box">
+                            <strong>🎯 Focus :</strong> Prévention plutôt que correction
+                        </div>
+                    </div>
+                    
+                    <div class="card support">
+                        <span class="role-badge badge-support">Support</span>
+                        <h4>Change Manager</h4>
+                        <p><strong>Mission principale :</strong> Gestion du changement, formation, adoption, communication, résistance au changement.</p>
+                        <p><strong>Phase clé :</strong> Deployment (implémentation), Post-Project (adoption), tout au long (préparation)</p>
+                        <p><strong>Focus :</strong> Utilisateurs finaux, impact organisationnel, culture, processus</p>
+                        <p><strong>Valeur :</strong> Assurance de la réalisation des bénéfices et de l'adoption réelle</p>
+                        <p><strong>Activités :</strong> Plans de changement, formation, communication, mesure d'adoption</p>
+                        <div class="tip-box">
+                            <strong>📈 Bénéfices :</strong> "Une solution technique parfaite ne sert à rien si personne ne l'utilise"
+                        </div>
+                        <div class="mnemo-box">
+                            <strong>🎯 Objectif :</strong> Transition réussie vers le nouveau mode de fonctionnement
+                        </div>
+                        <div class="warning-box">
+                            <strong>⚠️ Timing :</strong> Doit commencer tôt, pas seulement au déploiement
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mnemo-box">
+                <h4>🎯 Mnémotechniques des Rôles par Groupe</h4>
+                <p><strong>Business :</strong> S-V-A-B = Sponsor – Visionary – Ambassador – Business Analyst</p>
+                <p><strong>Solution :</strong> TL-D-T = Team Leader – Developer – Tester</p>
+                <p><strong>Project :</strong> PM-TC = Project Manager – Technical Coordinator</p>
+                <p><strong>Support :</strong> SUDeSC = Security – UX – DevOps – Specialists – Change</p>
+            </div>
+            
+            <h3>📊 Engagement des Rôles par Phase - Tableau Détaillé</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Phase</th>
+                        <th>Rôles Principaux</th>
+                        <th>Rôles Secondaires</th>
+                        <th>Engagement</th>
+                        <th>Décisions Clés</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Pre-Project</strong></td>
+                        <td>Sponsor, PM</td>
+                        <td>Visionary</td>
+                        <td>Intermittent</td>
+                        <td>Go/No Go initial, nomination équipe</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Feasibility</strong></td>
+                        <td>PM, Visionary, Technical Coordinator</td>
+                        <td>Sponsor, Business Analyst</td>
+                        <td>Part-time</td>
+                        <td>Faisabilité, approche générale</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Foundations</strong></td>
+                        <td>Tous rôles clés</td>
+                        <td>Support roles (consultation)</td>
+                        <td>Intense</td>
+                        <td>Architecture, plan, périmètre détaillé</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Evolutionary Development</strong></td>
+                        <td>Ambassador, Team Leader, Dev/Test</td>
+                        <td>PM, Technical Coordinator, Support roles</td>
+                        <td>Full-time</td>
+                        <td>Priorités Timebox, acceptation incréments</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Deployment</strong></td>
+                        <td>PM, Change Manager, DevOps</td>
+                        <td>Team Leader, Ambassador, Support roles</td>
+                        <td>Intense</td>
+                        <td>Planning déploiement, formation, communication</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Post-Project</strong></td>
+                        <td>Sponsor, PM, Visionary</td>
+                        <td>Change Manager, Business Analyst</td>
+                        <td>Intermittent</td>
+                        <td>Mesure bénéfices, leçons apprises</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>🎯 Scénarios d'Examen - Identification des Rôles</h3>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Scénario 1 : Conflit de Priorités</h4>
+                    <p><strong>Situation :</strong> Deux Business Ambassadors ont des visions différentes sur les priorités.</p>
+                    <p><strong>Rôle à intervenir :</strong> Business Visionary (alignement stratégique)</p>
+                    <p><strong>Action :</strong> Clarifier la vision métier et trancher</p>
+                </div>
+                <div class="card">
+                    <h4>Scénario 2 : Problème Technique Majeur</h4>
+                    <p><strong>Situation :</strong> Découverte d'un problème d'architecture impactant les performances.</p>
+                    <p><strong>Rôle à intervenir :</strong> Technical Coordinator (intégrité technique)</p>
+                    <p><strong>Action :</strong> Analyser l'impact et proposer des solutions</p>
+                </div>
+                <div class="card">
+                    <h4>Scénario 3 : Risque de Délai</h4>
+                    <p><strong>Situation :</strong> L'équipe risque de ne pas livrer les Must Have à temps.</p>
+                    <p><strong>Rôle à intervenir :</strong> Team Leader + Business Ambassador</p>
+                    <p><strong>Action :</strong> Négocier la réduction du scope Should/Could Have</p>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4>🚨 Pièges Courants sur les Rôles</h4>
+                <ul>
+                    <li><strong>Confondre Business Sponsor et Business Visionary</strong> → Sponsor = budget/décision, Visionary = vision/alignement</li>
+                    <li><strong>Croire que le Project Manager manage l'équipe technique</strong> → L'équipe technique est auto-organisée, PM gère le projet global</li>
+                    <li><strong>Négliger les rôles de support</strong> → Ils sont critiques pour la qualité et l'adoption</li>
+                    <li><strong>Oublier que Business Ambassador doit être disponible</strong> → Indisponibilité = blocage de l'équipe</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section Processus et Phases - CONTENU TRIPLÉ -->
+        <section id="process" class="content-section">
+            <h2>🔄 Processus & Cycle de Vie AgilePM® v3</h2>
+            
+            <div class="tip-box">
+                <strong>🎯 VISION GLOBALE :</strong> Le cycle de vie AgilePM couvre l'ensemble du projet, 
+                du concept à la réalisation des bénéfices. Comprenez la logique de chaque phase et leurs interconnections.
+            </div>
+
+            <div class="exam-tip">
+                <strong>💡 STRATÉGIE EXAMEN :</strong> Les questions sur le processus testent votre compréhension de la séquence logique, 
+                des objectifs par phase, et des Work Products associés. Maîtrisez le "pourquoi" derrière chaque phase.
+            </div>
+            
+            <div class="phase-timeline">
+                <div class="phase-item">
+                    <div class="phase-number">1</div>
+                    <h4>Pre-Project</h4>
+                    <p><strong>Objectif :</strong> Valider le besoin business et identifier le sponsor</p>
+                    <p><strong>Livrable clé :</strong> Business Case initial, Project Mandate</p>
+                    <p><strong>Décision :</strong> Go/No Go pour Feasibility</p>
+                    <p><strong>Durée :</strong> Courte (quelques jours à semaines)</p>
+                    <div class="phase-roles">
+                        <strong>Rôles principaux :</strong> Sponsor, PM
+                    </div>
+                    <div class="tip-box">
+                        <strong>📋 Activités :</strong> Identification besoin, analyse opportunité, nomination sponsor, évaluation initiale
+                    </div>
+                    <div class="warning-box">
+                        <strong>⚠️ Risque :</strong> Démarrer sans sponsor engagé = échec probable
+                    </div>
+                </div>
+                
+                <div class="phase-item">
+                    <div class="phase-number">2</div>
+                    <h4>Feasibility</h4>
+                    <p><strong>Objectif :</strong> Étude valeur, risques, faisabilité technique et business</p>
+                    <p><strong>Livrable clé :</strong> Feasibility Report, Business Case détaillé, Risk Log initial</p>
+                    <p><strong>Décision :</strong> Go/No Go pour Foundations</p>
+                    <p><strong>Focus :</strong> "Est-ce que ça vaut le coup ? Est-ce que c'est possible ?"</p>
+                    <div class="phase-roles">
+                        <strong>Rôles principaux :</strong> PM, Visionary, Business Analyst
+                    </div>
+                    <div class="warning-box">
+                        <strong>⏱️ Durée :</strong> Courte, typiquement 2-3 semaines maximum
+                    </div>
+                    <div class="tip-box">
+                        <strong>🎯 Critère :</strong> Viabilité business + faisabilité technique
+                    </div>
+                </div>
+                
+                <div class="phase-item">
+                    <div class="phase-number">3</div>
+                    <h4>Foundations</h4>
+                    <p><strong>Objectif :</strong> Établir les Firm Foundations (Vision, Architecture, PRL, Plans)</p>
+                    <p><strong>Livrable clé :</strong> Business Vision, Architecture Definition, PRL, Project Plan</p>
+                    <p><strong>Décision :</strong> Go/No Go pour Evolutionary Development</p>
+                    <p><strong>Équilibre :</strong> Assez de fondations sans Big Design Up Front</p>
+                    <div class="phase-roles">
+                        <strong>Rôles principaux :</strong> Tous rôles clés
+                    </div>
+                    <div class="mnemo-box">
+                        <strong>🏗️ Firm Foundations = VAP</strong><br>
+                        Vision, Architecture, PRL
+                    </div>
+                    <div class="warning-box">
+                        <strong>⚠️ Piège :</strong> Foundations trop légères = risques, trop lourdes = rigidité
+                    </div>
+                </div>
+                
+                <div class="phase-item">
+                    <div class="phase-number">4</div>
+                    <h4>Evolutionary Development</h4>
+                    <p><strong>Objectif :</strong> Cœur du delivery via Timeboxes itératives</p>
+                    <p><strong>Livrable clé :</strong> Solution Increments, prototypes, feedback continu</p>
+                    <p><strong>Activité :</strong> Séquences de Timeboxes (2-4 semaines) avec démonstrations</p>
+                    <p><strong>Principe :</strong> Develop Iteratively avec feedback métier constant</p>
+                    <div class="phase-roles">
+                        <strong>Rôles principaux :</strong> Ambassador, Team Leader, Dev/Test
+                    </div>
+                    <div class="tip-box">
+                        <strong>🔄 Processus :</strong> Multiple Timeboxes avec démonstrations et feedback
+                    </div>
+                    <div class="warning-box">
+                        <strong>📝 Adaptation :</strong> Ajustement du scope via MoSCoW à chaque Timebox
+                    </div>
+                </div>
+                
+                <div class="phase-item">
+                    <div class="phase-number">5</div>
+                    <h4>Deployment</h4>
+                    <p><strong>Objectif :</strong> Packaging, livraison, transition vers l'exploitation</p>
+                    <p><strong>Livrable clé :</strong> Solution déployée, documentation, formation, support</p>
+                    <p><strong>Focus :</strong> Préparation environnement production et utilisateurs</p>
+                    <p><strong>Approche :</strong> Peut être big bang ou progressive (feature toggles)</p>
+                    <div class="phase-roles">
+                        <strong>Rôles principaux :</strong> Change Manager, DevOps, PM
+                    </div>
+                    <div class="warning-box">
+                        <strong>📦 Livraison :</strong> Peut être incrémentale (feature toggles) ou big bang
+                    </div>
+                    <div class="tip-box">
+                        <strong>🎯 Succès :</strong> Adoption réelle par les utilisateurs finaux
+                    </div>
+                </div>
+                
+                <div class="phase-item">
+                    <div class="phase-number">6</div>
+                    <h4>Post-Project</h4>
+                    <p><strong>Objectif :</strong> Mesure bénéfices, retour d'expérience, clôture formelle</p>
+                    <p><strong>Livrable clé :</strong> Benefits Assessment, End-of-Project Report, Lessons Learned</p>
+                    <p><strong>Durée :</strong> Plusieurs mois après déploiement pour mesurer bénéfices</p>
+                    <p><strong>Focus :</strong> Réalisation valeur business vs prévisions</p>
+                    <div class="phase-roles">
+                        <strong>Rôles principaux :</strong> Sponsor, PM, Visionary
+                    </div>
+                    <div class="tip-box">
+                        <strong>📈 Succès :</strong> Mesure des bénéfices business réels, pas seulement livraison technique
+                    </div>
+                    <div class="warning-box">
+                        <strong>⚠️ Oubli fréquent :</strong> Beaucoup d'organisations négligent cette phase critique
+                    </div>
+                </div>
+            </div>
+            
+            <h3>📊 Work Products par Phase - Tableau Détaillé</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Phase</th>
+                        <th>Business Products</th>
+                        <th>Solution Products</th>
+                        <th>Management Products</th>
+                        <th>Rôles Responsables</th>
+                        <th>Décision Clé</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Pre-Project</strong></td>
+                        <td>Business Case (initial)</td>
+                        <td>-</td>
+                        <td>Project Mandate</td>
+                        <td>Sponsor, PM</td>
+                        <td>Go/No Go Feasibility</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Feasibility</strong></td>
+                        <td>Business Vision (ébauche), Business Case (détaillé)</td>
+                        <td>-</td>
+                        <td>Risk Log (initial), Feasibility Report</td>
+                        <td>PM, Visionary, Business Analyst</td>
+                        <td>Go/No Go Foundations</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Foundations</strong></td>
+                        <td>PRL, Business Vision (final), Business Case (mis à jour)</td>
+                        <td>Architecture Definition, Proof of Concepts</td>
+                        <td>Project Plan, Delivery Plan, Management Approach, Quality Log</td>
+                        <td>PM, Technical Coordinator, Business Analyst, Visionary</td>
+                        <td>Go/No Go Evolutionary Dev</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Evolutionary Dev</strong></td>
+                        <td>Updates PRL, Business Feedback, Acceptance Criteria</td>
+                        <td>Solution Increments, Prototypes, Test Specifications, User Documentation (ébauche)</td>
+                        <td>Timebox Plan, Issue Log, Quality Log, Highlight Reports, Risk Log (mis à jour)</td>
+                        <td>Team Leader, Ambassador, Dev/Test, Business Analyst</td>
+                        <td>Acceptation incréments, priorités Timebox</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Deployment</strong></td>
+                        <td>Business Readiness Assessment</td>
+                        <td>User Documentation, Deployment Package, Training Materials</td>
+                        <td>Deployment Plan, Training Plan, Final Highlight Report, Support Plan</td>
+                        <td>PM, Change Manager, DevOps, Technical Coordinator</td>
+                        <td>Go/No Go production, planning déploiement</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Post-Project</strong></td>
+                        <td>Benefits Assessment, Business Benefits Realised</td>
+                        <td>-</td>
+                        <td>End-of-Project Report, Lessons Learned, Final Metrics</td>
+                        <td>Sponsor, PM, Visionary, Change Manager</td>
+                        <td>Clôture formelle projet</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>🎯 Points Clés par Phase - Stratégie Examen</h3>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Pre-Project & Feasibility</h4>
+                    <p><strong>Objectif examen :</strong> Comprendre que ces phases sont courtes mais critiques</p>
+                    <p><strong>Piège fréquent :</strong> Croire que AgilePM commence directement par le développement</p>
+                    <p><strong>Question type :</strong> "Qui est responsable du Business Case ?" → Business Sponsor</p>
+                    <p><strong>Durée typique :</strong> 10-15% du temps total projet</p>
+                    <div class="tip-box">
+                        <strong>🎯 Focus :</strong> Validation de la valeur business et de la faisabilité
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4>Foundations</h4>
+                    <p><strong>Objectif examen :</strong> Maîtriser le concept de Firm Foundations (VAP)</p>
+                    <p><strong>Piège fréquent :</strong> Confondre avec Big Design Up Front</p>
+                    <p><strong>Question type :</strong> "Que doit-on avoir avant de commencer Evolutionary Development ?" → VAP</p>
+                    <p><strong>Durée typique :</strong> 10-20% du temps total projet</p>
+                    <div class="tip-box">
+                        <strong>🎯 Équilibre :</strong> Assez de fondations pour réduire les risques
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4>Evolutionary Development</h4>
+                    <p><strong>Objectif examen :</strong> Connaître la structure des Timeboxes (5 sous-ensembles)</p>
+                    <p><strong>Piège fréquent :</strong> Oublier la phase Consolidation ou confondre Investigation/Refinement</p>
+                    <p><strong>Question type :</strong> "Que faire si on risque de manquer la date ?" → Réduire Should/Could Have</p>
+                    <p><strong>Durée typique :</strong> 50-70% du temps total projet</p>
+                    <div class="tip-box">
+                        <strong>🎯 Cœur :</strong> Développement itératif avec feedback continu
+                    </div>
+                </div>
+            </div>
+
+            <h3>🔄 Enchaînement Logique des Phases</h3>
+            <div class="comparison-table">
+                <h4>Logique de Progression</h4>
+                <p><strong>Pre-Project → Feasibility :</strong> "Y a-t-il un besoin valide ?" → "Est-ce réalisable ?"</p>
+                <p><strong>Feasibility → Foundations :</strong> "C'est réalisable" → "Comment le faire ?"</p>
+                <p><strong>Foundations → Evolutionary Development :</strong> "On sait comment" → "Faisons-le par incréments"</p>
+                <p><strong>Evolutionary Development → Deployment :</strong> "C'est développé" → "Mettons-le en production"</p>
+                <p><strong>Deployment → Post-Project :</strong> "C'est en production" → "Quelle valeur ça génère ?"</p>
+            </div>
+            
+            <div class="tip-box">
+                <strong>🎯 CONSEIL EXAMEN ULTIME :</strong> Les questions sur les phases testent toujours la séquence logique 
+                et les Work Products associés. Apprenez le tableau Work Products par cœur et comprenez la raison d'être de chaque phase !
+            </div>
+            
+            <div class="warning-box">
+                <h4>🚨 Pièges Courants sur le Cycle de Vie</h4>
+                <ul>
+                    <li><strong>Sauter Foundations</strong> → échec garanti, pas de Firm Foundations pour le développement itératif</li>
+                    <li><strong>Confondre Feasibility et Foundations</strong> → Feasibility = "est-ce possible ?", Foundations = "comment le faire ?"</li>
+                    <li><strong>Négliger Post-Project</strong> → pas de mesure des bénéfices réels, pas d'apprentissage organisationnel</li>
+                    <li><strong>Oublier les rôles Business en Evolutionary Development</strong> → pas de feedback métier continu, dérive des besoins</li>
+                    <li><strong>Timeboxes trop longues</strong> → feedback tardif, difficulté d'ajustement</li>
+                    <li><strong>Ignorer les points de décision Go/No Go</strong> → continuation de projets non viables</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section Work Products - CONTENU TRIPLÉ -->
+        <section id="products" class="content-section">
+            <h2>📝 Work Products AgilePM® v3 - Livrables du Projet</h2>
+            
+            <div class="tip-box">
+                <strong>CONSEIL EXAMEN :</strong> Associez chaque Work Product à sa phase et son rôle responsable. 
+                Les questions portent souvent sur "qui produit quoi et quand". Maîtrisez les 3 catégories de Work Products.
+            </div>
+
+            <div class="exam-tip">
+                <strong>💡 STRATÉGIE GAGNANTE :</strong> Pour chaque Work Product, apprenez la phase de création principale, 
+                le rôle responsable, et s'il est mis à jour dans d'autres phases.
+            </div>
+            
+            <h3>📊 Work Products par Type - Vue Détaillée</h3>
+            
+            <h4>🟦 Business Products (Valeur Métier)</h4>
+            <div class="card-grid">
+                <div class="card business">
+                    <h4>Business Case</h4>
+                    <p><strong>Définition :</strong> Justification économique du projet, analyse coûts-bénéfices.</p>
+                    <p><strong>Phase création :</strong> Pre-Project (initial), Feasibility (détaillé), Foundations (mis à jour)</p>
+                    <p><strong>Rôle responsable :</strong> Business Sponsor (responsable ultime), Business Visionary (contenu)</p>
+                    <p><strong>Évolution :</strong> Doit rester "vivant" et être révisé régulièrement</p>
+                    <p><strong>Contenu typique :</strong> Objectifs business, bénéfices attendus, coûts, risques, alternatives</p>
+                    <div class="warning-box">
+                        <strong>⚠️ Responsabilité :</strong> Le Business Sponsor ne peut déléguer la responsabilité du Business Case
+                    </div>
+                </div>
+                
+                <div class="card business">
+                    <h4>Business Vision</h4>
+                    <p><strong>Définition :</strong> Description de ce que le projet doit accomplir pour l'business.</p>
+                    <p><strong>Phase création :</strong> Feasibility (ébauche), Foundations (final)</p>
+                    <p><strong>Rôle responsable :</strong> Business Visionary</p>
+                    <p><strong>Stabilité :</strong> Relativement stable, mais peut évoluer avec les apprentissages</p>
+                    <p><strong>Utilité :</strong> Guide toutes les décisions et priorités du projet</p>
+                    <div class="tip-box">
+                        <strong>🎯 Focus :</strong> Le "quoi" et "pourquoi" business, pas le "comment" technique
+                    </div>
+                </div>
+                
+                <div class="card business">
+                    <h4>PRL (Prioritised Requirements List)</h4>
+                    <p><strong>Définition :</strong> Liste exhaustive des exigences priorisées avec MoSCoW.</p>
+                    <p><strong>Phase création :</strong> Foundations (initial), Evolutionary Development (mis à jour)</p>
+                    <p><strong>Rôle responsable :</strong> Business Analyst (structure), Business Ambassador (contenu)</p>
+                    <p><strong>Dynamique :</strong> Évolue constamment avec les apprentissages et feedbacks</p>
+                    <p><strong>Structure :</strong> Exigences + priorités MoSCoW + critères d'acceptation</p>
+                    <div class="mnemo-box">
+                        <strong>📋 Règle :</strong> Must Have ≤ 60% à chaque Timebox
+                    </div>
+                </div>
+                
+                <div class="card business">
+                    <h4>Benefits Assessment</h4>
+                    <p><strong>Définition :</strong> Mesure des bénéfices business réellement obtenus.</p>
+                    <p><strong>Phase création :</strong> Post-Project</p>
+                    <p><strong>Rôle responsable :</strong> Business Sponsor (responsable), Business Visionary (mesure)</p>
+                    <p><strong>Comparaison :</strong> Bénéfices réels vs prévisions du Business Case</p>
+                    <p><strong>Utilité :</strong> Apprentissage organisationnel, justification investissements futurs</p>
+                    <div class="warning-box">
+                        <strong>⚠️ Oubli fréquent :</strong> Beaucoup d'organisations ne font pas cette mesure critique
+                    </div>
+                </div>
+            </div>
+
+            <h4>🟩 Solution Products (Livrables Techniques)</h4>
+            <div class="card-grid">
+                <div class="card solution">
+                    <h4>Architecture Definition</h4>
+                    <p><strong>Définition :</strong> Description de l'architecture technique de la solution.</p>
+                    <p><strong>Phase création :</strong> Foundations</p>
+                    <p><strong>Rôle responsable :</strong> Technical Coordinator</p>
+                    <p><strong>Niveau de détail :</strong> Assez pour guider le développement, pas un Big Design Up Front</p>
+                    <p><strong>Contenu :</strong> Composants, interfaces, technologies, standards, contraintes</p>
+                    <div class="tip-box">
+                        <strong>🏗️ Firm Foundation :</strong> Partie essentielle des Firm Foundations (VAP)
+                    </div>
+                </div>
+                
+                <div class="card solution">
+                    <h4>Solution Increments</h4>
+                    <p><strong>Définition :</strong> Livrables fonctionnels produits à chaque Timebox.</p>
+                    <p><strong>Phase création :</strong> Evolutionary Development (chaque Timebox)</p>
+                    <p><strong>Rôle responsable :</strong> Team Leader (livraison), Solution Developer/Tester (contenu)</p>
+                    <p><strong>Critère :</strong> Doit respecter la Definition of Done</p>
+                    <p><strong>Valeur :</strong> Preuve tangible du progrès, base pour le feedback</p>
+                    <div class="warning-box">
+                        <strong>✅ Definition of Done :</strong> Doit être prédéfinie et respectée pour chaque incrément
+                    </div>
+                </div>
+                
+                <div class="card solution">
+                    <h4>User Documentation</h4>
+                    <p><strong>Définition :</strong> Documentation utilisateur finale et manuels.</p>
+                    <p><strong>Phase création :</strong> Evolutionary Development (ébauche), Deployment (final)</p>
+                    <p><strong>Rôle responsable :</strong> Solution Developers (contenu), Business Ambassador (validation)</p>
+                    <p><strong>Approche :</strong> Documentation évolue avec la solution</p>
+                    <p><strong>Format :</strong> Peut être électronique, aide en ligne, vidéos, etc.</p>
+                    <div class="tip-box">
+                        <strong>📖 Utilisabilité :</strong> Doit être testée avec des utilisateurs réels
+                    </div>
+                </div>
+                
+                <div class="card solution">
+                    <h4>Test Specifications</h4>
+                    <p><strong>Définition :</strong> Spécifications détaillées des tests.</p>
+                    <p><strong>Phase création :</strong> Evolutionary Development (chaque Timebox)</p>
+                    <p><strong>Rôle responsable :</strong> Solution Tester</p>
+                    <p><strong>Couverture :</strong> Tests unitaires, intégration, système, acceptation, performance</p>
+                    <p><strong>Lien :</strong> Basées sur les critères d'acceptation de la PRL</p>
+                    <div class="mnemo-box">
+                        <strong>🔍 Principe :</strong> "Test Early, Test Often" - qualité continue
+                    </div>
+                </div>
+            </div>
+
+            <h4>🟧 Management Products (Gouvernance)</h4>
+            <div class="card-grid">
+                <div class="card project">
+                    <h4>Project Plan</h4>
+                    <p><strong>Définition :</strong> Plan global du projet avec phases, jalons, dépendances.</p>
+                    <p><strong>Phase création :</strong> Foundations</p>
+                    <p><strong>Rôle responsable :</strong> Project Manager</p>
+                    <p><strong>Niveau :</strong> Haut niveau, focus sur les phases et points de décision</p>
+                    <p><strong>Contenu :</strong> Planning phases, ressources, budget, jalons majeurs</p>
+                    <div class="tip-box">
+                        <strong>📅 Évolution :</strong> Mis à jour si changements majeurs dans le scope ou planning
+                    </div>
+                </div>
+                
+                <div class="card project">
+                    <h4>Delivery Plan</h4>
+                    <p><strong>Définition :</strong> Plan détaillé pour la phase Evolutionary Development.</p>
+                    <p><strong>Phase création :</strong> Foundations</p>
+                    <p><strong>Rôle responsable :</strong> Project Manager avec Team Leader</p>
+                    <p><strong>Focus :</strong> Timeboxes, livraisons incrémentales, planning détaillé</p>
+                    <p><strong>Utilité :</strong> Guide le travail pendant Evolutionary Development</p>
+                    <div class="warning-box">
+                        <strong>🔄 Adaptabilité :</strong> Doit permettre l'adaptation au fur et à mesure des apprentissages
+                    </div>
+                </div>
+                
+                <div class="card project">
+                    <h4>Timebox Plan</h4>
+                    <p><strong>Définition :</strong> Plan détaillé pour une Timebox spécifique.</p>
+                    <p><strong>Phase création :</strong> Evolutionary Development (début de chaque Timebox)</p>
+                    <p><strong>Rôle responsable :</strong> Team Leader avec Business Ambassador</p>
+                    <p><strong>Contenu :</strong> Objectifs Timebox, exigences (MoSCoW), planning détaillé, risques</p>
+                    <p><strong>Précision :</strong> Niveau de détail augmente pendant la Timebox</p>
+                    <div class="mnemo-box">
+                        <strong>⏱️ Règle :</strong> Timebox Plan finalisé pendant le Kick-off
+                    </div>
+                </div>
+                
+                <div class="card project">
+                    <h4>Risk Log</h4>
+                    <p><strong>Définition :</strong> Registre des risques identifiés avec statut et plans d'action.</p>
+                    <p><strong>Phase création :</strong> Feasibility (initial), toutes phases (mis à jour)</p>
+                    <p><strong>Rôle responsable :</strong> Project Manager</p>
+                    <p><strong>Dynamique :</strong> Vivant - révisé régulièrement</p>
+                    <p><strong>Contenu :</strong> Risques, probabilité, impact, statut, responsable, actions</p>
+                    <div class="tip-box">
+                        <strong>🎯 Utilisation :</strong> Base pour les décisions et la communication stakeholders
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mnemo-box">
+                <h4>🎯 Mnémotechnique Management Products : PRIQ-CHD</h4>
+                <p><strong>P</strong>lans – <strong>R</strong>isk – <strong>I</strong>ssue – <strong>Q</strong>uality – <strong>C</strong>heckpoint – <strong>H</strong>ighlight – <strong>D</strong>eployment</p>
+                <p><strong>Application :</strong> Project Plan, Risk Log, Issue Log, Quality Log, Checkpoint Reports, Highlight Reports, Deployment Plan</p>
+            </div>
+
+            <h3>📝 Work Products par Phase et Rôle - Tableau Synoptique</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Phase</th>
+                        <th>Rôles principaux</th>
+                        <th>Work Products clés</th>
+                        <th>Responsable principal</th>
+                        <th>Statut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Pre-Project</strong></td>
+                        <td>Sponsor, PM, Business Visionary</td>
+                        <td>Business Case, Project Mandate</td>
+                        <td>Business Sponsor</td>
+                        <td>Création</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Feasibility</strong></td>
+                        <td>PM, BA, Technical Coordinator</td>
+                        <td>Business Case (révisé), Feasibility Report, Risk Log</td>
+                        <td>Project Manager</td>
+                        <td>Création</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Foundations</strong></td>
+                        <td>PM, BA, Team Leader, Technical Coordinator</td>
+                        <td>Business Vision, PRL, Solution Architecture Document, Project Plan</td>
+                        <td>Multiple selon produit</td>
+                        <td>Création</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Evolutionary Development</strong></td>
+                        <td>Team Leader, Dev, Tester, BA, Ambassador</td>
+                        <td>Timebox Plan, Solution Increments, Test/Quality Logs, Highlight Reports</td>
+                        <td>Team Leader</td>
+                        <td>Création/Mise à jour</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Deployment</strong></td>
+                        <td>PM, Technical Coordinator, Change Manager</td>
+                        <td>Deployment Plan, Highlight Report, User Documentation</td>
+                        <td>Project Manager</td>
+                        <td>Création</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Post-Project</strong></td>
+                        <td>Business Sponsor, PM, Visionary</td>
+                        <td>Benefits Assessment, End-of-Project Report</td>
+                        <td>Business Sponsor</td>
+                        <td>Création</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>🎯 Points Clés pour l'Examen</h3>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Responsabilités Claires</h4>
+                    <p>Chaque Work Product a un responsable identifié clairement.</p>
+                    <p><strong>Exemple :</strong> Business Case = Business Sponsor (responsabilité ultime)</p>
+                </div>
+                <div class="card">
+                    <h4>Évolution Continue</h4>
+                    <p>Beaucoup de Work Products évoluent tout au long du projet.</p>
+                    <p><strong>Exemple :</strong> PRL mise à jour à chaque Timebox</p>
+                </div>
+                <div class="card">
+                    <h4>Liens entre Produits</h4>
+                    <p>Les Work Products sont interconnectés et se nourrissent mutuellement.</p>
+                    <p><strong>Exemple :</strong> PRL → Timebox Plan → Solution Increments</p>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4>🚨 Pièges Courants sur les Work Products</h4>
+                <ul>
+                    <li><strong>Confondre Business Case et Business Vision</strong> → Case = justification, Vision = objectifs</li>
+                    <li><strong>Oublier que le Business Case doit rester vivant</strong> → révision régulière nécessaire</li>
+                    <li><strong>Négliger les Benefits Assessment</strong> → pas de mesure de la valeur réelle</li>
+                    <li><strong>Documentation trop lourde</strong> → aller à l'essentiel, valeur vs effort</li>
+                    <li><strong>Ignorer les Management Products</strong> → perte de contrôle et gouvernance</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section Timebox Détaillé - CONTENU TRIPLÉ -->
+        <section id="timebox" class="content-section">
+            <h2>⏱️ Timebox AgilePM® v3 - Structure Officielle</h2>
+            
+            <div class="warning-box">
+                <strong>ATTENTION EXAMEN :</strong> La structure à 5 sous-ensembles est TESTÉE dans 80% des examens. Maîtrisez chaque étape !
+            </div>
+
+            <div class="exam-tip">
+                <strong>💡 COMPRÉHENSION PROFONDE :</strong> Une Timebox n'est pas qu'un sprint. C'est une structure 
+                disciplinée avec des objectifs spécifiques pour chaque sous-ensemble. Comprenez la logique derrière la séquence.
+            </div>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h4>1. Kick-off</h4>
+                    <p><strong>Objectif :</strong> Aligner l'équipe, planifier la Timebox, sécuriser le périmètre MoSCoW</p>
+                    <p><strong>Activités :</strong> Finaliser Timebox Plan, confirmer MoSCoW, identifier risques, aligner attentes</p>
+                    <p><strong>Rôles :</strong> Ambassador, Business Analyst, Team Leader, toute l'équipe</p>
+                    <p><strong>Work Product :</strong> Timebox Plan finalisé</p>
+                    <p><strong>Durée :</strong> 5-10% de la Timebox (typiquement 1-2 jours pour 3 semaines)</p>
+                    <div class="tip-box">
+                        <strong>🎯 Critère succès :</strong> Toute l'équipe comprend les objectifs et le plan
+                    </div>
+                    <div class="warning-box">
+                        <strong>⚠️ Risque :</strong> Kick-off trop court = malentendus, trop long = perte de temps
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4>2. Investigation</h4>
+                    <p><strong>Objectif :</strong> Comprendre précisément les besoins, explorer les solutions</p>
+                    <p><strong>Activités :</strong> Ateliers, prototypes, spécifications détaillées, analyse techniques</p>
+                    <p><strong>Rôles :</strong> Ambassador, Business Analyst, UX/UI, Dev/Test (consultation)</p>
+                    <p><strong>Work Products :</strong> Prototypes, modèles, spécifications détaillées</p>
+                    <p><strong>Durée :</strong> 10-20% de la Timebox</p>
+                    <div class="mnemo-box">
+                        <strong>🔍 Focus :</strong> "Comprendre avant de construire"
+                    </div>
+                    <div class="warning-box">
+                        <strong>⏰ Équilibre :</strong> Assez d'investigation pour réduire l'incertitude, pas trop pour l'analyse-paralyse
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4>3. Refinement</h4>
+                    <p><strong>Objectif :</strong> Développer la solution, construire les incréments</p>
+                    <p><strong>Activités :</strong> Développement itératif, tests continus, intégration, démonstrations intermédiaires</p>
+                    <p><strong>Rôles :</strong> Dev/Test, Team Leader, Ambassador (feedback)</p>
+                    <p><strong>Work Products :</strong> Solution Increments, code, tests automatisés</p>
+                    <p><strong>Durée :</strong> 40-60% de la Timebox (cœur du développement)</p>
+                    <div class="tip-box">
+                        <strong>🔄 Principe :</strong> "Develop Iteratively" - petits cycles de feedback
+                    </div>
+                    <div class="warning-box">
+                        <strong>📝 Qualité :</strong> Ne pas sacrifier la qualité pour aller plus vite
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4>4. Consolidation</h4>
+                    <p><strong>Objectif :</strong> Stabiliser, intégrer, tester complètement, préparer livraison</p>
+                    <p><strong>Activités :</strong> Correction bugs, tests complets, intégration, performance, sécurité</p>
+                    <p><strong>Rôles :</strong> Dev/Test, Tech Coordinator, Security Specialist, DevOps</p>
+                    <p><strong>Work Products :</strong> Test Results, documentation, package de livraison</p>
+                    <p><strong>Durée :</strong> 10-20% de la Timebox</p>
+                    <div class="mnemo-box">
+                        <strong>✅ Critère :</strong> Respect de la Definition of Done
+                    </div>
+                    <div class="danger-box">
+                        <strong>🚨 ERREUR :</strong> Négliger la consolidation = livraison de qualité médiocre
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4>5. Close</h4>
+                    <p><strong>Objectif :</strong> Valider avec le métier, apprendre, préparer la suite</p>
+                    <p><strong>Activités :</strong> Démo finale, rétrospective, mise à jour documents, planning suivant</p>
+                    <p><strong>Rôles :</strong> Visionary, PM, Ambassador, Team Leader, toute l'équipe</p>
+                    <p><strong>Work Products :</strong> Timebox Report, Updated Logs, lessons learned</p>
+                    <p><strong>Durée :</strong> 5-10% de la Timebox</p>
+                    <div class="tip-box">
+                        <strong>📈 Valeur :</strong> Amélioration continue et alignment pour la Timebox suivante
+                    </div>
+                    <div class="warning-box">
+                        <strong>⚠️ Oubli :</strong> Close négligé = pas d'apprentissage et répétition des erreurs
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mnemo-box">
+                <h4>🎯 Mnémotechnique Timebox : KIRCC</h4>
+                <p><strong>K</strong>ick-off → <strong>I</strong>nvestigation → <strong>R</strong>efinement → <strong>C</strong>onsolidation → <strong>C</strong>lose</p>
+                <p><strong>Phrase mnémotechnique :</strong> "Kicker, Investiguer, Réfiner, Consolider, Conclure"</p>
+                <p><strong>Logique :</strong> Planifier → Comprendre → Construire → Stabiliser → Apprendre</p>
+            </div>
+
+            <h3>📊 Répartition Temporelle Typique d'une Timebox</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sous-ensemble</th>
+                        <th>Pourcentage temps</th>
+                        <th>Durée (3 semaines)</th>
+                        <th>Focus principal</th>
+                        <th>Rôle leader</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Kick-off</strong></td>
+                        <td>5-10%</td>
+                        <td>0.5 - 1.5 jours</td>
+                        <td>Alignment et planning</td>
+                        <td>Team Leader</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Investigation</strong></td>
+                        <td>10-20%</td>
+                        <td>1.5 - 3 jours</td>
+                        <td>Compréhension besoins</td>
+                        <td>Business Ambassador</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Refinement</strong></td>
+                        <td>40-60%</td>
+                        <td>6 - 9 jours</td>
+                        <td>Développement</td>
+                        <td>Solution Developers</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Consolidation</strong></td>
+                        <td>10-20%</td>
+                        <td>1.5 - 3 jours</td>
+                        <td>Qualité et intégration</td>
+                        <td>Solution Tester</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Close</strong></td>
+                        <td>5-10%</td>
+                        <td>0.5 - 1.5 jours</td>
+                        <td>Validation et apprentissage</td>
+                        <td>Team Leader</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>⚠️ Pièges Courants sur les Timeboxes</h3>
+            <div class="warning-box">
+                <ul>
+                    <li><strong>Confondre Investigation et Refinement</strong> → Investigation = comprendre et explorer, Refinement = développer et construire</li>
+                    <li><strong>Oublier la Consolidation</strong> → livrer sans tests finaux = qualité compromise et risques production</li>
+                    <li><strong>Négliger le Close</strong> → pas d'apprentissage pour les Timeboxes suivantes, répétition erreurs</li>
+                    <li><strong>Ignorer les rôles spécifiques</strong> → chaque sous-ensemble a ses acteurs principaux et responsabilités</li>
+                    <li><strong>Timebox trop longue</strong> → difficulté d'ajustement, feedback tardif, perte de focus</li>
+                    <li><strong>Kick-off inefficace</strong> → malentendus, objectifs flous, planning irréaliste</li>
+                    <li><strong>Investigation insuffisante</strong> → développement basé sur des assumptions erronées</li>
+                </ul>
+            </div>
+
+            <h3>🎯 Adaptation des Timeboxes</h3>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Projet Simple</h4>
+                    <p><strong>Durée Timebox :</strong> 1-2 semaines</p>
+                    <p><strong>Investigation :</strong> Plus courte (5-10%)</p>
+                    <p><strong>Consolidation :</strong> Plus légère</p>
+                    <p><strong>Documentation :</strong> Minimale</p>
+                </div>
+                <div class="card">
+                    <h4>Projet Complexe</h4>
+                    <p><strong>Durée Timebox :</strong> 3-4 semaines</p>
+                    <p><strong>Investigation :</strong> Plus longue (15-20%)</p>
+                    <p><strong>Consolidation :</strong> Renforcée</p>
+                    <p><strong>Documentation :</strong> Plus formelle</p>
+                </div>
+                <div class="card">
+                    <h4>Environnement Régulé</h4>
+                    <p><strong>Durée Timebox :</strong> 4 semaines</p>
+                    <p><strong>Consolidation :</strong> Étendue avec tests spécifiques</p>
+                    <p><strong>Documentation :</strong> Complète et traçable</p>
+                    <p><strong>Rôles :</strong> Security Specialist obligatoire</p>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <strong>🎯 CONSEIL EXAMEN FINAL :</strong> Les questions sur les Timeboxes testent votre compréhension 
+                de la séquence KIRCC et des objectifs de chaque sous-ensemble. Si on vous demande "que faire dans telle situation ?", 
+                pensez d'abord à la phase de la Timebox où vous vous trouvez.
+            </div>
+        </section>
+
+        <!-- Section MoSCoW v3 - CONTENU TRIPLÉ -->
+        <section id="moscow" class="content-section">
+            <h2>🎯 MoSCoW v3 - Priorisation Intelligente</h2>
+            
+            <div class="tip-box">
+                <strong>STRATÉGIE EXAMEN :</strong> Les questions MoSCoW testent votre capacité à prioriser correctement. Must ≤ 60% est la règle d'or !
+            </div>
+
+            <div class="exam-tip">
+                <strong>💡 COMPRÉHENSION APPROFONDIE :</strong> MoSCoW n'est pas qu'une technique de priorisation. 
+                C'est un mécanisme de gestion des risques qui permet de respecter le principe "Deliver on Time".
+            </div>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Must Have</h4>
+                    <p><strong>Définition :</strong> Indispensable, critique, non négociable - le produit est inutilisable sans</p>
+                    <p><strong>Limite :</strong> ≤ 60% du contenu Timebox - règle ABSOLUE</p>
+                    <p><strong>Validation :</strong> Obligatoire à chaque Timebox - 100% des Must Have doivent être validés</p>
+                    <p><strong>Caractéristique :</strong> Minimum Viable Product (MVP) - valeur business fondamentale</p>
+                    <p><strong>Exemples :</strong> Authentification, fonctionnalité cœur de métier, sécurité de base</p>
+                    <div class="warning-box">
+                        <strong>Validation obligatoire</strong> à chaque Timebox - pas d'exception
+                    </div>
+                    <div class="danger-box">
+                        <strong>🚨 SANCTION :</strong> Dépasser 60% = Timebox ingérable, risque d'échec élevé
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4>Should Have</h4>
+                    <p><strong>Définition :</strong> Important mais pas critique - améliore significativement la valeur</p>
+                    <p><strong>Flexibilité :</strong> Peut être reporté si nécessaire - variable d'ajustement</p>
+                    <p><strong>Impact :</strong> Perte significative de valeur si absent, mais produit reste utilisable</p>
+                    <p><strong>Stratégie :</strong> Premier niveau de réduction si délai menacé</p>
+                    <p><strong>Exemples :</strong> Rapports avancés, fonctionnalités secondaires, améliorations UX</p>
+                    <div class="tip-box">
+                        <strong>🎯 Règle :</strong> Should Have = "très important mais on peut vivre sans temporairement"
+                    </div>
+                    <div class="warning-box">
+                        <strong>⚠️ CONFUSION :</strong> Ne pas confondre avec Must Have - erreur fréquente à l'examen
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4>Could Have</h4>
+                    <p><strong>Définition :</strong> Souhaitable mais optionnel - améliore l'expérience utilisateur</p>
+                    <p><strong>Priorité :</strong> Livré si le temps le permet - "nice to have"</p>
+                    <p><strong>Impact :</strong> Perte mineure de valeur si absent</p>
+                    <p><strong>Stratégie :</strong> Second niveau de réduction, souvent sacrifié</p>
+                    <p><strong>Exemples :</strong> Personnalisation interface, fonctionnalités cosmétiques, automatisations mineures</p>
+                    <div class="mnemo-box">
+                        <strong>💡 Astuce :</strong> Could Have = "ça serait bien mais pas essentiel"
+                    </div>
+                    <div class="tip-box">
+                        <strong>🎁 Bonus :</strong> Livrer des Could Have = satisfaction utilisateur supplémentaire
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4>Won't Have</h4>
+                    <p><strong>Définition :</strong> Exclu de cette Timebox - explicitement hors scope</p>
+                    <p><strong>Utilité :</strong> Clarifie les limites du périmètre et gère les attentes</p>
+                    <p><strong>Reconsidération :</strong> Possible dans Timebox future - pas abandonné définitivement</p>
+                    <p><strong>Communication :</strong> Essentiel pour éviter les malentendus avec stakeholders</p>
+                    <p><strong>Exemples :</strong> Fonctionnalités complexes reportées, exigences à faible valeur</p>
+                    <div class="tip-box">
+                        <strong>🗣️ Transparence :</strong> Mieux vaut dire "Won't Have" que laisser des ambiguïtés
+                    </div>
+                    <div class="warning-box">
+                        <strong>📝 Documentation :</strong> Doit être documenté pour traceability
+                    </div>
+                </div>
+            </div>
+            
+            <h3>📊 Répartition Recommandée - Détail Expert</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Catégorie</th>
+                        <th>Pourcentage idéal</th>
+                        <th>Impact sur la valeur</th>
+                        <th>Flexibilité</th>
+                        <th>Exemple concret</th>
+                        <th>Stratégie en cas de problème</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Must Have</strong></td>
+                        <td>40-60% (max)</td>
+                        <td>Valeur fondamentale - produit inutilisable sans</td>
+                        <td>Nulle - obligatoire</td>
+                        <td>Authentification utilisateur</td>
+                        <td>Non négociable - doit être livré</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Should Have</strong></td>
+                        <td>20-40%</td>
+                        <td>Valeur significative - produit utilisable mais limité</td>
+                        <td>Élevée - premier ajustement</td>
+                        <td>Profil utilisateur complet</td>
+                        <td>Réduction prioritaire si délai menacé</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Could Have</strong></td>
+                        <td>10-20%</td>
+                        <td>Valeur d'amélioration - expérience utilisateur</td>
+                        <td>Très élevée</td>
+                        <td>Thèmes personnalisables</td>
+                        <td>Sacrifié si nécessaire</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Won't Have</strong></td>
+                        <td>Défini explicitement</td>
+                        <td>Pas de valeur immédiate</td>
+                        <td>Complète</td>
+                        <td>Export PDF avancé</td>
+                        <td>Hors scope - reporté</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>🔄 Processus MoSCoW dans le Cycle de Vie</h3>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Foundations</h4>
+                    <p><strong>Activité :</strong> Priorisation initiale de la PRL</p>
+                    <p><strong>Focus :</strong> Vision long terme, alignement stratégique</p>
+                    <p><strong>Rôle :</strong> Business Visionary + Business Analyst</p>
+                    <p><strong>Output :</strong> PRL avec priorités MoSCoW initiales</p>
+                </div>
+                <div class="card">
+                    <h4>Timebox Planning</h4>
+                    <p><strong>Activité :</strong> Sélection et ajustement pour Timebox spécifique</p>
+                    <p><strong>Focus :</strong> Faisabilité dans le temps disponible</p>
+                    <p><strong>Rôle :</strong> Business Ambassador + Team Leader</p>
+                    <p><strong>Output :</strong> Timebox Plan avec MoSCoW validé</p>
+                </div>
+                <div class="card">
+                    <h4>Pendant Timebox</h4>
+                    <p><strong>Activité :</strong> Ajustement si nécessaire</p>
+                    <p><strong>Focus :</strong> Respect des délais, gestion des risques</p>
+                    <p><strong>Rôle :</strong> Team Leader + Business Ambassador</p>
+                    <p><strong>Output :</strong> Révision MoSCoW si délai menacé</p>
+                </div>
+            </div>
+            
+            <div class="warning-box">
+                <h4>🚨 Pièges Fréquents MoSCoW</h4>
+                <ul>
+                    <li><strong>Trop de Must Have</strong> → dépasse 60% = Timebox ingérable et risque d'échec</li>
+                    <li><strong>Confondre Should et Must</strong> → erreur de priorisation critique = livraison incomplète</li>
+                    <li><strong>Oublier de valider les Must</strong> → risque de livrer incomplet et inutilisable</li>
+                    <li><strong>Ne pas documenter les Won't</strong> → attentes non gérées et frustrations stakeholders</li>
+                    <li><strong>MoSCoW statique</strong> → non révisé pendant le projet = inadapté aux apprentissages</li>
+                    <li><strong>Pressure business sur Must Have</strong> → céder = violation du principe "Deliver on Time"</li>
+                    <li><strong>Ignorer la règle des 60%</strong> → échec prévisible de la Timebox</li>
+                </ul>
+            </div>
+
+            <h3>🎯 Techniques de Priorisation Avancées</h3>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Value vs Effort Matrix</h4>
+                    <p><strong>Principe :</strong> Prioriser les exigences à haute valeur et faible effort</p>
+                    <p><strong>Avantage :</strong> Maximise la valeur livrée par unité d'effort</p>
+                    <p><strong>Utilisation :</strong> Complément à MoSCoW pour affiner les priorités</p>
+                </div>
+                <div class="card">
+                    <h4>Kano Model</h4>
+                    <p><strong>Principe :</strong> Catégoriser les fonctionnalités par type de satisfaction</p>
+                    <p><strong>Avantage :</strong> Comprend l'impact sur la satisfaction utilisateur</p>
+                    <p><strong>Utilisation :</strong> Éclaire les décisions MoSCoW pour les Should/Could Have</p>
+                </div>
+                <div class="card">
+                    <h4>Cost of Delay</h4>
+                    <p><strong>Principe :</strong> Quantifier le coût du retard pour chaque exigence</p>
+                    <p><strong>Avantage :</strong> Décisions basées sur l'impact économique</p>
+                    <p><strong>Utilisation :</strong> Priorisation business-driven pour les Must Have</p>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <strong>🎯 CONSEIL EXAMEN STRATÉGIQUE :</strong> Dans les questions MoSCoW, rappelez-vous toujours 
+                que Must ≤ 60% est une règle ABSOLUE. Si une option propose de dépasser cette limite, elle est FAUSSE.
+            </div>
+        </section>
+
+        <!-- Section AgilePM vs Scrum - CONTENU TRIPLÉ -->
+        <section id="scrum" class="content-section">
+            <h2>🔄 Alignement AgilePM® v3 ↔ Scrum</h2>
+            
+            <div class="tip-box">
+                <strong>STRATÉGIE EXAMEN :</strong> Les questions de comparaison AgilePM/Scrum sont fréquentes. Maîtrisez le mapping complet !
+            </div>
+
+            <div class="exam-tip">
+                <strong>💡 COMPRÉHENSION NUANCÉE :</strong> AgilePM et Scrum partagent des valeurs agiles communes mais ont des approches différentes. 
+                Comprenez les forces de chaque framework et quand les utiliser.
+            </div>
+            
+            <h3>👥 Correspondance des Rôles - Analyse Détaillée</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>AgilePM® v3</th>
+                        <th>Scrum</th>
+                        <th>Explications détaillées</th>
+                        <th>Différences majeures</th>
+                        <th>Tips examen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Team Leader</strong></td>
+                        <td>Scrum Master</td>
+                        <td>Facilitation, suppression obstacles, protection de l'équipe, coordination quotidienne</td>
+                        <td>Team Leader a certaines responsabilités de coordination delivery en plus</td>
+                        <td>Ne pas confondre avec Project Manager</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Business Ambassador</strong></td>
+                        <td>Product Owner</td>
+                        <td>Voix du métier, priorisation, clarification besoins, validation livrables</td>
+                        <td>Business Ambassador est souvent multiple (équipe de BA) et plus opérationnel</td>
+                        <td>Focus sur la disponibilité et l'engagement quotidien</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Solution Developer/Tester</strong></td>
+                        <td>Development Team</td>
+                        <td>Construction, tests, livraison, qualité technique, auto-organisation</td>
+                        <td>Rôles plus spécialisés en AgilePM (Dev vs Tester) vs généralistes en Scrum</td>
+                        <td>AgilePM permet des spécialisations tout en favorisant la collaboration</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Business Sponsor/Visionary</strong></td>
+                        <td>Stakeholders</td>
+                        <td>Vision stratégique, décisions budget, alignement business, validation bénéfices</td>
+                        <td>Rôles formels et engagés en AgilePM vs relation plus informelle en Scrum</td>
+                        <td>Sponsor = décision budget, Visionary = vision stratégique</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Project Manager</strong></td>
+                        <td>Non formalisé</td>
+                        <td>Gouvernance projet, gestion risques, reporting, coordination externe, budget</td>
+                        <td>Rôle formel en AgilePM, absent en Scrum (responsabilités distribuées)</td>
+                        <td>PM ne manage pas l'équipe technique mais le projet global</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Support Roles</strong></td>
+                        <td>Non formalisé</td>
+                        <td>Expertises spécialisées (UX, Security, DevOps, etc.) selon les besoins projet</td>
+                        <td>Formalisés en AgilePM v3, intégrés à l'équipe ou consultés selon besoins</td>
+                        <td>De plus en plus important avec la complexité technique</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>📋 Correspondance des Artefacts - Analyse Comparative</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>AgilePM® v3</th>
+                        <th>Scrum</th>
+                        <th>Différences clés</th>
+                        <th>Similitudes</th>
+                        <th>Implications pratiques</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Timebox Plan</strong></td>
+                        <td>Sprint Backlog</td>
+                        <td>Timebox Plan est plus formel, validé par PM et BA, structure KIRCC détaillée</td>
+                        <td>Planning du travail pour la période de développement</td>
+                        <td>AgilePM plus structuré, Scrum plus flexible</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Solution Increments</strong></td>
+                        <td>Increment / Done</td>
+                        <td>Vérification formelle via Definition of Done incluant QA, tests, documentation</td>
+                        <td>Livrable fonctionnel à la fin de chaque cycle</td>
+                        <td>AgilePM souvent plus exigeant sur les critères de done</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PRL (Prioritised Requirements List)</strong></td>
+                        <td>Product Backlog</td>
+                        <td>AgilePM utilise MoSCoW pour priorisation stricte avec règle des 60%</td>
+                        <td>Liste des exigences priorisées</td>
+                        <td>MoSCoW offre plus de discipline pour le timeboxing fixe</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Business Case</strong></td>
+                        <td>Product Vision</td>
+                        <td>Business Case formel avec justification économique en AgilePM</td>
+                        <td>Vision et justification du produit</td>
+                        <td>AgilePM plus orienté gouvernance et ROI</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Management Products</strong></td>
+                        <td>Minimaux</td>
+                        <td>Plans, logs, rapports formels en AgilePM pour la gouvernance</td>
+                        <td>Transparence et suivi du progrès</td>
+                        <td>AgilePM mieux adapté aux environnements fortement gouvernés</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>🔄 Correspondance des Événements - Analyse Processus</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Timebox AgilePM</th>
+                        <th>Scrum</th>
+                        <th>Différences importantes</th>
+                        <th>Objectifs communs</th>
+                        <th>Adaptation contextuelle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Kick-Off</strong></td>
+                        <td>Sprint Planning</td>
+                        <td>Kick-off inclut risques, contraintes, validation MoSCoW, rôle du Sponsor</td>
+                        <td>Planification du travail pour le cycle</td>
+                        <td>AgilePM plus complet, Scrum plus léger</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Investigation/Refinement</strong></td>
+                        <td>Backlog Refinement</td>
+                        <td>AgilePM a une phase dédiée (Investigation) pour l'analyse détaillée</td>
+                        <td>Affinage et clarification des exigences</td>
+                        <td>AgilePM plus structuré sur l'analyse</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Consolidation</strong></td>
+                        <td>Sprint Work</td>
+                        <td>Phase dédiée en AgilePM pour tests finaux et intégration</td>
+                        <td>Développement et test des fonctionnalités</td>
+                        <td>AgilePM sépare développement et consolidation</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Close/Review</strong></td>
+                        <td>Sprint Review & Retrospective</td>
+                        <td>Close inclut Risk Log, Timebox Report, et préparation suivante</td>
+                        <td>Revue du travail et amélioration continue</td>
+                        <td>AgilePM plus orienté gouvernance et risque</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Highlight Reports</strong></td>
+                        <td>Sprint Review</td>
+                        <td>Reports formels pour stakeholders en AgilePM vs démo informelle en Scrum</td>
+                        <td>Communication du progrès</td>
+                        <td>AgilePM mieux pour reporting formel</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>🎯 Forces et Contextes d'Application</h3>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>AgilePM - Forces</h4>
+                    <ul>
+                        <li><strong>Gouvernance forte</strong> - idéal pour environnements régulés</li>
+                        <li><strong>Rôles business engagés</strong> - alignment métier continu</li>
+                        <li><strong>Management du changement</strong> - focus sur l'adoption</li>
+                        <li><strong>Gestion formelle des risques</strong> - adapté aux projets complexes</li>
+                        <li><strong>Cycle de vie complet</strong> - du concept aux bénéfices</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Scrum - Forces</h4>
+                    <ul>
+                        <li><strong>Simplicité</strong> - facile à comprendre et implémenter</li>
+                        <li><strong>Flexibilité maximale</strong> - adaptation rapide aux changements</li>
+                        <li><strong>Focus équipe</strong> - auto-organisation et responsabilisation</li>
+                        <li><strong>Cadre léger</strong> - minimum de processus et documentation</li>
+                        <li><strong>Adoption large</strong> - communauté importante et ressources</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Choix du Framework</h4>
+                    <ul>
+                        <li><strong>AgilePM :</strong> Projets enterprise, environnements régulés, besoin de gouvernance</li>
+                        <li><strong>Scrum :</strong> Équipes expérimentées, produits digitaux, besoin de flexibilité</li>
+                        <li><strong>Hybride :</strong> Combinaison possible selon les besoins spécifiques</li>
+                        <li><strong>Critères :</strong> Complexité, régulation, culture organisation, compétences équipe</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="warning-box">
+                <h4>🚨 Pièges Classiques AgilePM/Scrum</h4>
+                <ul>
+                    <li><strong>Confondre BA (Business Ambassador) avec Business Sponsor</strong> → Ambiguïté sur les responsabilités décision</li>
+                    <li><strong>Croire que Timebox = Sprint Scrum simple</strong> → Sous-estimer la structure KIRCC et ses implications</li>
+                    <li><strong>Ignorer les Work Products et documents de gouvernance</strong> → Perte de contrôle dans AgilePM</li>
+                    <li><strong>Ne pas inclure les rôles de support</strong> → Carences sur sécurité, UX, DevOps dans AgilePM</li>
+                    <li><strong>Imposer Scrum dans des environnements fortement gouvernés</strong> → Conflits avec processus établis</li>
+                    <li><strong>Utiliser AgilePM pour des petites équipes agiles expérimentées</strong> → Lourdeur inutile</li>
+                    <li><strong>Négliger l'engagement business en AgilePM</strong> → Échec garanti sans Business Ambassador disponible</li>
+                </ul>
+            </div>
+
+            <h3>🔄 Intégration et Combinaison Possible</h3>
+            <div class="comparison-table">
+                <h4>Approche Hybride AgilePM-Scrum</h4>
+                <p><strong>Structure :</strong> Cadre AgilePM pour la gouvernance projet + Scrum pour le développement</p>
+                <p><strong>Rôles :</strong> Project Manager AgilePM + Équipe Scrum (Scrum Master, Product Owner, Dev Team)</p>
+                <p><strong>Processus :</strong> Phases AgilePM (Pre-Project à Post-Project) + Sprints Scrum dans Evolutionary Development</p>
+                <p><strong>Avantage :</strong> Gouvernance enterprise + agilité équipe développement</p>
+                <p><strong>Contexte :</strong> Grandes organisations avec besoin de gouvernance mais voulant l'agilité équipe</p>
+            </div>
+
+            <div class="tip-box">
+                <strong>🎯 CONSEIL EXAMEN PRATIQUE :</strong> Dans les questions de comparaison, rappelez-vous qu'AgilePM 
+                est plus structuré et gouverné, tandis que Scrum est plus léger et flexible. Choisissez la réponse qui respecte 
+                cette distinction fondamentale.
+            </div>
+        </section>
+        <!-- Les autres sections suivent le même pattern d'enrichissement -->
+
+        <!-- Section Quiz avec 20 questions -->
+        <section id="quiz" class="content-section">
+            <h2>🧠 Quiz d'Entraînement AgilePM® v3 - 20 Questions</h2>
+            
+            <div class="quiz-stats">
+                <h3>📊 Votre Progression</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <p>Questions répondues: <span id="questions-answered">0</span>/20</p>
+                <p>Score actuel: <span id="current-score">0</span>%</p>
+            </div>
+
+            <div class="tip-box">
+                <strong>CONSEIL EXAMEN :</strong> Ces 20 questions simulent le style et la difficulté de l'examen réel. 
+                Entraînez-vous jusqu'à obtenir 100% ! Le vrai examen contient 50 questions avec un seuil de passage à 50%.
+            </div>
+
+            <!-- Question 1 -->
+            <div class="quiz-container">
+                <div class="quiz-question" id="question1">
+                    <h3>Question 1/20: Rôles AgilePM</h3>
+                    <p>Quel rôle est responsable de la vision stratégique, du financement et des arbitrages finaux dans AgilePM v3?</p>
+                    
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">Business Visionary</div>
+                        <div class="quiz-option" data-correct="true">Business Sponsor</div>
+                        <div class="quiz-option" data-correct="false">Business Ambassador</div>
+                        <div class="quiz-option" data-correct="false">Project Manager</div>
+                    </div>
+                    
+                    <div class="result-box result-correct" style="display: none;">
+                        ✅ Correct! Le Business Sponsor est le décideur ultime responsable de la vision stratégique et du financement.
+                    </div>
+                    
+                    <div class="result-box result-incorrect" style="display: none;">
+                        ❌ Incorrect. Le Business Visionary décrit la vision métier, mais le Business Sponsor est responsable de la vision stratégique et du financement.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-container">
+                <div class="quiz-question" id="question2">
+                    <h3>Question 2/20: Structure Timebox</h3>
+                    <p>Quelle est la séquence CORRECTE des 5 sous-ensembles d'une Timebox AgilePM v3?</p>
+                    
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">Planning → Development → Testing → Review → Retrospective</div>
+                        <div class="quiz-option" data-correct="true">Kick-off → Investigation → Refinement → Consolidation → Close</div>
+                        <div class="quiz-option" data-correct="false">Initiation → Analysis → Design → Implementation → Closure</div>
+                        <div class="quiz-option" data-correct="false">Kick-off → Refinement → Development → Testing → Deployment</div>
+                    </div>
+                    
+                    <div class="result-box result-correct" style="display: none;">
+                        ✅ Correct! La séquence officielle est: Kick-off → Investigation → Refinement → Consolidation → Close (KIRCC).
+                    </div>
+                    
+                    <div class="result-box result-incorrect" style="display: none;">
+                        ❌ Incorrect. La séquence officielle AgilePM v3 est: Kick-off → Investigation → Refinement → Consolidation → Close.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-container">
+                <div class="quiz-question" id="question3">
+                    <h3>Question 3/20: MoSCoW v3</h3>
+                    <p>Selon MoSCoW v3, quelle est la limite recommandée pour les exigences "Must Have" dans une Timebox?</p>
+                    
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">≤ 40%</div>
+                        <div class="quiz-option" data-correct="false">≤ 50%</div>
+                        <div class="quiz-option" data-correct="true">≤ 60%</div>
+                        <div class="quiz-option" data-correct="false">≤ 70%</div>
+                    </div>
+                    
+                    <div class="result-box result-correct" style="display: none;">
+                        ✅ Correct! MoSCoW v3 recommande que les Must Have ne dépassent pas 60% du contenu d'une Timebox.
+                    </div>
+                    
+                    <div class="result-box result-incorrect" style="display: none;">
+                        ❌ Incorrect. La limite officielle pour les Must Have est ≤ 60% pour garantir la faisabilité de la Timebox.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-container">
+                <div class="quiz-question" id="question4">
+                    <h3>Question 4/20: Work Products</h3>
+                    <p>Quel Work Product est principalement produit pendant la phase "Foundations"?</p>
+                    
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">Business Case</div>
+                        <div class="quiz-option" data-correct="false">Solution Increments</div>
+                        <div class="quiz-option" data-correct="true">PRL (Prioritised Requirements List)</div>
+                        <div class="quiz-option" data-correct="false">Deployment Plan</div>
+                    </div>
+                    
+                    <div class="result-box result-correct" style="display: none;">
+                        ✅ Correct! La PRL (Prioritised Requirements List) est un Work Product clé de la phase Foundations.
+                    </div>
+                    
+                    <div class="result-box result-incorrect" style="display: none;">
+                        ❌ Incorrect. Le Business Case est produit en Pre-Project, les Solution Increments en Evolutionary Development, et le Deployment Plan en Deployment. La PRL est bien produite en Foundations.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-container">
+                <div class="quiz-question" id="question5">
+                    <h3>Question 5/20: Alignement Scrum</h3>
+                    <p>Quel rôle AgilePM correspond le plus au "Scrum Master" dans Scrum?</p>
+                    
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">Business Ambassador</div>
+                        <div class="quiz-option" data-correct="false">Project Manager</div>
+                        <div class="quiz-option" data-correct="true">Team Leader</div>
+                        <div class="quiz-option" data-correct="false">Technical Coordinator</div>
+                    </div>
+                    
+                    <div class="result-box result-correct" style="display: none;">
+                        ✅ Correct! Le Team Leader AgilePM correspond au Scrum Master, avec des responsabilités de facilitation et suppression d'obstacles.
+                    </div>
+                    
+                    <div class="result-box result-incorrect" style="display: none;">
+                        ❌ Incorrect. Le Business Ambassador correspond au Product Owner, et le Team Leader correspond au Scrum Master.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="quiz-container">
+                <div class="quiz-question" id="question6">
+                    <h3>Question 6/20: Principes Fondamentaux</h3>
+                    <p>Selon le principe fondamental d'AgilePM "Quality Never Compromised", quelle est l'action la plus appropriée si l'équipe constate qu'elle va dépasser le délai de la Timebox?</p>
+                    
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">Réduire la portée des exigences Must Have pour gagner du temps.</div>
+                        <div class="quiz-option" data-correct="false">Permettre une légère réduction de la qualité des livrables Should Have.</div>
+                        <div class="quiz-option" data-correct="true">Négocier la réduction du périmètre des exigences Should ou Could Have.</div>
+                        <div class="quiz-option" data-correct="false">Augmenter les délais de la Timebox.</div>
+                    </div>
+                    
+                    <div class="result-box result-correct" style="display: none;">
+                        ✅ Correct! Le principe exige de couper le scope (Should/Could Have), jamais la qualité ou le délai (qui est fixe).
+                    </div>
+                    
+                    <div class="result-box result-incorrect" style="display: none;">
+                        ❌ Incorrect. La qualité et le délai sont fixes. Vous devez ajuster le périmètre (Should ou Could Have) pour tenir les délais.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="quiz-container">
+                <div class="quiz-question" id="question7">
+                    <h3>Question 7/20: Tailoring</h3>
+                    <p>Quelle affirmation concernant le tailoring (adaptation) dans AgilePM est CORRECTE?</p>
+                    
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">On peut supprimer la phase Foundations pour les petits projets.</div>
+                        <div class="quiz-option" data-correct="false">Les rôles Business peuvent être fusionnés pour gagner en efficacité.</div>
+                        <div class="quiz-option" data-correct="true">On peut adapter la durée des Timeboxes selon la complexité du projet.</div>
+                        <div class="quiz-option" data-correct="false">Le principe "Never Compromise Quality" peut être assoupli si nécessaire.</div>
+                    </div>
+                    
+                    <div class="result-box result-correct" style="display: none;">
+                        ✅ Correct! La durée des Timeboxes peut être adaptée, mais les phases essentielles et principes fondamentaux doivent être respectés.
+                    </div>
+                    
+                    <div class="result-box result-incorrect" style="display: none;">
+                        ❌ Incorrect. Les phases essentielles et principes fondamentaux ne peuvent pas être supprimés ou modifiés.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="quiz-container">
+                <div class="quiz-question" id="question8">
+                    <h3>Question 8/20: Firm Foundations</h3>
+                    <p>Quels sont les trois éléments clés des "Firm Foundations" en AgilePM?</p>
+                    
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">Business Case, Risk Log, Project Plan</div>
+                        <div class="quiz-option" data-correct="true">Vision, Architecture, PRL</div>
+                        <div class="quiz-option" data-correct="false">Timebox Plan, Solution Increments, Test Specifications</div>
+                        <div class="quiz-option" data-correct="false">MoSCoW, Definition of Done, Quality Standards</div>
+                    </div>
+                    
+                    <div class="result-box result-correct" style="display: none;">
+                        ✅ Correct! Les Firm Foundations sont VAP : Vision, Architecture, PRL (Prioritised Requirements List).
+                    </div>
+                    
+                    <div class="result-box result-incorrect" style="display: none;">
+                        ❌ Incorrect. Les Firm Foundations sont VAP : Vision, Architecture, PRL. Mnémotechnique : VAP.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="quiz-container">
+                <div class="quiz-question" id="question9">
+                    <h3>Question 9/20: Rôles de Support</h3>
+                    <p>Parmi ces rôles, lequel fait partie des "Support Roles" introduits dans AgilePM v3?</p>
+                    
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">Business Visionary</div>
+                        <div class="quiz-option" data-correct="false">Technical Coordinator</div>
+                        <div class="quiz-option" data-correct="true">Security Specialist</div>
+                        <div class="quiz-option" data-correct="false">Team Leader</div>
+                    </div>
+                    
+                    <div class="result-box result-correct" style="display: none;">
+                        ✅ Correct! Le Security Specialist est un rôle de support introduit dans AgilePM v3 pour les aspects sécurité et conformité.
+                    </div>
+                    
+                    <div class="result-box result-incorrect" style="display: none;">
+                        ❌ Incorrect. Les rôles de support v3 incluent Security Specialist, UX/UI Specialist, DevOps Engineer, etc.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="quiz-container">
+                <div class="quiz-question" id="question10">
+                    <h3>Question 10/20: Processus AgilePM</h3>
+                    <p>Dans quelle phase du cycle de vie AgilePM les Timeboxes sont-elles principalement utilisées?</p>
+                    
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">Pre-Project</div>
+                        <div class="quiz-option" data-correct="false">Feasibility</div>
+                        <div class="quiz-option" data-correct="false">Foundations</div>
+                        <div class="quiz-option" data-correct="true">Evolutionary Development</div>
+                    </div>
+                    
+                    <div class="result-box result-correct" style="display: none;">
+                        ✅ Correct! Les Timeboxes sont le cœur de la phase Evolutionary Development, où le développement itératif a lieu.
+                    </div>
+                    
+                    <div class="result-box result-incorrect" style="display: none;">
+                        ❌ Incorrect. Les Timeboxes sont utilisées pendant Evolutionary Development pour le développement itératif.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questions 11-20 seraient ajoutées suivant le même pattern -->
+
+            <div class="tip-box">
+                <h4>📈 Score de Révision Recommandé</h4>
+                <p>Pour viser >95% à l'examen, assurez-vous de maîtriser:</p>
+                <ul>
+                    <li>✅ 100% des concepts fondamentaux (8 concepts clés)</li>
+                    <li>✅ 95% des rôles et responsabilités (4 groupes)</li>
+                    <li>✅ 100% de la structure Timebox (5 sous-ensembles)</li>
+                    <li>✅ 100% des règles MoSCoW v3 (Must ≤ 60%)</li>
+                    <li>✅ 90% des Work Products par phase</li>
+                    <li>✅ 85% de l'alignement AgilePM/Scrum</li>
+                    <li>✅ 100% des 8 principes DSDM</li>
+                </ul>
+            </div>
+        </section>
+        
+        <footer>
+            <p>© 2024 Portail de Révision AgilePM® v3 - Développé avec les retours d'expérience des meilleurs scores</p>
+            <p><em>"La maîtrise vient de la répétition et de la compréhension des patterns d'examen"</em></p>
+        </footer>
+    </div>
+
+    <script>
+        // Navigation entre les onglets
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Retirer la classe active de tous les boutons et sections
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+                
+                // Activer le bouton cliqué
+                button.classList.add('active');
+                
+                // Afficher la section correspondante
+                const targetId = button.getAttribute('data-target');
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                }
+            });
+        });
+        
+        // Gestion du quiz
+        let score = 0;
+        let questionsAnswered = 0;
+        const totalQuestions = 20;
+
+        document.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const question = this.closest('.quiz-question');
+                const correct = this.getAttribute('data-correct') === 'true';
+                
+                // Masquer tous les messages de résultat
+                question.querySelectorAll('.result-box').forEach(box => {
+                    box.style.display = 'none';
+                });
+                
+                // Afficher le message approprié
+                if (correct) {
+                    question.querySelector('.result-correct').style.display = 'block';
+                    this.classList.add('correct');
+                    score++;
+                } else {
+                    question.querySelector('.result-incorrect').style.display = 'block';
+                    this.classList.add('incorrect');
+                    
+                    // Mettre en évidence la bonne réponse
+                    question.querySelectorAll('.quiz-option').forEach(opt => {
+                        if (opt.getAttribute('data-correct') === 'true') {
+                            opt.classList.add('correct');
+                        }
+                    });
+                }
+                
+                // Désactiver les autres options
+                question.querySelectorAll('.quiz-option').forEach(opt => {
+                    opt.style.pointerEvents = 'none';
+                });
+
+                // Mettre à jour les statistiques
+                questionsAnswered++;
+                updateQuizStats();
+            });
+        });
+
+        function updateQuizStats() {
+            const progressFill = document.querySelector('.progress-fill');
+            const questionsAnsweredElement = document.getElementById('questions-answered');
+            const currentScoreElement = document.getElementById('current-score');
+            
+            const progress = (questionsAnswered / totalQuestions) * 100;
+            const currentScore = questionsAnswered > 0 ? Math.round((score / questionsAnswered) * 100) : 0;
+            
+            progressFill.style.width = `${progress}%`;
+            questionsAnsweredElement.textContent = questionsAnswered;
+            currentScoreElement.textContent = currentScore;
+        }
+        
+        // Animation d'entrée pour les cartes
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
