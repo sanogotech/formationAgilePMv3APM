@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portail AgilePM v3 - Guide Complet et Certification</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <style>
+    :root {
+      --primary-color: #0052cc;
+      --secondary-color: #00b8d9;
+      --accent-color: #ff5630;
+      --success-color: #36b37e;
+      --warning-color: #ffab00;
+      --light-bg: #f4f5f7;
+      --dark-bg: #253858;
+      --agilepm-purple: #6554c0;
+    }
+
+    body {
+      background-color: var(--light-bg);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+    }
+
+    .navbar {
+      background-color: var(--dark-bg);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      color: white;
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, var(--dark-bg) 0%, var(--agilepm-purple) 100%);
+      color: white;
+      padding: 4rem 0;
+      margin-bottom: 3rem;
+      border-radius: 0 0 20px 20px;
+    }
+
+    .card {
+      border: none;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .card-header {
+      background-color: var(--primary-color);
+      color: white;
+      font-weight: 600;
+      padding: 1rem 1.5rem;
+    }
+
+    .badge-agilepm {
+      background-color: var(--agilepm-purple);
+      color: white;
+    }
+
+    .module-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--secondary-color);
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #0041a8;
+    }
+
+    .btn-certification {
+      background-color: var(--success-color);
+      color: white;
+    }
+
+    .btn-certification:hover {
+      background-color: #2e9c6d;
+      color: white;
+    }
+
+    .btn-outline-primary {
+      color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+
+    .btn-outline-primary:hover {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .cheatsheet-container {
+      background-color: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+
+    .process-step {
+      position: relative;
+      padding-left: 30px;
+      margin-bottom: 20px;
+    }
+
+    .process-step:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+    }
+
+    .process-step:after {
+      content: "";
+      position: absolute;
+      left: 9px;
+      top: 20px;
+      width: 2px;
+      height: 100%;
+      background-color: var(--primary-color);
+    }
+
+    .process-step:last-child:after {
+      display: none;
+    }
+
+    .data-table {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+
+    .data-table th {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .highlight-box {
+      background-color: rgba(0, 82, 204, 0.1);
+      border-left: 4px solid var(--primary-color);
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .certification-highlight {
+      background-color: rgba(54, 179, 126, 0.1);
+      border-left: 4px solid var(--success-color);
+    }
+
+    .principle-box {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .principle-box:hover {
+      border-color: var(--primary-color);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .principle-number {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 40px;
+      font-weight: bold;
+      margin-right: 15px;
+    }
+
+    .linked-modules {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .linked-module {
+      background-color: var(--light-bg);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      color: var(--primary-color);
+      border: 1px solid #ddd;
+    }
+
+    .tab-content {
+      padding: 1.5rem 0;
+    }
+
+    footer {
+      background-color: var(--dark-bg);
+      color: white;
+      padding: 2rem 0;
+      margin-top: 3rem;
+    }
+
+    /* Animation pour les cartes */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .module-card {
+      animation: fadeIn 0.5s ease forwards;
+      opacity: 0;
+    }
+
+    /* Délai d'animation pour chaque carte */
+    .module-card:nth-child(1) { animation-delay: 0.1s; }
+    .module-card:nth-child(2) { animation-delay: 0.2s; }
+    .module-card:nth-child(3) { animation-delay: 0.3s; }
+    .module-card:nth-child(4) { animation-delay: 0.4s; }
+    .module-card:nth-child(5) { animation-delay: 0.5s; }
+    .module-card:nth-child(6) { animation-delay: 0.6s; }
+
+    /* Mindmap styles */
+    .mindmap {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .mindmap-node {
+      background-color: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      min-width: 250px;
+      text-align: center;
+      position: relative;
+    }
+
+    .mindmap-node.central {
+      background-color: var(--primary-color);
+      color: white;
+      transform: scale(1.1);
+    }
+
+    .mindmap-connection {
+      position: absolute;
+      background-color: var(--primary-color);
+      height: 2px;
+    }
+
+    .exam-simulator {
+      background-color: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+
+    .question-container {
+      margin-bottom: 2rem;
+    }
+
+    .option {
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .option:hover {
+      background-color: rgba(0, 82, 204, 0.05);
+    }
+
+    .option.selected {
+      background-color: rgba(0, 82, 204, 0.1);
+      border-color: var(--primary-color);
+    }
+
+    .option.correct {
+      background-color: rgba(54, 179, 126, 0.2);
+      border-color: var(--success-color);
+    }
+
+    .option.incorrect {
+      background-color: rgba(255, 86, 48, 0.1);
+      border-color: var(--accent-color);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 2rem 0;
+      }
+
+      .module-icon {
+        font-size: 1.5rem;
+      }
+
+      .mindmap {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .mindmap-node {
+        min-width: 100%;
+      }
+    }
+
+    /* Certification badge */
+    .cert-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--success-color) 0%, #2e9c6d 100%);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .importance-level {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      margin-left: 0.5rem;
+    }
+
+    .level-high {
+      background-color: rgba(255, 86, 48, 0.2);
+      color: var(--accent-color);
+    }
+
+    .level-medium {
+      background-color: rgba(255, 171, 0, 0.2);
+      color: var(--warning-color);
+    }
+
+    .level-low {
+      background-color: rgba(0, 82, 204, 0.1);
+      color: var(--primary-color);
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark mb-4">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="bi bi-journal-check me-2"></i>Portail AgilePM v3
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#fondamentaux">Fondamentaux</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#principles">Principes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#processus">Processus</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#roles">Rôles</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#cheatsheet">Cheatsheet</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#certification">Certification</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#mise-en-oeuvre">Mise en œuvre</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#ressources">Ressources</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero-section">
+    <div class="container text-center">
+      <h1 class="display-4 fw-bold mb-3">AgilePM v3 - Guide Complet</h1>
+      <p class="lead mb-4">Maîtrisez la méthode Agile Project Management v3 pour réussir votre certification et mettre en œuvre avec succès</p>
+      <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a href="#certification" class="btn btn-light btn-lg px-4">Préparation Certification</a>
+        <a href="#cheatsheet" class="btn btn-outline-light btn-lg px-4">Voir la Cheatsheet</a>
+        <a href="#mise-en-oeuvre" class="btn btn-certification btn-lg px-4">Mise en œuvre</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container mb-5">
+    <section class="mb-5">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center">
+          <h2 class="mb-4">AgilePM v3 en bref</h2>
+          <p class="lead">AgilePM (Agile Project Management) combine la flexibilité des méthodes agiles avec la gouvernance et le contrôle des approches projet traditionnelles. La version 3 introduit des améliorations significatives pour une meilleure adaptabilité.</p>
+          <div class="d-flex justify-content-center mt-4 flex-wrap">
+            <div class="px-4 text-center mb-3">
+              <i class="bi bi-shield-check fs-1 text-primary"></i>
+              <p class="mt-2 fw-bold">Gouvernance</p>
+            </div>
+            <div class="px-4 text-center mb-3">
+              <i class="bi bi-arrow-repeat fs-1 text-primary"></i>
+              <p class="mt-2 fw-bold">Flexibilité</p>
+            </div>
+            <div class="px-4 text-center mb-3">
+              <i class="bi bi-speedometer2 fs-1 text-primary"></i>
+              <p class="mt-2 fw-bold">Livraison rapide</p>
+            </div>
+            <div class="px-4 text-center mb-3">
+              <i class="bi bi-people fs-1 text-primary"></i>
+              <p class="mt-2 fw-bold">Collaboration</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="fondamentaux" class="mb-5">
+      <h2 class="text-center mb-4">Fondamentaux AgilePM v3</h2>
+      
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-journal-bookmark me-2"></i>
+              <h5 class="mb-0">Philosophie AgilePM</h5>
+            </div>
+            <div class="card-body">
+              <p>AgilePM v3 repose sur l'équilibre entre flexibilité et contrôle :</p>
+              <div class="highlight-box">
+                <ul>
+                  <li><strong>Focus sur la valeur métier :</strong> Livrer ce qui apporte le plus de valeur en premier</li>
+                  <li><strong>Contrôle adaptatif :</strong> Ajustements continus basés sur les retours</li>
+                  <li><strong>Livraison par incréments :</strong> Déploiement régulier de produits fonctionnels</li>
+                  <li><strong>Communication transparente :</strong> Visibilité totale sur l'avancement</li>
+                </ul>
+              </div>
+              <button class="btn btn-primary btn-sm mt-3" onclick="showDetails('philosophie')">
+                <i class="bi bi-info-circle me-1"></i>En savoir plus
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-diagram-3 me-2"></i>
+              <h5 class="mb-0">Nouveautés v3</h5>
+            </div>
+            <div class="card-body">
+              <p>Les principales améliorations de la version 3 :</p>
+              <div class="linked-modules">
+                <span class="linked-module">Focus renforcé sur la valeur</span>
+                <span class="linked-module">Plus grande flexibilité</span>
+                <span class="linked-module">Simplification des processus</span>
+                <span class="linked-module">Meilleure intégration DevOps</span>
+                <span class="linked-module">Adaptabilité aux contextes</span>
+              </div>
+              <p class="mt-3">La v3 met l'accent sur la réduction de la documentation non essentielle.</p>
+              <button class="btn btn-primary btn-sm mt-2" onclick="showDetails('nouveautes')">
+                <i class="bi bi-info-circle me-1"></i>Détails des nouveautés
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-arrow-repeat me-2"></i>
+              <h5 class="mb-0">Cycle de vie</h5>
+            </div>
+            <div class="card-body">
+              <p>7 phases distinctes mais itératives :</p>
+              <ol class="ps-3">
+                <li>Pré-projet</li>
+                <li>Cadrage</li>
+                <li>Conception fondation</li>
+                <li>Développement exploratoire</li>
+                <li>Déploiement</li>
+                <li>Post-projet</li>
+                <li>Itérations de développement</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-clipboard-data me-2"></i>
+              <h5 class="mb-0">Produits principaux</h5>
+            </div>
+            <div class="card-body">
+              <ul class="ps-3">
+                <li>Business Case</li>
+                <li>Priorités des exigences</li>
+                <li>Solution Outline</li>
+                <li>Plan de livraison</li>
+                <li>Plan de déploiement</li>
+                <li>Plan de gestion des bénéfices</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-graph-up me-2"></i>
+              <h5 class="mb-0">Métriques clés</h5>
+            </div>
+            <div class="card-body">
+              <ul class="ps-3">
+                <li>Vélocité d'équipe</li>
+                <li>Taux de livraison de valeur</li>
+                <li>Retour sur investissement incrémental</li>
+                <li>Satisfaction des parties prenantes</li>
+                <li>Qualité des livrables</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="principles" class="mb-5">
+      <h2 class="text-center mb-4">8 Principes fondamentaux</h2>
+      
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="principle-box">
+            <div class="d-flex align-items-center mb-3">
+              <span class="principle-number">1</span>
+              <h5 class="mb-0">Focus sur la valeur métier</h5>
+            </div>
+            <p>Livrer tôt et souvent ce qui apporte le plus de valeur au business. Prioriser les exigences en fonction de leur valeur.</p>
+            <span class="importance-level level-high">Certification: Haut</span>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="principle-box">
+            <div class="d-flex align-items-center mb-3">
+              <span class="principle-number">2</span>
+              <h5 class="mb-0">Apprendre par l'expérience</h5>
+            </div>
+            <p>Cycle de rétroaction court, adaptation continue basée sur les retours. Les plans évoluent avec l'apprentissage.</p>
+            <span class="importance-level level-high">Certification: Haut</span>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="principle-box">
+            <div class="d-flex align-items-center mb-3">
+              <span class="principle-number">3</span>
+              <h5 class="mb-0">Livraison échelonnée</h5>
+            </div>
+            <p>Décomposer le projet en incréments livrables. Chaque incrément doit apporter de la valeur.</p>
+            <span class="importance-level level-high">Certification: Haut</span>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="principle-box">
+            <div class="d-flex align-items-center mb-3">
+              <span class="principle-number">4</span>
+              <h5 class="mb-0">Collaboration</h5>
+            </div>
+            <p>Implication continue des parties prenantes. Communication transparente et fréquente.</p>
+            <span class="importance-level level-medium">Certification: Moyen</span>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="principle-box">
+            <div class="d-flex align-items-center mb-3">
+              <span class="principle-number">5</span>
+              <h5 class="mb-0">Ne jamais compromettre la qualité</h5>
+            </div>
+            <p>Maintenir des standards de qualité élevés à chaque incrément. "Done" signifie vraiment terminé.</p>
+            <span class="importance-level level-medium">Certification: Moyen</span>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="principle-box">
+            <div class="d-flex align-items-center mb-3">
+              <span class="principle-number">6</span>
+              <h5 class="mb-0">Développer de manière itérative</h5>
+            </div>
+            <p>Approche émergente de la solution. Détails élaborés juste à temps (just-in-time).</p>
+            <span class="importance-level level-high">Certification: Haut</span>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="principle-box">
+            <div class="d-flex align-items-center mb-3">
+              <span class="principle-number">7</span>
+              <h5 class="mb-0">Communication continue et claire</h5>
+            </div>
+            <p>Information radiante, transparence, langage commun entre métier et technique.</p>
+            <span class="importance-level level-medium">Certification: Moyen</span>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="principle-box">
+            <div class="d-flex align-items-center mb-3">
+              <span class="principle-number">8</span>
+              <h5 class="mb-0">Garder le contrôle</h5>
+            </div>
+            <p>Suivi régulier des progrès, prise de décision éclairée, gouvernance adaptative.</p>
+            <span class="importance-level level-high">Certification: Haut</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="processus" class="mb-5">
+      <h2 class="text-center mb-4">Processus AgilePM v3</h2>
+      
+      <div class="cheatsheet-container">
+        <h3 class="mb-4"><i class="bi bi-diagram-3 me-2"></i>Cycle de vie en 7 phases</h3>
+        
+        <div class="row">
+          <div class="col-md-6">
+            <div class="process-step">
+              <h5>1. Pré-projet</h5>
+              <p><strong>Objectif :</strong> Évaluer la faisabilité et définir les objectifs initiaux.</p>
+              <p><strong>Produits :</strong> Mandat de projet, ébauche de business case.</p>
+              <span class="importance-level level-medium">Certification: Moyen</span>
+            </div>
+            
+            <div class="process-step">
+              <h5>2. Cadrage</h5>
+              <p><strong>Objectif :</strong> Établir les fondations du projet.</p>
+              <p><strong>Produits :</strong> Business case, plan de projet à haut niveau.</p>
+              <span class="importance-level level-high">Certification: Haut</span>
+            </div>
+            
+            <div class="process-step">
+              <h5>3. Conception fondation</h5>
+              <p><strong>Objectif :</strong> Définir la solution à haut niveau.</p>
+              <p><strong>Produits :</strong> Solution outline, priorités des exigences.</p>
+              <span class="importance-level level-high">Certification: Haut</span>
+            </div>
+            
+            <div class="process-step">
+              <h5>4. Développement exploratoire</h5>
+              <p><strong>Objectif :</strong> Livrer la solution par incréments.</p>
+              <p><strong>Produits :</strong> Incréments livrables, plans détaillés.</p>
+              <span class="importance-level level-high">Certification: Haut</span>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="process-step">
+              <h5>5. Déploiement</h5>
+              <p><strong>Objectif :</strong> Mettre en production les incréments.</p>
+              <p><strong>Produits :</strong> Solution déployée, documentation.</p>
+              <span class="importance-level level-medium">Certification: Moyen</span>
+            </div>
+            
+            <div class="process-step">
+              <h5>6. Post-projet</h5>
+              <p><strong>Objectif :</strong> Évaluer les bénéfices et clôturer.</p>
+              <p><strong>Produits :</strong> Rapport de clôture, évaluation des bénéfices.</p>
+              <span class="importance-level level-low">Certification: Bas</span>
+            </div>
+            
+            <div class="process-step">
+              <h5>Itérations de développement</h5>
+              <p><strong>Objectif :</strong> Cycle au cœur du développement exploratoire.</p>
+              <p><strong>Activités :</strong> Planification, développement, revue, rétrospective.</p>
+              <span class="importance-level level-high">Certification: Haut</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-4">
+        <h4 class="mb-3">Mindmap du processus</h4>
+        <div class="mindmap">
+          <div class="mindmap-node central">
+            <h5>AgilePM v3</h5>
+            <p>Cycle de vie</p>
+          </div>
+          <div class="mindmap-node">
+            <h6>Pré-projet</h6>
+            <p>Faisabilité</p>
+          </div>
+          <div class="mindmap-node">
+            <h6>Cadrage</h6>
+            <p>Fondations</p>
+          </div>
+          <div class="mindmap-node">
+            <h6>Conception</h6>
+            <p>Solution outline</p>
+          </div>
+          <div class="mindmap-node">
+            <h6>Développement</h6>
+            <p>Incriments</p>
+          </div>
+          <div class="mindmap-node">
+            <h6>Déploiement</h6>
+            <p>Mise en prod</p>
+          </div>
+          <div class="mindmap-node">
+            <h6>Post-projet</h6>
+            <p>Évaluation</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="roles" class="mb-5">
+      <h2 class="text-center mb-4">Rôles et responsabilités</h2>
+      
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center" style="background-color: var(--agilepm-purple);">
+              <i class="bi bi-person-badge me-2"></i>
+              <h5 class="mb-0 text-white">Rôles Business</h5>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <h6>Business Sponsor</h6>
+                  <p class="small">Responsable final, fournit les fonds, prend les décisions clés.</p>
+                  <span class="badge badge-agilepm">Gouvernance</span>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <h6>Business Visionary</h6>
+                  <p class="small">Définit la vision, assure l'alignement avec les objectifs business.</p>
+                  <span class="badge badge-agilepm">Vision</span>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <h6>Business Ambassador</h6>
+                  <p class="small">Représente les utilisateurs, fournit les exigences.</p>
+                  <span class="badge badge-agilepm">Expertise métier</span>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <h6>Business Advisor</h6>
+                  <p class="small">Fournit des conseils spécialisés sur des aspects spécifiques.</p>
+                  <span class="badge badge-agilepm">Conseil</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center" style="background-color: var(--agilepm-purple);">
+              <i class="bi bi-code-slash me-2"></i>
+              <h5 class="mb-0 text-white">Rôles Solution</h5>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <h6>Solution Developer</h6>
+                  <p class="small">Développe la solution, membres de l'équipe de développement.</p>
+                  <span class="badge badge-agilepm">Développement</span>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <h6>Solution Tester</h6>
+                  <p class="small">Teste la solution, assure la qualité.</p>
+                  <span class="badge badge-agilepm">Qualité</span>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <h6>Technical Coordinator</h6>
+                  <p class="small">Responsable technique, architecture, standards.</p>
+                  <span class="badge badge-agilepm">Technique</span>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <h6>Team Leader</h6>
+                  <p class="small">Facilite l'équipe, élimine les obstacles.</p>
+                  <span class="badge badge-agilepm">Leadership</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center" style="background-color: var(--primary-color);">
+              <i class="bi bi-person-gear me-2"></i>
+              <h5 class="mb-0 text-white">Project Manager</h5>
+            </div>
+            <div class="card-body">
+              <p><strong>Rôle central :</strong> Gère le projet au quotidien, assure la livraison.</p>
+              <ul class="ps-3">
+                <li>Planifie et suit les progrès</li>
+                <li>Gère les risques et problèmes</li>
+                <li>Communique avec les parties prenantes</li>
+                <li>Assure la gouvernance</li>
+              </ul>
+              <span class="importance-level level-high">Certification: Haut</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center" style="background-color: var(--primary-color);">
+              <i class="bi bi-person-fill-gear me-2"></i>
+              <h5 class="mb-0 text-white">Project Management Team</h5>
+            </div>
+            <div class="card-body">
+              <p><strong>Équipe de direction :</strong> Prend les décisions de gestion.</p>
+              <ul class="ps-3">
+                <li>Business Sponsor</li>
+                <li>Business Visionary</li>
+                <li>Project Manager</li>
+                <li>Technical Coordinator</li>
+                <li>Business Ambassador(s)</li>
+              </ul>
+              <p>Se réunit régulièrement pour prendre les décisions.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center" style="background-color: var(--primary-color);">
+              <i class="bi bi-people-fill me-2"></i>
+              <h5 class="mb-0 text-white">Development Team</h5>
+            </div>
+            <div class="card-body">
+              <p><strong>Équipe de développement :</strong> Livre la solution.</p>
+              <ul class="ps-3">
+                <li>Solution Developers</li>
+                <li>Solution Testers</li>
+                <li>Team Leader</li>
+                <li>Autres rôles techniques</li>
+              </ul>
+              <p>Auto-organisée, pluridisciplinaire, responsable de la livraison.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cheatsheet" class="mb-5">
+      <h2 class="text-center mb-4">Cheatsheet AgilePM v3</h2>
+      
+      <div class="cheatsheet-container">
+        <h3 class="mb-4"><i class="bi bi-file-earmark-text me-2"></i>Récapitulatif essentiel</h3>
+        
+        <div class="row">
+          <div class="col-md-6">
+            <h5>Concepts clés à mémoriser</h5>
+            <table class="table table-sm table-striped">
+              <thead>
+                <tr>
+                  <th>Concept</th>
+                  <th>Définition</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Timeboxing</td>
+                  <td>Période fixe pour réaliser un travail</td>
+                </tr>
+                <tr>
+                  <td>MoSCoW</td>
+                  <td>Priorisation : Must, Should, Could, Won't</td>
+                </tr>
+                <tr>
+                  <td>Business Case</td>
+                  <td>Justification économique du projet</td>
+                </tr>
+                <tr>
+                  <td>Solution Outline</td>
+                  <td>Description à haut niveau de la solution</td>
+                </tr>
+                <tr>
+                  <td>Développement exploratoire</td>
+                  <td>Phase où la solution est développée par incréments</td>
+                </tr>
+                <tr>
+                  <td>Incrément livrable</td>
+                  <td>Partie de la solution qui apporte de la valeur</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="col-md-6">
+            <h5>Priorisation MoSCoW</h5>
+            <div class="highlight-box">
+              <p><strong>M - Must have :</strong> Essentiel, sans quoi le projet échoue</p>
+              <p><strong>S - Should have :</strong> Important mais pas essentiel</p>
+              <p><strong>C - Could have :</strong> Souhaitable si le temps le permet</p>
+              <p><strong>W - Won't have :</strong> Exclu de l'itération actuelle</p>
+            </div>
+            
+            <h5 class="mt-4">Différences v2 vs v3</h5>
+            <ul>
+              <li>Plus grande flexibilité dans l'application</li>
+              <li>Réduction de la documentation</li>
+              <li>Accent renforcé sur la valeur</li>
+              <li>Meilleure intégration DevOps</li>
+              <li>Simplification des processus</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="row mt-4">
+          <div class="col-12">
+            <h5>Formules importantes</h5>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="card">
+                  <div class="card-body">
+                    <h6>Vélocité d'équipe</h6>
+                    <p class="mb-0">Somme des points des user stories livrées par itération</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card">
+                  <div class="card-body">
+                    <h6>ROI incrémental</h6>
+                    <p class="mb-0">(Valeur livrée - Coût) / Coût × 100</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card">
+                  <div class="card-body">
+                    <h6>Taux de livraison de valeur</h6>
+                    <p class="mb-0">Valeur livrée ÷ Temps écoulé</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-4">
+          <button class="btn btn-primary" onclick="downloadCheatsheet()">
+            <i class="bi bi-download me-1"></i>Télécharger la cheatsheet (PDF)
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="certification" class="mb-5">
+      <h2 class="text-center mb-4">Préparation à la certification</h2>
+      
+      <div class="exam-simulator">
+        <h3 class="mb-4"><i class="bi bi-pencil-square me-2"></i>Simulateur d'examen</h3>
+        
+        <div class="question-container" id="questionContainer">
+          <h5 id="questionText">Chargement de la question...</h5>
+          <div id="optionsContainer">
+            <!-- Les options seront ajoutées dynamiquement -->
+          </div>
+        </div>
+        
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <span id="questionCounter">Question 1/10</span>
+            <span id="scoreDisplay" class="ms-3">Score: 0%</span>
+          </div>
+          <div>
+            <button class="btn btn-outline-primary me-2" id="prevBtn" onclick="prevQuestion()" disabled>
+              <i class="bi bi-chevron-left"></i> Précédent
+            </button>
+            <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">
+              Suivant <i class="bi bi-chevron-right"></i>
+            </button>
+            <button class="btn btn-success d-none" id="submitBtn" onclick="submitExam()">
+              Soumettre l'examen
+            </button>
+          </div>
+        </div>
+        
+        <div class="mt-4">
+          <div class="progress">
+            <div id="progressBar" class="progress-bar" role="progressbar" style="width: 10%"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-clock-history me-2"></i>
+              <h5 class="mb-0">Structure de l'examen</h5>
+            </div>
+            <div class="card-body">
+              <ul>
+                <li><strong>Durée :</strong> 60 minutes</li>
+                <li><strong>Questions :</strong> 50 questions à choix multiples</li>
+                <li><strong>Seuil de réussite :</strong> 50% (25/50)</li>
+                <li><strong>Format :</strong> En ligne ou en centre d'examen</li>
+                <li><strong>Coût :</strong> Variable selon le pays</li>
+                <li><strong>Pré-requis :</strong> Aucun, mais formation recommandée</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-lightbulb me-2"></i>
+              <h5 class="mb-0">Conseils pour réussir</h5>
+            </div>
+            <div class="card-body">
+              <ol>
+                <li><strong>Maîtriser les 8 principes :</strong> Ils représentent 40% des questions</li>
+                <li><strong>Connaître les rôles :</strong> Responsabilités de chaque rôle</li>
+                <li><strong>Comprendre le cycle de vie :</strong> Phases et produits associés</li>
+                <li><strong>Pratiquer MoSCoW :</strong> Priorisation des exigences</li>
+                <li><strong>Gérer son temps :</strong> Environ 1 minute par question</li>
+                <li><strong>Éliminer les mauvaises réponses :</strong> Augmente les chances</li>
+                <li><strong>Revoir les termes techniques :</strong> Définitions précises</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="mise-en-oeuvre" class="mb-5">
+      <h2 class="text-center mb-4">Mise en œuvre AgilePM v3</h2>
+      
+      <div class="cheatsheet-container">
+        <h3 class="mb-4"><i class="bi bi-gear me-2"></i>Guide pratique d'implémentation</h3>
+        
+        <div class="process-step">
+          <h5>1. Évaluer la préparation organisationnelle</h5>
+          <p>Analyser la culture, les compétences, la volonté de changement. Identifier les obstacles potentiels.</p>
+          <div class="highlight-box">
+            <p><strong>Checklist :</strong></p>
+            <ul>
+              <li>Engagement de la direction</li>
+              <li>Compétences agiles dans l'équipe</li>
+              <li>Culture de collaboration</li>
+              <li>Disponibilité des parties prenantes</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="process-step">
+          <h5>2. Adapter le framework au contexte</h5>
+          <p>AgilePM est un framework, pas une méthodologie rigide. Adapter les processus à la taille et complexité du projet.</p>
+          <div class="highlight-box">
+            <p><strong>Adaptations courantes :</strong></p>
+            <ul>
+              <li>Projet petit : Simplifier la documentation</li>
+              <li>Projet distribué : Renforcer les outils de collaboration</li>
+              <li>Environnement réglementé : Documenter davantage</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="process-step">
+          <h5>3. Former les équipes et parties prenantes</h5>
+          <p>Investir dans la formation pour assurer une compréhension commune du framework.</p>
+          <div class="highlight-box">
+            <p><strong>Formations recommandées :</strong></p>
+            <ul>
+              <li>Formation AgilePM Foundation pour tous</li>
+              <li>Formation AgilePM Practitioner pour les chefs de projet</li>
+              <li>Ateliers pratiques pour les équipes</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="process-step">
+          <h5>4. Démarrer avec un projet pilote</h5>
+          <p>Choisir un projet approprié pour la première implémentation. Idéalement de taille moyenne, avec un sponsor engagé.</p>
+          <div class="highlight-box">
+            <p><strong>Critères du projet pilote :</strong></p>
+            <ul>
+              <li>Durée : 3-6 mois</li>
+              <li>Équipe dédiée disponible</li>
+              <li>Sponsor engagé</li>
+              <li>Valeur métier identifiable</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="process-step">
+          <h5>5. Mesurer, apprendre, adapter</h5>
+          <p>Collecter des métriques, analyser les résultats, ajuster l'implémentation.</p>
+          <div class="highlight-box">
+            <p><strong>Métriques clés de succès :</strong></p>
+            <ul>
+              <li>Satisfaction des parties prenantes</li>
+              <li>Qualité des livrables</li>
+              <li>Respect des délais et budget</li>
+              <li>Valeur métier délivrée</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-exclamation-triangle me-2"></i>
+              <h5 class="mb-0">Pièges à éviter</h5>
+            </div>
+            <div class="card-body">
+              <ul>
+                <li><strong>Rigidité excessive :</strong> Appliquer AgilePM comme une méthodologie rigide</li>
+                <li><strong>Négliger la gouvernance :</strong> Trop se focaliser sur l'agilité au détriment du contrôle</li>
+                <li><strong>Formation insuffisante :</strong> Sous-estimer le besoin de formation</li>
+                <li><strong>Résistance au changement :</strong> Ne pas anticiper la résistance culturelle</li>
+                <li><strong>Mauvaise sélection du projet pilote :</strong> Choisir un projet trop complexe pour commencer</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-check-circle me-2"></i>
+              <h5 class="mb-0">Facteurs de succès</h5>
+            </div>
+            <div class="card-body">
+              <ul>
+                <li><strong>Engagement du sponsor :</strong> Implication active du Business Sponsor</li>
+                <li><strong>Communication transparente :</strong> Information radiante, transparence</li>
+                <li><strong>Équipe dédiée :</strong> Équipe 100% dédiée au projet</li>
+                <li><strong>Feedback régulier :</strong> Cycles de rétroaction courts</li>
+                <li><strong>Adaptation continue :</strong> Ajustements basés sur l'apprentissage</li>
+                <li><strong>Célébration des succès :</strong> Reconnaissance des progrès et réussites</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ressources" class="mb-5">
+      <h2 class="text-center mb-4">Ressources supplémentaires</h2>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-header">
+              <h5 class="mb-0">Documents officiels</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Manuel AgilePM v3 (APMG International)</li>
+                <li class="list-group-item">Guide du candidat à la certification</li>
+                <li class="list-group-item">Exemples d'examens blancs</li>
+                <li class="list-group-item">Glossaire des termes AgilePM</li>
+                <li class="list-group-item">Template de documents projet</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-header">
+              <h5 class="mb-0">Outils recommandés</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Jira + AgilePM template</li>
+                <li class="list-group-item">Microsoft Azure DevOps</li>
+                <li class="list-group-item">Trello avec power-ups Agile</li>
+                <li class="list-group-item">Miro pour les ateliers collaboratifs</li>
+                <li class="list-group-item">Lucidchart pour les diagrammes</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">Formations et certifications</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4">
+              <h6>Niveaux de certification</h6>
+              <ul>
+                <li><strong>Foundation :</strong> Compréhension des concepts</li>
+                <li><strong>Practitioner :</strong> Application pratique</li>
+                <li><strong>AgilePM Trainer :</strong> Formation des autres</li>
+              </ul>
+            </div>
+            <div class="col-md-4">
+              <h6>Organismes de formation</h6>
+              <ul>
+                <li>APMG International (accréditeur)</li>
+                <li>Certified Training Organizations (CTO)</li>
+                <li>Formations en ligne (e-learning)</li>
+              </ul>
+            </div>
+            <div class="col-md-4">
+              <h6>Coûts approximatifs</h6>
+              <ul>
+                <li>Formation Foundation : 800-1200€</li>
+                <li>Examen Foundation : 200-300€</li>
+                <li>Formation Practitioner : 1000-1500€</li>
+                <li>Examen Practitioner : 250-350€</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container text-center">
+      <p class="mb-0">Portail AgilePM v3 - Guide complet pour la certification et la mise en œuvre</p>
+      <p class="mb-0">© 2023 - Basé sur le framework AgilePM v3 d'APMG International</p>
+      <p class="mb-0 mt-2">
+        <small>Ce site est un outil pédagogique et n'est pas affilié à APMG International. Les informations sont fournies à titre informatif.</small>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Modal for details -->
+  <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="detailsModalLabel">Détails</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="detailsModalContent">
+          Chargement...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Data for the exam simulator
+    const examQuestions = [
+      {
+        id: 1,
+        question: "Quel est le principal objectif de la phase de Cadrage dans AgilePM v3?",
+        options: [
+          "Développer la solution complète",
+          "Établir les fondations du projet",
+          "Tester la solution",
+          "Clôturer le projet"
+        ],
+        correct: 1,
+        explanation: "La phase de Cadrage a pour objectif principal d'établir les fondations du projet, y compris le Business Case et le plan de projet à haut niveau."
+      },
+      {
+        id: 2,
+        question: "Quelle technique de priorisation est recommandée dans AgilePM?",
+        options: [
+          "Pareto",
+          "MoSCoW",
+          "Eisenhower",
+          "Value vs Effort"
+        ],
+        correct: 1,
+        explanation: "La technique MoSCoW (Must have, Should have, Could have, Won't have) est la technique de priorisation recommandée dans AgilePM."
+      },
+      {
+        id: 3,
+        question: "Qui est responsable de la définition de la vision du projet?",
+        options: [
+          "Project Manager",
+          "Business Sponsor",
+          "Business Visionary",
+          "Technical Coordinator"
+        ],
+        correct: 2,
+        explanation: "Le Business Visionary est responsable de définir et communiquer la vision du projet."
+      },
+      {
+        id: 4,
+        question: "Combien de principes fondamentaux contient AgilePM v3?",
+        options: [
+          "5",
+          "8",
+          "10",
+          "12"
+        ],
+        correct: 1,
+        explanation: "AgilePM v3 contient 8 principes fondamentaux qui guident l'approche."
+      },
+      {
+        id: 5,
+        question: "Quel est le seuil de réussite minimal pour l'examen AgilePM Foundation?",
+        options: [
+          "40%",
+          "50%",
+          "60%",
+          "70%"
+        ],
+        correct: 1,
+        explanation: "Le seuil de réussite pour l'examen AgilePM Foundation est de 50% (25 bonnes réponses sur 50 questions)."
+      },
+      {
+        id: 6,
+        question: "Quelle phase du cycle de vie AgilePM est itérative?",
+        options: [
+          "Pré-projet",
+          "Cadrage",
+          "Développement exploratoire",
+          "Post-projet"
+        ],
+        correct: 2,
+        explanation: "La phase de Développement exploratoire est itérative, avec des cycles courts de développement et de feedback."
+      },
+      {
+        id: 7,
+        question: "Quel rôle fait partie de l'équipe de direction de projet (Project Management Team)?",
+        options: [
+          "Solution Developer",
+          "Solution Tester",
+          "Business Ambassador",
+          "Team Leader"
+        ],
+        correct: 2,
+        explanation: "Le Business Ambassador fait partie de l'équipe de direction de projet (Project Management Team)."
+      },
+      {
+        id: 8,
+        question: "Quel document est produit pendant la phase de Conception fondation?",
+        options: [
+          "Business Case",
+          "Solution Outline",
+          "Plan de déploiement",
+          "Rapport de clôture"
+        ],
+        correct: 1,
+        explanation: "La Solution Outline est le principal document produit pendant la phase de Conception fondation."
+      },
+      {
+        id: 9,
+        question: "Quelle est la durée typique d'une itération de développement dans AgilePM?",
+        options: [
+          "1-2 semaines",
+          "2-4 semaines",
+          "1-2 mois",
+          "Variable selon le projet"
+        ],
+        correct: 3,
+        explanation: "La durée d'une itération de développement dans AgilePM est variable selon le projet, généralement entre 2 et 4 semaines."
+      },
+      {
+        id: 10,
+        question: "Quel principe AgilePM met l'accent sur le maintien de standards de qualité élevés?",
+        options: [
+          "Focus sur la valeur métier",
+          "Ne jamais compromettre la qualité",
+          "Développer de manière itérative",
+          "Garder le contrôle"
+        ],
+        correct: 1,
+        explanation: "Le principe 'Ne jamais compromettre la qualité' met l'accent sur le maintien de standards de qualité élevés à chaque incrément."
+      }
+    ];
+
+    // State for exam simulator
+    let currentQuestionIndex = 0;
+    let userAnswers = Array(examQuestions.length).fill(null);
+    let examCompleted = false;
+
+    // DOM elements
+    const detailsModal = new bootstrap.Modal(document.getElementById('detailsModal'));
+    const detailsModalTitle = document.getElementById('detailsModalLabel');
+    const detailsModalContent = document.getElementById('detailsModalContent');
+
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+      loadQuestion();
+      updateProgressBar();
+    });
+
+    // Show details in modal
+    function showDetails(type) {
+      let title = '';
+      let content = '';
+
+      switch(type) {
+        case 'philosophie':
+          title = 'Philosophie AgilePM en détail';
+          content = `
+            <h5>L'équilibre AgilePM</h5>
+            <p>AgilePM trouve son origine dans DSDM (Dynamic Systems Development Method) et représente l'équilibre parfait entre :</p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card h-100">
+                  <div class="card-header bg-primary text-white">
+                    <h6>Approches traditionnelles</h6>
+                  </div>
+                  <div class="card-body">
+                    <ul>
+                      <li>Gouvernance solide</li>
+                      <li>Planification rigoureuse</li>
+                      <li>Contrôle des délais et budget</li>
+                      <li>Gestion des risques formelle</li>
+                      <li>Documentation structurée</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card h-100">
+                  <div class="card-header" style="background-color: var(--agilepm-purple); color: white;">
+                    <h6>Approches agiles</h6>
+                  </div>
+                  <div class="card-body">
+                    <ul>
+                      <li>Flexibilité et adaptation</li>
+                      <li>Livraison incrémentale</li>
+                      <li>Collaboration étroite</li>
+                      <li>Focus sur la valeur</li>
+                      <li>Feedback continu</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <h5 class="mt-4">Pourquoi cet équilibre?</h5>
+            <p>Dans de nombreuses organisations, une approche purement agile n'est pas viable à cause de contraintes réglementaires, de gouvernance nécessaire, ou de complexité des parties prenantes. AgilePM fournit le cadre pour être agile tout en maintenant le contrôle nécessaire.</p>
+            
+            <div class="alert alert-info mt-3">
+              <p><strong>Le saviez-vous?</strong> AgilePM est le framework agile le plus utilisé au Royaume-Uni et l'un des plus populaires en Europe pour la gestion de projet en entreprise.</p>
+            </div>
+          `;
+          break;
+        case 'nouveautes':
+          title = 'Nouveautés AgilePM v3';
+          content = `
+            <h5>Évolutions majeures depuis la version 2</h5>
+            
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Aspect</th>
+                    <th>AgilePM v2</th>
+                    <th>AgilePM v3</th>
+                    <th>Avantage</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Flexibilité</strong></td>
+                    <td>Cadre assez rigide</td>
+                    <td>Plus adaptatif au contexte</td>
+                    <td>Meilleure applicabilité</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Documentation</strong></td>
+                    <td>Documentation importante</td>
+                    <td>Documentation allégée et juste à temps</td>
+                    <td>Réduction de la charge administrative</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Focus</strong></td>
+                    <td>Processus et livrables</td>
+                    <td>Valeur et résultats</td>
+                    <td>Meilleur alignement business</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Intégration</strong></td>
+                    <td>Principalement autonome</td>
+                    <td>Meilleure intégration avec DevOps et autres frameworks</td>
+                    <td>Compatibilité améliorée</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Simplicité</strong></td>
+                    <td>Terminologie complexe</td>
+                    <td>Langage simplifié et plus accessible</td>
+                    <td>Adoption facilitée</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <h5 class="mt-4">Améliorations spécifiques</h5>
+            <ol>
+              <li><strong>Réduction des produits de gestion :</strong> Moins de documents obligatoires, plus de flexibilité</li>
+              <li><strong>Accent sur la valeur :</strong> Mesure plus précise de la valeur délivrée</li>
+              <li><strong>Adaptabilité contextuelle :</strong> Recommandations pour adapter le framework à différents contextes</li>
+              <li><strong>Collaboration renforcée :</strong> Techniques améliorées pour la collaboration d'équipe</li>
+              <li><strong>Alignement avec les tendances :</strong> Intégration des pratiques DevOps et d'intégration continue</li>
+            </ol>
+            
+            <div class="alert alert-warning mt-3">
+              <p><strong>Note importante :</strong> Les certifications AgilePM v2 restent valides, mais il est recommandé de se mettre à jour vers v3 pour bénéficier des améliorations.</p>
+            </div>
+          `;
+          break;
+      }
+
+      detailsModalTitle.textContent = title;
+      detailsModalContent.innerHTML = content;
+      detailsModal.show();
+    }
+
+    // Exam simulator functions
+    function loadQuestion() {
+      const question = examQuestions[currentQuestionIndex];
+      const questionText = document.getElementById('questionText');
+      const optionsContainer = document.getElementById('optionsContainer');
+      const questionCounter = document.getElementById('questionCounter');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const submitBtn = document.getElementById('submitBtn');
+      
+      // Update question text
+      questionText.textContent = `${question.id}. ${question.question}`;
+      
+      // Update question counter
+      questionCounter.textContent = `Question ${question.id}/${examQuestions.length}`;
+      
+      // Clear options container
+      optionsContainer.innerHTML = '';
+      
+      // Add options
+      question.options.forEach((option, index) => {
+        const optionElement = document.createElement('div');
+        optionElement.className = 'option';
+        
+        // Check if this option was previously selected
+        if (userAnswers[currentQuestionIndex] === index) {
+          optionElement.classList.add('selected');
+        }
+        
+        // If exam completed, show correct/incorrect
+        if (examCompleted) {
+          if (index === question.correct) {
+            optionElement.classList.add('correct');
+          } else if (userAnswers[currentQuestionIndex] === index && index !== question.correct) {
+            optionElement.classList.add('incorrect');
+          }
+        }
+        
+        optionElement.textContent = `${String.fromCharCode(65 + index)}. ${option}`;
+        
+        optionElement.addEventListener('click', () => {
+          if (!examCompleted) {
+            selectOption(index);
+          }
+        });
+        
+        optionsContainer.appendChild(optionElement);
+      });
+      
+      // Update buttons state
+      prevBtn.disabled = currentQuestionIndex === 0;
+      
+      if (currentQuestionIndex === examQuestions.length - 1) {
+        nextBtn.classList.add('d-none');
+        submitBtn.classList.remove('d-none');
+      } else {
+        nextBtn.classList.remove('d-none');
+        submitBtn.classList.add('d-none');
+      }
+      
+      updateProgressBar();
+    }
+    
+    function selectOption(optionIndex) {
+      // Remove selected class from all options
+      document.querySelectorAll('.option').forEach(option => {
+        option.classList.remove('selected');
+      });
+      
+      // Add selected class to clicked option
+      document.querySelectorAll('.option')[optionIndex].classList.add('selected');
+      
+      // Save answer
+      userAnswers[currentQuestionIndex] = optionIndex;
+    }
+    
+    function prevQuestion() {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        loadQuestion();
+      }
+    }
+    
+    function nextQuestion() {
+      if (currentQuestionIndex < examQuestions.length - 1) {
+        currentQuestionIndex++;
+        loadQuestion();
+      }
+    }
+    
+    function submitExam() {
+      examCompleted = true;
+      
+      // Calculate score
+      let correctAnswers = 0;
+      userAnswers.forEach((answer, index) => {
+        if (answer === examQuestions[index].correct) {
+          correctAnswers++;
+        }
+      });
+      
+      const scorePercentage = Math.round((correctAnswers / examQuestions.length) * 100);
+      const passed = scorePercentage >= 50;
+      
+      // Show results
+      const resultsHTML = `
+        <div class="alert ${passed ? 'alert-success' : 'alert-danger'}">
+          <h4>Examen terminé!</h4>
+          <p>Votre score : <strong>${correctAnswers}/${examQuestions.length} (${scorePercentage}%)</strong></p>
+          <p>${passed ? 'Félicitations! Vous avez réussi l\'examen.' : 'Vous n\'avez pas atteint le seuil de réussite de 50%.'}</p>
+        </div>
+        
+        <h5>Récapitulatif des réponses :</h5>
+        <div style="max-height: 300px; overflow-y: auto;">
+      `;
+      
+      let detailsHTML = '';
+      examQuestions.forEach((question, index) => {
+        const userAnswer = userAnswers[index];
+        const isCorrect = userAnswer === question.correct;
+        
+        detailsHTML += `
+          <div class="card mb-2 ${isCorrect ? 'border-success' : 'border-danger'}">
+            <div class="card-body">
+              <h6>Question ${question.id}: ${question.question}</h6>
+              <p class="mb-1">Votre réponse: <strong>${userAnswer !== null ? question.options[userAnswer] : 'Non répondue'}</strong></p>
+              <p class="mb-1">Réponse correcte: <strong class="text-success">${question.options[question.correct]}</strong></p>
+              <p class="mb-0"><small>${question.explanation}</small></p>
+            </div>
+          </div>
+        `;
+      });
+      
+      detailsHTML += `</div>`;
+      
+      detailsModalTitle.textContent = 'Résultats de l\'examen';
+      detailsModalContent.innerHTML = resultsHTML + detailsHTML;
+      detailsModal.show();
+      
+      // Update score display
+      document.getElementById('scoreDisplay').textContent = `Score: ${scorePercentage}%`;
+      
+      // Disable further interactions
+      document.querySelectorAll('.option').forEach(option => {
+        option.style.pointerEvents = 'none';
+      });
+      
+      document.getElementById('prevBtn').disabled = true;
+      document.getElementById('nextBtn').disabled = true;
+      document.getElementById('submitBtn').disabled = true;
+    }
+    
+    function updateProgressBar() {
+      const progress = ((currentQuestionIndex + 1) / examQuestions.length) * 100;
+      document.getElementById('progressBar').style.width = `${progress}%`;
+    }
+    
+    function downloadCheatsheet() {
+      // In a real implementation, this would generate and download a PDF
+      alert('Dans une implémentation réelle, cette fonction générerait et téléchargerait un PDF de la cheatsheet.');
+      detailsModalTitle.textContent = 'Cheatsheet AgilePM v3';
+      detailsModalContent.innerHTML = `
+        <h5>Cheatsheet AgilePM v3 - Points essentiels</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Concept</th>
+                <th>Définition</th>
+                <th>Importance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>8 Principes</strong></td>
+                <td>Fondements philosophiques d'AgilePM</td>
+                <td>★★★★★</td>
+              </tr>
+              <tr>
+                <td><strong>MoSCoW</strong></td>
+                <td>Technique de priorisation: Must, Should, Could, Won't</td>
+                <td>★★★★★</td>
+              </tr>
+              <tr>
+                <td><strong>Cycle de vie</strong></td>
+                <td>7 phases: Pré-projet, Cadrage, Conception, Développement, Déploiement, Post-projet, Itérations</td>
+                <td>★★★★★</td>
+              </tr>
+              <tr>
+                <td><strong>Timeboxing</strong></td>
+                <td>Période fixe pour réaliser un travail</td>
+                <td>★★★★☆</td>
+              </tr>
+              <tr>
+                <td><strong>Rôles</strong></td>
+                <td>Business Sponsor, Visionary, Ambassador, Advisor, Project Manager, etc.</td>
+                <td>★★★★☆</td>
+              </tr>
+              <tr>
+                <td><strong>Business Case</strong></td>
+                <td>Justification économique du projet, évolue avec le projet</td>
+                <td>★★★★☆</td>
+              </tr>
+              <tr>
+                <td><strong>Solution Outline</strong></td>
+                <td>Description à haut niveau de la solution</td>
+                <td>★★★★☆</td>
+              </tr>
+              <tr>
+                <td><strong>Seuil de réussite</strong></td>
+                <td>50% à l'examen Foundation (25/50 questions)</td>
+                <td>★★★★★</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <h5 class="mt-4">Conseils pour l'examen</h5>
+        <ol>
+          <li>Maîtriser les 8 principes (40% des questions)</li>
+          <li>Connaître les responsabilités de chaque rôle</li>
+          <li>Comprendre le cycle de vie et les produits associés</li>
+          <li>Pratiquer la technique MoSCoW</li>
+          <li>Gérer son temps (environ 1 minute par question)</li>
+          <li>Lire attentivement chaque question</li>
+          <li>Éliminer d'abord les réponses manifestement fausses</li>
+        </ol>
+        
+        <div class="alert alert-info mt-3">
+          <p><strong>Rappel :</strong> AgilePM v3 met l'accent sur la valeur business, la flexibilité contextuelle et la réduction de la documentation non essentielle.</p>
+        </div>
+      `;
+      detailsModal.show();
+    }
+  </script>
+</body>
+</html>
