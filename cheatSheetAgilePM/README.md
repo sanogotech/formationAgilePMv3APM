@@ -512,7 +512,7 @@ AgilePM v3 intègre **Scrum** comme moteur pour la *livraison des incréments* :
 
 * **Product Backlog**
 * **Sprint Backlog**
-* **Incrément (Increment)** ([B2B Learning][3])
+* **Incrément (Increment)** 
 
 ---
 
