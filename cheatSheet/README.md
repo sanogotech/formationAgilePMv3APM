@@ -9,6 +9,25 @@
 **AgilePM v3** est un *cadre de gestion de projet agile structuré* qui combine agilité et gouvernance.
 L’objectif principal est de **livrer de la valeur (value delivery)** plutôt que simplement des produits ou livrables. AgilePM v3 met l’accent sur **le leadership agile (agile leadership)** plutôt que la simple gestion et intègre **Scrum comme moteur de livraison (delivery engine)** au sein du projet. 
 
+
+## **Tableau – Versions AgilePM et statut**
+
+| Version        | Année de publication | Principales évolutions                                                                                                                                                                                                   | Statut / Expiration                                                             |
+| -------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------- |
+| **AgilePM v1** | 2002                 | - Première version formalisée du framework DSDM<br>- Introduit méthodes agiles pour projets structurés<br>- Rôles et phases de projet de base<br>- MoSCoW, timeboxing, itérations<br>- Focus sur contrôle et gouvernance | Obsolète / Fin de support officiel depuis longtemps                             |
+| **AgilePM v2** | 2010                 | - Basé sur DSDM Atern amélioré<br>- Méthodes agiles structurées pour projets métiers<br>- MoSCoW et timeboxing renforcés<br>- Gestion plus claire des rôles et responsabilités                                           | Obsolète / Fin de support officiel<br>(non utilisé pour certification actuelle) |
+| **AgilePM v3** | 2017                 | - Intégration forte de Scrum<br>- Focus sur **value delivery** et **outcomes**<br>- Leadership agile renforcé<br>- Meilleure gouvernance, métriques et outils<br>- Artefacts et annexes étendus                          | Version actuelle / Support actif pour certification et pratique professionnelle |
+
+---
+
+### **Résumé pratique pour l’examen :**
+
+* **v1 (2002)** → première version, cadre classique DSDM, méthodes agiles de base.
+* **v2 (2010)** → amélioration, DSDM Atern, MoSCoW, timeboxing, rôles clarifiés.
+* **v3 (2017)** → version actuelle, intégration Scrum, focus sur **valeur et bénéfices**, leadership agile, metrics et outcomes.
+* Les certifications et examens actuels portent **uniquement sur AgilePM v3**.
+
+
 ---
 
 ## 1) **Principes clés (Principles)**
