@@ -557,6 +557,58 @@ Ces **40 concepts**, combinés avec les **20 annexes et 12 concepts précédents
 
 ---
 
+## **Différence entre Product, Deliverable et Outcome**
+
+| Terme                             | Définition                                                                                  | Focus principal                                                                | Exemple                                                                                                                                             |
+| --------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Product (Produit)**             | L’objet ou service final que le projet vise à créer.                                        | Ce que le client / utilisateur va utiliser.                                    | Une application web de gestion scolaire, un logiciel de facturation, un module ERP.                                                                 |
+| **Deliverable (Livrable)**        | Un élément concret produit pendant le projet qui contribue au produit final.                | Ce qui est produit / livré pendant le projet pour avancer vers le produit.     | Code source, rapport d’étude, maquette, guide utilisateur, plan de tests.                                                                           |
+| **Outcome (Résultat / Bénéfice)** | L’effet ou valeur réelle que le produit ou livrable apporte au business ou à l’utilisateur. | La valeur générée, souvent mesurable en bénéfices, ROI ou satisfaction client. | Réduction de 30 % du temps de traitement des factures, augmentation de 50 % de la productivité de l’équipe, amélioration de la satisfaction client. |
+
+---
+
+### **Clés de compréhension :**
+
+1. **Le produit** est ce que tu construis pour répondre à un besoin (*tangible* ou *immédiatement utilisable*).
+2. **Le livrable** est un **élément concret du projet** que tu crées pour avancer vers le produit.
+
+   * Tous les livrables ne sont pas visibles par l’utilisateur final (ex. documentation technique).
+3. **L’outcome** est **la valeur réelle ou l’impact du produit** pour le client ou le business.
+
+   * C’est le résultat que le sponsor ou le client mesure.
+   * Souvent utilisé pour justifier l’investissement ou pour le suivi des bénéfices (Benefits Realisation).
+
+---
+
+### **Exemple pratique AgilePM :**
+
+* Projet : Développement d’une application mobile bancaire.
+
+  * **Product (Produit)** : Application mobile fonctionnelle pour gérer ses comptes.
+  * **Deliverables (Livrables)** :
+
+    * Prototype UI/UX
+    * Code backend et frontend
+    * Plan de tests et guide utilisateur
+    * Documentation technique
+  * **Outcome (Résultat / Bénéfice)** :
+
+    * Réduction de 40 % du temps de consultation des comptes
+    * Augmentation de l’adoption mobile de 60 %
+    * Amélioration de la satisfaction client mesurée via enquête NPS
+
+---
+
+### **Pourquoi c’est important en AgilePM :**
+
+* Ne pas confondre **livrables et résultats** permet de :
+
+  1. Se concentrer sur la **valeur métier** plutôt que sur le volume de production.
+  2. Prioriser correctement le backlog via **MoSCoW ou Value-Driven Delivery**.
+  3. Évaluer le succès du projet non seulement par ce qui est produit, mais par **l’impact réel** pour le business.
+
+---
+
 
 
 
@@ -567,6 +619,72 @@ Ces **40 concepts**, combinés avec les **20 annexes et 12 concepts précédents
 ✔ Connaître les **rôles et interactions AgilePM + Scrum**.
 ✔ Maîtriser **MoSCoW**, **Timeboxing**, **iteration planning**.
 ✔ Savoir différencier **deliverables vs outcomes (livrables vs résultats)**. ([tecknologia.co.uk][1])
+
+
+
+## **Tableau 1 – Principes et applications pratiques**
+
+| Principe AgilePM                                               | Définition / But                           | Application pratique / Exemple                           |
+| -------------------------------------------------------------- | ------------------------------------------ | -------------------------------------------------------- |
+| Se concentrer sur les besoins métier (Focus on Business Needs) | Prioriser ce qui apporte de la valeur      | Livrer d’abord les fonctionnalités critiques (Must Have) |
+| Collaborer (Collaborate)                                       | Travailler ensemble, communication ouverte | Ateliers, daily stand-ups, co-développement              |
+| Construire progressivement (Build Incrementally)               | Décomposer en étapes livrables             | Livraison d’incréments fonctionnels par sprint           |
+| Communiquer clairement (Communicate Continuously)              | Information fluide et transparente         | Rapports, dashboards, réunions régulières                |
+| Livrer à temps (Deliver On Time)                               | Respect des délais                         | Timeboxing, planification itérative                      |
+| Ne pas compromettre la qualité (Never Compromise Quality)      | Livrer des produits fiables                | Revue technique, tests automatisés                       |
+| Développer itérativement (Develop Iteratively)                 | Amélioration continue                      | Retours rapides, révision du backlog                     |
+| Démontrer le contrôle (Demonstrate Control)                    | Suivi et reporting                         | Burndown charts, KPI, suivi risques                      |
+
+---
+
+## **Tableau 2 – Scrum intégré dans AgilePM**
+
+| Élément Scrum             | Définition                     | Application dans AgilePM v3                           |
+| ------------------------- | ------------------------------ | ----------------------------------------------------- |
+| Scrum Master              | Facilite l’équipe              | Coordination, résolution obstacles                    |
+| Product Owner             | Priorisation et vision produit | Gestion du backlog, validation des stories            |
+| Développeurs (Developers) | Équipe technique               | Livraison des incréments fonctionnels                 |
+| Sprint                    | Itération courte               | Timeboxed, planification et livraison d’un incrément  |
+| Sprint Planning           | Planification de l’itération   | Définir tâches à réaliser et objectifs                |
+| Daily Scrum               | Mêlée quotidienne              | Synchronisation de l’équipe, résolution problèmes     |
+| Sprint Review             | Revue de l’incrément           | Feedback des parties prenantes                        |
+| Sprint Retrospective      | Amélioration continue          | Identifier points à améliorer pour le prochain sprint |
+
+---
+
+## **Tableau 3 – Rôles et interactions AgilePM + Scrum**
+
+| Rôle AgilePM                    | Interaction avec Scrum       | Responsabilités clés                          |
+| ------------------------------- | ---------------------------- | --------------------------------------------- |
+| Business Sponsor                | Fournit vision et priorités  | Valide Business Case et ROI                   |
+| Business Visionary              | Input sur les besoins        | Définition vision et exigences clés           |
+| Project Manager                 | Support Scrum Master         | Planification globale et coordination         |
+| Product Owner (AgilePM + Scrum) | Gestion du backlog           | Priorisation MoSCoW, validation user stories  |
+| Team Leader / Scrum Master      | Facilite équipe              | Organisation des réunions, supprime obstacles |
+| Solution Developer              | Travaille avec Product Owner | Développement des user stories                |
+| Business Ambassador             | Représente métier            | Clarification des besoins, feedback           |
+
+---
+
+## **Tableau 4 – MoSCoW, Timeboxing et Iteration Planning**
+
+| Technique                | Définition                            | Astuces examen / pratique                                                   |
+| ------------------------ | ------------------------------------- | --------------------------------------------------------------------------- |
+| MoSCoW                   | Priorisation des exigences            | Connaître % typiques : Must 60–70%, Should 15–25%, Could 5–10%              |
+| Timeboxing               | Limiter le temps pour une activité    | Prévoir sprints, réunions stand-up, workshops                               |
+| Iteration Planning       | Planifier les tâches pour l’itération | Définir objectifs sprint, sélectionner stories prioritaires, estimer effort |
+| Product Backlog          | Liste priorisée des exigences         | Mise à jour dynamique, prise en compte dépendances                          |
+| Definition of Done (DoD) | Critères de fin de tâche              | Inclure tests, documentation, validation                                    |
+
+---
+
+## **Tableau 5 – Deliverables vs Outcomes**
+
+| Concept                       | Définition                                      | Focus                                     | Exemple concret                                         |
+| ----------------------------- | ----------------------------------------------- | ----------------------------------------- | ------------------------------------------------------- |
+| Product (Produit)             | Solution finale                                 | Ce que l’utilisateur va utiliser          | Application mobile bancaire                             |
+| Deliverable (Livrable)        | Éléments concrets produits pendant le projet    | Ce qui est créé pour atteindre le produit | Code source, prototype, plan de test, documentation     |
+| Outcome (Résultat / Bénéfice) | Valeur ou impact réel pour le client / business | Ce qui apporte la valeur métier           | Gain de temps 30%, adoption accrue, satisfaction client |
 
 
 
