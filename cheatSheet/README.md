@@ -7,7 +7,7 @@
 ## 🧠 Philosophie & Fondamentaux
 
 **AgilePM v3** est un *cadre de gestion de projet agile structuré* qui combine agilité et gouvernance.
-L’objectif principal est de **livrer de la valeur (value delivery)** plutôt que simplement des produits ou livrables. AgilePM v3 met l’accent sur **le leadership agile (agile leadership)** plutôt que la simple gestion et intègre **Scrum comme moteur de livraison (delivery engine)** au sein du projet. ([ilxgroup.com][2])
+L’objectif principal est de **livrer de la valeur (value delivery)** plutôt que simplement des produits ou livrables. AgilePM v3 met l’accent sur **le leadership agile (agile leadership)** plutôt que la simple gestion et intègre **Scrum comme moteur de livraison (delivery engine)** au sein du projet. 
 
 ---
 
