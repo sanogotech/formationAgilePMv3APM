@@ -10,22 +10,411 @@
 L’objectif principal est de **livrer de la valeur (value delivery)** plutôt que simplement des produits ou livrables. AgilePM v3 met l’accent sur **le leadership agile (agile leadership)** plutôt que la simple gestion et intègre **Scrum comme moteur de livraison (delivery engine)** au sein du projet. 
 
 
-## **Tableau – Versions AgilePM et statut**
 
-| Version        | Année de publication | Principales évolutions                                                                                                                                                                                                   | Statut / Expiration                                                             |
-| -------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------- |
-| **AgilePM v1** | 2002                 | - Première version formalisée du framework DSDM<br>- Introduit méthodes agiles pour projets structurés<br>- Rôles et phases de projet de base<br>- MoSCoW, timeboxing, itérations<br>- Focus sur contrôle et gouvernance | Obsolète / Fin de support officiel depuis longtemps                             |
-| **AgilePM v2** | 2010                 | - Basé sur DSDM Atern amélioré<br>- Méthodes agiles structurées pour projets métiers<br>- MoSCoW et timeboxing renforcés<br>- Gestion plus claire des rôles et responsabilités                                           | Obsolète depuis novembre 2025/ Fin de support officiel<br>(non utilisé pour certification actuelle) |
-| **AgilePM v3** | 2017                 | - Intégration forte de Scrum<br>- Focus sur **value delivery** et **outcomes**<br>- Leadership agile renforcé<br>- Meilleure gouvernance, métriques et outils<br>- Artefacts et annexes étendus                          | Version actuelle / Support actif pour certification et pratique professionnelle |
+## 🕰️ Origines & évolution
+
+AgilePM est l’aboutissement d’une évolution progressive des méthodes agiles :
+
+| Année    | Évolution       | Contribution clé                          |
+| -------- | --------------- | ----------------------------------------- |
+| **1991** | RAD             | Développement rapide & itératif           |
+| **1994** | DSDM            | Cadre agile structuré + gouvernance       |
+| **1995** | Scrum           | Sprints, rôles Scrum, incréments          |
+| **2001** | Agile Manifesto | Valeurs et principes agiles               |
+| **2014** | AgilePM v2      | Gestion de projet agile structurée        |
+| **2024** | AgilePM v3      | Intégration forte de Scrum + focus valeur |
+
+👉 AgilePM repose donc sur **DSDM**, adopte les valeurs du **Manifeste Agile**, et utilise **Scrum comme moteur de livraison**.
 
 ---
 
-### **Résumé pratique pour l’examen :**
+## 🎯 Positionnement d’AgilePM v3
 
-* **v1 (2002)** → première version, cadre classique DSDM, méthodes agiles de base.
-* **v2 (2010)** → amélioration, DSDM Atern, MoSCoW, timeboxing, rôles clarifiés.
-* **v3 (2017)** → version actuelle, intégration Scrum, focus sur **valeur et bénéfices**, leadership agile, metrics et outcomes.
-* Les certifications et examens actuels portent **uniquement sur AgilePM v3**.
+**AgilePM v3** est un *cadre de gestion de projet agile structuré* qui combine :
+
+* ✅ **Agilité**
+* ✅ **Gouvernance**
+* ✅ **Leadership agile**
+* ✅ **Livraison de valeur (Value Delivery)**
+
+Il met l’accent sur :
+
+* 🎯 **Outcomes > Deliverables**
+* 🤝 Collaboration forte
+* 🔁 Livraison incrémentale
+* 📊 Contrôle et visibilité
+
+---
+
+## 📊 Versions AgilePM (Résumé rapide)
+
+| Version | Année | Focus principal                              | Statut           |
+| ------- | ----- | -------------------------------------------- | ---------------- |
+| **v1**  | 2002  | Première formalisation basée DSDM            | Obsolète         |
+| **v2**  | 2014  | DSDM Atern modernisé, gouvernance structurée | Obsolète         |
+| **v3**  | 2024  | Scrum intégré, value & leadership            | Version actuelle |
+
+---
+
+## 📝 À retenir pour l’examen
+
+* AgilePM vient de **DSDM (1994)**
+* Scrum est intégré dans **v3**
+* Focus principal : **Value Delivery**
+* v3 = version actuelle examinée
+
+
+# 🏠 La Maison DSDM / AgilePM
+
+## Vision stratégique complète – Du haut vers le bas
+
+---
+
+# 📘 INTRODUCTION
+
+La “Maison DSDM” est une représentation visuelle et conceptuelle du cadre AgilePM.
+Elle montre que :
+
+* AgilePM n’est pas seulement une méthode,
+* Ce n’est pas seulement Scrum élargi,
+* Ce n’est pas seulement du timeboxing.
+
+C’est un **système cohérent** où :
+
+1. Une **Philosophie (Philosophy)** donne le sens
+2. Des **Principes (Principles)** guident les comportements
+3. Les **4P (People, Process, Products, Project)** structurent l’organisation
+4. Des **Fondations culturelles (Common Sense & Pragmatism)** soutiennent l’ensemble
+
+Si la base est faible → tout s’effondre.
+Si le toit est flou → le projet dérive stratégiquement.
+
+Nous allons expliquer la maison **du haut vers le bas**, car tout découle de la philosophie.
+
+---
+
+# 🏠 1️⃣ LE TOIT — PHILOSOPHY (Philosophie)
+
+## 🎯 Définition
+
+La philosophie DSDM affirme :
+
+> La meilleure valeur métier émerge lorsque les projets sont alignés sur des objectifs clairs, livrent fréquemment, collaborent activement et responsabilisent les équipes.
+
+Ce n’est pas une technique.
+C’est une posture stratégique.
+
+---
+
+## 🔎 Les 4 piliers implicites de la philosophie
+
+### 1️⃣ Alignement stratégique (Business Alignment)
+
+Le projet doit être directement connecté aux objectifs business.
+
+✔ Exemples :
+
+* Améliorer le NPS
+* Réduire le churn
+* Accélérer le time-to-market
+
+⚠ Sans Business Case vivant → perte de sens.
+
+**REX** :
+Projet IT réussi techniquement mais abandonné car non aligné à la stratégie 2025.
+
+---
+
+### 2️⃣ Livraison fréquente de valeur (Frequent Value Delivery)
+
+Pas livraison finale massive.
+Mais incréments utilisables.
+
+✔ MVP
+✔ Releases progressives
+✔ Feedback rapide
+
+Statistiquement, les projets avec livraisons intermédiaires ont un taux de succès supérieur de 25–30%.
+
+---
+
+### 3️⃣ Collaboration active (Active Collaboration)
+
+La valeur naît du dialogue continu.
+
+* Workshops
+* Feedback loops
+* Daily communication
+
+REX :
+Projet CRM distribué sans Business Ambassador actif → 40% des fonctionnalités inutilisées.
+
+---
+
+### 4️⃣ Empowerment (Responsabilisation)
+
+Décisions prises au niveau le plus proche de l’information.
+
+✔ PO priorise
+✔ Équipe s’auto-organise
+✔ PM facilite
+
+Micro-management = ralentissement + démotivation.
+
+---
+
+## 🎓 Tip examen
+
+Si la question parle de :
+
+* Valeur
+* Fréquence
+* Collaboration
+* Alignement
+* Empowerment
+
+👉 Réponse = **Philosophy DSDM**
+
+---
+
+# 🧱 2️⃣ LES PILIERS — PRINCIPLES
+
+Les 8 principes traduisent la philosophie en règles comportementales.
+
+---
+
+## 1. Focus on Business Needs
+
+Toujours protéger la valeur métier.
+
+✔ MoSCoW
+✔ Business Case vivant
+✔ Priorisation dynamique
+
+REX :
+Projet e-commerce : 60% des fonctionnalités reportées → délai respecté → ROI positif.
+
+---
+
+## 2. Deliver on Time
+
+Timebox fixe.
+Scope flexible.
+
+C’est une règle d’or.
+
+Si retard → réduire le scope, pas allonger le temps.
+
+---
+
+## 3. Collaborate
+
+Collaboration proactive, pas passive.
+
+✔ Co-localisation idéale
+✔ Outils collaboratifs
+✔ Ateliers structurés
+
+---
+
+## 4. Never Compromise Quality
+
+Qualité définie dès le départ.
+
+✔ Definition of Done
+✔ Critères d’acceptation
+✔ Tests intégrés
+
+Qualité ≠ variable d’ajustement.
+
+---
+
+## 5. Build Incrementally from Firm Foundations
+
+Ne pas improviser totalement.
+
+Il faut :
+
+* Vision claire
+* Architecture cible
+* Roadmap
+
+---
+
+## 6. Develop Iteratively
+
+Amélioration progressive.
+Inspection + adaptation.
+
+---
+
+## 7. Communicate Continuously and Clearly
+
+Communication formelle + informelle.
+
+Burn-up charts.
+Dashboards.
+Daily stand-ups.
+
+---
+
+## 8. Demonstrate Control
+
+Agile ≠ chaos.
+
+Contrôle par :
+
+* KPI
+* Mesure de vélocité
+* Revues régulières
+
+---
+
+# 🧱 3️⃣ LES 4P — STRUCTURE OPÉRATIONNELLE
+
+Les 4P traduisent les principes en organisation concrète.
+
+---
+
+## 👥 1. People
+
+Les rôles sont clairs :
+
+* Business Sponsor
+* Business Visionary
+* Project Manager
+* Product Owner
+* Scrum Master
+* Developers
+* Business Ambassador
+
+Clarté des responsabilités = réduction conflits.
+
+---
+
+## 📦 2. Products
+
+Produits ≠ seulement logiciel.
+
+Incluent :
+
+* Business Case
+* Solution Architecture
+* Backlogs
+* Increment
+* Benefits Assessment
+
+⚠ Deliverable ≠ Outcome.
+
+Deliverable = produit livré.
+Outcome = bénéfice mesurable.
+
+---
+
+## 🔄 3. Process
+
+Inclut :
+
+* Lifecycle AgilePM
+* Timeboxing
+* MoSCoW
+* Iterative planning
+* Governance checkpoints
+
+Le processus protège contre l’anarchie.
+
+---
+
+## 📊 4. Project
+
+Cadre de gouvernance :
+
+* Steering Committee
+* Reporting
+* Risk management
+* Change control léger
+
+AgilePM garde une gouvernance structurée.
+
+---
+
+# 🧱 4️⃣ LES FONDATIONS
+
+Sans elles, la maison s’effondre.
+
+---
+
+## 🧠 Common Sense (Bon sens)
+
+Appliquer intelligemment.
+
+Exemple :
+Réduire un livrable inutile.
+
+AgilePM n’est pas dogmatique.
+
+---
+
+## 🎯 Pragmatism
+
+Adapter au contexte.
+
+Projet startup ≠ projet gouvernemental.
+
+---
+
+## 🤝 Trust (Confiance)
+
+La confiance accélère.
+
+Manque de confiance → contrôle excessif → ralentissement.
+
+---
+
+## 🔍 Transparency
+
+Visibilité totale.
+
+* Backlog visible
+* Burn-up visible
+* KPI visibles
+
+Réduit tensions politiques.
+
+---
+
+# 📊 Vue complète synthétique
+
+```
+                 PHILOSOPHY
+       (Vision stratégique & valeur)
+
+                 PRINCIPLES
+       (Comportements obligatoires)
+
+                   4P
+    People | Products | Process | Project
+
+     Common Sense | Pragmatism | Trust | Transparency
+```
+
+---
+
+# 🎯 Résumé stratégique
+
+AgilePM est :
+
+✔ Structuré
+✔ Gouverné
+✔ Orienté valeur
+✔ Adaptatif
+✔ Culturel
+
+Ce n’est pas “juste agile”.
+C’est une architecture complète de gestion de projet.
+
+---
+
 
 
 ---
