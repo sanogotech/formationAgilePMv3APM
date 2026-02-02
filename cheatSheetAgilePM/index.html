@@ -23,6 +23,7 @@
       --realisation-gold: #ffc400;
     }
 
+
     body {
       background-color: var(--light-bg);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -1384,40 +1385,40 @@
           </div>
         </div>
         
-        <div class="col-md-6">
-          <div class="principle-box">
-            <div class="d-flex align-items-center mb-3">
-              <span class="principle-number">2</span>
-              <h5 class="mb-0">Apprendre par l'expérience</h5>
-            </div>
-            <p>Cycle de rétroaction court, adaptation continue basée sur les retours. Les plans évoluent avec l'apprentissage tout au long du projet.</p>
-            
-            <div class="phase-highlight phase-development mt-3">
-              <p><strong>Application pratique :</strong> Ce principe est au cœur de la phase de Développement, où chaque itération inclut une rétrospective et une adaptation du plan.</p>
-            </div>
-            
-            <p><strong>Techniques associées :</strong></p>
-            <ul>
-              <li>Rétrospectives d'itération</li>
-              <li>Revues régulières avec les parties prenantes</li>
-              <li>Prototypage rapide</li>
-              <li>Tests utilisateurs fréquents</li>
-            </ul>
-            
-            <p><strong>Indicateurs de succès :</strong></p>
-            <ul>
-              <li>Fréquence des adaptations du plan</li>
-              <li>Qualité des retours intégrés</li>
-              <li>Amélioration continue des processus</li>
-              <li>Réduction des écarts entre attentes et réalité</li>
-            </ul>
-            
-            <div class="d-flex justify-content-between align-items-center mt-3">
-              <span class="importance-level level-high">Certification: Haut</span>
-              <span class="badge bg-primary">10-15% des questions</span>
-            </div>
-          </div>
-        </div>
+       <div class="col-md-6">
+  <div class="principle-box">
+    <div class="d-flex align-items-center mb-3">
+      <span class="principle-number">2</span>
+      <h5 class="mb-0">Livrer à temps (Deliver On Time)</h5>
+    </div>
+    <p>Respecter les délais fixés est crucial pour la crédibilité et la réussite du projet. Le timeboxing est une technique clé pour garantir la livraison à temps.</p>
+    
+    <div class="phase-highlight phase-development mt-3">
+      <p><strong>Application pratique :</strong> Ce principe est essentiel pendant la phase de Développement, où chaque timebox doit être respecté pour maintenir le rythme de livraison.</p>
+    </div>
+    
+    <p><strong>Techniques associées :</strong></p>
+    <ul>
+      <li>Timeboxing (fixation de délais stricts)</li>
+      <li>Planification par itérations</li>
+      <li>Gestion des priorités (MoSCoW)</li>
+      <li>Suivi régulier de la vélocité</li>
+    </ul>
+    
+    <p><strong>Indicateurs de succès :</strong></p>
+    <ul>
+      <li>Respect des dates de livraison des incréments</li>
+      <li>Stabilité de la vélocité de l'équipe</li>
+      <li>Adhésion aux timeboxes définis</li>
+      <li>Réduction des retards cumulés</li>
+    </ul>
+    
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      <span class="importance-level level-high">Certification: Haut</span>
+      <span class="badge bg-primary">10-15% des questions</span>
+    </div>
+  </div>
+</div>
         
         <div class="col-md-6">
           <div class="principle-box">
@@ -1656,12 +1657,14 @@
                       <td>8-10</td>
                       <td><span class="badge bg-danger">Très haute</span></td>
                     </tr>
-                    <tr>
-                      <td>2. Apprendre par l'expérience</td>
-                      <td>10-15%</td>
-                      <td>5-8</td>
-                      <td><span class="badge bg-warning">Haute</span></td>
-                    </tr>
+					
+                   <tr>
+					  <td>2. Livrer à temps (Deliver On Time)</td>
+					  <td>10-15%</td>
+					  <td>5-8</td>
+					  <td><span class="badge bg-warning">Haute</span></td>
+					</tr>
+					
                     <tr>
                       <td>3. Livraison échelonnée</td>
                       <td>10-15%</td>
@@ -2806,150 +2809,195 @@
         }
       }
       
-      function submitExam() {
-        clearInterval(examTimer);
-        examCompleted = true;
-        
-        // Calculate score
-        let correctAnswers = 0;
-        userAnswers.forEach((answer, index) => {
-          if (answer === examQuestions[index].correct) {
-            correctAnswers++;
-          }
-        });
-        
-        const scorePercentage = Math.round((correctAnswers / examQuestions.length) * 100);
-        const passed = scorePercentage >= 50;
-        
-        // Calculate time taken
-        const endTime = new Date();
-        const timeTaken = new Date(endTime - examStartTime);
-        const minutesTaken = timeTaken.getUTCMinutes();
-        const secondsTaken = timeTaken.getUTCSeconds();
-        
-        // Show results
-        const resultsHTML = `
-          <div class="alert ${passed ? 'alert-success' : 'alert-danger'}">
-            <h4>Examen Terminé!</h4>
-            <p>Votre score : <strong>${correctAnswers}/${examQuestions.length} (${scorePercentage}%)</strong></p>
-            <p>Temps utilisé : <strong>${minutesTaken} minutes ${secondsTaken} secondes</strong></p>
-            <p>${passed ? 'Félicitations! Vous avez réussi l\'examen.' : 'Vous n\'avez pas atteint le seuil de réussite de 50%.'}</p>
-            <p>${passed ? 'Vous êtes prêt pour l\'examen réel!' : 'Revisez les questions incorrectes et réessayez.'}</p>
-          </div>
-          
-          <h5>Analyse détaillée par domaine :</h5>
-          <div class="table-responsive">
-            <table class="table table-sm">
-              <thead>
-                <tr>
-                  <th>Domaine</th>
-                  <th>Questions</th>
-                  <th>Correctes</th>
-                  <th>Score</th>
-                  <th>Recommandation</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Phases AgilePM</td>
-                  <td>6</td>
-                  <td id="phaseScore">-</td>
-                  <td id="phasePercentage">-</td>
-                  <td id="phaseRecommendation">-</td>
-                </tr>
-                <tr>
-                  <td>Principes</td>
-                  <td>7</td>
-                  <td id="principlesScore">-</td>
-                  <td id="principlesPercentage">-</td>
-                  <td id="principlesRecommendation">-</td>
-                </tr>
-                <tr>
-                  <td>Rôles et responsabilités</td>
-                  <td>4</td>
-                  <td id="rolesScore">-</td>
-                  <td id="rolesPercentage">-</td>
-                  <td id="rolesRecommendation">-</td>
-                </tr>
-                <tr>
-                  <td>Techniques et concepts</td>
-                  <td>3</td>
-                  <td id="techniquesScore">-</td>
-                  <td id="techniquesPercentage">-</td>
-                  <td id="techniquesRecommendation">-</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          
-          <h5 class="mt-4">Récapitulatif des réponses :</h5>
-          <div style="max-height: 400px; overflow-y: auto;">
-        `;
-        
-        // Calculate domain scores (simplified - in real implementation would categorize questions)
-        // For demonstration, we'll use placeholder calculations
-        const phaseQuestions = [0, 3, 10, 16]; // Question indices about phases
-        const principlesQuestions = [4, 9, 14]; // Question indices about principles
-        const rolesQuestions = [2, 6, 11, 17]; // Question indices about roles
-        const techniquesQuestions = [1, 7, 12]; // Question indices about techniques
-        
-        const phaseCorrect = phaseQuestions.filter(idx => userAnswers[idx] === examQuestions[idx].correct).length;
-        const principlesCorrect = principlesQuestions.filter(idx => userAnswers[idx] === examQuestions[idx].correct).length;
-        const rolesCorrect = rolesQuestions.filter(idx => userAnswers[idx] === examQuestions[idx].correct).length;
-        const techniquesCorrect = techniquesQuestions.filter(idx => userAnswers[idx] === examQuestions[idx].correct).length;
-        
-        // Update domain scores in results
-        document.getElementById('phaseScore').textContent = `${phaseCorrect}/${phaseQuestions.length}`;
-        document.getElementById('phasePercentage').textContent = `${Math.round((phaseCorrect/phaseQuestions.length)*100)}%`;
-        document.getElementById('phaseRecommendation').textContent = phaseCorrect/phaseQuestions.length >= 0.5 ? "✅ Maîtrise suffisante" : "❌ Réviser les phases";
-        
-        document.getElementById('principlesScore').textContent = `${principlesCorrect}/${principlesQuestions.length}`;
-        document.getElementById('principlesPercentage').textContent = `${Math.round((principlesCorrect/principlesQuestions.length)*100)}%`;
-        document.getElementById('principlesRecommendation').textContent = principlesCorrect/principlesQuestions.length >= 0.5 ? "✅ Maîtrise suffisante" : "❌ Réviser les principes";
-        
-        document.getElementById('rolesScore').textContent = `${rolesCorrect}/${rolesQuestions.length}`;
-        document.getElementById('rolesPercentage').textContent = `${Math.round((rolesCorrect/rolesQuestions.length)*100)}%`;
-        document.getElementById('rolesRecommendation').textContent = rolesCorrect/rolesQuestions.length >= 0.5 ? "✅ Maîtrise suffisante" : "❌ Réviser les rôles";
-        
-        document.getElementById('techniquesScore').textContent = `${techniquesCorrect}/${techniquesQuestions.length}`;
-        document.getElementById('techniquesPercentage').textContent = `${Math.round((techniquesCorrect/techniquesQuestions.length)*100)}%`;
-        document.getElementById('techniquesRecommendation').textContent = techniquesCorrect/techniquesQuestions.length >= 0.5 ? "✅ Maîtrise suffisante" : "❌ Réviser les techniques";
-        
-        let detailsHTML = '';
-        examQuestions.forEach((question, index) => {
-          const userAnswer = userAnswers[index];
-          const isCorrect = userAnswer === question.correct;
-          
-          detailsHTML += `
-            <div class="card mb-2 ${isCorrect ? 'border-success' : 'border-danger'}">
-              <div class="card-body">
-                <h6>Question ${question.id}: ${question.question}</h6>
-                <p class="mb-1">Votre réponse: <strong>${userAnswer !== null ? question.options[userAnswer] : 'Non répondue'}</strong> ${isCorrect ? '✅' : '❌'}</p>
-                <p class="mb-1">Réponse correcte: <strong class="text-success">${question.options[question.correct]}</strong></p>
-                <p class="mb-0"><small>${question.explanation}</small></p>
-              </div>
-            </div>
-          `;
-        });
-        
-        detailsHTML += `</div>`;
-        
-        detailsModalTitle.textContent = 'Résultats Complets de l\'Examen';
-        detailsModalContent.innerHTML = resultsHTML + detailsHTML;
-        detailsModal.show();
-        
-        // Update score display
-        document.getElementById('scoreDisplay').textContent = `Score: ${scorePercentage}%`;
-        
-        // Disable further interactions
-        document.querySelectorAll('.option').forEach(option => {
-          option.style.pointerEvents = 'none';
-        });
-        
-        document.getElementById('prevBtn').disabled = true;
-        document.getElementById('nextBtn').disabled = true;
-        document.getElementById('submitBtn').disabled = true;
-      }
+	function submitExam() {
+  clearInterval(examTimer);
+  examCompleted = true;
+
+  // =========================
+  // 1️⃣ Calcul score global
+  // =========================
+  let correctAnswers = 0;
+
+  userAnswers.forEach((answer, index) => {
+    if (answer === examQuestions[index].correct) {
+      correctAnswers++;
+    }
+  });
+
+  const scorePercentage = Math.round(
+    (correctAnswers / examQuestions.length) * 100
+  );
+
+  const passed = scorePercentage >= 50;
+
+  // =========================
+  // 2️⃣ Calcul temps utilisé
+  // =========================
+  const endTime = new Date();
+  const timeTaken = new Date(endTime - examStartTime);
+  const minutesTaken = timeTaken.getUTCMinutes();
+  const secondsTaken = timeTaken.getUTCSeconds();
+
+  // =========================
+  // 3️⃣ Calcul scores par domaine
+  // =========================
+  const domains = {
+    phase: {
+      label: "Phases AgilePM",
+      questions: [0, 3, 10, 16],
+    },
+    principles: {
+      label: "Principes",
+      questions: [4, 9, 14],
+    },
+    roles: {
+      label: "Rôles et responsabilités",
+      questions: [2, 6, 11, 17],
+    },
+    techniques: {
+      label: "Techniques et concepts",
+      questions: [1, 7, 12],
+    },
+  };
+
+  Object.keys(domains).forEach((key) => {
+    const domain = domains[key];
+
+    domain.correct = domain.questions.filter(
+      (idx) => userAnswers[idx] === examQuestions[idx].correct
+    ).length;
+
+    domain.percentage = Math.round(
+      (domain.correct / domain.questions.length) * 100
+    );
+
+    domain.recommendation =
+      domain.percentage >= 50
+        ? "✅ Maîtrise suffisante"
+        : `❌ Réviser ${domain.label}`;
+  });
+
+  // =========================
+  // 4️⃣ Génération HTML
+  // =========================
+  let resultsHTML = `
+    <div class="alert ${passed ? "alert-success" : "alert-danger"}">
+      <h4>Examen Terminé!</h4>
+      <p>Votre score : <strong>${correctAnswers}/${examQuestions.length} (${scorePercentage}%)</strong></p>
+      <p>Temps utilisé : <strong>${minutesTaken} minutes ${secondsTaken} secondes</strong></p>
+      <p>${passed ? "Félicitations! Vous avez réussi l'examen." : "Vous n'avez pas atteint le seuil de réussite de 50%."}</p>
+      <p>${passed ? "Vous êtes prêt pour l'examen réel!" : "Révisez les questions incorrectes et réessayez."}</p>
+    </div>
+
+    <h5>Analyse détaillée par domaine :</h5>
+    <div class="table-responsive">
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th>Domaine</th>
+            <th>Questions</th>
+            <th>Correctes</th>
+            <th>Score</th>
+            <th>Recommandation</th>
+          </tr>
+        </thead>
+        <tbody>
+  `;
+
+  Object.keys(domains).forEach((key) => {
+    const domain = domains[key];
+
+    resultsHTML += `
+      <tr>
+        <td>${domain.label}</td>
+        <td>${domain.questions.length}</td>
+        <td>${domain.correct}/${domain.questions.length}</td>
+        <td>${domain.percentage}%</td>
+        <td>${domain.recommendation}</td>
+      </tr>
+    `;
+  });
+
+  resultsHTML += `
+        </tbody>
+      </table>
+    </div>
+
+    <h5 class="mt-4">Récapitulatif des réponses :</h5>
+    <div style="max-height: 400px; overflow-y: auto;">
+  `;
+
+  // =========================
+  // 5️⃣ Détails des réponses
+  // =========================
+  examQuestions.forEach((question, index) => {
+    const userAnswer = userAnswers[index];
+    const isCorrect = userAnswer === question.correct;
+
+    resultsHTML += `
+      <div class="card mb-2 ${
+        isCorrect ? "border-success" : "border-danger"
+      }">
+        <div class="card-body">
+          <h6>Question ${question.id}: ${question.question}</h6>
+          <p class="mb-1">
+            Votre réponse:
+            <strong>
+              ${
+                userAnswer !== null
+                  ? question.options[userAnswer]
+                  : "Non répondue"
+              }
+            </strong>
+            ${isCorrect ? "✅" : "❌"}
+          </p>
+          <p class="mb-1">
+            Réponse correcte:
+            <strong class="text-success">
+              ${question.options[question.correct]}
+            </strong>
+          </p>
+          <p class="mb-0">
+            <small>${question.explanation}</small>
+          </p>
+        </div>
+      </div>
+    `;
+  });
+
+  resultsHTML += `</div>`;
+
+  // =========================
+  // 6️⃣ Injection DOM
+  // =========================
+  detailsModalTitle.textContent = "Résultats Complets de l'Examen";
+  detailsModalContent.innerHTML = resultsHTML;
+  detailsModal.show();
+
+  // =========================
+  // 7️⃣ Mise à jour score affiché
+  // =========================
+  const scoreDisplay = document.getElementById("scoreDisplay");
+  if (scoreDisplay) {
+    scoreDisplay.textContent = `Score: ${scorePercentage}%`;
+  }
+
+  // =========================
+  // 8️⃣ Désactivation interface
+  // =========================
+  document.querySelectorAll(".option").forEach((option) => {
+    option.style.pointerEvents = "none";
+  });
+
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const submitBtn = document.getElementById("submitBtn");
+
+  if (prevBtn) prevBtn.disabled = true;
+  if (nextBtn) nextBtn.disabled = true;
+  if (submitBtn) submitBtn.disabled = true;
+}
+
       
       function updateProgressBar() {
         const progress = ((currentQuestionIndex + 1) / examQuestions.length) * 100;
