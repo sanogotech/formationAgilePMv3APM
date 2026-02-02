@@ -1,0 +1,2403 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz AgilePM v3 - Mode Apprentissage</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #0052cc;
+            --secondary-color: #00b8d9;
+            --success-color: #36b37e;
+            --warning-color: #ffab00;
+            --danger-color: #ff5630;
+            --light-bg: #f4f5f7;
+            --dark-bg: #253858;
+            --agilepm-purple: #6554c0;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background-color: var(--dark-bg);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--agilepm-purple) 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .quiz-container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            min-height: 600px;
+        }
+
+        .question-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--primary-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .question-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .option {
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .option:hover {
+            background-color: rgba(0, 82, 204, 0.05);
+            border-color: var(--primary-color);
+        }
+
+        .option.selected {
+            background-color: rgba(0, 82, 204, 0.1);
+            border-color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .option.correct {
+            background-color: rgba(54, 179, 126, 0.15);
+            border-color: var(--success-color);
+            color: #1a4731;
+        }
+
+        .option.incorrect {
+            background-color: rgba(255, 86, 48, 0.1);
+            border-color: var(--danger-color);
+            color: #7d2318;
+        }
+
+        .option-letter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            margin-right: 1rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .explanation-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            display: none;
+        }
+
+        .explanation-box.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .progress-container {
+            position: sticky;
+            top: 20px;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+            z-index: 100;
+        }
+
+        .progress {
+            height: 12px;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            border-radius: 6px;
+            transition: width 0.3s ease;
+        }
+
+        .stats-box {
+            background: linear-gradient(135deg, var(--primary-color), var(--agilepm-purple));
+            color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stats-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-phase {
+            background-color: rgba(101, 84, 192, 0.2);
+            color: var(--agilepm-purple);
+        }
+
+        .category-principle {
+            background-color: rgba(0, 82, 204, 0.2);
+            color: var(--primary-color);
+        }
+
+        .category-role {
+            background-color: rgba(255, 171, 0, 0.2);
+            color: var(--warning-color);
+        }
+
+        .category-technique {
+            background-color: rgba(54, 179, 126, 0.2);
+            color: var(--success-color);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .difficulty-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .difficulty-easy {
+            background-color: var(--success-color);
+        }
+
+        .difficulty-medium {
+            background-color: var(--warning-color);
+        }
+
+        .difficulty-hard {
+            background-color: var(--danger-color);
+        }
+
+        .question-number {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+
+        .timer {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .timer.warning {
+            color: var(--warning-color);
+            animation: pulse 1s infinite;
+        }
+
+        .timer.danger {
+            color: var(--danger-color);
+            animation: pulse 0.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .results-container {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .certificate {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border: 2px dashed var(--primary-color);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .question-navigation {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background-color: rgba(0, 82, 204, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        .nav-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .nav-btn.answered {
+            background-color: rgba(54, 179, 126, 0.2);
+            border-color: var(--success-color);
+        }
+
+        .nav-btn.marked {
+            background-color: rgba(255, 171, 0, 0.2);
+            border-color: var(--warning-color);
+        }
+
+        footer {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .quiz-container, .progress-container {
+                padding: 1rem;
+            }
+            
+            .question-card {
+                padding: 1rem;
+            }
+            
+            .stats-box {
+                padding: 1rem;
+            }
+            
+            .filter-buttons {
+                justify-content: center;
+            }
+        }
+
+        .bookmark-btn {
+            background: none;
+            border: none;
+            color: #ccc;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.3s;
+            margin-left: auto;
+        }
+
+        .bookmark-btn.bookmarked {
+            color: var(--warning-color);
+        }
+
+        .learning-tip {
+            background-color: rgba(0, 199, 229, 0.1);
+            border-left: 4px solid #00c7e5;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .highlight-text {
+            background-color: rgba(255, 171, 0, 0.2);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-journal-check me-2"></i>Quiz AgilePM v3
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="index.html">
+                    <i class="bi bi-arrow-left me-1"></i>Retour au Portail
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="container text-center">
+            <h1 class="display-5 fw-bold mb-3">Mode Apprentissage AgilePM v3</h1>
+            <p class="lead mb-4">Testez vos connaissances avec 80 questions détaillées et des explications complètes</p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="#quiz" class="btn btn-light btn-lg px-4">Commencer le Quiz</a>
+                <a href="#instructions" class="btn btn-outline-light btn-lg px-4">Instructions</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div id="instructions" class="row mb-5">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0"><i class="bi bi-info-circle me-2"></i>Instructions du Quiz</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Comment utiliser ce quiz :</h5>
+                                <ol>
+                                    <li>Sélectionnez le nombre de questions (20, 40, 60 ou 80)</li>
+                                    <li>Répondez à chaque question en sélectionnant une option</li>
+                                    <li>Consultez l'explication détaillée après chaque réponse</li>
+                                    <li>Naviguez entre les questions avec les boutons de navigation</li>
+                                    <li>Marquez les questions difficiles pour y revenir plus tard</li>
+                                    <li>Soumettez votre quiz pour obtenir votre score final</li>
+                                </ol>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Critères de réussite :</h5>
+                                <ul>
+                                    <li><span class="highlight-text">80% minimum</span> pour réussir le quiz</li>
+                                    <li>Les questions sont réparties par catégories :</li>
+                                    <li><span class="category-badge category-phase">Phases</span> - 25% des questions</li>
+                                    <li><span class="category-badge category-principle">Principes</span> - 25% des questions</li>
+                                    <li><span class="category-badge category-role">Rôles</span> - 20% des questions</li>
+                                    <li><span class="category-badge category-technique">Techniques</span> - 30% des questions</li>
+                                </ul>
+                                <div class="learning-tip">
+                                    <p><strong>Astuce d'apprentissage :</strong> Utilisez les explications détaillées comme guide d'étude. Même si vous répondez correctement, lisez l'explication pour renforcer votre compréhension.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="quiz-container" id="quiz">
+                    <div id="setupScreen">
+                        <h3 class="mb-4">Configuration du Quiz</h3>
+                        
+                        <div class="mb-4">
+                            <h5>Nombre de questions :</h5>
+                            <div class="filter-buttons">
+                                <button class="btn btn-outline-primary filter-btn active" data-questions="20">20 Questions</button>
+                                <button class="btn btn-outline-primary filter-btn" data-questions="40">40 Questions</button>
+                                <button class="btn btn-outline-primary filter-btn" data-questions="60">60 Questions</button>
+                                <button class="btn btn-outline-primary filter-btn" data-questions="80">80 Questions</button>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5>Filtres par catégorie :</h5>
+                            <div class="filter-buttons">
+                                <button class="btn btn-outline-primary category-filter active" data-category="all">Toutes</button>
+                                <button class="btn btn-outline-primary category-filter" data-category="phase">Phases</button>
+                                <button class="btn btn-outline-primary category-filter" data-category="principle">Principes</button>
+                                <button class="btn btn-outline-primary category-filter" data-category="role">Rôles</button>
+                                <button class="btn btn-outline-primary category-filter" data-category="technique">Techniques</button>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5>Niveau de difficulté :</h5>
+                            <div class="filter-buttons">
+                                <button class="btn btn-outline-primary difficulty-filter active" data-difficulty="all">Tous niveaux</button>
+                                <button class="btn btn-outline-primary difficulty-filter" data-difficulty="easy">Facile</button>
+                                <button class="btn btn-outline-primary difficulty-filter" data-difficulty="medium">Moyen</button>
+                                <button class="btn btn-outline-primary difficulty-filter" data-difficulty="hard">Difficile</button>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary btn-lg" id="startQuizBtn">
+                                <i class="bi bi-play-circle me-2"></i>Commencer le Quiz
+                            </button>
+                            <button class="btn btn-outline-primary" id="practiceModeBtn">
+                                <i class="bi bi-lightbulb me-2"></i>Mode Pratique (sans limite de temps)
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="quizScreen" style="display: none;">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4 class="mb-0">Question <span id="currentQuestionNumber">1</span> sur <span id="totalQuestions">20</span></h4>
+                            <div class="timer" id="timer">60:00</div>
+                        </div>
+
+                        <div id="questionContainer">
+                            <!-- Les questions seront insérées ici dynamiquement -->
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <button class="btn btn-outline-primary" id="prevQuestionBtn" disabled>
+                                <i class="bi bi-chevron-left me-1"></i>Précédent
+                            </button>
+                            <div>
+                                <button class="btn btn-warning me-2" id="markQuestionBtn">
+                                    <i class="bi bi-bookmark me-1"></i>Marquer
+                                </button>
+                                <button class="btn btn-primary" id="nextQuestionBtn">
+                                    Suivant<i class="bi bi-chevron-right ms-1"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="question-navigation" id="questionNavigation">
+                            <!-- La navigation sera générée dynamiquement -->
+                        </div>
+                    </div>
+
+                    <div id="resultsScreen" style="display: none;">
+                        <!-- Les résultats seront affichés ici -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="progress-container">
+                    <h5 class="mb-3">Progression du Quiz</h5>
+                    
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>Progression</span>
+                            <span id="progressPercentage">0%</span>
+                        </div>
+                        <div class="progress">
+                            <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="stats-box">
+                        <div class="stats-number" id="scoreDisplay">0%</div>
+                        <div class="stats-label">Score Actuel</div>
+                    </div>
+
+                    <div class="row text-center mb-3">
+                        <div class="col-6">
+                            <div class="stats-number" id="correctCount">0</div>
+                            <div class="stats-label">Correctes</div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stats-number" id="incorrectCount">0</div>
+                            <div class="stats-label">Incorrectes</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <h6>Catégories :</h6>
+                        <div>
+                            <span class="category-badge category-phase" id="phaseScore">Phases: 0/0</span>
+                            <span class="category-badge category-principle" id="principleScore">Principes: 0/0</span>
+                            <span class="category-badge category-role" id="roleScore">Rôles: 0/0</span>
+                            <span class="category-badge category-technique" id="techniqueScore">Techniques: 0/0</span>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-success" id="submitQuizBtn" style="display: none;">
+                            <i class="bi bi-check-circle me-1"></i>Soumettre le Quiz
+                        </button>
+                        <button class="btn btn-outline-primary" id="restartQuizBtn" style="display: none;">
+                            <i class="bi bi-arrow-repeat me-1"></i>Recommencer
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-header bg-primary text-white">
+                        <h6 class="mb-0"><i class="bi bi-lightbulb me-2"></i>Astuces d'apprentissage</h6>
+                    </div>
+                    <div class="card-body">
+                        <ul class="mb-0">
+                            <li>Lisez attentivement chaque explication</li>
+                            <li>Prenez des notes sur les concepts difficiles</li>
+                            <li>Revenez sur les questions marquées</li>
+                            <li>Visez 100% dans chaque catégorie</li>
+                            <li>Pratiquez régulièrement pour la certification</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h6 class="mb-0"><i class="bi bi-award me-2"></i>Objectif Certification</h6>
+                    </div>
+                    <div class="card-body">
+                        <p>Pour la certification AgilePM Foundation :</p>
+                        <ul class="mb-0">
+                            <li><strong>Seuil :</strong> 50% (25/50 questions)</li>
+                            <li><strong>Durée :</strong> 60 minutes</li>
+                            <li><strong>Format :</strong> 50 questions à choix multiples</li>
+                            <li><strong>Notre objectif :</strong> 80% minimum</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container text-center">
+            <p class="mb-0">Quiz AgilePM v3 - Outil d'apprentissage pour la préparation à la certification</p>
+            <p class="mb-0">© 2023 - Retrouvez le portail complet sur <a href="index.html" class="text-white">index.html</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Base de données des 80 questions
+        const allQuestions = [
+            // Catégorie : Phases (20 questions)
+            {
+                id: 1,
+                question: "Quel est l'objectif principal de la phase de Faisabilité dans AgilePM v3?",
+                options: [
+                    "Développer la solution complète",
+                    "Analyser si le projet peut fonctionner dans les contraintes identifiées",
+                    "Établir les fondations détaillées du projet",
+                    "Déployer la solution en production"
+                ],
+                correct: 1,
+                explanation: "La phase de Faisabilité a pour objectif principal d'analyser et de démontrer que le projet est réalisable dans les contraintes identifiées (techniques, organisationnelles, financières). Elle répond à la question 'Ce projet peut-il fonctionner dans notre contexte?' et précède la phase de Fondations.",
+                category: "phase",
+                difficulty: "medium"
+            },
+            {
+                id: 2,
+                question: "Combien de phases comprend le cycle de vie AgilePM v3?",
+                options: [
+                    "5 phases",
+                    "6 phases",
+                    "7 phases",
+                    "8 phases"
+                ],
+                correct: 1,
+                explanation: "AgilePM v3 comprend 6 phases distinctes : 1. Pré‑projet, 2. Faisabilité, 3. Fondations, 4. Développement, 5. Déploiement, 6. Réalisation. C'est une évolution importante par rapport aux versions précédentes qui avaient une structure différente.",
+                category: "phase",
+                difficulty: "easy"
+            },
+            {
+                id: 3,
+                question: "Quelle phase vient IMMÉDIATEMENT après la phase de Faisabilité dans AgilePM v3?",
+                options: [
+                    "Pré‑projet",
+                    "Fondations",
+                    "Développement",
+                    "Déploiement"
+                ],
+                correct: 1,
+                explanation: "La phase de Fondations vient immédiatement après la phase de Faisabilité. Une fois que la faisabilité est établie, on passe à l'établissement des fondations détaillées du projet avant de commencer le développement.",
+                category: "phase",
+                difficulty: "medium"
+            },
+            {
+                id: 4,
+                question: "Quel est l'objectif principal de la phase de Réalisation?",
+                options: [
+                    "Développer la solution",
+                    "Déployer en production",
+                    "S'assurer que les bénéfices business sont effectivement obtenus",
+                    "Établir les fondations du projet"
+                ],
+                correct: 2,
+                explanation: "L'objectif principal de la phase de Réalisation est de s'assurer que les bénéfices business prévus sont effectivement obtenus. C'est une phase post-déploiement qui mesure les résultats réels et clôture formellement le projet.",
+                category: "phase",
+                difficulty: "medium"
+            },
+            {
+                id: 5,
+                question: "Quelle technique est utilisée pour limiter la durée des phases dans AgilePM?",
+                options: [
+                    "Timeboxing",
+                    "Buffer management",
+                    "Critical path method",
+                    "Earned value management"
+                ],
+                correct: 0,
+                explanation: "Le Timeboxing est la technique utilisée pour limiter la durée des phases dans AgilePM. Chaque phase (surtout Faisabilité et Fondations) a une durée maximale fixée à l'avance pour éviter l'analyse paralysante.",
+                category: "phase",
+                difficulty: "easy"
+            },
+            {
+                id: 6,
+                question: "Quelle phase d'AgilePM v3 est souvent la plus négligée mais cruciale pour le ROI?",
+                options: [
+                    "Pré‑projet",
+                    "Faisabilité",
+                    "Développement",
+                    "Réalisation"
+                ],
+                correct: 3,
+                explanation: "La phase de Réalisation est souvent la plus négligée mais cruciale pour le ROI. Beaucoup de projets se concentrent sur la livraison mais négligent la mesure des bénéfices réels et l'apprentissage organisationnel.",
+                category: "phase",
+                difficulty: "medium"
+            },
+            {
+                id: 7,
+                question: "Quel document est produit pendant la phase de Pré‑projet?",
+                options: [
+                    "Solution Outline",
+                    "Rapport de faisabilité",
+                    "Mandat de projet",
+                    "Plan de déploiement"
+                ],
+                correct: 2,
+                explanation: "Le Mandat de projet (Project Mandate) est le document principal produit pendant la phase de Pré‑projet. Il définit l'opportunité business et autorise l'étude de faisabilité.",
+                category: "phase",
+                difficulty: "easy"
+            },
+            {
+                id: 8,
+                question: "Quelle phase est itérative et incrémentale dans AgilePM v3?",
+                options: [
+                    "Pré‑projet",
+                    "Faisabilité",
+                    "Fondations",
+                    "Développement"
+                ],
+                correct: 3,
+                explanation: "La phase de Développement est itérative et incrémentale dans AgilePM v3. Elle consiste en une série d'itérations (timeboxes) où des incréments de solution sont développés, testés et présentés aux parties prenantes pour feedback.",
+                category: "phase",
+                difficulty: "medium"
+            },
+            {
+                id: 9,
+                question: "Qui prend la décision finale de poursuivre après la phase de Faisabilité?",
+                options: [
+                    "Project Manager",
+                    "Business Visionary",
+                    "Business Sponsor",
+                    "Technical Coordinator"
+                ],
+                correct: 2,
+                explanation: "Le Business Sponsor prend la décision finale de poursuivre après la phase de Faisabilité. Basé sur le rapport de faisabilité, il décide d'investir dans les fondations du projet ou de l'arrêter.",
+                category: "phase",
+                difficulty: "medium"
+            },
+            {
+                id: 10,
+                question: "Quelle est la différence principale entre la phase de Faisabilité et la phase de Fondations?",
+                options: [
+                    "La Faisabilité est optionnelle, les Fondations sont obligatoires",
+                    "La Faisabilité se concentre sur 'pouvons-nous le faire?', les Fondations sur 'comment allons-nous le faire?'",
+                    "La Faisabilité est exécutée par l'équipe technique, les Fondations par l'équipe business",
+                    "La Faisabilité dure plusieurs mois, les Fondations seulement quelques jours"
+                ],
+                correct: 1,
+                explanation: "La phase de Faisabilité répond à la question 'Pouvons-nous le faire?' (viabilité), tandis que la phase de Fondations répond à 'Comment allons-nous le faire?' (cadre de travail détaillé). C'est une distinction cruciale dans AgilePM v3.",
+                category: "phase",
+                difficulty: "hard"
+            },
+            {
+                id: 11,
+                question: "Quel document est le principal livrable de la phase de Fondations?",
+                options: [
+                    "Rapport de faisabilité",
+                    "Solution Outline",
+                    "Plan de déploiement",
+                    "Business Case final"
+                ],
+                correct: 1,
+                explanation: "La Solution Outline est le document principal produit pendant la phase de Fondations. Il décrit la vision de la solution à haut niveau, les exigences prioritaires, et sert de base pour le développement itératif.",
+                category: "phase",
+                difficulty: "medium"
+            },
+            {
+                id: 12,
+                question: "Durant quelle phase les incréments de solution sont-ils assemblés et déployés?",
+                options: [
+                    "Faisabilité",
+                    "Fondations",
+                    "Développement",
+                    "Déploiement"
+                ],
+                correct: 3,
+                explanation: "C'est durant la phase de Déploiement que les incréments de solution sont assemblés, testés de manière intégrée, et déployés dans l'environnement de production.",
+                category: "phase",
+                difficulty: "easy"
+            },
+            {
+                id: 13,
+                question: "Quelle est la durée typique recommandée pour une phase de Faisabilité?",
+                options: [
+                    "1-2 semaines",
+                    "2-4 semaines",
+                    "1-2 mois",
+                    "Variable, pas de durée fixe"
+                ],
+                correct: 1,
+                explanation: "La phase de Faisabilité est généralement timeboxée à 2-4 semaines dans AgilePM v3. Cette limitation de temps évite l'analyse paralysante et force une décision rapide sur la viabilité du projet.",
+                category: "phase",
+                difficulty: "medium"
+            },
+            {
+                id: 14,
+                question: "Quel est l'objectif principal de la phase de Pré‑projet?",
+                options: [
+                    "Développer un prototype",
+                    "S'assurer que le projet commence correctement",
+                    "Établir le budget détaillé",
+                    "Recruter l'équipe projet"
+                ],
+                correct: 1,
+                explanation: "L'objectif principal de la phase de Pré‑projet est de s'assurer que le projet commence correctement avec une compréhension claire de son opportunité et de sa justification business.",
+                category: "phase",
+                difficulty: "easy"
+            },
+            {
+                id: 15,
+                question: "Dans quelle phase le Business Case est-il détaillé et approuvé?",
+                options: [
+                    "Pré‑projet",
+                    "Faisabilité",
+                    "Fondations",
+                    "Développement"
+                ],
+                correct: 2,
+                explanation: "Le Business Case est détaillé et formellement approuvé pendant la phase de Fondations. Bien qu'initié en Pré‑projet et raffiné en Faisabilité, c'est pendant les Fondations qu'il atteint sa forme définitive avant le développement.",
+                category: "phase",
+                difficulty: "hard"
+            },
+            {
+                id: 16,
+                question: "Quelle phase remplace l'ancienne phase 'Post-projet' dans AgilePM v3?",
+                options: [
+                    "Faisabilité",
+                    "Fondations",
+                    "Déploiement",
+                    "Réalisation"
+                ],
+                correct: 3,
+                explanation: "La phase de Réalisation remplace l'ancienne phase 'Post-projet' dans AgilePM v3. Le changement de nom reflète un accent plus fort sur la réalisation effective des bénéfices business plutôt que simplement clôturer le projet.",
+                category: "phase",
+                difficulty: "easy"
+            },
+            {
+                id: 17,
+                question: "Quel est le critère principal pour passer de la phase de Faisabilité à la phase de Fondations?",
+                options: [
+                    "Le budget est approuvé",
+                    "L'équipe est complète",
+                    "La faisabilité est démontrée",
+                    "Les exigences sont complètes"
+                ],
+                correct: 2,
+                explanation: "Le critère principal pour passer de la phase de Faisabilité à la phase de Fondations est que la faisabilité du projet ait été démontrée. Si la faisabilité n'est pas établie, le projet devrait être arrêté ou repensé.",
+                category: "phase",
+                difficulty: "medium"
+            },
+            {
+                id: 18,
+                question: "Durant quelle phase les rétrospectives d'itération ont-elles lieu?",
+                options: [
+                    "Faisabilité",
+                    "Fondations",
+                    "Développement",
+                    "Déploiement"
+                ],
+                correct: 2,
+                explanation: "Les rétrospectives d'itération ont lieu pendant la phase de Développement. Après chaque incrément (timebox), l'équipe se réunit pour identifier ce qui a bien fonctionné et ce qui peut être amélioré pour l'itération suivante.",
+                category: "phase",
+                difficulty: "medium"
+            },
+            {
+                id: 19,
+                question: "Quelle phase inclut la formation des utilisateurs finaux?",
+                options: [
+                    "Fondations",
+                    "Développement",
+                    "Déploiement",
+                    "Réalisation"
+                ],
+                correct: 2,
+                explanation: "La formation des utilisateurs finaux a généralement lieu pendant la phase de Déploiement, juste avant ou après la mise en production de la solution, pour assurer une adoption réussie.",
+                category: "phase",
+                difficulty: "easy"
+            },
+            {
+                id: 20,
+                question: "Quelle est la dernière activité de la phase de Réalisation?",
+                options: [
+                    "Livraison du dernier incrément",
+                    "Clôture administrative du projet",
+                    "Planification du prochain projet",
+                    "Dissolution de l'équipe"
+                ],
+                correct: 1,
+                explanation: "La dernière activité de la phase de Réalisation est la clôture administrative formelle du projet, qui inclut l'archivage de la documentation, le règlement des comptes, et la libération formelle des ressources.",
+                category: "phase",
+                difficulty: "medium"
+            },
+            // Catégorie : Principes (20 questions)
+            {
+                id: 21,
+                question: "Combien de principes fondamentaux contient AgilePM v3?",
+                options: [
+                    "5",
+                    "8",
+                    "10",
+                    "12"
+                ],
+                correct: 1,
+                explanation: "AgilePM v3 contient 8 principes fondamentaux qui guident l'approche. Ces principes représentent les fondements philosophiques de la méthode et doivent être respectés tout au long du projet.",
+                category: "principle",
+                difficulty: "easy"
+            },
+            {
+                id: 22,
+                question: "Quel principe AgilePM met l'accent sur le maintien de standards de qualité élevés à chaque incrément?",
+                options: [
+                    "Focus sur la valeur métier",
+                    "Ne jamais compromettre la qualité",
+                    "Développer de manière itérative",
+                    "Garder le contrôle"
+                ],
+                correct: 1,
+                explanation: "Le principe 'Ne jamais compromettre la qualité' met l'accent sur le maintien de standards de qualité élevés à chaque incrément. Il stipule que 'Done' signifie vraiment terminé selon des critères prédéfinis et exigeants.",
+                category: "principle",
+                difficulty: "medium"
+            },
+            {
+                id: 23,
+                question: "Quel principe AgilePM est particulièrement important pendant la phase de Faisabilité?",
+                options: [
+                    "Focus sur la valeur métier",
+                    "Apprendre par l'expérience",
+                    "Garder le contrôle",
+                    "Communication continue et claire"
+                ],
+                correct: 2,
+                explanation: "Le principe 'Garder le contrôle' est particulièrement important pendant la phase de Faisabilité. Cette phase implique une évaluation rigoureuse des contraintes, risques et hypothèses pour maintenir le contrôle sur la viabilité du projet.",
+                category: "principle",
+                difficulty: "hard"
+            },
+            {
+                id: 24,
+                question: "Quel principe met l'accent sur la livraison régulière de valeur business?",
+                options: [
+                    "Focus sur la valeur métier",
+                    "Livraison échelonnée",
+                    "Apprendre par l'expérience",
+                    "Collaboration"
+                ],
+                correct: 1,
+                explanation: "Le principe 'Focus sur la valeur métier' met l'accent sur la livraison régulière de valeur business. Il exige que l'équipe priorise et livre d'abord ce qui apporte le plus de valeur aux parties prenantes.",
+                category: "principle",
+                difficulty: "medium"
+            },
+            {
+                id: 25,
+                question: "Quel principe soutient l'idée que les plans doivent évoluer avec les apprentissages?",
+                options: [
+                    "Apprendre par l'expérience",
+                    "Garder le contrôle",
+                    "Ne jamais compromettre la qualité",
+                    "Communication continue et claire"
+                ],
+                correct: 0,
+                explanation: "Le principe 'Apprendre par l'expérience' soutient que les plans doivent évoluer avec les apprentissages. Les feedbacks réguliers des parties prenantes et les résultats des incréments doivent influencer la planification future.",
+                category: "principle",
+                difficulty: "medium"
+            },
+            {
+                id: 26,
+                question: "Quel principe exige une implication continue des parties prenantes?",
+                options: [
+                    "Collaboration",
+                    "Développer de manière itérative",
+                    "Livraison échelonnée",
+                    "Focus sur la valeur métier"
+                ],
+                correct: 0,
+                explanation: "Le principe 'Collaboration' exige une implication continue des parties prenantes. Une communication fréquente et transparente entre l'équipe projet et les parties prenantes est essentielle au succès.",
+                category: "principle",
+                difficulty: "easy"
+            },
+            {
+                id: 27,
+                question: "Quel principe explique que les détails de la solution émergent au fil du temps?",
+                options: [
+                    "Développer de manière itérative",
+                    "Ne jamais compromettre la qualité",
+                    "Garder le contrôle",
+                    "Apprendre par l'expérience"
+                ],
+                correct: 0,
+                explanation: "Le principe 'Développer de manière itérative' explique que les détails de la solution émergent au fil du temps. Plutôt que de tout spécifier à l'avance, les détails sont élaborés juste à temps (just-in-time) pendant le développement.",
+                category: "principle",
+                difficulty: "hard"
+            },
+            {
+                id: 28,
+                question: "Quel principe insiste sur la transparence et le partage d'information?",
+                options: [
+                    "Communication continue et claire",
+                    "Collaboration",
+                    "Focus sur la valeur métier",
+                    "Livraison échelonnée"
+                ],
+                correct: 0,
+                explanation: "Le principe 'Communication continue et claire' insiste sur la transparence et le partage d'information. L'information doit être 'radiante' - facilement accessible et compréhensible par tous.",
+                category: "principle",
+                difficulty: "easy"
+            },
+            {
+                id: 29,
+                question: "Quel principe équilibre flexibilité et gouvernance?",
+                options: [
+                    "Garder le contrôle",
+                    "Apprendre par l'expérience",
+                    "Ne jamais compromettre la qualité",
+                    "Développer de manière itérative"
+                ],
+                correct: 0,
+                explanation: "Le principe 'Garder le contrôle' équilibre flexibilité et gouvernance. Il reconnaît que même dans un environnement agile, un certain niveau de contrôle est nécessaire pour assurer la livraison et la gestion des risques.",
+                category: "principle",
+                difficulty: "medium"
+            },
+            {
+                id: 30,
+                question: "Selon le principe 'Focus sur la valeur métier', comment doit-on prioriser les exigences?",
+                options: [
+                    "Par ordre alphabétique",
+                    "Par complexité technique",
+                    "Par valeur business",
+                    "Par préférence de l'équipe de développement"
+                ],
+                correct: 2,
+                explanation: "Selon le principe 'Focus sur la valeur métier', les exigences doivent être priorisées par valeur business. Ce qui apporte le plus de valeur au métier doit être développé en premier.",
+                category: "principle",
+                difficulty: "easy"
+            },
+            {
+                id: 31,
+                question: "Quel principe est violé si une équipe livre un incrément avec des bugs connus?",
+                options: [
+                    "Ne jamais compromettre la qualité",
+                    "Focus sur la valeur métier",
+                    "Livraison échelonnée",
+                    "Collaboration"
+                ],
+                correct: 0,
+                explanation: "Si une équipe livre un incrément avec des bugs connus, elle viole le principe 'Ne jamais compromettre la qualité'. Dans AgilePM, 'Done' signifie vraiment terminé et répondant à tous les critères de qualité.",
+                category: "principle",
+                difficulty: "medium"
+            },
+            {
+                id: 32,
+                question: "Lequel de ces éléments illustre le mieux le principe 'Apprendre par l'expérience'?",
+                options: [
+                    "Réaliser des rétrospectives régulières",
+                    "Suivre strictement le plan initial",
+                    "Documenter exhaustivement avant de commencer",
+                    "Éviter les changements de scope"
+                ],
+                correct: 0,
+                explanation: "Réaliser des rétrospectives régulières illustre le mieux le principe 'Apprendre par l'expérience'. Ces rétrospectives permettent à l'équipe d'apprendre de ses expériences et d'améliorer continuellement ses processus.",
+                category: "principle",
+                difficulty: "medium"
+            },
+            {
+                id: 33,
+                question: "Quel principe est mis en œuvre à travers la technique du timeboxing?",
+                options: [
+                    "Livraison échelonnée",
+                    "Communication continue et claire",
+                    "Collaboration",
+                    "Focus sur la valeur métier"
+                ],
+                correct: 0,
+                explanation: "La technique du timeboxing met en œuvre le principe 'Livraison échelonnée'. En limitant le temps alloué à chaque activité, on force la livraison d'incréments réguliers et évite le perfectionnisme excessif.",
+                category: "principle",
+                difficulty: "hard"
+            },
+            {
+                id: 34,
+                question: "Quel principe justifie l'implication régulière des utilisateurs dans les revues d'incrément?",
+                options: [
+                    "Collaboration",
+                    "Garder le contrôle",
+                    "Développer de manière itérative",
+                    "Ne jamais compromettre la qualité"
+                ],
+                correct: 0,
+                explanation: "L'implication régulière des utilisateurs dans les revues d'incrément est justifiée par le principe 'Collaboration'. Cette collaboration étroite assure que la solution répond aux besoins réels des utilisateurs.",
+                category: "principle",
+                difficulty: "easy"
+            },
+            {
+                id: 35,
+                question: "Quel principe est renforcé par l'utilisation de tableaux de bord visuels?",
+                options: [
+                    "Communication continue et claire",
+                    "Apprendre par l'expérience",
+                    "Livraison échelonnée",
+                    "Focus sur la valeur métier"
+                ],
+                correct: 0,
+                explanation: "L'utilisation de tableaux de bord visuels renforce le principe 'Communication continue et claire'. Ces tableaux rendent l'information accessible et compréhensible à toutes les parties prenantes.",
+                category: "principle",
+                difficulty: "medium"
+            },
+            {
+                id: 36,
+                question: "Quel principe est en contradiction avec l'idée de 'tout spécifier à l'avance'?",
+                options: [
+                    "Développer de manière itérative",
+                    "Garder le contrôle",
+                    "Ne jamais compromettre la qualité",
+                    "Focus sur la valeur métier"
+                ],
+                correct: 0,
+                explanation: "Le principe 'Développer de manière itérative' est en contradiction avec l'idée de 'tout spécifier à l'avance'. Il prône plutôt une approche émergente où les détails sont élaborés au fur et à mesure des besoins.",
+                category: "principle",
+                difficulty: "hard"
+            },
+            {
+                id: 37,
+                question: "Selon AgilePM, quel principe doit prévaloir en cas de conflit entre rapidité et qualité?",
+                options: [
+                    "Ne jamais compromettre la qualité",
+                    "Focus sur la valeur métier",
+                    "Livraison échelonnée",
+                    "Apprendre par l'expérience"
+                ],
+                correct: 0,
+                explanation: "Selon AgilePM, en cas de conflit entre rapidité et qualité, le principe 'Ne jamais compromettre la qualité' doit prévaloir. La qualité n'est pas négociable, même sous pression de temps.",
+                category: "principle",
+                difficulty: "medium"
+            },
+            {
+                id: 38,
+                question: "Quel principe justifie la révision régulière du Business Case?",
+                options: [
+                    "Apprendre par l'expérience",
+                    "Garder le contrôle",
+                    "Communication continue et claire",
+                    "Collaboration"
+                ],
+                correct: 0,
+                explanation: "La révision régulière du Business Case est justifiée par le principe 'Apprendre par l'expérience'. À mesure que l'équipe apprend, les hypothèses du Business Case peuvent être ajustées pour refléter la nouvelle compréhension.",
+                category: "principle",
+                difficulty: "hard"
+            },
+            {
+                id: 39,
+                question: "Quel principe est illustré par la pratique de la priorisation MoSCoW?",
+                options: [
+                    "Focus sur la valeur métier",
+                    "Ne jamais compromettre la qualité",
+                    "Développer de manière itérative",
+                    "Collaboration"
+                ],
+                correct: 0,
+                explanation: "La pratique de la priorisation MoSCoW illustre le principe 'Focus sur la valeur métier'. En classant les exigences en Must, Should, Could et Won't, on assure que la valeur business maximale est livrée en premier.",
+                category: "principle",
+                difficulty: "medium"
+            },
+            {
+                id: 40,
+                question: "Quel principe explique pourquoi AgilePM inclut des points de contrôle de gouvernance?",
+                options: [
+                    "Garder le contrôle",
+                    "Apprendre par l'expérience",
+                    "Communication continue et claire",
+                    "Livraison échelonnée"
+                ],
+                correct: 0,
+                explanation: "L'inclusion de points de contrôle de gouvernance dans AgilePM s'explique par le principe 'Garder le contrôle'. Ces points de contrôle assurent que le projet reste aligné avec les objectifs business et que les risques sont gérés.",
+                category: "principle",
+                difficulty: "hard"
+            },
+            // Catégorie : Rôles (16 questions)
+            {
+                id: 41,
+                question: "Qui est responsable de la définition de la vision du projet dans AgilePM?",
+                options: [
+                    "Project Manager",
+                    "Business Sponsor",
+                    "Business Visionary",
+                    "Technical Coordinator"
+                ],
+                correct: 2,
+                explanation: "Le Business Visionary est responsable de définir et communiquer la vision du projet. Il assure que le projet reste aligné avec les objectifs stratégiques de l'organisation et représente les intérêts business à haut niveau.",
+                category: "role",
+                difficulty: "medium"
+            },
+            {
+                id: 42,
+                question: "Quel rôle fait partie de l'équipe de direction de projet (Project Management Team)?",
+                options: [
+                    "Solution Developer",
+                    "Solution Tester",
+                    "Business Ambassador",
+                    "Team Leader"
+                ],
+                correct: 2,
+                explanation: "Le Business Ambassador fait partie de l'équipe de direction de projet (Project Management Team) avec le Business Sponsor, Business Visionary, Project Manager et Technical Coordinator. Il représente les utilisateurs finaux et fournit l'expertise métier.",
+                category: "role",
+                difficulty: "medium"
+            },
+            {
+                id: 43,
+                question: "Qui est responsable de la gestion quotidienne du projet dans AgilePM?",
+                options: [
+                    "Business Sponsor",
+                    "Business Visionary",
+                    "Project Manager",
+                    "Team Leader"
+                ],
+                correct: 2,
+                explanation: "Le Project Manager est responsable de la gestion quotidienne du projet dans AgilePM. Il planifie, suit les progrès, gère les risques et les problèmes, et assure la communication entre toutes les parties prenantes.",
+                category: "role",
+                difficulty: "easy"
+            },
+            {
+                id: 44,
+                question: "Quel rôle fournit l'expertise technique et définit l'architecture de la solution?",
+                options: [
+                    "Technical Coordinator",
+                    "Solution Developer",
+                    "Team Leader",
+                    "Business Visionary"
+                ],
+                correct: 0,
+                explanation: "Le Technical Coordinator fournit l'expertise technique et définit l'architecture de la solution. Il assure que les standards techniques sont respectés et que la solution est viable d'un point de vue technique.",
+                category: "role",
+                difficulty: "medium"
+            },
+            {
+                id: 45,
+                question: "Qui prend la décision finale d'investir dans le projet?",
+                options: [
+                    "Project Manager",
+                    "Business Visionary",
+                    "Business Sponsor",
+                    "Technical Coordinator"
+                ],
+                correct: 2,
+                explanation: "Le Business Sponsor prend la décision finale d'investir dans le projet. Il fournit le financement, prend les décisions stratégiques majeures, et porte la responsabilité ultime du succès du projet.",
+                category: "role",
+                difficulty: "easy"
+            },
+            {
+                id: 46,
+                question: "Quel rôle représente les utilisateurs finaux et fournit les exigences détaillées?",
+                options: [
+                    "Business Ambassador",
+                    "Business Visionary",
+                    "Business Advisor",
+                    "Solution Tester"
+                ],
+                correct: 0,
+                explanation: "Le Business Ambassador représente les utilisateurs finaux et fournit les exigences détaillées. Il travaille quotidiennement avec l'équipe pour clarifier les besoins et valider les incréments.",
+                category: "role",
+                difficulty: "medium"
+            },
+            {
+                id: 47,
+                question: "Qui facilite les événements Scrum et élimine les obstacles pour l'équipe?",
+                options: [
+                    "Team Leader",
+                    "Project Manager",
+                    "Business Ambassador",
+                    "Technical Coordinator"
+                ],
+                correct: 0,
+                explanation: "Le Team Leader facilite les événements Scrum et élimine les obstacles pour l'équipe. Il joue un rôle similaire au Scrum Master dans Scrum, en aidant l'équipe à suivre les processus agiles.",
+                category: "role",
+                difficulty: "medium"
+            },
+            {
+                id: 48,
+                question: "Quel rôle n'est PAS membre de l'équipe de direction de projet?",
+                options: [
+                    "Business Sponsor",
+                    "Project Manager",
+                    "Solution Developer",
+                    "Technical Coordinator"
+                ],
+                correct: 2,
+                explanation: "Le Solution Developer n'est PAS membre de l'équipe de direction de projet. L'équipe de direction (Project Management Team) comprend le Business Sponsor, Business Visionary, Project Manager, Technical Coordinator, et Business Ambassador(s).",
+                category: "role",
+                difficulty: "hard"
+            },
+            {
+                id: 49,
+                question: "Qui est responsable de tester la solution et d'assurer sa qualité?",
+                options: [
+                    "Solution Tester",
+                    "Technical Coordinator",
+                    "Business Ambassador",
+                    "Team Leader"
+                ],
+                correct: 0,
+                explanation: "Le Solution Tester est responsable de tester la solution et d'assurer sa qualité. Il planifie et exécute les tests, et valide que la solution répond aux exigences définies.",
+                category: "role",
+                difficulty: "easy"
+            },
+            {
+                id: 50,
+                question: "Quel rôle fournit des conseils spécialisés sur des aspects spécifiques du projet?",
+                options: [
+                    "Business Advisor",
+                    "Business Ambassador",
+                    "Business Visionary",
+                    "Technical Coordinator"
+                ],
+                correct: 0,
+                explanation: "Le Business Advisor fournit des conseils spécialisés sur des aspects spécifiques du projet. Il agit comme expert consultatif dans des domaines particuliers (légal, financier, réglementaire, etc.).",
+                category: "role",
+                difficulty: "medium"
+            },
+            {
+                id: 51,
+                question: "Qui a la responsabilité ultime du succès du projet?",
+                options: [
+                    "Business Sponsor",
+                    "Project Manager",
+                    "Business Visionary",
+                    "Technical Coordinator"
+                ],
+                correct: 0,
+                explanation: "Le Business Sponsor a la responsabilité ultime du succès du projet. En tant que principal investisseur, il est finalement responsable des résultats business du projet.",
+                category: "role",
+                difficulty: "easy"
+            },
+            {
+                id: 52,
+                question: "Quel rôle est responsable de l'auto-organisation de l'équipe de développement?",
+                options: [
+                    "L'équipe de développement elle-même",
+                    "Team Leader",
+                    "Project Manager",
+                    "Business Ambassador"
+                ],
+                correct: 0,
+                explanation: "L'équipe de développement elle-même est responsable de son auto-organisation. Dans AgilePM, l'équipe de développement s'organise pour accomplir le travail, avec le soutien du Team Leader.",
+                category: "role",
+                difficulty: "hard"
+            },
+            {
+                id: 53,
+                question: "Qui assure la liaison entre l'équipe de développement et les parties prenantes business?",
+                options: [
+                    "Business Ambassador",
+                    "Project Manager",
+                    "Team Leader",
+                    "Business Visionary"
+                ],
+                correct: 0,
+                explanation: "Le Business Ambassador assure la liaison entre l'équipe de développement et les parties prenantes business. Il traduit les besoins business en exigences compréhensibles pour l'équipe technique.",
+                category: "role",
+                difficulty: "medium"
+            },
+            {
+                id: 54,
+                question: "Quel rôle est optionnel dans AgilePM, utilisé seulement si nécessaire?",
+                options: [
+                    "Business Advisor",
+                    "Business Sponsor",
+                    "Project Manager",
+                    "Technical Coordinator"
+                ],
+                correct: 0,
+                explanation: "Le Business Advisor est un rôle optionnel dans AgilePM, utilisé seulement si des conseils spécialisés sont nécessaires. Les autres rôles mentionnés sont essentiels à tout projet AgilePM.",
+                category: "role",
+                difficulty: "hard"
+            },
+            {
+                id: 55,
+                question: "Qui décide quelles exigences sont incluses dans un incrément?",
+                options: [
+                    "L'équipe de développement en collaboration avec le Business Ambassador",
+                    "Le Project Manager seul",
+                    "Le Business Sponsor seul",
+                    "Le Technical Coordinator seul"
+                ],
+                correct: 0,
+                explanation: "L'équipe de développement, en collaboration avec le Business Ambassador, décide quelles exigences sont incluses dans un incrément. Cette décision collaborative assure à la fois la faisabilité technique et la valeur business.",
+                category: "role",
+                difficulty: "hard"
+            },
+            {
+                id: 56,
+                question: "Quel rôle est principalement responsable de la gestion des risques techniques?",
+                options: [
+                    "Technical Coordinator",
+                    "Project Manager",
+                    "Business Sponsor",
+                    "Team Leader"
+                ],
+                correct: 0,
+                explanation: "Le Technical Coordinator est principalement responsable de la gestion des risques techniques. Il identifie, évalue et propose des mitigations pour les risques liés à l'architecture et aux technologies.",
+                category: "role",
+                difficulty: "medium"
+            },
+            // Catégorie : Techniques (24 questions)
+            {
+                id: 57,
+                question: "Quelle technique de priorisation est recommandée dans AgilePM v3?",
+                options: [
+                    "Matrice d'Eisenhower",
+                    "Technique MoSCoW (Must, Should, Could, Won't)",
+                    "Méthode Pareto (80/20)",
+                    "Analyse coût-bénéfice"
+                ],
+                correct: 1,
+                explanation: "La technique MoSCoW (Must have, Should have, Could have, Won't have) est la technique de priorisation recommandée dans AgilePM v3. Elle permet de classer les exigences par importance relative et est particulièrement utile pour gérer les contraintes de temps et de ressources.",
+                category: "technique",
+                difficulty: "easy"
+            },
+            {
+                id: 58,
+                question: "Que signifie le 'M' dans la technique de priorisation MoSCoW?",
+                options: [
+                    "Mandatory (obligatoire)",
+                    "Major (majeur)",
+                    "Must have (doit avoir)",
+                    "Main (principal)"
+                ],
+                correct: 2,
+                explanation: "Le 'M' dans MoSCoW signifie 'Must have' (doit avoir). Ces exigences sont essentielles au succès du projet - sans elles, le projet échouerait. Elles représentent le minimum viable.",
+                category: "technique",
+                difficulty: "easy"
+            },
+            {
+                id: 59,
+                question: "Quel document évolue et s'adapte tout au long du projet dans AgilePM?",
+                options: [
+                    "Contrat avec les fournisseurs",
+                    "Business Case",
+                    "Charte de projet",
+                    "Manuel des procédures"
+                ],
+                correct: 1,
+                explanation: "Le Business Case est un document évolutif dans AgilePM. Il est régulièrement mis à jour pour refléter les apprentissages, les changements de contexte, et les ajustements dans les bénéfices attendus.",
+                category: "technique",
+                difficulty: "medium"
+            },
+            {
+                id: 60,
+                question: "Quelle est la durée typique d'une itération de développement dans AgilePM v3?",
+                options: [
+                    "1 semaine",
+                    "2-4 semaines",
+                    "1-2 mois",
+                    "Variable, mais généralement entre 2 et 4 semaines"
+                ],
+                correct: 3,
+                explanation: "La durée d'une itération de développement dans AgilePM v3 est variable selon le projet, mais généralement entre 2 et 4 semaines. L'important est la régularité du rythme et la capacité à livrer des incréments de valeur à chaque itération.",
+                category: "technique",
+                difficulty: "medium"
+            },
+            {
+                id: 61,
+                question: "Quel est le seuil de réussite minimal pour l'examen AgilePM Foundation v3?",
+                options: [
+                    "40% (20/50 questions)",
+                    "50% (25/50 questions)",
+                    "60% (30/50 questions)",
+                    "70% (35/50 questions)"
+                ],
+                correct: 1,
+                explanation: "Le seuil de réussite pour l'examen AgilePM Foundation v3 est de 50%, ce qui correspond à 25 bonnes réponses sur les 50 questions. C'est le standard pour la plupart des certifications de l'APMG International.",
+                category: "technique",
+                difficulty: "easy"
+            },
+            {
+                id: 62,
+                question: "Quelle est la différence clé entre AgilePM v3 et les versions précédentes concernant les phases?",
+                options: [
+                    "Plus de phases (8 au lieu de 6)",
+                    "Séparation claire entre Faisabilité et Fondations",
+                    "Élimination de la phase de Déploiement",
+                    "Fusion des phases Pré‑projet et Faisabilité"
+                ],
+                correct: 1,
+                explanation: "La différence clé dans AgilePM v3 est la séparation claire entre la phase de Faisabilité (analyse de viabilité) et la phase de Fondations (établissement du cadre détaillé). Dans les versions précédentes, ces aspects étaient souvent mélangés.",
+                category: "technique",
+                difficulty: "hard"
+            },
+            {
+                id: 63,
+                question: "Dans MoSCoW, quelle catégorie représente environ 60% du temps disponible?",
+                options: [
+                    "Must have",
+                    "Should have",
+                    "Could have",
+                    "Won't have"
+                ],
+                correct: 0,
+                explanation: "Dans la technique MoSCoW, la catégorie 'Must have' représente environ 60% du temps disponible. Ce pourcentage assure que les exigences essentielles sont certainement terminées, laissant de la flexibilité pour les 'Should' et 'Could'.",
+                category: "technique",
+                difficulty: "hard"
+            },
+            {
+                id: 64,
+                question: "Quelle est la fonction principale du Timeboxing dans AgilePM?",
+                options: [
+                    "Maximiser la perfection du produit",
+                    "Éviter l'analyse paralysante et forcer la décision",
+                    "Réduire les coûts du projet",
+                    "Augmenter la documentation"
+                ],
+                correct: 1,
+                explanation: "La fonction principale du Timeboxing dans AgilePM est d'éviter l'analyse paralysante et de forcer la décision. En limitant le temps alloué à une activité, on évite le perfectionnisme excessif et on assure la progression.",
+                category: "technique",
+                difficulty: "medium"
+            },
+            {
+                id: 65,
+                question: "Quel document décrit la vision de la solution à haut niveau?",
+                options: [
+                    "Business Case",
+                    "Solution Outline",
+                    "Plan de déploiement",
+                    "Rapport de faisabilité"
+                ],
+                correct: 1,
+                explanation: "Le Solution Outline décrit la vision de la solution à haut niveau. Il est produit pendant la phase de Fondations et sert de référence pour le développement itératif.",
+                category: "technique",
+                difficulty: "medium"
+            },
+            {
+                id: 66,
+                question: "Dans AgilePM, que signifie l'acronyme 'DSDM'?",
+                options: [
+                    "Dynamic Systems Development Method",
+                    "Digital Software Development Methodology",
+                    "Distributed System Design Method",
+                    "Development Strategy for Digital Markets"
+                ],
+                correct: 0,
+                explanation: "Dans AgilePM, DSDM signifie 'Dynamic Systems Development Method'. AgilePM est basé sur DSDM, qui était l'une des premières méthodes agiles, développée dans les années 1990.",
+                category: "technique",
+                difficulty: "hard"
+            },
+            {
+                id: 67,
+                question: "Quelle est la répartition typique du temps dans une itération de développement?",
+                options: [
+                    "50% développement, 50% documentation",
+                    "70% développement, 30% tests et revues",
+                    "90% développement, 10% planification",
+                    "40% développement, 30% tests, 20% revues, 10% rétrospective"
+                ],
+                correct: 1,
+                explanation: "La répartition typique du temps dans une itération de développement AgilePM est d'environ 70% pour le développement et 30% pour les tests, revues et autres activités. Cette répartition peut varier selon le projet.",
+                category: "technique",
+                difficulty: "hard"
+            },
+            {
+                id: 68,
+                question: "Quelle technique permet de visualiser le flux de travail dans AgilePM?",
+                options: [
+                    "Tableau Kanban",
+                    "Diagramme de Gantt",
+                    "Matrice RACI",
+                    "Courbe en S"
+                ],
+                correct: 0,
+                explanation: "Le Tableau Kanban permet de visualiser le flux de travail dans AgilePM. Il montre l'état de chaque tâche (À faire, En cours, À tester, Terminé) et aide à identifier les goulots d'étranglement.",
+                category: "technique",
+                difficulty: "medium"
+            },
+            {
+                id: 69,
+                question: "Quelle est la principale différence entre un incrément et une itération?",
+                options: [
+                    "Un incrément est le résultat, une itération est la période",
+                    "Une itération est le résultat, un incrément est la période",
+                    "Il n'y a pas de différence, ce sont des synonymes",
+                    "Un incrément est plus long qu'une itération"
+                ],
+                correct: 0,
+                explanation: "La principale différence est qu'un incrément est le résultat (la partie de la solution livrée), tandis qu'une itération est la période de temps pendant laquelle on travaille pour produire cet incrément.",
+                category: "technique",
+                difficulty: "hard"
+            },
+            {
+                id: 70,
+                question: "Quel est l'objectif d'une rétrospective d'itération?",
+                options: [
+                    "Présenter l'incrément aux parties prenantes",
+                    "Identifier les améliorations de processus pour l'itération suivante",
+                    "Planifier le travail de l'itération suivante",
+                    "Documenter les fonctionnalités développées"
+                ],
+                correct: 1,
+                explanation: "L'objectif d'une rétrospective d'itération est d'identifier les améliorations de processus pour l'itération suivante. L'équipe discute de ce qui a bien fonctionné, ce qui peut être amélioré, et définit des actions d'amélioration.",
+                category: "technique",
+                difficulty: "medium"
+            },
+            {
+                id: 71,
+                question: "Dans AgilePM, que signifie 'Definition of Done'?",
+                options: [
+                    "La définition des exigences terminées",
+                    "Les critères qu'une tâche doit satisfaire pour être considérée comme terminée",
+                    "La date de fin du projet",
+                    "La liste des parties prenantes qui doivent approuver la solution"
+                ],
+                correct: 1,
+                explanation: "La 'Definition of Done' dans AgilePM représente les critères qu'une tâche ou un incrément doit satisfaire pour être considéré comme terminé. C'est un accord partagé entre l'équipe sur ce que 'terminé' signifie réellement.",
+                category: "technique",
+                difficulty: "medium"
+            },
+            {
+                id: 72,
+                question: "Quelle technique utilise-t-on pour estimer la capacité de l'équipe?",
+                options: [
+                    "Velocity (Vélocité)",
+                    "Earned Value Management",
+                    "PERT",
+                    "Monte Carlo"
+                ],
+                correct: 0,
+                explanation: "On utilise la Velocity (Vélocité) pour estimer la capacité de l'équipe dans AgilePM. La vélocité mesure la quantité de travail que l'équipe peut accomplir dans une itération, basée sur l'historique des itérations précédentes.",
+                category: "technique",
+                difficulty: "hard"
+            },
+            {
+                id: 73,
+                question: "Quelle est la fonction d'un Burn Down Chart dans AgilePM?",
+                options: [
+                    "Montrer la progression du travail restant dans une itération",
+                    "Documenter les bugs identifiés",
+                    "Suivre les dépenses du projet",
+                    "Planifier les ressources nécessaires"
+                ],
+                correct: 0,
+                explanation: "Un Burn Down Chart dans AgilePM montre la progression du travail restant dans une itération. Il aide à visualiser si l'équipe est en voie d'achever le travail prévu dans le temps alloué.",
+                category: "technique",
+                difficulty: "medium"
+            },
+            {
+                id: 74,
+                question: "Quelle approche de développement est recommandée dans AgilePM?",
+                options: [
+                    "Just-in-time (au moment opportun)",
+                    "Tout à l'avance",
+                    "Documentation d'abord",
+                    "Codage sans planification"
+                ],
+                correct: 0,
+                explanation: "AgilePM recommande une approche Just-in-time (au moment opportun) pour le développement. Les détails sont élaborés au moment où ils sont nécessaires, plutôt que tout spécifier à l'avance.",
+                category: "technique",
+                difficulty: "hard"
+            },
+            {
+                id: 75,
+                question: "Quelle est la différence entre un risque et un problème dans AgilePM?",
+                options: [
+                    "Un risque est futur, un problème est actuel",
+                    "Un risque est technique, un problème est business",
+                    "Un risque est géré par le Project Manager, un problème par le Technical Coordinator",
+                    "Il n'y a pas de différence, ce sont des synonymes"
+                ],
+                correct: 0,
+                explanation: "Dans AgilePM, un risque est un événement futur potentiel qui pourrait affecter le projet, tandis qu'un problème est un événement actuel qui affecte déjà le projet. La gestion des risques est proactive, la gestion des problèmes est réactive.",
+                category: "technique",
+                difficulty: "medium"
+            },
+            {
+                id: 76,
+                question: "Quelle technique permet de gérer les changements d'exigences pendant le projet?",
+                options: [
+                    "Priorisation continue avec MoSCoW",
+                    "Gel des exigences après la phase de Fondations",
+                    "Refus systématique des changements",
+                    "Augmentation automatique du budget"
+                ],
+                correct: 0,
+                explanation: "La priorisation continue avec MoSCoW permet de gérer les changements d'exigences pendant le projet. Les nouvelles exigences sont ajoutées au backlog et priorisées par rapport aux existantes, avec ajustement du scope si nécessaire.",
+                category: "technique",
+                difficulty: "hard"
+            },
+            {
+                id: 77,
+                question: "Quel est le principal avantage du développement itératif et incrémental?",
+                options: [
+                    "Livraison précoce de valeur et feedback rapide",
+                    "Réduction des coûts de développement",
+                    "Élimination de toute documentation",
+                    "Garantie d'absence de bugs"
+                ],
+                correct: 0,
+                explanation: "Le principal avantage du développement itératif et incrémental est la livraison précoce de valeur et le feedback rapide. Les parties prenantes voient des résultats concrets rapidement et peuvent ajuster leurs besoins en conséquence.",
+                category: "technique",
+                difficulty: "medium"
+            },
+            {
+                id: 78,
+                question: "Dans AgilePM, que signifie 'PMT'?",
+                options: [
+                    "Project Management Team",
+                    "Primary Management Task",
+                    "Project Milestone Timeline",
+                    "Process Management Technique"
+                ],
+                correct: 0,
+                explanation: "Dans AgilePM, 'PMT' signifie 'Project Management Team' (Équipe de direction de projet). C'est le groupe responsable des décisions de gestion du projet, incluant le Business Sponsor, Business Visionary, Project Manager, etc.",
+                category: "technique",
+                difficulty: "hard"
+            },
+            {
+                id: 79,
+                question: "Quelle est la durée totale recommandée de l'examen AgilePM Foundation?",
+                options: [
+                    "30 minutes",
+                    "60 minutes",
+                    "90 minutes",
+                    "120 minutes"
+                ],
+                correct: 1,
+                explanation: "La durée totale recommandée de l'examen AgilePM Foundation est de 60 minutes. Cela donne environ 1,2 minute par question pour les 50 questions de l'examen.",
+                category: "technique",
+                difficulty: "easy"
+            },
+            {
+                id: 80,
+                question: "Quelle approche AgilePM recommande-t-elle pour la documentation?",
+                options: [
+                    "Documentation minimale mais suffisante",
+                    "Documentation exhaustive avant tout développement",
+                    "Aucune documentation",
+                    "Documentation uniquement à la fin du projet"
+                ],
+                correct: 0,
+                explanation: "AgilePM recommande une documentation minimale mais suffisante. L'accent est mis sur la valeur business plutôt que sur la documentation, mais une documentation appropriée est maintenue pour soutenir la gouvernance et la connaissance.",
+                category: "technique",
+                difficulty: "medium"
+            }
+        ];
+
+        // Variables d'état du quiz
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let markedQuestions = new Set();
+        let quizQuestions = [];
+        let quizStarted = false;
+        let quizCompleted = false;
+        let totalQuestions = 20;
+        let timeLeft = 60 * 60; // 60 minutes en secondes
+        let timerInterval = null;
+        let practiceMode = false;
+        let categoryFilter = "all";
+        let difficultyFilter = "all";
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeQuiz();
+        });
+
+        function initializeQuiz() {
+            // Initialiser les filtres
+            setupFilters();
+            
+            // Initialiser les boutons
+            document.getElementById('startQuizBtn').addEventListener('click', startQuiz);
+            document.getElementById('practiceModeBtn').addEventListener('click', startPracticeMode);
+            document.getElementById('prevQuestionBtn').addEventListener('click', showPreviousQuestion);
+            document.getElementById('nextQuestionBtn').addEventListener('click', showNextQuestion);
+            document.getElementById('markQuestionBtn').addEventListener('click', toggleMarkQuestion);
+            document.getElementById('submitQuizBtn').addEventListener('click', submitQuiz);
+            document.getElementById('restartQuizBtn').addEventListener('click', restartQuiz);
+        }
+
+        function setupFilters() {
+            // Filtre nombre de questions
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    totalQuestions = parseInt(this.getAttribute('data-questions'));
+                });
+            });
+
+            // Filtre catégories
+            document.querySelectorAll('.category-filter').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.category-filter').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    categoryFilter = this.getAttribute('data-category');
+                });
+            });
+
+            // Filtre difficulté
+            document.querySelectorAll('.difficulty-filter').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.difficulty-filter').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    difficultyFilter = this.getAttribute('data-difficulty');
+                });
+            });
+        }
+
+        function startQuiz() {
+            practiceMode = false;
+            prepareQuiz();
+        }
+
+        function startPracticeMode() {
+            practiceMode = true;
+            prepareQuiz();
+        }
+
+        function prepareQuiz() {
+            // Filtrer et sélectionner les questions
+            let filteredQuestions = allQuestions;
+            
+            // Appliquer le filtre de catégorie
+            if (categoryFilter !== "all") {
+                filteredQuestions = filteredQuestions.filter(q => q.category === categoryFilter);
+            }
+            
+            // Appliquer le filtre de difficulté
+            if (difficultyFilter !== "all") {
+                filteredQuestions = filteredQuestions.filter(q => q.difficulty === difficultyFilter);
+            }
+            
+            // Mélanger les questions et en prendre le nombre sélectionné
+            quizQuestions = shuffleArray([...filteredQuestions]).slice(0, totalQuestions);
+            
+            // Réinitialiser l'état
+            currentQuestionIndex = 0;
+            userAnswers = new Array(quizQuestions.length).fill(null);
+            markedQuestions.clear();
+            quizStarted = true;
+            quizCompleted = false;
+            
+            // Masquer l'écran de configuration et afficher le quiz
+            document.getElementById('setupScreen').style.display = 'none';
+            document.getElementById('quizScreen').style.display = 'block';
+            document.getElementById('submitQuizBtn').style.display = 'block';
+            document.getElementById('restartQuizBtn').style.display = 'none';
+            
+            // Mettre à jour l'affichage
+            document.getElementById('totalQuestions').textContent = totalQuestions;
+            
+            // Démarrer le timer (sauf en mode pratique)
+            if (!practiceMode) {
+                timeLeft = 60 * 60; // 60 minutes
+                startTimer();
+            } else {
+                document.getElementById('timer').textContent = "Mode Pratique";
+                document.getElementById('timer').classList.remove('warning', 'danger');
+            }
+            
+            // Générer la navigation
+            generateQuestionNavigation();
+            
+            // Afficher la première question
+            showCurrentQuestion();
+            
+            // Mettre à jour les stats
+            updateStats();
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            
+            updateTimerDisplay();
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    submitQuiz();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timer').textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Avertissements visuels
+            document.getElementById('timer').classList.remove('warning', 'danger');
+            if (timeLeft <= 10 * 60) { // 10 minutes restantes
+                document.getElementById('timer').classList.add('warning');
+            }
+            if (timeLeft <= 5 * 60) { // 5 minutes restantes
+                document.getElementById('timer').classList.add('danger');
+            }
+        }
+
+        function showCurrentQuestion() {
+            if (!quizStarted || currentQuestionIndex >= quizQuestions.length) return;
+            
+            const question = quizQuestions[currentQuestionIndex];
+            const container = document.getElementById('questionContainer');
+            
+            // Construire le HTML de la question
+            let html = `
+                <div class="question-card">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div class="d-flex align-items-center">
+                            <span class="question-number">${currentQuestionIndex + 1}</span>
+                            <div>
+                                <span class="category-badge category-${question.category}">
+                                    ${getCategoryLabel(question.category)}
+                                </span>
+                                <span class="difficulty-indicator difficulty-${question.difficulty}"></span>
+                                <span class="text-muted">${getDifficultyLabel(question.difficulty)}</span>
+                            </div>
+                        </div>
+                        <button class="bookmark-btn ${markedQuestions.has(currentQuestionIndex) ? 'bookmarked' : ''}" 
+                                onclick="toggleMarkQuestion()">
+                            <i class="bi ${markedQuestions.has(currentQuestionIndex) ? 'bi-bookmark-fill' : 'bi-bookmark'}"></i>
+                        </button>
+                    </div>
+                    
+                    <h5 class="mb-4">${question.question}</h5>
+                    
+                    <div id="optionsContainer">
+            `;
+            
+            // Ajouter les options
+            question.options.forEach((option, index) => {
+                const isSelected = userAnswers[currentQuestionIndex] === index;
+                const isCorrect = quizCompleted && index === question.correct;
+                const isIncorrect = quizCompleted && isSelected && index !== question.correct;
+                
+                let optionClass = 'option';
+                if (isSelected) optionClass += ' selected';
+                if (isCorrect) optionClass += ' correct';
+                if (isIncorrect) optionClass += ' incorrect';
+                
+                html += `
+                    <div class="${optionClass}" onclick="selectOption(${index})">
+                        <span class="option-letter">${String.fromCharCode(65 + index)}</span>
+                        <span>${option}</span>
+                    </div>
+                `;
+            });
+            
+            html += `
+                    </div>
+                    
+                    <div id="explanation" class="explanation-box ${quizCompleted || practiceMode ? 'show' : ''}">
+                        <h6><i class="bi bi-info-circle me-2"></i>Explication détaillée :</h6>
+                        <p class="mb-0">${question.explanation}</p>
+                        ${quizCompleted ? `<p class="mt-2 mb-0"><strong>Réponse correcte : ${String.fromCharCode(65 + question.correct)}. ${question.options[question.correct]}</strong></p>` : ''}
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+            
+            // Mettre à jour l'affichage
+            document.getElementById('currentQuestionNumber').textContent = currentQuestionIndex + 1;
+            
+            // Mettre à jour les boutons de navigation
+            document.getElementById('prevQuestionBtn').disabled = currentQuestionIndex === 0;
+            document.getElementById('nextQuestionBtn').disabled = currentQuestionIndex === quizQuestions.length - 1;
+            
+            // Mettre à jour le bouton de marquage
+            document.getElementById('markQuestionBtn').innerHTML = `
+                <i class="bi ${markedQuestions.has(currentQuestionIndex) ? 'bi-bookmark-fill' : 'bi-bookmark'} me-1"></i>
+                ${markedQuestions.has(currentQuestionIndex) ? 'Démarquer' : 'Marquer'}
+            `;
+            
+            // Mettre à jour la navigation
+            updateQuestionNavigation();
+        }
+
+        function selectOption(optionIndex) {
+            if (quizCompleted) return;
+            
+            userAnswers[currentQuestionIndex] = optionIndex;
+            showCurrentQuestion();
+            updateStats();
+            
+            // En mode pratique, montrer l'explication immédiatement
+            if (practiceMode) {
+                document.getElementById('explanation').classList.add('show');
+            }
+        }
+
+        function toggleMarkQuestion() {
+            if (markedQuestions.has(currentQuestionIndex)) {
+                markedQuestions.delete(currentQuestionIndex);
+            } else {
+                markedQuestions.add(currentQuestionIndex);
+            }
+            showCurrentQuestion();
+        }
+
+        function showPreviousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showCurrentQuestion();
+            }
+        }
+
+        function showNextQuestion() {
+            if (currentQuestionIndex < quizQuestions.length - 1) {
+                currentQuestionIndex++;
+                showCurrentQuestion();
+            }
+        }
+
+        function generateQuestionNavigation() {
+            const container = document.getElementById('questionNavigation');
+            container.innerHTML = '';
+            
+            for (let i = 0; i < quizQuestions.length; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'nav-btn';
+                btn.textContent = i + 1;
+                btn.onclick = () => {
+                    currentQuestionIndex = i;
+                    showCurrentQuestion();
+                };
+                container.appendChild(btn);
+            }
+            
+            updateQuestionNavigation();
+        }
+
+        function updateQuestionNavigation() {
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach((btn, index) => {
+                btn.classList.remove('active', 'answered', 'marked');
+                
+                if (index === currentQuestionIndex) {
+                    btn.classList.add('active');
+                }
+                
+                if (userAnswers[index] !== null) {
+                    btn.classList.add('answered');
+                }
+                
+                if (markedQuestions.has(index)) {
+                    btn.classList.add('marked');
+                }
+            });
+        }
+
+        function updateStats() {
+            // Calculer les scores
+            const total = quizQuestions.length;
+            const answered = userAnswers.filter(a => a !== null).length;
+            const correct = userAnswers.reduce((count, answer, index) => {
+                if (answer === quizQuestions[index]?.correct) {
+                    return count + 1;
+                }
+                return count;
+            }, 0);
+            
+            // Calculer les scores par catégorie
+            const categoryStats = {
+                phase: { total: 0, correct: 0 },
+                principle: { total: 0, correct: 0 },
+                role: { total: 0, correct: 0 },
+                technique: { total: 0, correct: 0 }
+            };
+            
+            quizQuestions.forEach((question, index) => {
+                const category = question.category;
+                categoryStats[category].total++;
+                if (userAnswers[index] === question.correct) {
+                    categoryStats[category].correct++;
+                }
+            });
+            
+            // Mettre à jour l'affichage
+            document.getElementById('progressPercentage').textContent = `${Math.round((answered / total) * 100)}%`;
+            document.getElementById('progressBar').style.width = `${(answered / total) * 100}%`;
+            
+            document.getElementById('scoreDisplay').textContent = total > 0 ? `${Math.round((correct / total) * 100)}%` : "0%";
+            document.getElementById('correctCount').textContent = correct;
+            document.getElementById('incorrectCount').textContent = answered - correct;
+            
+            // Mettre à jour les scores par catégorie
+            document.getElementById('phaseScore').textContent = `Phases: ${categoryStats.phase.correct}/${categoryStats.phase.total}`;
+            document.getElementById('principleScore').textContent = `Principes: ${categoryStats.principle.correct}/${categoryStats.principle.total}`;
+            document.getElementById('roleScore').textContent = `Rôles: ${categoryStats.role.correct}/${categoryStats.role.total}`;
+            document.getElementById('techniqueScore').textContent = `Techniques: ${categoryStats.technique.correct}/${categoryStats.technique.total}`;
+        }
+
+        function submitQuiz() {
+            if (timerInterval) clearInterval(timerInterval);
+            
+            quizCompleted = true;
+            document.getElementById('submitQuizBtn').style.display = 'none';
+            document.getElementById('restartQuizBtn').style.display = 'block';
+            
+            // Calculer le score final
+            const total = quizQuestions.length;
+            const correct = userAnswers.reduce((count, answer, index) => {
+                if (answer === quizQuestions[index]?.correct) {
+                    return count + 1;
+                }
+                return count;
+            }, 0);
+            
+            const scorePercentage = Math.round((correct / total) * 100);
+            const passed = scorePercentage >= 80;
+            
+            // Afficher les résultats
+            showResults(scorePercentage, correct, total, passed);
+            
+            // Mettre à jour l'affichage de la question courante pour montrer les corrections
+            showCurrentQuestion();
+        }
+
+        function showResults(scorePercentage, correct, total, passed) {
+            const container = document.getElementById('quizScreen');
+            
+            // Calculer les scores par catégorie
+            const categoryStats = {
+                phase: { total: 0, correct: 0 },
+                principle: { total: 0, correct: 0 },
+                role: { total: 0, correct: 0 },
+                technique: { total: 0, correct: 0 }
+            };
+            
+            quizQuestions.forEach((question, index) => {
+                const category = question.category;
+                categoryStats[category].total++;
+                if (userAnswers[index] === question.correct) {
+                    categoryStats[category].correct++;
+                }
+            });
+            
+            // Calculer les scores par difficulté
+            const difficultyStats = {
+                easy: { total: 0, correct: 0 },
+                medium: { total: 0, correct: 0 },
+                hard: { total: 0, correct: 0 }
+            };
+            
+            quizQuestions.forEach((question, index) => {
+                const difficulty = question.difficulty;
+                difficultyStats[difficulty].total++;
+                if (userAnswers[index] === question.correct) {
+                    difficultyStats[difficulty].correct++;
+                }
+            });
+            
+            const resultsHTML = `
+                <div class="results-container">
+                    <div class="text-center mb-4">
+                        <h3>Résultats du Quiz</h3>
+                        <div class="display-4 fw-bold ${passed ? 'text-success' : 'text-danger'} mb-3">
+                            ${scorePercentage}%
+                        </div>
+                        <p class="lead">${correct} bonnes réponses sur ${total} questions</p>
+                        
+                        ${passed ? 
+                            `<div class="certificate">
+                                <h4 class="text-success"><i class="bi bi-award me-2"></i>Félicitations!</h4>
+                                <p>Vous avez atteint l'objectif de 80% minimum avec un score de ${scorePercentage}%.</p>
+                                <p class="mb-0">Vous êtes bien préparé pour la certification AgilePM Foundation.</p>
+                            </div>` :
+                            `<div class="alert alert-danger">
+                                <h4><i class="bi bi-exclamation-triangle me-2"></i>Objectif non atteint</h4>
+                                <p class="mb-0">Votre score de ${scorePercentage}% est inférieur à l'objectif de 80%. 
+                                Revisez les questions incorrectes et réessayez.</p>
+                            </div>`
+                        }
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5>Performance par catégorie :</h5>
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Phases</span>
+                                    <span>${categoryStats.phase.correct}/${categoryStats.phase.total} (${categoryStats.phase.total > 0 ? Math.round((categoryStats.phase.correct/categoryStats.phase.total)*100) : 0}%)</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar category-phase" style="width: ${categoryStats.phase.total > 0 ? (categoryStats.phase.correct/categoryStats.phase.total)*100 : 0}%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Principes</span>
+                                    <span>${categoryStats.principle.correct}/${categoryStats.principle.total} (${categoryStats.principle.total > 0 ? Math.round((categoryStats.principle.correct/categoryStats.principle.total)*100) : 0}%)</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar category-principle" style="width: ${categoryStats.principle.total > 0 ? (categoryStats.principle.correct/categoryStats.principle.total)*100 : 0}%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Rôles</span>
+                                    <span>${categoryStats.role.correct}/${categoryStats.role.total} (${categoryStats.role.total > 0 ? Math.round((categoryStats.role.correct/categoryStats.role.total)*100) : 0}%)</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar category-role" style="width: ${categoryStats.role.total > 0 ? (categoryStats.role.correct/categoryStats.role.total)*100 : 0}%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Techniques</span>
+                                    <span>${categoryStats.technique.correct}/${categoryStats.technique.total} (${categoryStats.technique.total > 0 ? Math.round((categoryStats.technique.correct/categoryStats.technique.total)*100) : 0}%)</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar category-technique" style="width: ${categoryStats.technique.total > 0 ? (categoryStats.technique.correct/categoryStats.technique.total)*100 : 0}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h5>Performance par difficulté :</h5>
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Facile</span>
+                                    <span>${difficultyStats.easy.correct}/${difficultyStats.easy.total} (${difficultyStats.easy.total > 0 ? Math.round((difficultyStats.easy.correct/difficultyStats.easy.total)*100) : 0}%)</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar bg-success" style="width: ${difficultyStats.easy.total > 0 ? (difficultyStats.easy.correct/difficultyStats.easy.total)*100 : 0}%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Moyen</span>
+                                    <span>${difficultyStats.medium.correct}/${difficultyStats.medium.total} (${difficultyStats.medium.total > 0 ? Math.round((difficultyStats.medium.correct/difficultyStats.medium.total)*100) : 0}%)</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar bg-warning" style="width: ${difficultyStats.medium.total > 0 ? (difficultyStats.medium.correct/difficultyStats.medium.total)*100 : 0}%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Difficile</span>
+                                    <span>${difficultyStats.hard.correct}/${difficultyStats.hard.total} (${difficultyStats.hard.total > 0 ? Math.round((difficultyStats.hard.correct/difficultyStats.hard.total)*100) : 0}%)</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar bg-danger" style="width: ${difficultyStats.hard.total > 0 ? (difficultyStats.hard.correct/difficultyStats.hard.total)*100 : 0}%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <h5>Recommandations :</h5>
+                                <ul>
+                                    ${categoryStats.phase.total > 0 && (categoryStats.phase.correct/categoryStats.phase.total) < 0.8 ? 
+                                        '<li><strong>Révisez les phases AgilePM</strong> - Concentrez-vous sur la distinction entre Faisabilité et Fondations</li>' : ''}
+                                    ${categoryStats.principle.total > 0 && (categoryStats.principle.correct/categoryStats.principle.total) < 0.8 ? 
+                                        '<li><strong>Révisez les 8 principes</strong> - Mémorisez-les et comprenez leur application pratique</li>' : ''}
+                                    ${categoryStats.role.total > 0 && (categoryStats.role.correct/categoryStats.role.total) < 0.8 ? 
+                                        '<li><strong>Révisez les rôles et responsabilités</strong> - Focus sur le Business Sponsor, Visionary et Project Manager</li>' : ''}
+                                    ${categoryStats.technique.total > 0 && (categoryStats.technique.correct/categoryStats.technique.total) < 0.8 ? 
+                                        '<li><strong>Révisez les techniques AgilePM</strong> - Maîtrisez MoSCoW, Timeboxing et le Business Case évolutif</li>' : ''}
+                                    ${difficultyStats.hard.total > 0 && (difficultyStats.hard.correct/difficultyStats.hard.total) < 0.6 ? 
+                                        '<li><strong>Pratiquez les questions difficiles</strong> - Revenez sur les questions marquées comme difficiles</li>' : ''}
+                                    ${passed ? '<li><strong>Maintenez votre niveau</strong> - Continuez à pratiquer pour consolider vos connaissances</li>' : ''}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button class="btn btn-primary me-2" onclick="showQuestionReview()">
+                            <i class="bi bi-list-check me-1"></i>Voir le détail des réponses
+                        </button>
+                        <button class="btn btn-success" onclick="restartQuiz()">
+                            <i class="bi bi-arrow-repeat me-1"></i>Recommencer le quiz
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Cacher le conteneur de questions et afficher les résultats
+            document.getElementById('questionContainer').style.display = 'none';
+            document.getElementById('questionNavigation').style.display = 'none';
+            document.getElementById('prevQuestionBtn').style.display = 'none';
+            document.getElementById('nextQuestionBtn').style.display = 'none';
+            document.getElementById('markQuestionBtn').style.display = 'none';
+            
+            // Insérer les résultats avant le bouton de soumission
+            if (!document.getElementById('resultsContent')) {
+                const resultsDiv = document.createElement('div');
+                resultsDiv.id = 'resultsContent';
+                resultsDiv.innerHTML = resultsHTML;
+                container.insertBefore(resultsDiv, document.getElementById('submitQuizBtn'));
+            }
+        }
+
+        function showQuestionReview() {
+            // Retourner à la première question
+            currentQuestionIndex = 0;
+            quizCompleted = true;
+            
+            // Cacher les résultats et réafficher le quiz
+            const resultsContent = document.getElementById('resultsContent');
+            if (resultsContent) {
+                resultsContent.style.display = 'none';
+            }
+            
+            document.getElementById('questionContainer').style.display = 'block';
+            document.getElementById('questionNavigation').style.display = 'flex';
+            document.getElementById('prevQuestionBtn').style.display = 'inline-block';
+            document.getElementById('nextQuestionBtn').style.display = 'inline-block';
+            document.getElementById('markQuestionBtn').style.display = 'inline-block';
+            
+            showCurrentQuestion();
+        }
+
+        function restartQuiz() {
+            // Réinitialiser l'état
+            currentQuestionIndex = 0;
+            userAnswers = new Array(quizQuestions.length).fill(null);
+            markedQuestions.clear();
+            quizCompleted = false;
+            
+            // Cacher les résultats
+            const resultsContent = document.getElementById('resultsContent');
+            if (resultsContent) {
+                resultsContent.remove();
+            }
+            
+            // Réafficher le quiz normalement
+            document.getElementById('questionContainer').style.display = 'block';
+            document.getElementById('questionNavigation').style.display = 'flex';
+            document.getElementById('prevQuestionBtn').style.display = 'inline-block';
+            document.getElementById('nextQuestionBtn').style.display = 'inline-block';
+            document.getElementById('markQuestionBtn').style.display = 'inline-block';
+            document.getElementById('submitQuizBtn').style.display = 'block';
+            document.getElementById('restartQuizBtn').style.display = 'none';
+            
+            // Réinitialiser le timer si pas en mode pratique
+            if (!practiceMode) {
+                timeLeft = 60 * 60;
+                startTimer();
+            }
+            
+            showCurrentQuestion();
+            updateStats();
+            generateQuestionNavigation();
+        }
+
+        // Fonctions utilitaires
+        function getCategoryLabel(category) {
+            const labels = {
+                phase: "Phases",
+                principle: "Principes",
+                role: "Rôles",
+                technique: "Techniques"
+            };
+            return labels[category] || category;
+        }
+
+        function getDifficultyLabel(difficulty) {
+            const labels = {
+                easy: "Facile",
+                medium: "Moyen",
+                hard: "Difficile"
+            };
+            return labels[difficulty] || difficulty;
+        }
+
+        // Exposer les fonctions globales
+        window.selectOption = selectOption;
+        window.toggleMarkQuestion = toggleMarkQuestion;
+        window.showQuestionReview = showQuestionReview;
+        window.restartQuiz = restartQuiz;
+    </script>
+</body>
+</html>
