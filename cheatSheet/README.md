@@ -41,7 +41,7 @@ Les **principes AgilePM** guident toute prise de décision :
 5. **Livrer à temps** (*Deliver On Time*)
 6. **Ne jamais compromettre la qualité** (*Never Compromise Quality*)
 7. **Développer itérativement** (*Develop Iteratively*)
-8. **Démontrer le contrôle** (*Demonstrate Control*) ([tecknologia.co.uk][1])
+8. **Démontrer le contrôle** (*Demonstrate Control*) 
 
 ---
 
@@ -54,7 +54,7 @@ Le projet AgilePM a plusieurs **phases** :
 3. **Fondations (Foundations)** – établir une base solide
 4. **Développement (Development)** – livrer *incréments* (increments) en mode agile
 5. **Déploiement (Deployment)** – assembler et valider les solutions
-6. **Réalisation (Realisation)** – s’assurer que la valeur est effectivement obtenue ([tecknologia.co.uk][1])
+6. **Réalisation (Realisation)** – s’assurer que la valeur est effectivement obtenue 
 
 ---
 
@@ -81,7 +81,7 @@ AgilePM v3 décrit clairement qui fait quoi.
 
 * **Agile Coach / Mentor**
 * **Business Analyst / Solution Analyst**
-* **Workshop Facilitator (animateur d’ateliers)** ([tecknologia.co.uk][1])
+* **Workshop Facilitator (animateur d’ateliers)**)
 
 ---
 
@@ -97,7 +97,7 @@ AgilePM v3 décrit clairement qui fait quoi.
 * **Backlog Management (gestion du backlog)**
 * **User Stories (récits d’utilisateur)**
 * **Estimation Agile** (*Planning Poker, Vélocité – velocity*)
-* **Empirisme** (*Empirical Process Control*: transparence, inspection, adaptation) ([tecknologia.co.uk][1])
+* **Empirisme** (*Empirical Process Control*: transparence, inspection, adaptation) 
 
 ---
 
@@ -137,7 +137,7 @@ AgilePM v3 reconnaît différents livrables ou *produits* tout au long du projet
 * **Delivery Plan** – plan de livraison
 * **Sprint Review Records**
 * **Project Review Report**
-* **Benefits Assessment (évaluation des bénéfices)** ([tecknologia.co.uk][1])
+* **Benefits Assessment (évaluation des bénéfices)** 
 
 ---
 
@@ -157,7 +157,7 @@ AgilePM v3 reconnaît différents livrables ou *produits* tout au long du projet
 ### ⚠️ Gestion des risques (*Risk Management*)
 
 * Anticiper, analyser, atténuer les risques dans un environnement agile
-* Gouvernance agile adaptée aux risques ([learningtree.co.uk][4])
+* Gouvernance agile adaptée aux risques
 
 ---
 
@@ -637,7 +637,7 @@ Ces **40 concepts**, combinés avec les **20 annexes et 12 concepts précédents
 ✔ Être à l’aise avec **Scrum intégré dans AgilePM**.
 ✔ Connaître les **rôles et interactions AgilePM + Scrum**.
 ✔ Maîtriser **MoSCoW**, **Timeboxing**, **iteration planning**.
-✔ Savoir différencier **deliverables vs outcomes (livrables vs résultats)**. ([tecknologia.co.uk][1])
+✔ Savoir différencier **deliverables vs outcomes (livrables vs résultats)**. 
 
 
 
