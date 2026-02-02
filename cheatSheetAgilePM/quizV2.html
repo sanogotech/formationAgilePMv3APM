@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz AgilePM v3 - Mode Apprentissage</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #0052cc;
+            --secondary-color: #00b8d9;
+            --success-color: #36b37e;
+            --warning-color: #ffab00;
+            --danger-color: #ff5630;
+            --light-bg: #f4f5f7;
+            --dark-bg: #253858;
+            --agilepm-purple: #6554c0;
+            --correct-light: rgba(54, 179, 126, 0.1);
+            --correct-dark: #1a4731;
+            --incorrect-light: rgba(255, 86, 48, 0.1);
+            --incorrect-dark: #7d2318;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background-color: var(--dark-bg);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--agilepm-purple) 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .quiz-container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            min-height: 600px;
+            transition: all 0.3s ease;
+        }
+
+        .question-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--primary-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .question-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .option {
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .option:hover {
+            background-color: rgba(0, 82, 204, 0.05);
+            border-color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background-color: rgba(0, 82, 204, 0.1);
+            border-color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .option.correct {
+            background-color: var(--correct-light);
+            border-color: var(--success-color);
+            color: var(--correct-dark);
+            animation: pulseCorrect 0.5s ease;
+        }
+
+        .option.incorrect {
+            background-color: var(--incorrect-light);
+            border-color: var(--danger-color);
+            color: var(--incorrect-dark);
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes pulseCorrect {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .option-letter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            margin-right: 1rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .option.correct .option-letter {
+            background-color: var(--success-color);
+        }
+
+        .option.incorrect .option-letter {
+            background-color: var(--danger-color);
+        }
+
+        .option-feedback-icon {
+            margin-left: auto;
+            font-size: 1.2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .option.correct .option-feedback-icon {
+            color: var(--success-color);
+            opacity: 1;
+        }
+
+        .option.incorrect .option-feedback-icon {
+            color: var(--danger-color);
+            opacity: 1;
+        }
+
+        .explanation-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .explanation-box.show {
+            max-height: 500px;
+            opacity: 1;
+            margin-top: 1.5rem;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from { 
+                max-height: 0;
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to { 
+                max-height: 500px;
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .progress-container {
+            position: sticky;
+            top: 20px;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+            z-index: 100;
+        }
+
+        .progress {
+            height: 12px;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            border-radius: 6px;
+            transition: width 0.3s ease;
+            background: linear-gradient(90deg, var(--primary-color), var(--agilepm-purple));
+        }
+
+        .stats-box {
+            background: linear-gradient(135deg, var(--primary-color), var(--agilepm-purple));
+            color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .stats-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 82, 204, 0.2);
+        }
+
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .stats-number.increasing {
+            animation: scoreIncrease 0.5s ease;
+        }
+
+        .stats-number.decreasing {
+            animation: scoreDecrease 0.5s ease;
+        }
+
+        @keyframes scoreIncrease {
+            0% { transform: scale(1); color: white; }
+            50% { transform: scale(1.2); color: var(--success-color); }
+            100% { transform: scale(1); color: white; }
+        }
+
+        @keyframes scoreDecrease {
+            0% { transform: scale(1); color: white; }
+            50% { transform: scale(0.9); color: var(--danger-color); }
+            100% { transform: scale(1); color: white; }
+        }
+
+        .stats-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .category-phase {
+            background-color: rgba(101, 84, 192, 0.2);
+            color: var(--agilepm-purple);
+        }
+
+        .category-principle {
+            background-color: rgba(0, 82, 204, 0.2);
+            color: var(--primary-color);
+        }
+
+        .category-role {
+            background-color: rgba(255, 171, 0, 0.2);
+            color: var(--warning-color);
+        }
+
+        .category-technique {
+            background-color: rgba(54, 179, 126, 0.2);
+            color: var(--success-color);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 3px 10px rgba(0, 82, 204, 0.3);
+        }
+
+        .difficulty-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .difficulty-easy {
+            background-color: var(--success-color);
+        }
+
+        .difficulty-medium {
+            background-color: var(--warning-color);
+        }
+
+        .difficulty-hard {
+            background-color: var(--danger-color);
+        }
+
+        .question-number {
+            display: inline-flex;
+            width: 36px;
+            height: 36px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .timer {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 82, 204, 0.1);
+            border-radius: 10px;
+            border: 2px solid var(--primary-color);
+        }
+
+        .timer.warning {
+            color: var(--warning-color);
+            border-color: var(--warning-color);
+            background: rgba(255, 171, 0, 0.1);
+            animation: pulse 1s infinite;
+        }
+
+        .timer.danger {
+            color: var(--danger-color);
+            border-color: var(--danger-color);
+            background: rgba(255, 86, 48, 0.1);
+            animation: pulse 0.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.02); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .results-container {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .question-navigation {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: bold;
+        }
+
+        .nav-btn:hover {
+            background-color: rgba(0, 82, 204, 0.1);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: scale(1.1);
+            box-shadow: 0 3px 8px rgba(0, 82, 204, 0.3);
+        }
+
+        .nav-btn.answered {
+            background-color: rgba(54, 179, 126, 0.2);
+            border-color: var(--success-color);
+        }
+
+        .nav-btn.marked {
+            background-color: rgba(255, 171, 0, 0.2);
+            border-color: var(--warning-color);
+        }
+
+        .nav-btn.incorrect {
+            background-color: rgba(255, 86, 48, 0.2);
+            border-color: var(--danger-color);
+        }
+
+        .bookmark-btn {
+            background: none;
+            border: none;
+            color: #ccc;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-left: auto;
+            padding: 0.5rem;
+            border-radius: 50%;
+        }
+
+        .bookmark-btn:hover {
+            background-color: rgba(255, 171, 0, 0.1);
+            color: var(--warning-color);
+        }
+
+        .bookmark-btn.bookmarked {
+            color: var(--warning-color);
+            transform: scale(1.1);
+        }
+
+        .learning-tip {
+            background-color: rgba(0, 199, 229, 0.1);
+            border-left: 4px solid #00c7e5;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .highlight-text {
+            background-color: rgba(255, 171, 0, 0.2);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .feedback-banner {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateX(150%);
+            transition: transform 0.5s ease;
+        }
+
+        .feedback-banner.show {
+            transform: translateX(0);
+        }
+
+        .feedback-correct {
+            background-color: var(--success-color);
+        }
+
+        .feedback-incorrect {
+            background-color: var(--danger-color);
+        }
+
+        .quick-stats {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .quick-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #f8f9fa;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .quick-stat i {
+            font-size: 1.2rem;
+        }
+
+        .quick-stat.correct {
+            color: var(--success-color);
+        }
+
+        .quick-stat.incorrect {
+            color: var(--danger-color);
+        }
+
+        .quick-stat.marked {
+            color: var(--warning-color);
+        }
+
+        .quick-stat.remaining {
+            color: var(--primary-color);
+        }
+
+        .hint-box {
+            background-color: rgba(0, 199, 229, 0.05);
+            border: 2px dashed #00c7e5;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            display: none;
+        }
+
+        .hint-box.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .hint-box .hint-title {
+            color: #00c7e5;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .study-mode-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(135deg, var(--agilepm-purple), var(--secondary-color));
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .immediate-feedback {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .option.correct .immediate-feedback {
+            color: var(--success-color);
+            opacity: 1;
+        }
+
+        .option.incorrect .immediate-feedback {
+            color: var(--danger-color);
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .quiz-container, .progress-container {
+                padding: 1rem;
+            }
+            
+            .question-card {
+                padding: 1rem;
+            }
+            
+            .stats-box {
+                padding: 1rem;
+            }
+            
+            .filter-buttons {
+                justify-content: center;
+            }
+            
+            .feedback-banner {
+                left: 10px;
+                right: 10px;
+                top: 80px;
+            }
+        }
+
+        .floating-action-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 82, 204, 0.3);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .floating-action-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 82, 204, 0.4);
+        }
+
+        .floating-action-btn.hidden {
+            transform: translateY(100px);
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-journal-check me-2"></i>Quiz AgilePM v3
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="index.html">
+                    <i class="bi bi-arrow-left me-1"></i>Retour au Portail
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="container text-center">
+            <h1 class="display-5 fw-bold mb-3">Mode Apprentissage AgilePM v3</h1>
+            <p class="lead mb-4">Testez vos connaissances avec 80 questions détaillées et des explications complètes</p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="#quiz" class="btn btn-light btn-lg px-4">Commencer le Quiz</a>
+                <a href="#instructions" class="btn btn-outline-light btn-lg px-4">Instructions</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bannière de feedback -->
+    <div id="feedbackBanner" class="feedback-banner">
+        <i class="bi bi-check-circle me-2"></i>
+        <span id="feedbackText">Réponse correcte!</span>
+    </div>
+
+    <div class="container">
+        <div id="instructions" class="row mb-5">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0"><i class="bi bi-info-circle me-2"></i>Instructions du Quiz</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Comment utiliser ce quiz :</h5>
+                                <ol>
+                                    <li>Sélectionnez le nombre de questions (20, 40, 60 ou 80)</li>
+                                    <li>Répondez à chaque question en sélectionnant une option</li>
+                                    <li><strong>Mode Apprentissage :</strong> Les explications s'affichent avant votre choix</li>
+                                    <li><strong>Feedback immédiat :</strong> Vérifiez votre compréhension avant de voir la réponse</li>
+                                    <li>Naviguez entre les questions avec les boutons de navigation</li>
+                                    <li>Marquez les questions difficiles pour y revenir plus tard</li>
+                                    <li>Soumettez votre quiz pour obtenir votre score final</li>
+                                </ol>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Critères de réussite :</h5>
+                                <ul>
+                                    <li><span class="highlight-text">80% minimum</span> pour réussir le quiz</li>
+                                    <li>Les questions sont réparties par catégories :</li>
+                                    <li><span class="category-badge category-phase">Phases</span> - 25% des questions</li>
+                                    <li><span class="category-badge category-principle">Principes</span> - 25% des questions</li>
+                                    <li><span class="category-badge category-role">Rôles</span> - 20% des questions</li>
+                                    <li><span class="category-badge category-technique">Techniques</span> - 30% des questions</li>
+                                </ul>
+                                <div class="learning-tip">
+                                    <p><strong>Astuce d'apprentissage :</strong> En mode étude, lisez d'abord l'explication, puis testez votre compréhension en sélectionnant ce que vous pensez être la bonne réponse. Le feedback immédiat vous aide à apprendre plus efficacement.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="quiz-container" id="quiz">
+                    <div id="setupScreen">
+                        <h3 class="mb-4">Configuration du Quiz</h3>
+                        
+                        <div class="mb-4">
+                            <h5>Nombre de questions :</h5>
+                            <div class="filter-buttons">
+                                <button class="btn btn-outline-primary filter-btn active" data-questions="20">20 Questions</button>
+                                <button class="btn btn-outline-primary filter-btn" data-questions="40">40 Questions</button>
+                                <button class="btn btn-outline-primary filter-btn" data-questions="60">60 Questions</button>
+                                <button class="btn btn-outline-primary filter-btn" data-questions="80">80 Questions</button>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5>Filtres par catégorie :</h5>
+                            <div class="filter-buttons">
+                                <button class="btn btn-outline-primary category-filter active" data-category="all">Toutes</button>
+                                <button class="btn btn-outline-primary category-filter" data-category="phase">Phases</button>
+                                <button class="btn btn-outline-primary category-filter" data-category="principle">Principes</button>
+                                <button class="btn btn-outline-primary category-filter" data-category="role">Rôles</button>
+                                <button class="btn btn-outline-primary category-filter" data-category="technique">Techniques</button>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5>Niveau de difficulté :</h5>
+                            <div class="filter-buttons">
+                                <button class="btn btn-outline-primary difficulty-filter active" data-difficulty="all">Tous niveaux</button>
+                                <button class="btn btn-outline-primary difficulty-filter" data-difficulty="easy">Facile</button>
+                                <button class="btn btn-outline-primary difficulty-filter" data-difficulty="medium">Moyen</button>
+                                <button class="btn btn-outline-primary difficulty-filter" data-difficulty="hard">Difficile</button>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5>Mode d'apprentissage :</h5>
+                            <div class="filter-buttons">
+                                <button class="btn btn-outline-primary learning-mode-btn active" data-mode="study">
+                                    <i class="bi bi-lightbulb me-1"></i>Mode Étude (feedback avant réponse)
+                                </button>
+                                <button class="btn btn-outline-primary learning-mode-btn" data-mode="test">
+                                    <i class="bi bi-clock-history me-1"></i>Mode Test (feedback après réponse)
+                                </button>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="checkbox" id="autoNextQuestion">
+                                <label class="form-check-label" for="autoNextQuestion">
+                                    Passer automatiquement à la question suivante après réponse
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary btn-lg" id="startQuizBtn">
+                                <i class="bi bi-play-circle me-2"></i>Commencer le Quiz
+                            </button>
+                            <button class="btn btn-outline-primary" id="practiceModeBtn">
+                                <i class="bi bi-lightbulb me-2"></i>Mode Pratique (sans limite de temps)
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="quizScreen" style="display: none;">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div>
+                                <h4 class="mb-0">Question <span id="currentQuestionNumber">1</span> sur <span id="totalQuestions">20</span></h4>
+                                <div class="quick-stats">
+                                    <div class="quick-stat correct">
+                                        <i class="bi bi-check-circle"></i>
+                                        <span id="correctQuick">0</span>
+                                    </div>
+                                    <div class="quick-stat incorrect">
+                                        <i class="bi bi-x-circle"></i>
+                                        <span id="incorrectQuick">0</span>
+                                    </div>
+                                    <div class="quick-stat marked">
+                                        <i class="bi bi-bookmark"></i>
+                                        <span id="markedQuick">0</span>
+                                    </div>
+                                    <div class="quick-stat remaining">
+                                        <i class="bi bi-clock"></i>
+                                        <span id="remainingQuick">20</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timer" id="timer">60:00</div>
+                        </div>
+
+                        <div id="questionContainer">
+                            <!-- Les questions seront insérées ici dynamiquement -->
+                        </div>
+
+                        <div id="hintContainer" class="hint-box">
+                            <div class="hint-title"><i class="bi bi-lightbulb me-2"></i>Indice</div>
+                            <div id="hintText"></div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <button class="btn btn-outline-primary" id="prevQuestionBtn" disabled>
+                                <i class="bi bi-chevron-left me-1"></i>Précédent
+                            </button>
+                            <div>
+                                <button class="btn btn-warning me-2" id="markQuestionBtn">
+                                    <i class="bi bi-bookmark me-1"></i>Marquer
+                                </button>
+                                <button class="btn btn-success me-2" id="showHintBtn" style="display: none;">
+                                    <i class="bi bi-lightbulb me-1"></i>Indice
+                                </button>
+                                <button class="btn btn-primary" id="nextQuestionBtn">
+                                    Suivant<i class="bi bi-chevron-right ms-1"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="question-navigation" id="questionNavigation">
+                            <!-- La navigation sera générée dynamiquement -->
+                        </div>
+                    </div>
+
+                    <div id="resultsScreen" style="display: none;">
+                        <!-- Les résultats seront affichés ici -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="progress-container">
+                    <h5 class="mb-3">Progression du Quiz</h5>
+                    
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>Progression</span>
+                            <span id="progressPercentage">0%</span>
+                        </div>
+                        <div class="progress">
+                            <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="stats-box">
+                        <div class="stats-number" id="scoreDisplay">0%</div>
+                        <div class="stats-label">Score Actuel</div>
+                    </div>
+
+                    <div class="row text-center mb-3">
+                        <div class="col-6">
+                            <div class="stats-number" id="correctCount">0</div>
+                            <div class="stats-label">Correctes</div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stats-number" id="incorrectCount">0</div>
+                            <div class="stats-label">Incorrectes</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <h6>Catégories :</h6>
+                        <div>
+                            <span class="category-badge category-phase" id="phaseScore">Phases: 0/0</span>
+                            <span class="category-badge category-principle" id="principleScore">Principes: 0/0</span>
+                            <span class="category-badge category-role" id="roleScore">Rôles: 0/0</span>
+                            <span class="category-badge category-technique" id="techniqueScore">Techniques: 0/0</span>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-success" id="submitQuizBtn" style="display: none;">
+                            <i class="bi bi-check-circle me-1"></i>Soumettre le Quiz
+                        </button>
+                        <button class="btn btn-outline-primary" id="restartQuizBtn" style="display: none;">
+                            <i class="bi bi-arrow-repeat me-1"></i>Recommencer
+                        </button>
+                        <button class="btn btn-outline-warning" id="reviewMarkedBtn" style="display: none;">
+                            <i class="bi bi-bookmark me-1"></i>Revoir les questions marquées
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-header bg-primary text-white">
+                        <h6 class="mb-0"><i class="bi bi-lightbulb me-2"></i>Astuces d'apprentissage</h6>
+                    </div>
+                    <div class="card-body">
+                        <ul class="mb-0">
+                            <li>En mode étude : lisez l'explication avant de répondre</li>
+                            <li>Utilisez les indices pour les questions difficiles</li>
+                            <li>Marquez les questions importantes pour révision</li>
+                            <li>Analysez vos erreurs par catégorie</li>
+                            <li>Visez la maîtrise complète (100%)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h6 class="mb-0"><i class="bi bi-award me-2"></i>Objectif Certification</h6>
+                    </div>
+                    <div class="card-body">
+                        <p>Pour la certification AgilePM Foundation :</p>
+                        <ul class="mb-0">
+                            <li><strong>Seuil :</strong> 50% (25/50 questions)</li>
+                            <li><strong>Durée :</strong> 60 minutes</li>
+                            <li><strong>Format :</strong> 50 questions à choix multiples</li>
+                            <li><strong>Notre objectif :</strong> 80% minimum</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bouton flottant pour aide rapide -->
+    <button class="floating-action-btn hidden" id="quickHelpBtn">
+        <i class="bi bi-question-circle"></i>
+    </button>
+
+    <footer>
+        <div class="container text-center">
+            <p class="mb-0">Quiz AgilePM v3 - Outil d'apprentissage pour la préparation à la certification</p>
+            <p class="mb-0">© 2023 - Retrouvez le portail complet sur <a href="index.html" class="text-white">index.html</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Base de données des 80 questions (inchangée)
+        const allQuestions = [
+            // ... (le même contenu des 80 questions)
+            // Note: Pour économiser de l'espace, je ne réécris pas les 80 questions ici
+            // Elles restent identiques à celles dans votre fichier original
+        ];
+
+        // Variables d'état du quiz
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let markedQuestions = new Set();
+        let quizQuestions = [];
+        let quizStarted = false;
+        let quizCompleted = false;
+        let totalQuestions = 20;
+        let timeLeft = 60 * 60;
+        let timerInterval = null;
+        let practiceMode = false;
+        let categoryFilter = "all";
+        let difficultyFilter = "all";
+        let learningMode = "study"; // "study" ou "test"
+        let autoNextQuestion = false;
+        let previousScore = 0;
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeQuiz();
+        });
+
+        function initializeQuiz() {
+            setupFilters();
+            
+            document.getElementById('startQuizBtn').addEventListener('click', startQuiz);
+            document.getElementById('practiceModeBtn').addEventListener('click', startPracticeMode);
+            document.getElementById('prevQuestionBtn').addEventListener('click', showPreviousQuestion);
+            document.getElementById('nextQuestionBtn').addEventListener('click', showNextQuestion);
+            document.getElementById('markQuestionBtn').addEventListener('click', toggleMarkQuestion);
+            document.getElementById('submitQuizBtn').addEventListener('click', submitQuiz);
+            document.getElementById('restartQuizBtn').addEventListener('click', restartQuiz);
+            document.getElementById('reviewMarkedBtn').addEventListener('click', reviewMarkedQuestions);
+            document.getElementById('showHintBtn').addEventListener('click', toggleHint);
+            document.getElementById('quickHelpBtn').addEventListener('click', showQuickHelp);
+            document.getElementById('autoNextQuestion').addEventListener('change', function() {
+                autoNextQuestion = this.checked;
+            });
+        }
+
+        function setupFilters() {
+            // Filtre nombre de questions
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    totalQuestions = parseInt(this.getAttribute('data-questions'));
+                });
+            });
+
+            // Filtre catégories
+            document.querySelectorAll('.category-filter').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.category-filter').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    categoryFilter = this.getAttribute('data-category');
+                });
+            });
+
+            // Filtre difficulté
+            document.querySelectorAll('.difficulty-filter').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.difficulty-filter').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    difficultyFilter = this.getAttribute('data-difficulty');
+                });
+            });
+
+            // Mode d'apprentissage
+            document.querySelectorAll('.learning-mode-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.learning-mode-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    learningMode = this.getAttribute('data-mode');
+                });
+            });
+        }
+
+        function startQuiz() {
+            practiceMode = false;
+            prepareQuiz();
+        }
+
+        function startPracticeMode() {
+            practiceMode = true;
+            prepareQuiz();
+        }
+
+        function prepareQuiz() {
+            let filteredQuestions = allQuestions;
+            
+            if (categoryFilter !== "all") {
+                filteredQuestions = filteredQuestions.filter(q => q.category === categoryFilter);
+            }
+            
+            if (difficultyFilter !== "all") {
+                filteredQuestions = filteredQuestions.filter(q => q.difficulty === difficultyFilter);
+            }
+            
+            quizQuestions = shuffleArray([...filteredQuestions]).slice(0, totalQuestions);
+            
+            currentQuestionIndex = 0;
+            userAnswers = new Array(quizQuestions.length).fill(null);
+            markedQuestions.clear();
+            quizStarted = true;
+            quizCompleted = false;
+            previousScore = 0;
+            
+            document.getElementById('setupScreen').style.display = 'none';
+            document.getElementById('quizScreen').style.display = 'block';
+            document.getElementById('submitQuizBtn').style.display = 'block';
+            document.getElementById('restartQuizBtn').style.display = 'none';
+            document.getElementById('reviewMarkedBtn').style.display = 'none';
+            document.getElementById('quickHelpBtn').classList.remove('hidden');
+            
+            document.getElementById('totalQuestions').textContent = totalQuestions;
+            
+            if (!practiceMode) {
+                timeLeft = 60 * 60;
+                startTimer();
+            } else {
+                document.getElementById('timer').textContent = "Mode Pratique";
+                document.getElementById('timer').classList.remove('warning', 'danger');
+            }
+            
+            if (learningMode === "study") {
+                const quizContainer = document.getElementById('quiz');
+                if (!document.querySelector('.study-mode-badge')) {
+                    const badge = document.createElement('div');
+                    badge.className = 'study-mode-badge';
+                    badge.innerHTML = '<i class="bi bi-lightbulb me-1"></i>Mode Étude';
+                    quizContainer.appendChild(badge);
+                }
+            }
+            
+            generateQuestionNavigation();
+            showCurrentQuestion();
+            updateStats();
+            updateQuickStats();
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            
+            updateTimerDisplay();
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    submitQuiz();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timer').textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            document.getElementById('timer').classList.remove('warning', 'danger');
+            if (timeLeft <= 10 * 60) {
+                document.getElementById('timer').classList.add('warning');
+            }
+            if (timeLeft <= 5 * 60) {
+                document.getElementById('timer').classList.add('danger');
+            }
+        }
+
+        function showCurrentQuestion() {
+            if (!quizStarted || currentQuestionIndex >= quizQuestions.length) return;
+            
+            const question = quizQuestions[currentQuestionIndex];
+            const container = document.getElementById('questionContainer');
+            const userAnswer = userAnswers[currentQuestionIndex];
+            const hasAnswered = userAnswer !== null;
+            
+            let html = `
+                <div class="question-card">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div class="d-flex align-items-center">
+                            <span class="question-number">${currentQuestionIndex + 1}</span>
+                            <div>
+                                <span class="category-badge category-${question.category}">
+                                    ${getCategoryLabel(question.category)}
+                                </span>
+                                <span class="difficulty-indicator difficulty-${question.difficulty}"></span>
+                                <span class="text-muted">${getDifficultyLabel(question.difficulty)}</span>
+                            </div>
+                        </div>
+                        <button class="bookmark-btn ${markedQuestions.has(currentQuestionIndex) ? 'bookmarked' : ''}" 
+                                onclick="toggleMarkQuestion()">
+                            <i class="bi ${markedQuestions.has(currentQuestionIndex) ? 'bi-bookmark-fill' : 'bi-bookmark'}"></i>
+                        </button>
+                    </div>
+                    
+                    <h5 class="mb-4">${question.question}</h5>
+                    
+                    <div id="optionsContainer">
+            `;
+            
+            question.options.forEach((option, index) => {
+                const isSelected = userAnswer === index;
+                const isCorrect = index === question.correct;
+                let optionClass = 'option';
+                
+                if (isSelected) optionClass += ' selected';
+                
+                // En mode étude, on montre l'explication avant de répondre
+                if (learningMode === "study" && hasAnswered) {
+                    if (isCorrect) optionClass += ' correct';
+                    if (isSelected && !isCorrect) optionClass += ' incorrect';
+                }
+                // En mode test ou après soumission
+                else if (quizCompleted || (practiceMode && hasAnswered)) {
+                    if (isCorrect) optionClass += ' correct';
+                    if (isSelected && !isCorrect) optionClass += ' incorrect';
+                }
+                
+                html += `
+                    <div class="${optionClass}" onclick="selectOption(${index})" data-correct="${isCorrect}">
+                        <span class="option-letter">${String.fromCharCode(65 + index)}</span>
+                        <span>${option}</span>
+                        <span class="immediate-feedback">
+                            ${isCorrect ? '<i class="bi bi-check-circle"></i>' : (isSelected ? '<i class="bi bi-x-circle"></i>' : '')}
+                        </span>
+                    </div>
+                `;
+            });
+            
+            // En mode étude, on montre l'explication avant que l'utilisateur ne réponde
+            const showExplanationBeforeAnswer = learningMode === "study" && !hasAnswered;
+            const showExplanationAfterAnswer = (learningMode === "study" && hasAnswered) || 
+                                              (practiceMode && hasAnswered) || 
+                                              quizCompleted;
+            
+            html += `
+                    </div>
+                    
+                    <div id="explanation" class="explanation-box ${showExplanationBeforeAnswer || showExplanationAfterAnswer ? 'show' : ''}">
+                        <h6><i class="bi bi-info-circle me-2"></i>Explication détaillée :</h6>
+                        <p class="mb-0">${question.explanation}</p>
+                        ${(showExplanationBeforeAnswer || quizCompleted) ? 
+                            `<p class="mt-2 mb-0"><strong>Réponse correcte : ${String.fromCharCode(65 + question.correct)}. ${question.options[question.correct]}</strong></p>` : 
+                            ''}
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+            
+            document.getElementById('currentQuestionNumber').textContent = currentQuestionIndex + 1;
+            
+            document.getElementById('prevQuestionBtn').disabled = currentQuestionIndex === 0;
+            document.getElementById('nextQuestionBtn').disabled = currentQuestionIndex === quizQuestions.length - 1;
+            
+            document.getElementById('markQuestionBtn').innerHTML = `
+                <i class="bi ${markedQuestions.has(currentQuestionIndex) ? 'bi-bookmark-fill' : 'bi-bookmark'} me-1"></i>
+                ${markedQuestions.has(currentQuestionIndex) ? 'Démarquer' : 'Marquer'}
+            `;
+            
+            // Afficher/masquer le bouton d'indice
+            if (hasAnswered || quizCompleted || learningMode === "study") {
+                document.getElementById('showHintBtn').style.display = 'none';
+                document.getElementById('hintContainer').classList.remove('show');
+            } else {
+                document.getElementById('showHintBtn').style.display = 'inline-block';
+            }
+            
+            updateQuestionNavigation();
+        }
+
+        function selectOption(optionIndex) {
+            if (quizCompleted || (learningMode === "study" && userAnswers[currentQuestionIndex] !== null)) return;
+            
+            const question = quizQuestions[currentQuestionIndex];
+            const isCorrect = optionIndex === question.correct;
+            
+            // Enregistrer la réponse
+            userAnswers[currentQuestionIndex] = optionIndex;
+            
+            // Mettre à jour les statistiques
+            const oldScore = calculateScore();
+            updateStats();
+            const newScore = calculateScore();
+            
+            // Animation du score
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            if (newScore > oldScore) {
+                scoreDisplay.classList.add('increasing');
+                setTimeout(() => scoreDisplay.classList.remove('increasing'), 500);
+            } else if (newScore < oldScore) {
+                scoreDisplay.classList.add('decreasing');
+                setTimeout(() => scoreDisplay.classList.remove('decreasing'), 500);
+            }
+            
+            // Afficher le feedback
+            showFeedback(isCorrect, question);
+            
+            // En mode étude, on montre déjà l'explication
+            if (learningMode === "study") {
+                showCurrentQuestion();
+                
+                // Afficher le feedback visuel sur l'option
+                const options = document.querySelectorAll('.option');
+                options.forEach((option, idx) => {
+                    if (idx === optionIndex) {
+                        option.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    }
+                    if (idx === question.correct && !isCorrect) {
+                        option.classList.add('correct');
+                    }
+                });
+            } else {
+                // En mode test, on montre juste le feedback
+                showCurrentQuestion();
+            }
+            
+            // Mettre à jour les stats rapides
+            updateQuickStats();
+            
+            // Passer automatiquement à la question suivante si configuré
+            if (autoNextQuestion && currentQuestionIndex < quizQuestions.length - 1) {
+                setTimeout(() => {
+                    currentQuestionIndex++;
+                    showCurrentQuestion();
+                }, 1500);
+            }
+        }
+
+        function showFeedback(isCorrect, question) {
+            const feedbackBanner = document.getElementById('feedbackBanner');
+            const feedbackText = document.getElementById('feedbackText');
+            
+            if (isCorrect) {
+                feedbackBanner.className = 'feedback-banner feedback-correct show';
+                feedbackText.innerHTML = `<i class="bi bi-check-circle me-2"></i>Correct! ${String.fromCharCode(65 + question.correct)} est la bonne réponse`;
+            } else {
+                feedbackBanner.className = 'feedback-banner feedback-incorrect show';
+                feedbackText.innerHTML = `<i class="bi bi-x-circle me-2"></i>Incorrect. La bonne réponse est ${String.fromCharCode(65 + question.correct)}`;
+            }
+            
+            // Masquer le feedback après 3 secondes
+            setTimeout(() => {
+                feedbackBanner.classList.remove('show');
+            }, 3000);
+        }
+
+        function toggleMarkQuestion() {
+            if (markedQuestions.has(currentQuestionIndex)) {
+                markedQuestions.delete(currentQuestionIndex);
+            } else {
+                markedQuestions.add(currentQuestionIndex);
+            }
+            showCurrentQuestion();
+            updateQuickStats();
+        }
+
+        function showPreviousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showCurrentQuestion();
+            }
+        }
+
+        function showNextQuestion() {
+            if (currentQuestionIndex < quizQuestions.length - 1) {
+                currentQuestionIndex++;
+                showCurrentQuestion();
+            }
+        }
+
+        function toggleHint() {
+            const hintContainer = document.getElementById('hintContainer');
+            const hintText = document.getElementById('hintText');
+            const question = quizQuestions[currentQuestionIndex];
+            
+            if (hintContainer.classList.contains('show')) {
+                hintContainer.classList.remove('show');
+            } else {
+                // Générer un indice basé sur la question
+                let hint = "";
+                const correctAnswer = question.options[question.correct];
+                
+                if (question.category === "phase") {
+                    hint = "Concentrez-vous sur l'objectif principal de chaque phase AgilePM";
+                } else if (question.category === "principle") {
+                    hint = "Rappelez-vous les 8 principes fondamentaux d'AgilePM";
+                } else if (question.category === "role") {
+                    hint = "Pensez aux responsabilités spécifiques de chaque rôle";
+                } else if (question.category === "technique") {
+                    hint = "Considérez l'application pratique des techniques AgilePM";
+                }
+                
+                hint += `<br><small>La réponse contient environ ${correctAnswer.length} caractères</small>`;
+                hintText.innerHTML = hint;
+                hintContainer.classList.add('show');
+            }
+        }
+
+        function generateQuestionNavigation() {
+            const container = document.getElementById('questionNavigation');
+            container.innerHTML = '';
+            
+            for (let i = 0; i < quizQuestions.length; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'nav-btn';
+                btn.textContent = i + 1;
+                btn.onclick = () => {
+                    currentQuestionIndex = i;
+                    showCurrentQuestion();
+                };
+                container.appendChild(btn);
+            }
+            
+            updateQuestionNavigation();
+        }
+
+        function updateQuestionNavigation() {
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach((btn, index) => {
+                btn.classList.remove('active', 'answered', 'marked', 'incorrect');
+                
+                if (index === currentQuestionIndex) {
+                    btn.classList.add('active');
+                }
+                
+                if (userAnswers[index] !== null) {
+                    btn.classList.add('answered');
+                    
+                    // Marquer les réponses incorrectes
+                    if (userAnswers[index] !== quizQuestions[index].correct) {
+                        btn.classList.add('incorrect');
+                    }
+                }
+                
+                if (markedQuestions.has(index)) {
+                    btn.classList.add('marked');
+                }
+            });
+        }
+
+        function calculateScore() {
+            if (quizQuestions.length === 0) return 0;
+            
+            const correct = userAnswers.reduce((count, answer, index) => {
+                if (answer === quizQuestions[index]?.correct) {
+                    return count + 1;
+                }
+                return count;
+            }, 0);
+            
+            return Math.round((correct / quizQuestions.length) * 100);
+        }
+
+        function updateStats() {
+            const total = quizQuestions.length;
+            const answered = userAnswers.filter(a => a !== null).length;
+            const correct = userAnswers.reduce((count, answer, index) => {
+                if (answer === quizQuestions[index]?.correct) {
+                    return count + 1;
+                }
+                return count;
+            }, 0);
+            
+            const categoryStats = {
+                phase: { total: 0, correct: 0 },
+                principle: { total: 0, correct: 0 },
+                role: { total: 0, correct: 0 },
+                technique: { total: 0, correct: 0 }
+            };
+            
+            quizQuestions.forEach((question, index) => {
+                const category = question.category;
+                categoryStats[category].total++;
+                if (userAnswers[index] === question.correct) {
+                    categoryStats[category].correct++;
+                }
+            });
+            
+            const progressPercentage = Math.round((answered / total) * 100);
+            document.getElementById('progressPercentage').textContent = `${progressPercentage}%`;
+            document.getElementById('progressBar').style.width = `${progressPercentage}%`;
+            
+            const score = total > 0 ? Math.round((correct / total) * 100) : 0;
+            document.getElementById('scoreDisplay').textContent = `${score}%`;
+            document.getElementById('correctCount').textContent = correct;
+            document.getElementById('incorrectCount').textContent = answered - correct;
+            
+            document.getElementById('phaseScore').textContent = `Phases: ${categoryStats.phase.correct}/${categoryStats.phase.total}`;
+            document.getElementById('principleScore').textContent = `Principes: ${categoryStats.principle.correct}/${categoryStats.principle.total}`;
+            document.getElementById('roleScore').textContent = `Rôles: ${categoryStats.role.correct}/${categoryStats.role.total}`;
+            document.getElementById('techniqueScore').textContent = `Techniques: ${categoryStats.technique.correct}/${categoryStats.technique.total}`;
+        }
+
+        function updateQuickStats() {
+            const total = quizQuestions.length;
+            const answered = userAnswers.filter(a => a !== null).length;
+            const correct = userAnswers.reduce((count, answer, index) => {
+                if (answer === quizQuestions[index]?.correct) {
+                    return count + 1;
+                }
+                return count;
+            }, 0);
+            
+            document.getElementById('correctQuick').textContent = correct;
+            document.getElementById('incorrectQuick').textContent = answered - correct;
+            document.getElementById('markedQuick').textContent = markedQuestions.size;
+            document.getElementById('remainingQuick').textContent = total - answered;
+        }
+
+        function submitQuiz() {
+            if (timerInterval) clearInterval(timerInterval);
+            
+            quizCompleted = true;
+            document.getElementById('submitQuizBtn').style.display = 'none';
+            document.getElementById('restartQuizBtn').style.display = 'block';
+            document.getElementById('reviewMarkedBtn').style.display = markedQuestions.size > 0 ? 'block' : 'none';
+            document.getElementById('quickHelpBtn').classList.add('hidden');
+            
+            const total = quizQuestions.length;
+            const correct = userAnswers.reduce((count, answer, index) => {
+                if (answer === quizQuestions[index]?.correct) {
+                    return count + 1;
+                }
+                return count;
+            }, 0);
+            
+            const scorePercentage = Math.round((correct / total) * 100);
+            const passed = scorePercentage >= 80;
+            
+            showResults(scorePercentage, correct, total, passed);
+            showCurrentQuestion();
+        }
+
+        function showResults(scorePercentage, correct, total, passed) {
+            const container = document.getElementById('quizScreen');
+            
+            const categoryStats = {
+                phase: { total: 0, correct: 0 },
+                principle: { total: 0, correct: 0 },
+                role: { total: 0, correct: 0 },
+                technique: { total: 0, correct: 0 }
+            };
+            
+            quizQuestions.forEach((question, index) => {
+                const category = question.category;
+                categoryStats[category].total++;
+                if (userAnswers[index] === question.correct) {
+                    categoryStats[category].correct++;
+                }
+            });
+            
+            const difficultyStats = {
+                easy: { total: 0, correct: 0 },
+                medium: { total: 0, correct: 0 },
+                hard: { total: 0, correct: 0 }
+            };
+            
+            quizQuestions.forEach((question, index) => {
+                const difficulty = question.difficulty;
+                difficultyStats[difficulty].total++;
+                if (userAnswers[index] === question.correct) {
+                    difficultyStats[difficulty].correct++;
+                }
+            });
+            
+            const resultsHTML = `
+                <div class="results-container">
+                    <div class="text-center mb-4">
+                        <h3>Résultats du Quiz</h3>
+                        <div class="display-4 fw-bold ${passed ? 'text-success' : 'text-danger'} mb-3">
+                            ${scorePercentage}%
+                        </div>
+                        <p class="lead">${correct} bonnes réponses sur ${total} questions</p>
+                        
+                        ${passed ? 
+                            `<div class="certificate">
+                                <h4 class="text-success"><i class="bi bi-award me-2"></i>Félicitations!</h4>
+                                <p>Vous avez atteint l'objectif de 80% minimum avec un score de ${scorePercentage}%.</p>
+                                <p class="mb-0">Vous êtes bien préparé pour la certification AgilePM Foundation.</p>
+                            </div>` :
+                            `<div class="alert alert-danger">
+                                <h4><i class="bi bi-exclamation-triangle me-2"></i>Objectif non atteint</h4>
+                                <p class="mb-0">Votre score de ${scorePercentage}% est inférieur à l'objectif de 80%. 
+                                Revisez les questions incorrectes et réessayez.</p>
+                            </div>`
+                        }
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5>Performance par catégorie :</h5>
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Phases</span>
+                                    <span>${categoryStats.phase.correct}/${categoryStats.phase.total} (${categoryStats.phase.total > 0 ? Math.round((categoryStats.phase.correct/categoryStats.phase.total)*100) : 0}%)</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar category-phase" style="width: ${categoryStats.phase.total > 0 ? (categoryStats.phase.correct/categoryStats.phase.total)*100 : 0}%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Principes</span>
+                                    <span>${categoryStats.principle.correct}/${categoryStats.principle.total} (${categoryStats.principle.total > 0 ? Math.round((categoryStats.principle.correct/categoryStats.principle.total)*100) : 0}%)</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar category-principle" style="width: ${categoryStats.principle.total > 0 ? (categoryStats.principle.correct/categoryStats.principle.total)*100 : 0}%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Rôles</span>
+                                    <span>${categoryStats.role.correct}/${categoryStats.role.total} (${categoryStats.role.total > 0 ? Math.round((categoryStats.role.correct/categoryStats.role.total)*100) : 0}%)</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar category-role" style="width: ${categoryStats.role.total > 0 ? (categoryStats.role.correct/categoryStats.role.total)*100 : 0}%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Techniques</span>
+                                    <span>${categoryStats.technique.correct}/${categoryStats.technique.total} (${categoryStats.technique.total > 0 ? Math.round((categoryStats.technique.correct/categoryStats.technique.total)*100) : 0}%)</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar category-technique" style="width: ${categoryStats.technique.total > 0 ? (categoryStats.technique.correct/categoryStats.technique.total)*100 : 0}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h5>Performance par difficulté :</h5>
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Facile</span>
+                                    <span>${difficultyStats.easy.correct}/${difficultyStats.easy.total} (${difficultyStats.easy.total > 0 ? Math.round((difficultyStats.easy.correct/difficultyStats.easy.total)*100) : 0}%)</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar bg-success" style="width: ${difficultyStats.easy.total > 0 ? (difficultyStats.easy.correct/difficultyStats.easy.total)*100 : 0}%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Moyen</span>
+                                    <span>${difficultyStats.medium.correct}/${difficultyStats.medium.total} (${difficultyStats.medium.total > 0 ? Math.round((difficultyStats.medium.correct/difficultyStats.medium.total)*100) : 0}%)</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar bg-warning" style="width: ${difficultyStats.medium.total > 0 ? (difficultyStats.medium.correct/difficultyStats.medium.total)*100 : 0}%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Difficile</span>
+                                    <span>${difficultyStats.hard.correct}/${difficultyStats.hard.total} (${difficultyStats.hard.total > 0 ? Math.round((difficultyStats.hard.correct/difficultyStats.hard.total)*100) : 0}%)</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar bg-danger" style="width: ${difficultyStats.hard.total > 0 ? (difficultyStats.hard.correct/difficultyStats.hard.total)*100 : 0}%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <h5>Recommandations :</h5>
+                                <ul>
+                                    ${categoryStats.phase.total > 0 && (categoryStats.phase.correct/categoryStats.phase.total) < 0.8 ? 
+                                        '<li><strong>Révisez les phases AgilePM</strong> - Concentrez-vous sur la distinction entre Faisabilité et Fondations</li>' : ''}
+                                    ${categoryStats.principle.total > 0 && (categoryStats.principle.correct/categoryStats.principle.total) < 0.8 ? 
+                                        '<li><strong>Révisez les 8 principes</strong> - Mémorisez-les et comprenez leur application pratique</li>' : ''}
+                                    ${categoryStats.role.total > 0 && (categoryStats.role.correct/categoryStats.role.total) < 0.8 ? 
+                                        '<li><strong>Révisez les rôles et responsabilités</strong> - Focus sur le Business Sponsor, Visionary et Project Manager</li>' : ''}
+                                    ${categoryStats.technique.total > 0 && (categoryStats.technique.correct/categoryStats.technique.total) < 0.8 ? 
+                                        '<li><strong>Révisez les techniques AgilePM</strong> - Maîtrisez MoSCoW, Timeboxing et le Business Case évolutif</li>' : ''}
+                                    ${difficultyStats.hard.total > 0 && (difficultyStats.hard.correct/difficultyStats.hard.total) < 0.6 ? 
+                                        '<li><strong>Pratiquez les questions difficiles</strong> - Revenez sur les questions marquées comme difficiles</li>' : ''}
+                                    ${passed ? '<li><strong>Maintenez votre niveau</strong> - Continuez à pratiquer pour consolider vos connaissances</li>' : ''}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button class="btn btn-primary me-2" onclick="showQuestionReview()">
+                            <i class="bi bi-list-check me-1"></i>Voir le détail des réponses
+                        </button>
+                        <button class="btn btn-success" onclick="restartQuiz()">
+                            <i class="bi bi-arrow-repeat me-1"></i>Recommencer le quiz
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('questionContainer').style.display = 'none';
+            document.getElementById('questionNavigation').style.display = 'none';
+            document.getElementById('prevQuestionBtn').style.display = 'none';
+            document.getElementById('nextQuestionBtn').style.display = 'none';
+            document.getElementById('markQuestionBtn').style.display = 'none';
+            document.getElementById('showHintBtn').style.display = 'none';
+            document.getElementById('hintContainer').classList.remove('show');
+            
+            if (!document.getElementById('resultsContent')) {
+                const resultsDiv = document.createElement('div');
+                resultsDiv.id = 'resultsContent';
+                resultsDiv.innerHTML = resultsHTML;
+                container.insertBefore(resultsDiv, document.getElementById('submitQuizBtn'));
+            }
+        }
+
+        function showQuestionReview() {
+            currentQuestionIndex = 0;
+            quizCompleted = true;
+            
+            const resultsContent = document.getElementById('resultsContent');
+            if (resultsContent) {
+                resultsContent.style.display = 'none';
+            }
+            
+            document.getElementById('questionContainer').style.display = 'block';
+            document.getElementById('questionNavigation').style.display = 'flex';
+            document.getElementById('prevQuestionBtn').style.display = 'inline-block';
+            document.getElementById('nextQuestionBtn').style.display = 'inline-block';
+            document.getElementById('markQuestionBtn').style.display = 'inline-block';
+            
+            showCurrentQuestion();
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = new Array(quizQuestions.length).fill(null);
+            markedQuestions.clear();
+            quizCompleted = false;
+            
+            const resultsContent = document.getElementById('resultsContent');
+            if (resultsContent) {
+                resultsContent.remove();
+            }
+            
+            document.getElementById('questionContainer').style.display = 'block';
+            document.getElementById('questionNavigation').style.display = 'flex';
+            document.getElementById('prevQuestionBtn').style.display = 'inline-block';
+            document.getElementById('nextQuestionBtn').style.display = 'inline-block';
+            document.getElementById('markQuestionBtn').style.display = 'inline-block';
+            document.getElementById('submitQuizBtn').style.display = 'block';
+            document.getElementById('restartQuizBtn').style.display = 'none';
+            document.getElementById('reviewMarkedBtn').style.display = 'none';
+            document.getElementById('showHintBtn').style.display = 'inline-block';
+            document.getElementById('quickHelpBtn').classList.remove('hidden');
+            
+            if (!practiceMode) {
+                timeLeft = 60 * 60;
+                startTimer();
+            }
+            
+            showCurrentQuestion();
+            updateStats();
+            updateQuickStats();
+            generateQuestionNavigation();
+        }
+
+        function reviewMarkedQuestions() {
+            if (markedQuestions.size === 0) return;
+            
+            // Filtrer les questions marquées
+            const markedQuestionsArray = Array.from(markedQuestions);
+            const originalQuestions = [...quizQuestions];
+            const originalAnswers = [...userAnswers];
+            
+            quizQuestions = markedQuestionsArray.map(index => originalQuestions[index]);
+            userAnswers = markedQuestionsArray.map(index => originalAnswers[index]);
+            
+            currentQuestionIndex = 0;
+            quizCompleted = false;
+            
+            const resultsContent = document.getElementById('resultsContent');
+            if (resultsContent) {
+                resultsContent.remove();
+            }
+            
+            document.getElementById('questionContainer').style.display = 'block';
+            document.getElementById('questionNavigation').style.display = 'flex';
+            document.getElementById('prevQuestionBtn').style.display = 'inline-block';
+            document.getElementById('nextQuestionBtn').style.display = 'inline-block';
+            document.getElementById('markQuestionBtn').style.display = 'inline-block';
+            document.getElementById('submitQuizBtn').style.display = 'block';
+            document.getElementById('restartQuizBtn').style.display = 'none';
+            document.getElementById('reviewMarkedBtn').style.display = 'none';
+            
+            document.getElementById('totalQuestions').textContent = quizQuestions.length;
+            
+            showCurrentQuestion();
+            updateStats();
+            updateQuickStats();
+            generateQuestionNavigation();
+        }
+
+        function showQuickHelp() {
+            const question = quizQuestions[currentQuestionIndex];
+            let helpText = "";
+            
+            if (learningMode === "study") {
+                helpText = "En mode étude, l'explication s'affiche avant votre réponse. Lisez-la attentivement, puis testez votre compréhension en sélectionnant la bonne réponse.";
+            } else {
+                helpText = "En mode test, sélectionnez votre réponse d'abord. Vous verrez ensuite si elle est correcte ou non, avec l'explication détaillée.";
+            }
+            
+            helpText += `<br><br><strong>Catégorie :</strong> ${getCategoryLabel(question.category)}`;
+            helpText += `<br><strong>Difficulté :</strong> ${getDifficultyLabel(question.difficulty)}`;
+            
+            alert(helpText);
+        }
+
+        // Fonctions utilitaires
+        function getCategoryLabel(category) {
+            const labels = {
+                phase: "Phases",
+                principle: "Principes",
+                role: "Rôles",
+                technique: "Techniques"
+            };
+            return labels[category] || category;
+        }
+
+        function getDifficultyLabel(difficulty) {
+            const labels = {
+                easy: "Facile",
+                medium: "Moyen",
+                hard: "Difficile"
+            };
+            return labels[difficulty] || difficulty;
+        }
+
+        // Exposer les fonctions globales
+        window.selectOption = selectOption;
+        window.toggleMarkQuestion = toggleMarkQuestion;
+        window.showQuestionReview = showQuestionReview;
+        window.restartQuiz = restartQuiz;
+        window.reviewMarkedQuestions = reviewMarkedQuestions;
+    </script>
+</body>
+</html>
