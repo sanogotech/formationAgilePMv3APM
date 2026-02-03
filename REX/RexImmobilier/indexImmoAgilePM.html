@@ -1,0 +1,3712 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portail Immobilier Agile - Réussir Vos Projets</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <style>
+    :root {
+      --primary-color: #1a5276;
+      --secondary-color: #3498db;
+      --accent-color: #e74c3c;
+      --success-color: #27ae60;
+      --warning-color: #f39c12;
+      --light-bg: #f8f9fa;
+      --dark-bg: #2c3e50;
+    }
+
+    body {
+      background-color: var(--light-bg);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+    }
+
+    .navbar {
+      background-color: var(--primary-color);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      color: white;
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      color: white;
+      padding: 5rem 0;
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+      background-size: cover;
+    }
+
+    .card {
+      border: none;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .card-header {
+      background-color: var(--primary-color);
+      color: white;
+      font-weight: 600;
+      padding: 1rem 1.5rem;
+    }
+
+    .phase-card {
+      border-left: 5px solid;
+      margin-bottom: 1.5rem;
+    }
+
+    .phase-1 { border-left-color: #2ecc71; }
+    .phase-2 { border-left-color: #3498db; }
+    .phase-3 { border-left-color: #f39c12; }
+    .phase-4 { border-left-color: #9b59b6; }
+
+    .error-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .critical-badge { background-color: #e74c3c; color: white; }
+    .high-badge { background-color: #f39c12; color: white; }
+    .medium-badge { background-color: #3498db; color: white; }
+    .low-badge { background-color: #2ecc71; color: white; }
+
+    .risk-matrix {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .risk-matrix th, .risk-matrix td {
+      padding: 0.75rem;
+      text-align: center;
+      border: 1px solid #dee2e6;
+    }
+
+    .risk-matrix th {
+      background-color: var(--primary-color);
+      color: white;
+      font-weight: 600;
+    }
+
+    .risk-critical { background-color: #e74c3c; color: white; }
+    .risk-high { background-color: #f39c12; color: white; }
+    .risk-medium { background-color: #ffd700; color: #333; }
+    .risk-low { background-color: #2ecc71; color: white; }
+
+    .checklist-item {
+      padding: 0.75rem;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .checklist-item:last-child {
+      border-bottom: none;
+    }
+
+    .checklist-item input[type="checkbox"] {
+      margin-right: 1rem;
+      margin-top: 0.25rem;
+    }
+
+    .checklist-item label {
+      flex: 1;
+      margin-bottom: 0;
+      cursor: pointer;
+    }
+
+    .checklist-item.completed {
+      background-color: rgba(46, 204, 113, 0.1);
+      text-decoration: line-through;
+      color: #777;
+    }
+
+    .process-step {
+      position: relative;
+      padding-left: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .process-step:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      background-color: var(--secondary-color);
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    .process-step:after {
+      content: "";
+      position: absolute;
+      left: 9px;
+      top: 20px;
+      width: 2px;
+      height: 100%;
+      background-color: var(--secondary-color);
+      z-index: 1;
+    }
+
+    .process-step:last-child:after {
+      display: none;
+    }
+
+    .wisdom-box {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border-left: 5px solid var(--primary-color);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .impact-item {
+      background-color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .impact-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 1.5rem;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      color: #666;
+      margin-top: 0.5rem;
+    }
+
+    .tab-content {
+      padding: 1.5rem 0;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .comparison-table th, .comparison-table td {
+      padding: 1rem;
+      border: 1px solid #dee2e6;
+      text-align: left;
+    }
+
+    .comparison-table th {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .comparison-table tr:nth-child(even) {
+      background-color: #f8f9fa;
+    }
+
+    footer {
+      background-color: var(--dark-bg);
+      color: white;
+      padding: 3rem 0;
+      margin-top: 4rem;
+    }
+
+    .timeline {
+      position: relative;
+      padding: 2rem 0;
+    }
+
+    .timeline:before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background-color: var(--secondary-color);
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3rem;
+      width: 50%;
+      padding-right: 3rem;
+    }
+
+    .timeline-item:nth-child(even) {
+      margin-left: 50%;
+      padding-left: 3rem;
+      padding-right: 0;
+    }
+
+    .timeline-item:before {
+      content: "";
+      position: absolute;
+      right: -10px;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      background-color: var(--secondary-color);
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    .timeline-item:nth-child(even):before {
+      right: auto;
+      left: -10px;
+    }
+
+    .methodology-card {
+      border-top: 4px solid;
+      height: 100%;
+    }
+
+    .agile-card { border-top-color: #3498db; }
+    .traditional-card { border-top-color: #e74c3c; }
+    .hybrid-card { border-top-color: #9b59b6; }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 3rem 0;
+      }
+      
+      .timeline:before {
+        left: 20px;
+      }
+      
+      .timeline-item {
+        width: 100%;
+        padding-left: 3rem;
+        padding-right: 0;
+      }
+      
+      .timeline-item:nth-child(even) {
+        margin-left: 0;
+        padding-left: 3rem;
+      }
+      
+      .timeline-item:before {
+        right: auto;
+        left: 10px;
+      }
+      
+      .timeline-item:nth-child(even):before {
+        left: 10px;
+      }
+    }
+
+    .interactive-chart {
+      background-color: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+
+    .chart-bar {
+      height: 30px;
+      background-color: #eee;
+      border-radius: 15px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .chart-fill {
+      height: 100%;
+      border-radius: 15px;
+      transition: width 1s ease;
+      position: relative;
+    }
+
+    .chart-label {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: white;
+      font-weight: 600;
+      z-index: 2;
+    }
+	
+
+  .scrum-board {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+  }
+
+  .scrum-column {
+    min-width: 250px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .scrum-column-header {
+    font-weight: bold;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #ddd;
+    text-align: center;
+  }
+
+  .scrum-card {
+    background-color: white;
+    border-radius: 6px;
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  .scrum-card h6 {
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+  }
+
+  .scrum-card small {
+    color: #666;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 768px) {
+    .scrum-board {
+      flex-direction: column;
+    }
+    
+    .scrum-column {
+      min-width: 100%;
+    }
+  }
+  
+  .table-responsive {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.table thead th {
+  position: sticky;
+  top: 0;
+  background-color: #343a40;
+  z-index: 10;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(0, 123, 255, 0.1);
+}
+
+/* Style pour les onglets de tableaux */
+.nav-tabs .nav-link {
+  border: 1px solid transparent;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.nav-tabs .nav-link.active {
+  border-color: #dee2e6 #dee2e6 #fff;
+  font-weight: 600;
+}
+
+/* Animation pour les indicateurs */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fs-3.fw-bold {
+  animation: countUp 1s ease-out;
+}
+
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="bi bi-house-check me-2"></i>Portail Immobilier Agile
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#erreurs">Erreurs à Éviter</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#checklist">Checklist 360°</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#methodologie">Méthodologie</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#agile">Approche Agile</a>
+          </li>
+		  	<!-- AJOUTER DANS LA NAVIGATION (dans la balise <nav>) -->
+			<li class="nav-item">
+			  <a class="nav-link" href="#agilepm-v3">AgilePM v3</a>
+			</li>
+          <li class="nav-item">
+            <a class="nav-link" href="#ouest-afrique">Afrique de l'Ouest</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#outils">Outils & Simulateurs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#ressources">Ressources</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero-section">
+    <div class="container text-center position-relative">
+      <h1 class="display-4 fw-bold mb-3">Réussir Votre Projet Immobilier avec les Méthodes Agiles</h1>
+      <p class="lead mb-4">Évitez les pièges courants, gérez efficacement votre budget et livrez votre projet dans les délais grâce à une approche structurée et adaptative</p>
+      <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a href="#erreurs" class="btn btn-light btn-lg px-4">Découvrir les erreurs critiques</a>
+        <a href="#checklist" class="btn btn-outline-light btn-lg px-4">Utiliser la checklist</a>
+        <a href="#simulateur" class="btn btn-warning btn-lg px-4">Simulateur de budget</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container mb-5">
+    <!-- Section Statistiques -->
+    <section class="mb-5">
+      <div class="row g-4">
+        <div class="col-md-3 col-sm-6">
+          <div class="stat-card">
+            <div class="stat-number">80%</div>
+            <div class="stat-label">des projets dépassent le budget</div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="stat-card">
+            <div class="stat-number">65%</div>
+            <div class="stat-label">des projets ont des retards importants</div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="stat-card">
+            <div class="stat-number">50%</div>
+            <div class="stat-label">des litiges sont dus à l'absence de contrat</div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="stat-card">
+            <div class="stat-number">90%</div>
+            <div class="stat-label">de réussite avec une approche structurée</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Erreurs à Éviter -->
+    <section id="erreurs" class="mb-5">
+      <h2 class="text-center mb-4">Typologie des Erreurs dans un Projet de Construction</h2>
+      
+      <ul class="nav nav-tabs justify-content-center mb-4" id="errorsTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="strategic-tab" data-bs-toggle="tab" data-bs-target="#strategic" type="button">Erreurs Stratégiques</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="technical-tab" data-bs-toggle="tab" data-bs-target="#technical" type="button">Erreurs Techniques</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="financial-tab" data-bs-toggle="tab" data-bs-target="#financial" type="button">Erreurs Financières</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="legal-tab" data-bs-toggle="tab" data-bs-target="#legal" type="button">Erreurs Juridiques</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="human-tab" data-bs-toggle="tab" data-bs-target="#human" type="button">Erreurs Humaines</button>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="errorsTabContent">
+        <!-- Erreurs Stratégiques -->
+        <div class="tab-pane fade show active" id="strategic">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="mb-0"><i class="bi bi-binoculars me-2"></i>Erreurs Stratégiques (Vision & Cadrage)</h4>
+            </div>
+            <div class="card-body">
+              <div class="alert alert-danger">
+                <h5><i class="bi bi-x-circle me-2"></i>Construire sans vision claire</h5>
+                <p class="mb-1">Pas de programme fonctionnel (nombre de chambres, surface cible, évolution familiale)</p>
+                <p class="mb-1">Pas de priorités (budget vs standing vs délai)</p>
+                
+                <div class="mt-3">
+                  <h6>Impact :</h6>
+                  <ul>
+                    <li>Modifications permanentes</li>
+                    <li>Dérapage budgétaire</li>
+                    <li>Frustration continue</li>
+                  </ul>
+                </div>
+                
+                <div class="alert alert-warning mt-3">
+                  <i class="bi bi-megaphone me-2"></i>
+                  <strong>Signal d'alerte :</strong> "On verra sur le chantier…"
+                </div>
+                
+                <div class="alert alert-success mt-3">
+                  <i class="bi bi-check-circle me-2"></i>
+                  <strong>Bonne pratique :</strong> Rédiger un mini cahier des charges avant toute chose.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Erreurs Techniques -->
+        <div class="tab-pane fade" id="technical">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <div class="card h-100">
+                <div class="card-header">
+                  <h5 class="mb-0"><i class="bi bi-file-earmark me-2"></i>Utiliser des plans trouvés sur internet</h5>
+                </div>
+                <div class="card-body">
+                  <ul>
+                    <li>Non adaptés au climat local (Côte d'Ivoire = chaleur, humidité)</li>
+                    <li>Non adaptés au terrain</li>
+                    <li>Non conformes aux normes locales</li>
+                  </ul>
+                  
+                  <h6 class="mt-3">Impact :</h6>
+                  <ul>
+                    <li>Mauvaise ventilation</li>
+                    <li>Surcoûts structurels</li>
+                    <li>Inconfort thermique</li>
+                  </ul>
+                  
+                  <div class="alert alert-success mt-3">
+                    <i class="bi bi-check-circle me-2"></i>
+                    <strong>Solution :</strong> Faire adapter le plan par un architecte local.
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+              <div class="card h-100">
+                <div class="card-header">
+                  <h5 class="mb-0"><i class="bi bi-pencil-square me-2"></i>Modifier les plans en cours de chantier</h5>
+                </div>
+                <div class="card-body">
+                  <p><strong>Exemple :</strong></p>
+                  <ul>
+                    <li>Agrandir une chambre après fondations</li>
+                    <li>Déplacer une salle d'eau</li>
+                  </ul>
+                  
+                  <h6 class="mt-3">Impact :</h6>
+                  <ul>
+                    <li>Surcoût béton/ferraillage</li>
+                    <li>Retard chantier</li>
+                    <li>Problèmes structurels</li>
+                  </ul>
+                  
+                  <div class="alert alert-warning mt-3">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    <strong>Règle d'or :</strong> Les changements doivent être validés AVANT le démarrage du gros œuvre.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Erreurs Financières -->
+        <div class="tab-pane fade" id="financial">
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <div class="card h-100">
+                <div class="card-header bg-danger text-white">
+                  <h5 class="mb-0"><i class="bi bi-cash-stack me-2"></i>Absence de budget global</h5>
+                </div>
+                <div class="card-body">
+                  <p>Payer "au fil de l'eau" sans vision totale.</p>
+                  
+                  <h6 class="mt-3">Conséquence :</h6>
+                  <ul>
+                    <li>Maison inachevée</li>
+                    <li>Finitions sacrifiées</li>
+                    <li>Endettement imprévu</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-4 mb-3">
+              <div class="card h-100">
+                <div class="card-header bg-warning text-dark">
+                  <h5 class="mb-0"><i class="bi bi-clipboard-data me-2"></i>Ne pas comparer les devis</h5>
+                </div>
+                <div class="card-body">
+                  <p>Choisir :</p>
+                  <ul>
+                    <li>Le moins cher sans analyse</li>
+                    <li>L'artisan "recommandé par la famille"</li>
+                  </ul>
+                  
+                  <h6 class="mt-3">Impact :</h6>
+                  <ul>
+                    <li>Mauvaise qualité</li>
+                    <li>Surcoûts cachés</li>
+                    <li>Abandon chantier</li>
+                  </ul>
+                  
+                  <div class="alert alert-info mt-3">
+                    <i class="bi bi-lightbulb me-2"></i>
+                    <strong>Astuce :</strong> Comparer au minimum 3 devis détaillés poste par poste.
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-4 mb-3">
+              <div class="card h-100">
+                <div class="card-header bg-danger text-white">
+                  <h5 class="mb-0"><i class="bi bi-credit-card me-2"></i>Payer 100% en avance</h5>
+                </div>
+                <div class="card-body">
+                  <p>Erreur très fréquente.</p>
+                  
+                  <h6 class="mt-3">Risque :</h6>
+                  <ul>
+                    <li>Abandon chantier</li>
+                    <li>Baisse de qualité</li>
+                  </ul>
+                  
+                  <div class="alert alert-success mt-3">
+                    <i class="bi bi-check-circle me-2"></i>
+                    <strong>Bonne pratique :</strong> Paiement par étapes validées (fondations, dalle, élévation, toiture…).
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Erreurs Juridiques -->
+        <div class="tab-pane fade" id="legal">
+          <div class="card">
+            <div class="card-header bg-danger text-white">
+              <h4 class="mb-0"><i class="bi bi-shield-exclamation me-2"></i>Ignorer les autorisations</h4>
+            </div>
+            <div class="card-body">
+              <ul>
+                <li>Pas de permis de construire</li>
+                <li>Non-respect du plan d'urbanisme</li>
+              </ul>
+              
+              <h6 class="mt-3">Conséquences :</h6>
+              <ul>
+                <li>Amende</li>
+                <li>Arrêt du chantier</li>
+                <li>Démolition possible</li>
+              </ul>
+              
+              <div class="alert alert-success mt-4">
+                <h6><i class="bi bi-check-circle me-2"></i>Checklist minimale :</h6>
+                <ul class="mb-0">
+                  <li>Titre foncier clair</li>
+                  <li>Permis validé</li>
+                  <li>Bornage</li>
+                  <li>Plan approuvé</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Erreurs Humaines -->
+        <div class="tab-pane fade" id="human">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <div class="card h-100">
+                <div class="card-header">
+                  <h5 class="mb-0"><i class="bi bi-file-earmark-text me-2"></i>Construire sans contrat écrit</h5>
+                </div>
+                <div class="card-body">
+                  <p>Accords verbaux uniquement.</p>
+                  
+                  <h6 class="mt-3">Impact :</h6>
+                  <ul>
+                    <li>Litiges</li>
+                    <li>Mauvaise interprétation</li>
+                    <li>Difficulté juridique</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+              <div class="card h-100">
+                <div class="card-header">
+                  <h5 class="mb-0"><i class="bi bi-eye me-2"></i>Absence de suivi chantier</h5>
+                </div>
+                <div class="card-body">
+                  <p>Ne pas passer régulièrement sur site.</p>
+                  
+                  <h6 class="mt-3">Résultat :</h6>
+                  <ul>
+                    <li>Malfaçons invisibles</li>
+                    <li>Matériaux de moindre qualité</li>
+                    <li>Vols</li>
+                  </ul>
+                  
+                  <div class="alert alert-success mt-3">
+                    <i class="bi bi-check-circle me-2"></i>
+                    <strong>Bonne pratique :</strong>
+                    <ul class="mb-0">
+                      <li>Visite hebdomadaire</li>
+                      <li>Photos systématiques</li>
+                      <li>Compte rendu écrit</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Classification par Phase -->
+    <section class="mb-5">
+      <h2 class="text-center mb-4">Classification des Erreurs par Phase du Projet</h2>
+      
+      <div class="row g-4">
+        <div class="col-md-3">
+          <div class="card phase-card phase-1">
+            <div class="card-header" style="background-color: #2ecc71; color: white;">
+              <h5 class="mb-0">PHASE 1 : PRÉPARATION</h5>
+            </div>
+            <div class="card-body">
+              <table class="table table-sm">
+                <thead>
+                  <tr>
+                    <th>Erreur</th>
+                    <th>Gravité</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Plan internet non adapté</td>
+                    <td><span class="badge bg-danger">Élevée</span></td>
+                  </tr>
+                  <tr>
+                    <td>Pas de budget global</td>
+                    <td><span class="badge bg-danger">Critique</span></td>
+                  </tr>
+                  <tr>
+                    <td>Absence d'étude de sol</td>
+                    <td><span class="badge bg-danger">Critique</span></td>
+                  </tr>
+                  <tr>
+                    <td>Pas de permis</td>
+                    <td><span class="badge bg-danger">Critique</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-3">
+          <div class="card phase-card phase-2">
+            <div class="card-header" style="background-color: #3498db; color: white;">
+              <h5 class="mb-0">PHASE 2 : SÉLECTION</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Pas de comparaison devis <span class="badge bg-warning float-end">15–30%</span></li>
+                <li class="list-group-item">Artisan choisi par relation <span class="badge bg-warning float-end">Risque qualité</span></li>
+                <li class="list-group-item">Pas de contrat <span class="badge bg-danger float-end">Conflits</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-3">
+          <div class="card phase-card phase-3">
+            <div class="card-header" style="background-color: #f39c12; color: white;">
+              <h5 class="mb-0">PHASE 3 : EXÉCUTION</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Modifications fréquentes <span class="badge bg-warning float-end">+20–40% retard</span></li>
+                <li class="list-group-item">Paiement non structuré <span class="badge bg-danger float-end">Abandon</span></li>
+                <li class="list-group-item">Pas de suivi chantier <span class="badge bg-warning float-end">Malfaçons</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-3">
+          <div class="card phase-card phase-4">
+            <div class="card-header" style="background-color: #9b59b6; color: white;">
+              <h5 class="mb-0">PHASE 4 : FINITIONS</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Négliger ventilation <span class="badge bg-warning float-end">Inconfort</span></li>
+                <li class="list-group-item">Sous-estimer budget <span class="badge bg-danger float-end">Inachevé</span></li>
+                <li class="list-group-item">Pas de réception formelle <span class="badge bg-warning float-end">Défauts</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Erreurs Critiques -->
+    <section class="mb-5">
+      <div class="card border-danger">
+        <div class="card-header bg-danger text-white">
+          <h3 class="mb-0"><i class="bi bi-exclamation-triangle-fill me-2"></i>ERREURS CRITIQUES QUI FONT ÉCHOUER 80% DES PROJETS</h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-10 mx-auto">
+              <ol class="list-group list-group-numbered list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div class="ms-2 me-auto">
+                    <div class="fw-bold">Pas de budget réaliste</div>
+                    Planifier sans considérer les imprévus (minimum 15-20%)
+                  </div>
+                  <span class="badge bg-danger rounded-pill">Critique</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div class="ms-2 me-auto">
+                    <div class="fw-bold">Pas d'étude de sol</div>
+                    Risque de fissures, tassements différentiels
+                  </div>
+                  <span class="badge bg-danger rounded-pill">Critique</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div class="ms-2 me-auto">
+                    <div class="fw-bold">Pas de plan validé techniquement</div>
+                    Plans inadaptés au climat, normes non respectées
+                  </div>
+                  <span class="badge bg-danger rounded-pill">Critique</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div class="ms-2 me-auto">
+                    <div class="fw-bold">Paiement trop rapide</div>
+                    Perte de levier de négociation, risque d'abandon
+                  </div>
+                  <span class="badge bg-danger rounded-pill">Critique</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div class="ms-2 me-auto">
+                    <div class="fw-bold">Absence de supervision professionnelle</div>
+                    Malfaçons non détectées, qualité non contrôlée
+                  </div>
+                  <span class="badge bg-danger rounded-pill">Critique</span>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Checklist 360° -->
+    <section id="checklist" class="mb-5">
+      <h2 class="text-center mb-4">Checklist 360° Avant Démarrage</h2>
+      
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header" style="background-color: #3498db; color: white;">
+              <h5 class="mb-0"><i class="bi bi-geo-alt me-2"></i>A. Foncier & Sécurité Juridique</h5>
+            </div>
+            <div class="card-body">
+              <div class="checklist-item">
+                <input type="checkbox" id="check1" onclick="toggleChecklistItem(this)">
+                <label for="check1">Titre foncier authentifié au service des domaines</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="check2" onclick="toggleChecklistItem(this)">
+                <label for="check2">Vérification absence de double attribution</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="check3" onclick="toggleChecklistItem(this)">
+                <label for="check3">Bornage officiel par géomètre agréé</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="check4" onclick="toggleChecklistItem(this)">
+                <label for="check4">Vérification zone inondable</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="check5" onclick="toggleChecklistItem(this)">
+                <label for="check5">Conformité au plan d'urbanisme</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="check6" onclick="toggleChecklistItem(this)">
+                <label for="check6">Permis de construire obtenu</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="check7" onclick="toggleChecklistItem(this)">
+                <label for="check7">Autorisation lotissement valide</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header" style="background-color: #2ecc71; color: white;">
+              <h5 class="mb-0"><i class="bi bi-tools me-2"></i>B. Études Techniques</h5>
+            </div>
+            <div class="card-body">
+              <div class="checklist-item">
+                <input type="checkbox" id="check8" onclick="toggleChecklistItem(this)">
+                <label for="check8">Étude de sol (même simplifiée)</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="check9" onclick="toggleChecklistItem(this)">
+                <label for="check9">Étude topographique</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="check10" onclick="toggleChecklistItem(this)">
+                <label for="check10">Orientation par rapport au soleil dominant</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="check11" onclick="toggleChecklistItem(this)">
+                <label for="check11">Ventilation naturelle étudiée</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="check12" onclick="toggleChecklistItem(this)">
+                <label for="check12">Drainage eaux pluviales prévu</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="check13" onclick="toggleChecklistItem(this)">
+                <label for="check13">Hauteur sous plafond adaptée à la chaleur</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="check14" onclick="toggleChecklistItem(this)">
+                <label for="check14">Protection contre humidité remontante</label>
+              </div>
+              
+              <div class="alert alert-warning mt-3">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                <strong>Erreur fréquente :</strong> Copier un plan européen sans adaptation au climat tropical.
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header" style="background-color: #f39c12; color: white;">
+              <h5 class="mb-0"><i class="bi bi-calculator me-2"></i>C. Budget Global Consolidé</h5>
+            </div>
+            <div class="card-body">
+              <div class="checklist-item">
+                <input type="checkbox" id="check15" onclick="toggleChecklistItem(this)">
+                <label for="check15">Budget terrain</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="check16" onclick="toggleChecklistItem(this)">
+                <label for="check16">Budget gros œuvre</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="check17" onclick="toggleChecklistItem(this)">
+                <label for="check17">Budget second œuvre</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="check18" onclick="toggleChecklistItem(this)">
+                <label for="check18">Budget VRD (eau, électricité, fosse)</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="check19" onclick="toggleChecklistItem(this)">
+                <label for="check19">Budget imprévus (minimum 15%)</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="check20" onclick="toggleChecklistItem(this)">
+                <label for="check20">Budget finitions</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="check21" onclick="toggleChecklistItem(this)">
+                <label for="check21">Budget sécurité chantier</label>
+              </div>
+              
+              <div class="alert alert-info mt-3">
+                <i class="bi bi-info-circle me-2"></i>
+                <strong>Règle locale :</strong> En Afrique de l'Ouest, prévoir +20% d'aléas.
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header" style="background-color: #9b59b6; color: white;">
+              <h5 class="mb-0"><i class="bi bi-people me-2"></i>D. Sélection des Acteurs</h5>
+            </div>
+            <div class="card-body">
+              <div class="checklist-item">
+                <input type="checkbox" id="check22" onclick="toggleChecklistItem(this)">
+                <label for="check22">3 devis minimum comparés</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="check23" onclick="toggleChecklistItem(this)">
+                <label for="check23">Références vérifiées (chantier réel visité)</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="check24" onclick="toggleChecklistItem(this)">
+                <label for="check24">Contrat écrit signé</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="check25" onclick="toggleChecklistItem(this)">
+                <label for="check25">Planning détaillé</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="check26" onclick="toggleChecklistItem(this)">
+                <label for="check26">Modalités paiement par phase</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="check27" onclick="toggleChecklistItem(this)">
+                <label for="check27">Clause pénalité retard</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-4">
+        <button class="btn btn-primary btn-lg" onclick="resetChecklist()">
+          <i class="bi bi-arrow-counterclockwise me-2"></i>Réinitialiser la Checklist
+        </button>
+        <button class="btn btn-success btn-lg ms-3" onclick="printChecklist()">
+          <i class="bi bi-printer me-2"></i>Imprimer la Checklist
+        </button>
+      </div>
+    </section>
+
+    <!-- Section Méthodologie -->
+    <section id="methodologie" class="mb-5">
+      <h2 class="text-center mb-4">Méthodologie Type Architecte / Chef de Projet</h2>
+      
+      <div class="timeline">
+        <!-- Phase 1 -->
+        <div class="timeline-item">
+          <div class="card">
+            <div class="card-header" style="background-color: #2ecc71; color: white;">
+              <h4 class="mb-0">PHASE 1 — PROGRAMMATION (1–2 mois)</h4>
+            </div>
+            <div class="card-body">
+              <h5>Livrables :</h5>
+              <ul>
+                <li>Cahier des besoins</li>
+                <li>Budget cible</li>
+                <li>Étude faisabilité terrain</li>
+              </ul>
+              
+              <h5 class="mt-3">Questions clés :</h5>
+              <ul>
+                <li>Maison évolutive ?</li>
+                <li>Location future ?</li>
+                <li>R+1 possible ?</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Phase 2 -->
+        <div class="timeline-item">
+          <div class="card">
+            <div class="card-header" style="background-color: #3498db; color: white;">
+              <h4 class="mb-0">PHASE 2 — CONCEPTION</h4>
+            </div>
+            <div class="card-body">
+              <ol>
+                <li>Avant-projet</li>
+                <li>Plans définitifs</li>
+                <li>Dossier permis</li>
+              </ol>
+              
+              <h5 class="mt-3">Livrables :</h5>
+              <ul>
+                <li>Plans architecturaux</li>
+                <li>Plans structure</li>
+                <li>Estimation détaillée</li>
+                <li>Planning</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Phase 3 -->
+        <div class="timeline-item">
+          <div class="card">
+            <div class="card-header" style="background-color: #f39c12; color: white;">
+              <h4 class="mb-0">PHASE 3 — CONSULTATION ENTREPRISES</h4>
+            </div>
+            <div class="card-body">
+              <ul>
+                <li>Lancer appel d'offres</li>
+                <li>Analyse technique</li>
+                <li>Analyse financière</li>
+                <li>Négociation</li>
+                <li>Contractualisation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Phase 4 -->
+        <div class="timeline-item">
+          <div class="card">
+            <div class="card-header" style="background-color: #9b59b6; color: white;">
+              <h4 class="mb-0">PHASE 4 — EXÉCUTION</h4>
+            </div>
+            <div class="card-body">
+              <p>Découpé en 6 jalons :</p>
+              <ol>
+                <li>Implantation</li>
+                <li>Fondations</li>
+                <li>Élévation</li>
+                <li>Dalle</li>
+                <li>Toiture</li>
+                <li>Finitions</li>
+              </ol>
+              <p class="mt-2">Chaque jalon = contrôle qualité + validation avant paiement.</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Phase 5 -->
+        <div class="timeline-item">
+          <div class="card">
+            <div class="card-header" style="background-color: #e74c3c; color: white;">
+              <h4 class="mb-0">PHASE 5 — RÉCEPTION</h4>
+            </div>
+            <div class="card-body">
+              <ul>
+                <li>Procès-verbal réception</li>
+                <li>Liste réserves</li>
+                <li>Garantie décennale (si existante)</li>
+                <li>Dossier ouvrages exécutés</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Approche Agile -->
+    <section id="agile" class="mb-5">
+      <h2 class="text-center mb-4">Application des Méthodes Agiles aux Projets Immobiliers</h2>
+      
+      <div class="wisdom-box">
+        <h4><i class="bi bi-lightbulb me-2"></i>Les 3 lois fondamentales du projet immobilier</h4>
+        <ol class="mt-3">
+          <li><strong>Ce qui n'est pas planifié coûte 2 fois plus.</strong></li>
+          <li><strong>Ce qui n'est pas écrit crée un conflit.</strong></li>
+          <li><strong>Ce qui n'est pas contrôlé se dégrade.</strong></li>
+        </ol>
+      </div>
+      
+      <div class="row mt-4">
+        <div class="col-md-4 mb-4">
+          <div class="card methodology-card agile-card h-100">
+            <div class="card-header">
+              <h5 class="mb-0"><i class="bi bi-arrow-repeat me-2"></i>Approche Agile</h5>
+            </div>
+            <div class="card-body">
+              <h6>Principes clés :</h6>
+              <ul>
+                <li>Itérations courtes (jalons de 2-4 semaines)</li>
+                <li>Adaptation continue aux changements</li>
+                <li>Livraison par incréments fonctionnels</li>
+                <li>Transparence totale sur l'avancement</li>
+              </ul>
+              
+              <h6 class="mt-3">Avantages :</h6>
+              <ul>
+                <li>Réduction des risques</li>
+                <li>Meilleure maîtrise du budget</li>
+                <li>Flexibilité face aux imprévus</li>
+                <li>Qualité améliorée par feedbacks réguliers</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+          <div class="card methodology-card traditional-card h-100">
+            <div class="card-header">
+              <h5 class="mb-0"><i class="bi bi-diagram-3 me-2"></i>Approche Traditionnelle</h5>
+            </div>
+            <div class="card-body">
+              <h6>Caractéristiques :</h6>
+              <ul>
+                <li>Planification complète en amont</li>
+                <li>Phases séquentielles strictes</li>
+                <li>Peu de flexibilité aux changements</li>
+                <li>Livraison en "big bang" final</li>
+              </ul>
+              
+              <h6 class="mt-3">Risques :</h6>
+              <ul>
+                <li>Dépassements budgétaires fréquents</li>
+                <li>Retards cumulatifs</li>
+                <li>Difficulté à intégrer les changements</li>
+                <li>Découvertes tardives des problèmes</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+          <div class="card methodology-card hybrid-card h-100">
+            <div class="card-header">
+              <h5 class="mb-0"><i class="bi bi-arrow-left-right me-2"></i>Approche Hybride Recommandée</h5>
+            </div>
+            <div class="card-body">
+              <h6>Notre recommandation :</h6>
+              <ul>
+                <li>Planification stratégique en amont</li>
+                <li>Exécution par itérations agiles</li>
+                <li>Revues hebdomadaires de chantier</li>
+                <li>Adaptation du plan chaque mois</li>
+              </ul>
+              
+              <h6 class="mt-3">Cadre de travail :</h6>
+              <ul>
+                <li>Équipe projet dédiée (maître d'ouvrage + architecte + chef de chantier)</li>
+                <li>Tableau de bord visuel (Kanban chantier)</li>
+                <li>Points hebdomadaires de coordination</li>
+                <li>Validation par jalons avant paiement</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Simulation Agile -->
+      <div id="simulateur" class="mt-5">
+        <h3 class="text-center mb-4">Simulateur de Budget Agile</h3>
+        
+        <div class="card">
+          <div class="card-header">
+            <h4 class="mb-0"><i class="bi bi-calculator me-2"></i>Calculateur de Budget avec Gestion des Risques</h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="budgetBase" class="form-label">Budget de base estimé (FCFA)</label>
+                  <input type="number" class="form-control" id="budgetBase" value="30000000" min="0" step="100000">
+                </div>
+                
+                <div class="mb-3">
+                  <label for="contingence" class="form-label">Pourcentage d'imprévus</label>
+                  <div class="input-group">
+                    <input type="number" class="form-control" id="contingence" value="20" min="5" max="50" step="5">
+                    <span class="input-group-text">%</span>
+                  </div>
+                  <div class="form-text">Recommandé: 20% minimum pour l'Afrique de l'Ouest</div>
+                </div>
+                
+                <div class="mb-3">
+                  <label for="inflation" class="form-label">Taux d'inflation annuel prévu</label>
+                  <div class="input-group">
+                    <input type="number" class="form-control" id="inflation" value="5" min="0" max="20" step="0.5">
+                    <span class="input-group-text">%</span>
+                  </div>
+                </div>
+                
+                <div class="mb-3">
+                  <label for="dureeProjet" class="form-label">Durée prévue du projet (mois)</label>
+                  <input type="number" class="form-control" id="dureeProjet" value="12" min="3" max="36" step="1">
+                </div>
+                
+                <button class="btn btn-primary w-100" onclick="calculerBudget()">
+                  <i class="bi bi-calculator me-2"></i>Calculer le Budget Réel
+                </button>
+              </div>
+              
+              <div class="col-md-6">
+                <div id="resultatsBudget" class="p-3 bg-light rounded" style="display: none;">
+                  <h5>Résultats du calcul :</h5>
+                  
+                  <div class="mt-3">
+                    <div class="d-flex justify-content-between mb-2">
+                      <span>Budget de base :</span>
+                      <span id="resultBase" class="fw-bold"></span>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                      <span>Imprévus (<span id="pourcentageImprevu"></span>%) :</span>
+                      <span id="resultImprevu" class="fw-bold text-warning"></span>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                      <span>Inflation (<span id="pourcentageInflation"></span>% sur <span id="dureeProjetAffichee"></span> mois) :</span>
+                      <span id="resultInflation" class="fw-bold text-warning"></span>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                      <span class="fw-bold">Budget total recommandé :</span>
+                      <span id="resultTotal" class="fw-bold text-success fs-5"></span>
+                    </div>
+                    
+                    <div class="alert alert-info mt-3">
+                      <i class="bi bi-info-circle me-2"></i>
+                      <span id="messageBudget"></span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="interactive-chart mt-4">
+                  <h5>Répartition recommandée du budget</h5>
+                  <div class="chart-bar">
+                    <div id="chartTerrain" class="chart-fill" style="width: 20%; background-color: #3498db;">
+                      <span class="chart-label">Terrain 20%</span>
+                    </div>
+                  </div>
+                  
+                  <div class="chart-bar">
+                    <div id="chartGrosOeuvre" class="chart-fill" style="width: 45%; background-color: #2ecc71;">
+                      <span class="chart-label">Gros œuvre 45%</span>
+                    </div>
+                  </div>
+                  
+                  <div class="chart-bar">
+                    <div id="chartSecondOeuvre" class="chart-fill" style="width: 25%; background-color: #f39c12;">
+                      <span class="chart-label">Second œuvre 25%</span>
+                    </div>
+                  </div>
+                  
+                  <div class="chart-bar">
+                    <div id="chartImprevus" class="chart-fill" style="width: 10%; background-color: #e74c3c;">
+                      <span class="chart-label">Imprévus 10%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+	
+	
+
+
+<!-- AJOUTER APRÈS LA SECTION "Approche Agile" (section id="agile") -->
+<section id="agilepm-v3" class="mb-5">
+  <h2 class="text-center mb-4">AgilePM v3 - Méthodologie Complète pour Projets Immobiliers</h2>
+  
+  <div class="alert alert-info">
+    <h5><i class="bi bi-info-circle me-2"></i>AgilePM v3 - Synthèse DSDM & Scrum Guide 2020</h5>
+    <p class="mb-0">Framework AgilePM v3 combine la rigueur de DSDM (Dynamic Systems Development Method) avec l'agilité de Scrum pour créer une approche structurée et adaptative parfaitement adaptée aux projets immobiliers complexes.</p>
+  </div>
+
+  <!-- Timeline AgilePM v3 -->
+  <div class="timeline mt-5">
+    <!-- Phase 1: Pre-project -->
+    <div class="timeline-item">
+      <div class="card">
+        <div class="card-header" style="background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%); color: white;">
+          <h4 class="mb-0">PHASE 1 : PRE-PROJECT</h4>
+          <p class="mb-0 mt-1">Établissement de la vision et validation initiale</p>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <h5><i class="bi bi-bullseye me-2"></i>Objectifs</h5>
+              <ul>
+                <li>Définir la vision du projet</li>
+                <li>Identifier les parties prenantes clés</li>
+                <li>Évaluer la faisabilité préliminaire</li>
+                <li>Décider du lancement formel</li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <h5><i class="bi bi-clipboard-check me-2"></i>Livrables</h5>
+              <ul>
+                <li>Énoncé de vision projet</li>
+                <li>Carte des parties prenantes</li>
+                <li>Étude de faisabilité préliminaire</li>
+                <li>Décision de poursuite (Go/No Go)</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="mt-3 p-3 bg-light rounded">
+            <h6><i class="bi bi-lightbulb me-2"></i>Application au Projet Immobilier :</h6>
+            <p><strong>Checklist terrain :</strong> Vérification titre foncier, bornage, permis de construire préliminaire, étude de faisabilité terrain.</p>
+            <p><strong>Durée type :</strong> 2-4 semaines</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 2: Feasibility -->
+    <div class="timeline-item">
+      <div class="card">
+        <div class="card-header" style="background: linear-gradient(135deg, #00b894 0%, #55efc4 100%); color: white;">
+          <h4 class="mb-0">PHASE 2 : FEASIBILITY</h4>
+          <p class="mb-0 mt-1">Étude de faisabilité approfondie</p>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <h5><i class="bi bi-search me-2"></i>Analyse</h5>
+              <ul>
+                <li>Étude de marché et besoins</li>
+                <li>Analyse financière détaillée</li>
+                <li>Étude technique (sol, climat)</li>
+                <li>Analyse des risques détaillée</li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <h5><i class="bi bi-calculator me-2"></i>Chiffrage</h5>
+              <ul>
+                <li>Budget prévisionnel détaillé</li>
+                <li>Plan de financement</li>
+                <li>Retour sur investissement</li>
+                <li>Seuil de rentabilité</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="row mt-3">
+            <div class="col-md-12">
+              <h6><i class="bi bi-diagram-3 me-2"></i>Matrice de Faisabilité :</h6>
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead class="table-dark">
+                    <tr>
+                      <th>Critère</th>
+                      <th>Évaluation</th>
+                      <th>Seuil Minimum</th>
+                      <th>Score Projet</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Rentabilité financière</td>
+                      <td>TRI ≥ 15%</td>
+                      <td>12%</td>
+                      <td><span class="badge bg-success">17% ✓</span></td>
+                    </tr>
+                    <tr>
+                      <td>Disponibilité budget</td>
+                      <td>Budget + 20% marge</td>
+                      <td>Budget + 10%</td>
+                      <td><span class="badge bg-success">+25% ✓</span></td>
+                    </tr>
+                    <tr>
+                      <td>Faisabilité technique</td>
+                      <td>Étude sol positive</td>
+                      <td>Pas de risque majeur</td>
+                      <td><span class="badge bg-success">Positive ✓</span></td>
+                    </tr>
+                    <tr>
+                      <td>Acceptabilité réglementaire</td>
+                      <td>Permis obtenable</td>
+                      <td>Conformité PLU</td>
+                      <td><span class="badge bg-warning">En cours</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-3 p-3 bg-light rounded">
+            <h6><i class="bi bi-lightbulb me-2"></i>Application au Projet Immobilier :</h6>
+            <p><strong>Études obligatoires :</strong> Étude de sol géotechnique, étude topographique, étude de faisabilité financière, dossier de permis de construire.</p>
+            <p><strong>Durée type :</strong> 4-8 semaines</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 3: Foundations -->
+    <div class="timeline-item">
+      <div class="card">
+        <div class="card-header" style="background: linear-gradient(135deg, #fd79a8 0%, #fab1a0 100%); color: white;">
+          <h4 class="mb-0">PHASE 3 : FOUNDATIONS</h4>
+          <p class="mb-0 mt-1">Établissement des fondations du projet</p>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4">
+              <h5><i class="bi bi-gear me-2"></i>Cadrage</h5>
+              <ul>
+                <li>Business Case finalisé</li>
+                <li>Plan de management</li>
+                <li>Structure de décision</li>
+                <li>Governance établie</li>
+              </ul>
+            </div>
+            <div class="col-md-4">
+              <h5><i class="bi bi-people me-2"></i>Équipe</h5>
+              <ul>
+                <li>Rôles et responsabilités</li>
+                <li>Compétences identifiées</li>
+                <li>Plan de formation</li>
+                <li>Contrats signés</li>
+              </ul>
+            </div>
+            <div class="col-md-4">
+              <h5><i class="bi bi-calendar-check me-2"></i>Planning</h5>
+              <ul>
+                <li>Roadmap produit</li>
+                <li>Plan d'itérations</li>
+                <li>Jalons principaux</li>
+                <li>Contraintes identifiées</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="mt-3">
+            <h6><i class="bi bi-kanban me-2"></i>Structure de Gouvernance AgilePM :</h6>
+            <div class="row text-center mt-3">
+              <div class="col-md-3 mb-3">
+                <div class="p-3 border rounded">
+                  <i class="bi bi-person-badge fs-1 text-primary"></i>
+                  <h6 class="mt-2">Business Sponsor</h6>
+                  <small>Décisionnaire principal</small>
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <div class="p-3 border rounded">
+                  <i class="bi bi-person-workspace fs-1 text-success"></i>
+                  <h6 class="mt-2">Business Ambassador</h6>
+                  <small>Représentant métier</small>
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <div class="p-3 border rounded">
+                  <i class="bi bi-tools fs-1 text-warning"></i>
+                  <h6 class="mt-2">Solution Developer</h6>
+                  <small>Expert technique</small>
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <div class="p-3 border rounded">
+                  <i class="bi bi-shield-check fs-1 text-danger"></i>
+                  <h6 class="mt-2">Project Manager</h6>
+                  <small>Garant du processus</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-3 p-3 bg-light rounded">
+            <h6><i class="bi bi-lightbulb me-2"></i>Application au Projet Immobilier :</h6>
+            <p><strong>Documentation :</strong> Cahier des charges technique, plans architecturaux définitifs, devis détaillés, planning de chantier, contrats d'entreprise.</p>
+            <p><strong>Durée type :</strong> 3-6 semaines</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 4: Development -->
+    <div class="timeline-item">
+      <div class="card">
+        <div class="card-header" style="background: linear-gradient(135deg, #0984e3 0%, #74b9ff 100%); color: white;">
+          <h4 class="mb-0">PHASE 4 : DEVELOPMENT</h4>
+          <p class="mb-0 mt-1">Développement par itérations agiles</p>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-8">
+              <h5><i class="bi bi-arrow-repeat me-2"></i>Cycle de Développement Agile</h5>
+              <p>Application des principes Scrum au chantier :</p>
+              
+              <div class="row mt-3">
+                <div class="col-md-4 text-center mb-3">
+                  <div class="p-3 border rounded">
+                    <i class="bi bi-calendar-week fs-1 text-primary"></i>
+                    <h6 class="mt-2">Sprints Chantier</h6>
+                    <small>2-3 semaines</small>
+                    <p class="mt-2 small">Chaque sprint = un lot de travaux achevés</p>
+                  </div>
+                </div>
+                <div class="col-md-4 text-center mb-3">
+                  <div class="p-3 border rounded">
+                    <i class="bi bi-card-checklist fs-1 text-success"></i>
+                    <h6 class="mt-2">Backlog Chantier</h6>
+                    <small>Tâches priorisées</small>
+                    <p class="mt-2 small">Liste des travaux à réaliser</p>
+                  </div>
+                </div>
+                <div class="col-md-4 text-center mb-3">
+                  <div class="p-3 border rounded">
+                    <i class="bi bi-graph-up fs-1 text-warning"></i>
+                    <h6 class="mt-2">Revues Hebdo</h6>
+                    <small>Points d'avancement</small>
+                    <p class="mt-2 small">Validation des réalisations</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+              <h5><i class="bi bi-list-check me-2"></i>Jalons Construction</h5>
+              <div class="list-group">
+                <div class="list-group-item">
+                  <div class="d-flex w-100 justify-content-between">
+                    <h6 class="mb-1">Sprint 1-2</h6>
+                    <small>Semaines 1-4</small>
+                  </div>
+                  <p class="mb-1">Fondations & Terrassement</p>
+                </div>
+                <div class="list-group-item">
+                  <div class="d-flex w-100 justify-content-between">
+                    <h6 class="mb-1">Sprint 3-4</h6>
+                    <small>Semaines 5-8</small>
+                  </div>
+                  <p class="mb-1">Élévation murs & Structure</p>
+                </div>
+                <div class="list-group-item">
+                  <div class="d-flex w-100 justify-content-between">
+                    <h6 class="mb-1">Sprint 5-6</h6>
+                    <small>Semaines 9-12</small>
+                  </div>
+                  <p class="mb-1">Toiture & Fermetures</p>
+                </div>
+                <div class="list-group-item">
+                  <div class="d-flex w-100 justify-content-between">
+                    <h6 class="mb-1">Sprint 7-10</h6>
+                    <small>Semaines 13-20</small>
+                  </div>
+                  <p class="mb-1">Second œuvre & Finitions</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-4">
+            <h6><i class="bi bi-kanban me-2"></i>Tableau de Bord Chantier Agile :</h6>
+            <div class="scrum-board mt-3">
+              <div class="scrum-column">
+                <div class="scrum-column-header">À Faire</div>
+                <div class="scrum-card">
+                  <h6>Préparer terrain</h6>
+                  <small>Terrassement</small>
+                  <span class="badge bg-primary mt-2">3 jours</span>
+                </div>
+                <div class="scrum-card">
+                  <h6>Coulage semelles</h6>
+                  <small>Fondations</small>
+                  <span class="badge bg-primary mt-2">2 jours</span>
+                </div>
+              </div>
+              
+              <div class="scrum-column">
+                <div class="scrum-column-header">En Cours</div>
+                <div class="scrum-card">
+                  <h6>Élévation murs</h6>
+                  <small>Maçonnerie</small>
+                  <span class="badge bg-warning mt-2">5 jours</span>
+                </div>
+              </div>
+              
+              <div class="scrum-column">
+                <div class="scrum-column-header">À Vérifier</div>
+                <div class="scrum-card">
+                  <h6>Ferraillage</h6>
+                  <small>Contrôle technique</small>
+                  <span class="badge bg-info mt-2">1 jour</span>
+                </div>
+              </div>
+              
+              <div class="scrum-column">
+                <div class="scrum-column-header">Terminé</div>
+                <div class="scrum-card">
+                  <h6>Implantation</h6>
+                  <small>Géomètre</small>
+                  <span class="badge bg-success mt-2">✓</span>
+                </div>
+                <div class="scrum-card">
+                  <h6>Fouilles</h6>
+                  <small>Terrassement</small>
+                  <span class="badge bg-success mt-2">✓</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-3 p-3 bg-light rounded">
+            <h6><i class="bi bi-lightbulb me-2"></i>Application au Projet Immobilier :</h6>
+            <p><strong>Pratiques clés :</strong> Réunions quotidiennes de chantier (stand-up), revues hebdomadaires, tableaux Kanban visuels, validation par incréments.</p>
+            <p><strong>Durée type :</strong> 16-40 semaines selon complexité</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 5: Deployment -->
+    <div class="timeline-item">
+      <div class="card">
+        <div class="card-header" style="background: linear-gradient(135deg, #e17055 0%, #fab1a0 100%); color: white;">
+          <h4 class="mb-0">PHASE 5 : DEPLOYMENT</h4>
+          <p class="mb-0 mt-1">Déploiement et mise en service</p>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <h5><i class="bi bi-truck me-2"></i>Livraison</h5>
+              <ul>
+                <li>Plan de déploiement</li>
+                <li>Formation utilisateurs</li>
+                <li>Documentation technique</li>
+                <li>Support transition</li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <h5><i class="bi bi-clipboard-data me-2"></i>Vérification</h5>
+              <ul>
+                <li>Tests d'acceptation</li>
+                <li>Vérification conformité</li>
+                <li>Audit qualité</li>
+                <li>Contrôle final</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="mt-3">
+            <h6><i class="bi bi-checklist me-2"></i>Checklist de Déploiement Immobilier :</h6>
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="deploy1">
+                  <label class="form-check-label" for="deploy1">Tous les réseaux raccordés (eau, électricité, assainissement)</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="deploy2">
+                  <label class="form-check-label" for="deploy2">Vérification conformité aux normes de sécurité</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="deploy3">
+                  <label class="form-check-label" for="deploy3">Tests de fonctionnement (électricité, plomberie)</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="deploy4">
+                  <label class="form-check-label" for="deploy4">Nettoyage complet des lieux</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="deploy5">
+                  <label class="form-check-label" for="deploy5">Remise des clés et documentation</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="deploy6">
+                  <label class="form-check-label" for="deploy6">Formation à l'entretien du bâtiment</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-3 p-3 bg-light rounded">
+            <h6><i class="bi bi-lightbulb me-2"></i>Application au Projet Immobilier :</h6>
+            <p><strong>Processus :</strong> Réception provisoire, établissement de la liste des réserves, correction des réserves, réception définitive, remise des clés.</p>
+            <p><strong>Durée type :</strong> 2-4 semaines</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 6: Realisation -->
+    <div class="timeline-item">
+      <div class="card">
+        <div class="card-header" style="background: linear-gradient(135deg, #00cec9 0%, #81ecec 100%); color: white;">
+          <h4 class="mb-0">PHASE 6 : REALISATION</h4>
+          <p class="mb-0 mt-1">Réalisation des bénéfices et amélioration continue</p>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <h5><i class="bi bi-graph-up-arrow me-2"></i>Évaluation</h5>
+              <ul>
+                <li>Mesure des bénéfices</li>
+                <li>Analyse ROI réel</li>
+                <li>Évaluation satisfaction</li>
+                <li>Audit post-projet</li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <h5><i class="bi bi-arrow-clockwise me-2"></i>Amélioration Continue</h5>
+              <ul>
+                <li>Retour d'expérience</li>
+                <li>Capitalisation connaissances</li>
+                <li>Mise à jour processus</li>
+                <li>Formation équipes futures</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="mt-4">
+            <h6><i class="bi bi-bar-chart me-2"></i>Tableau de Bord Post-Projet :</h6>
+            <div class="row mt-3">
+              <div class="col-md-3 text-center">
+                <div class="p-3 border rounded">
+                  <div class="fs-2 fw-bold text-success">98%</div>
+                  <div class="small">Conformité planning</div>
+                </div>
+              </div>
+              <div class="col-md-3 text-center">
+                <div class="p-3 border rounded">
+                  <div class="fs-2 fw-bold text-warning">+12%</div>
+                  <div class="small">Dépassement budget</div>
+                </div>
+              </div>
+              <div class="col-md-3 text-center">
+                <div class="p-3 border rounded">
+                  <div class="fs-2 fw-bold text-success">4.8/5</div>
+                  <div class="small">Satisfaction client</div>
+                </div>
+              </div>
+              <div class="col-md-3 text-center">
+                <div class="p-3 border rounded">
+                  <div class="fs-2 fw-bold text-primary">27</div>
+                  <div class="small">Améliorations identifiées</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-4">
+            <h6><i class="bi bi-journal-text me-2"></i>Retour d'Expérience (Retrospective) :</h6>
+            <div class="row mt-3">
+              <div class="col-md-4">
+                <div class="p-3 border rounded h-100">
+                  <h6 class="text-success">Ce qui a bien fonctionné</h6>
+                  <ul class="mb-0">
+                    <li>Planification par sprints</li>
+                    <li>Tableau Kanban chantier</li>
+                    <li>Revues hebdomadaires</li>
+                    <li>Validation par incréments</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="p-3 border rounded h-100">
+                  <h6 class="text-warning">À améliorer</h6>
+                  <ul class="mb-0">
+                    <li>Estimation des délais</li>
+                    <li>Gestion des imprévus météo</li>
+                    <li>Communication avec sous-traitants</li>
+                    <li>Contrôle qualité finitions</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="p-3 border rounded h-100">
+                  <h6 class="text-primary">Leçons apprises</h6>
+                  <ul class="mb-0">
+                    <li>Prévoir 25% d'imprévus en zone tropicale</li>
+                    <li>Visite quotidienne indispensable</li>
+                    <li>Photographier chaque étape</li>
+                    <li>Valider paiements par jalons</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-3 p-3 bg-light rounded">
+            <h6><i class="bi bi-lightbulb me-2"></i>Application au Projet Immobilier :</h6>
+            <p><strong>Activités :</strong> Établissement du bilan final, rédaction du manuel d'entretien, suivi de la garantie décennale, capitalisation des apprentissages pour le prochain projet.</p>
+            <p><strong>Durée type :</strong> 2-8 semaines</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tableau Comparatif AgilePM vs Traditionnel -->
+  <div class="card mt-5">
+    <div class="card-header bg-dark text-white">
+      <h4 class="mb-0"><i class="bi bi-clipboard-data me-2"></i>Comparatif : AgilePM v3 vs Approche Traditionnelle</h4>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead class="table-dark">
+            <tr>
+              <th>Aspect</th>
+              <th>AgilePM v3</th>
+              <th>Approche Traditionnelle</th>
+              <th>Avantage AgilePM</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Planification</strong></td>
+              <td>Itérative, adaptative</td>
+              <td>Linéaire, fixe</td>
+              <td><span class="badge bg-success">+35% flexibilité</span></td>
+            </tr>
+            <tr>
+              <td><strong>Gestion des changements</strong></td>
+              <td>Intégrée au processus</td>
+              <td>Coûteuse et difficile</td>
+              <td><span class="badge bg-success">Réduction de 50% des coûts de changement</span></td>
+            </tr>
+            <tr>
+              <td><strong>Livraison de valeur</strong></td>
+              <td>Incréments fréquents</td>
+              <td>Big bang final</td>
+              <td><span class="badge bg-success">Détection précoce des problèmes</span></td>
+            </tr>
+            <tr>
+              <td><strong>Engagement client</strong></td>
+              <td>Continu et collaboratif</td>
+              <td>Ponctuel en début et fin</td>
+              <td><span class="badge bg-success">+40% satisfaction client</span></td>
+            </tr>
+            <tr>
+              <td><strong>Gestion des risques</strong></td>
+              <td>Identification et traitement continu</td>
+              <td>Principalement en début de projet</td>
+              <td><span class="badge bg-success">Réduction de 60% des risques non détectés</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Outil de Planification AgilePM -->
+  <div class="card mt-4">
+    <div class="card-header">
+      <h4 class="mb-0"><i class="bi bi-calendar-week me-2"></i>Outil de Planification AgilePM pour Projet Immobilier</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="typeProjet" class="form-label">Type de projet</label>
+            <select class="form-select" id="typeProjet" onchange="calculerPlanningAgilePM()">
+              <option value="maison_individuelle">Maison individuelle</option>
+              <option value="villa_standing">Villa standing</option>
+              <option value="immeuble_r2">Immeuble R+2</option>
+              <option value="batiment_commercial">Bâtiment commercial</option>
+            </select>
+          </div>
+          
+          <div class="mb-3">
+            <label for="surfaceProjet" class="form-label">Surface (m²)</label>
+            <input type="number" class="form-control" id="surfaceProjet" value="150" min="50" max="1000" onchange="calculerPlanningAgilePM()">
+          </div>
+          
+          <div class="mb-3">
+            <label for="complexiteProjet" class="form-label">Niveau de complexité</label>
+            <select class="form-select" id="complexiteProjet" onchange="calculerPlanningAgilePM()">
+              <option value="simple">Simple (standard)</option>
+              <option value="moyen" selected>Moyen (personnalisé)</option>
+              <option value="complexe">Complexe (luxe/technique)</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="col-md-8">
+          <h5>Planning Estimé AgilePM</h5>
+          <div id="planningResult" class="mt-3">
+            <!-- Résultats générés dynamiquement -->
+          </div>
+          
+          <div class="progress mt-3" style="height: 25px;">
+            <div class="progress-bar" id="progressPreProject" role="progressbar" style="width: 5%; background-color: #6c5ce7;">Pre-project 5%</div>
+            <div class="progress-bar" id="progressFeasibility" role="progressbar" style="width: 10%; background-color: #00b894;">Feasibility 10%</div>
+            <div class="progress-bar" id="progressFoundations" role="progressbar" style="width: 15%; background-color: #fd79a8;">Foundations 15%</div>
+            <div class="progress-bar" id="progressDevelopment" role="progressbar" style="width: 50%; background-color: #0984e3;">Development 50%</div>
+            <div class="progress-bar" id="progressDeployment" role="progressbar" style="width: 15%; background-color: #e17055;">Deployment 15%</div>
+            <div class="progress-bar" id="progressRealisation" role="progressbar" style="width: 5%; background-color: #00cec9;">Realisation 5%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AJOUTER APRÈS LA TIMELINE AGILEPM v3, AVANT LE TABLEAU COMPARATIF -->
+
+<!-- Section Tableaux Détail des Phases AgilePM v3 -->
+<section id="tableaux-agilepm" class="mb-5">
+  <h2 class="text-center mb-4">Tableaux Détail des Phases AgilePM v3</h2>
+  
+  <ul class="nav nav-tabs justify-content-center mb-4" id="phaseTablesTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="preproject-table-tab" data-bs-toggle="tab" data-bs-target="#preproject-table" type="button">Pre-project</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="feasibility-table-tab" data-bs-toggle="tab" data-bs-target="#feasibility-table" type="button">Feasibility</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="foundations-table-tab" data-bs-toggle="tab" data-bs-target="#foundations-table" type="button">Foundations</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="development-table-tab" data-bs-toggle="tab" data-bs-target="#development-table" type="button">Development</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="deployment-table-tab" data-bs-toggle="tab" data-bs-target="#deployment-table" type="button">Deployment</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="realisation-table-tab" data-bs-toggle="tab" data-bs-target="#realisation-table" type="button">Realisation</button>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="phaseTablesContent">
+    
+    <!-- Tableau Phase 1: Pre-project -->
+    <div class="tab-pane fade show active" id="preproject-table">
+      <div class="card">
+        <div class="card-header" style="background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%); color: white;">
+          <h4 class="mb-0"><i class="bi bi-bullseye me-2"></i>Phase 1: Pre-project - Tableau de Référence</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th>#</th>
+                  <th>Activité</th>
+                  <th>Description</th>
+                  <th>Livrable</th>
+                  <th>Durée</th>
+                  <th>Responsable</th>
+                  <th>Critère de Validation</th>
+                  <th>Risques</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1.1</td>
+                  <td>Définition Vision</td>
+                  <td>Établir la vision du projet immobilier</td>
+                  <td>Énoncé de vision signé</td>
+                  <td>3-5 jours</td>
+                  <td>Maître d'ouvrage</td>
+                  <td>Vision claire, alignée avec besoins</td>
+                  <td>Vision floue ou contradictoire</td>
+                </tr>
+                <tr>
+                  <td>1.2</td>
+                  <td>Identification Parties Prenantes</td>
+                  <td>Cartographier tous les acteurs concernés</td>
+                  <td>Carte des parties prenantes</td>
+                  <td>2-3 jours</td>
+                  <td>Chef de projet</td>
+                  <td>Tous les acteurs identifiés avec rôles</td>
+                  <td>Oubli d'acteurs importants</td>
+                </tr>
+                <tr>
+                  <td>1.3</td>
+                  <td>Étude Faisabilité Initiale</td>
+                  <td>Évaluer la faisabilité préliminaire</td>
+                  <td>Rapport faisabilité initiale</td>
+                  <td>5-7 jours</td>
+                  <td>Architecte</td>
+                  <td>Projet techniquement et financièrement faisable</td>
+                  <td>Contraintes techniques non identifiées</td>
+                </tr>
+                <tr>
+                  <td>1.4</td>
+                  <td>Vérification Terrain</td>
+                  <td>Vérifier statut juridique et physique du terrain</td>
+                  <td>Fiche de vérification terrain</td>
+                  <td>4-6 jours</td>
+                  <td>Géomètre</td>
+                  <td>Terrain constructible, titres en règle</td>
+                  <td>Litiges fonciers, servitudes cachées</td>
+                </tr>
+                <tr>
+                  <td>1.5</td>
+                  <td>Étude Marché</td>
+                  <td>Analyser marché immobilier local</td>
+                  <td>Rapport d'étude marché</td>
+                  <td>5-8 jours</td>
+                  <td>Économiste</td>
+                  <td>Marché favorable, prix au m² défini</td>
+                  <td>Évolution défavorable du marché</td>
+                </tr>
+                <tr>
+                  <td>1.6</td>
+                  <td>Décision Go/No Go</td>
+                  <td>Décision formelle de lancer le projet</td>
+                  <td>Procès-verbal décision</td>
+                  <td>1 jour</td>
+                  <td>Comité de pilotage</td>
+                  <td>Décision unanime, conditions remplies</td>
+                  <td>Décision retardée, manque d'engagement</td>
+                </tr>
+                <tr>
+                  <td>1.7</td>
+                  <td>Budget Préliminaire</td>
+                  <td>Estimation budgétaire initiale</td>
+                  <td>Budget prévisionnel v1</td>
+                  <td>3-4 jours</td>
+                  <td>Chef de projet</td>
+                  <td>Budget réaliste, marge d'imprévus incluse</td>
+                  <td>Sous-estimation des coûts</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="alert alert-info mt-3">
+            <h6><i class="bi bi-lightbulb me-2"></i>Conseils d'Application Immobilière :</h6>
+            <ul class="mb-0">
+              <li>Ne jamais négliger la vérification foncière en Afrique de l'Ouest</li>
+              <li>Prévoir minimum 20% d'imprévus dans le budget préliminaire</li>
+              <li>Impliquer les futurs habitants dès cette phase</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tableau Phase 2: Feasibility -->
+    <div class="tab-pane fade" id="feasibility-table">
+      <div class="card">
+        <div class="card-header" style="background: linear-gradient(135deg, #00b894 0%, #55efc4 100%); color: white;">
+          <h4 class="mb-0"><i class="bi bi-search me-2"></i>Phase 2: Feasibility - Tableau de Référence</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th>#</th>
+                  <th>Activité</th>
+                  <th>Description</th>
+                  <th>Livrable</th>
+                  <th>Durée</th>
+                  <th>Responsable</th>
+                  <th>Critère de Validation</th>
+                  <th>Risques</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>2.1</td>
+                  <td>Étude de Sol</td>
+                  <td>Analyse géotechnique du terrain</td>
+                  <td>Rapport d'étude de sol</td>
+                  <td>10-15 jours</td>
+                  <td>Géotechnicien</td>
+                  <td>Type de fondations défini, portance vérifiée</td>
+                  <td>Sol instable, nappe phréatique haute</td>
+                </tr>
+                <tr>
+                  <td>2.2</td>
+                  <td>Étude Topographique</td>
+                  <td>Relevé précis du terrain</td>
+                  <td>Plan topographique</td>
+                  <td>5-7 jours</td>
+                  <td>Géomètre</td>
+                  <td>Plan précis avec courbes de niveau</td>
+                  <td>Erreur de mesure, obstacles non détectés</td>
+                </tr>
+                <tr>
+                  <td>2.3</td>
+                  <td>Analyse Climatique</td>
+                  <td>Étude vents dominants, ensoleillement</td>
+                  <td>Rapport d'orientation</td>
+                  <td>3-5 jours</td>
+                  <td>Architecte</td>
+                  <td>Orientation optimale déterminée</td>
+                  <td>Mauvaise orientation, surchauffe</td>
+                </tr>
+                <tr>
+                  <td>2.4</td>
+                  <td>Étude Financière Détaillée</td>
+                  <td>Business plan complet</td>
+                  <td>Business plan v2</td>
+                  <td>10-12 jours</td>
+                  <td>Économiste</td>
+                  <td>TRI ≥ 15%, VAN positive</td>
+                  <td>Rentabilité insuffisante</td>
+                </tr>
+                <tr>
+                  <td>2.5</td>
+                  <td>Analyse Réglementaire</td>
+                  <td>Vérification conformité PLU, normes</td>
+                  <td>Fiche de conformité</td>
+                  <td>7-10 jours</td>
+                  <td>Juriste</td>
+                  <td>Projet conforme à toutes les normes</td>
+                  <td>Refus de permis, contraintes cachées</td>
+                </tr>
+                <tr>
+                  <td>2.6</td>
+                  <td>Étude Impact Environnemental</td>
+                  <td>Analyse impact projet sur environnement</td>
+                  <td>Rapport d'impact</td>
+                  <td>8-12 jours</td>
+                  <td>Expert environnement</td>
+                  <td>Impact acceptable, mesures compensatoires</td>
+                  <td>Opposition écologique, études supplémentaires</td>
+                </tr>
+                <tr>
+                  <td>2.7</td>
+                  <td>Validation Faisabilité</td>
+                  <td>Présentation et validation complète</td>
+                  <td>Rapport de faisabilité final</td>
+                  <td>3-5 jours</td>
+                  <td>Comité de pilotage</td>
+                  <td>Toutes les études convergent positivement</td>
+                  <td>Décision d'arrêt du projet</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="alert alert-info mt-3">
+            <h6><i class="bi bi-lightbulb me-2"></i>Conseils d'Application Immobilière :</h6>
+            <ul class="mb-0">
+              <li>L'étude de sol est non négociable en zone tropicale</li>
+              <li>Prévoir une marge de 15-25% sur les coûts d'études</li>
+              <li>Intégrer les normes antisismiques si zone à risque</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tableau Phase 3: Foundations -->
+    <div class="tab-pane fade" id="foundations-table">
+      <div class="card">
+        <div class="card-header" style="background: linear-gradient(135deg, #fd79a8 0%, #fab1a0 100%); color: white;">
+          <h4 class="mb-0"><i class="bi bi-gear me-2"></i>Phase 3: Foundations - Tableau de Référence</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th>#</th>
+                  <th>Activité</th>
+                  <th>Description</th>
+                  <th>Livrable</th>
+                  <th>Durée</th>
+                  <th>Responsable</th>
+                  <th>Critère de Validation</th>
+                  <th>Risques</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>3.1</td>
+                  <td>Rédaction Cahier des Charges</td>
+                  <td>Document technique complet</td>
+                  <td>Cahier des charges technique</td>
+                  <td>10-15 jours</td>
+                  <td>Architecte</td>
+                  <td>Spécifications complètes et claires</td>
+                  <td>Oublis techniques, ambiguïtés</td>
+                </tr>
+                <tr>
+                  <td>3.2</td>
+                  <td>Élaboration Plans Définitifs</td>
+                  <td>Plans architecturaux et techniques</td>
+                  <td>Jeu de plans complet</td>
+                  <td>15-20 jours</td>
+                  <td>Architecte/BET</td>
+                  <td>Plans conformes aux normes, réalisables</td>
+                  <td>Erreurs de conception, incompatibilités</td>
+                </tr>
+                <tr>
+                  <td>3.3</td>
+                  <td>Estimation Détaillée</td>
+                  <td>Devis quantitatif estimatif</td>
+                  <td>DQE complet</td>
+                  <td>10-12 jours</td>
+                  <td>Économiste de la construction</td>
+                  <td>Estimation précise à ±5%</td>
+                  <td>Sous-estimation, oublis d'éléments</td>
+                </tr>
+                <tr>
+                  <td>3.4</td>
+                  <td>Sélection Entreprises</td>
+                  <td>Appel d'offres et choix des entreprises</td>
+                  <td>Contrats signés</td>
+                  <td>15-20 jours</td>
+                  <td>Chef de projet</td>
+                  <td>Entreprises qualifiées, devis compétitifs</td>
+                  <td>Entreprises non fiables, surestimation</td>
+                </tr>
+                <tr>
+                  <td>3.5</td>
+                  <td>Planning Détaillé</td>
+                  <td>Planning chantier semaine par semaine</td>
+                  <td>Planning Gantt détaillé</td>
+                  <td>5-7 jours</td>
+                  <td>Chef de chantier</td>
+                  <td>Planning réaliste, jalons clairs</td>
+                  <td>Planning trop optimiste, dépendances mal gérées</td>
+                </tr>
+                <tr>
+                  <td>3.6</td>
+                  <td>Mise en Place Gouvernance</td>
+                  <td>Définition rôles et processus décisionnels</td>
+                  <td>Organigramme projet</td>
+                  <td>3-5 jours</td>
+                  <td>Chef de projet</td>
+                  <td>Rôles clairs, processus validés</td>
+                  <td>Conflits d'autorité, décisions bloquées</td>
+                </tr>
+                <tr>
+                  <td>3.7</td>
+                  <td>Préparation Chantier</td>
+                  <td>Installation base vie, accès, sécurité</td>
+                  <td>Chantier prêt à démarrer</td>
+                  <td>5-10 jours</td>
+                  <td>Chef de chantier</td>
+                  <td>Chantier sécurisé, accès organisé</td>
+                  <td>Retards administratifs, problèmes de voisinage</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="alert alert-info mt-3">
+            <h6><i class="bi bi-lightbulb me-2"></i>Conseils d'Application Immobilière :</h6>
+            <ul class="mb-0">
+              <li>Visiter au moins 3 chantiers similaires des entreprises candidates</li>
+              <li>Inclure des clauses de pénalités de retard dans les contrats</li>
+              <li>Prévoir une réserve pour variations de prix des matériaux</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tableau Phase 4: Development -->
+    <div class="tab-pane fade" id="development-table">
+      <div class="card">
+        <div class="card-header" style="background: linear-gradient(135deg, #0984e3 0%, #74b9ff 100%); color: white;">
+          <h4 class="mb-0"><i class="bi bi-arrow-repeat me-2"></i>Phase 4: Development - Tableau de Référence</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th>#</th>
+                  <th>Sprint/Étape</th>
+                  <th>Description</th>
+                  <th>Livrable</th>
+                  <th>Durée</th>
+                  <th>Responsable</th>
+                  <th>Critère d'Acceptation</th>
+                  <th>Risques</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>4.1</td>
+                  <td>Sprint 1: Terrassement</td>
+                  <td>Préparation terrain, fouilles</td>
+                  <td>Terrain prêt pour fondations</td>
+                  <td>7-10 jours</td>
+                  <td>Terrassier</td>
+                  <td>Profondeur et largeur respectées</td>
+                  <td>Roches imprévues, eau souterraine</td>
+                </tr>
+                <tr>
+                  <td>4.2</td>
+                  <td>Sprint 2: Fondations</td>
+                  <td>Coulage semelles, radier</td>
+                  <td>Fondations terminées</td>
+                  <td>10-15 jours</td>
+                  <td>Maçon</td>
+                  <td>Niveau parfait, béton conforme</td>
+                  <td>Mauvais temps, qualité béton insuffisante</td>
+                </tr>
+                <tr>
+                  <td>4.3</td>
+                  <td>Sprint 3: Élévation Murs</td>
+                  <td>Construction murs porteurs</td>
+                  <td>Murs hors d'eau</td>
+                  <td>15-20 jours</td>
+                  <td>Maçon</td>
+                  <td>Verticalité, alignement parfaits</td>
+                  <td>Fournitures retardées, main d'œuvre insuffisante</td>
+                </tr>
+                <tr>
+                  <td>4.4</td>
+                  <td>Sprint 4: Charpente/Toiture</td>
+                  <td>Pose charpente et couverture</td>
+                  <td>Bâtiment hors d'air</td>
+                  <td>10-14 jours</td>
+                  <td>Charpentier/Couvreur</td>
+                  <td>Étanchéité parfaite, fixation solide</td>
+                  <td>Vents violents, matériaux non conformes</td>
+                </tr>
+                <tr>
+                  <td>4.5</td>
+                  <td>Sprint 5: Menuiseries</td>
+                  <td>Pose portes et fenêtres</td>
+                  <td>Bâtiment clos</td>
+                  <td>7-10 jours</td>
+                  <td>Menuisier</td>
+                  <td>Étanchéité, fonctionnement parfait</td>
+                  <td>Mesures incorrectes, défauts de fabrication</td>
+                </tr>
+                <tr>
+                  <td>4.6</td>
+                  <td>Sprint 6: Électricité/Plomberie</td>
+                  <td>Installations techniques</td>
+                  <td>Réseaux installés</td>
+                  <td>12-18 jours</td>
+                  <td>Électricien/Plombier</td>
+                  <td>Conformité aux normes, tests OK</td>
+                  <td>Circuits électriques défectueux, fuites</td>
+                </tr>
+                <tr>
+                  <td>4.7</td>
+                  <td>Sprint 7: Finitions</td>
+                  <td>Enduits, peintures, revêtements</td>
+                  <td>Finitions complètes</td>
+                  <td>15-25 jours</td>
+                  <td>Staffeur/Peintre</td>
+                  <td>Qualité esthétique, fini parfait</td>
+                  <td>Humidité résiduelle, défauts d'application</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="row mt-4">
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header bg-primary text-white">
+                  <h6 class="mb-0">Points de Contrôle Qualité Obligatoires</h6>
+                </div>
+                <div class="card-body">
+                  <ul>
+                    <li>Vérification ferraillage avant bétonnage</li>
+                    <li>Contrôle étanchéité toiture après pluie</li>
+                    <li>Test de pression réseaux hydrauliques</li>
+                    <li>Mesure de terre installation électrique</li>
+                    <li>Contrôle niveaux et alignements</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header bg-success text-white">
+                  <h6 class="mb-0">Indicateurs de Performance</h6>
+                </div>
+                <div class="card-body">
+                  <ul>
+                    <li>Avancement physique vs planning : ±5%</li>
+                    <li>Qualité conforme : ≥95%</li>
+                    <li>Incidents sécurité : 0</li>
+                    <li>Variations budget : ≤10%</li>
+                    <li>Satisfaction équipe : ≥4/5</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tableau Phase 5: Deployment -->
+    <div class="tab-pane fade" id="deployment-table">
+      <div class="card">
+        <div class="card-header" style="background: linear-gradient(135deg, #e17055 0%, #fab1a0 100%); color: white;">
+          <h4 class="mb-0"><i class="bi bi-truck me-2"></i>Phase 5: Deployment - Tableau de Référence</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th>#</th>
+                  <th>Activité</th>
+                  <th>Description</th>
+                  <th>Livrable</th>
+                  <th>Durée</th>
+                  <th>Responsable</th>
+                  <th>Critère de Validation</th>
+                  <th>Risques</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>5.1</td>
+                  <td>Nettoyage Final</td>
+                  <td>Nettoyage complet du bâtiment</td>
+                  <td>Bâtiment impeccable</td>
+                  <td>2-3 jours</td>
+                  <td>Entreprise de nettoyage</td>
+                  <td>Propreté parfaite, déchets évacués</td>
+                  <td>Salissures résiduelles, matériaux oubliés</td>
+                </tr>
+                <tr>
+                  <td>5.2</td>
+                  <td>Tests Fonctionnels</td>
+                  <td>Tests complets de tous les systèmes</td>
+                  <td>Procès-verbal de tests</td>
+                  <td>3-5 jours</td>
+                  <td>Bureau de contrôle</td>
+                  <td>Tous les systèmes fonctionnent parfaitement</td>
+                  <td>Pannes découvertes en dernière minute</td>
+                </tr>
+                <tr>
+                  <td>5.3</td>
+                  <td>Vérification Conformité</td>
+                  <td>Contrôle conformité aux normes</td>
+                  <td>Certificat de conformité</td>
+                  <td>5-7 jours</td>
+                  <td>Expert agréé</td>
+                  <td>Conformité totale aux réglementations</td>
+                  <td>Non-conformités nécessitant travaux</td>
+                </tr>
+                <tr>
+                  <td>5.4</td>
+                  <td>Réception Provisoire</td>
+                  <td>Visite avec liste des réserves</td>
+                  <td>PV de réception provisoire</td>
+                  <td>1 jour</td>
+                  <td>Maître d'ouvrage + entreprises</td>
+                  <td>Liste des réserves acceptée par tous</td>
+                  <td>Désaccord sur l'étendue des réserves</td>
+                </tr>
+                <tr>
+                  <td>5.5</td>
+                  <td>Correction Réserves</td>
+                  <td>Rectification des défauts identifiés</td>
+                  <td>Réserves levées</td>
+                  <td>5-15 jours</td>
+                  <td>Entreprises concernées</td>
+                  <td>Toutes les réserves traitées</td>
+                  <td>Entreprises peu réactives</td>
+                </tr>
+                <tr>
+                  <td>5.6</td>
+                  <td>Réception Définitive</td>
+                  <td>Signature réception définitive</td>
+                  <td>PV réception définitive</td>
+                  <td>1 jour</td>
+                  <td>Maître d'ouvrage + entreprises</td>
+                  <td>Bâtiment conforme aux attentes</td>
+                  <td>Litige sur garanties</td>
+                </tr>
+                <tr>
+                  <td>5.7</td>
+                  <td>Remise Clés et Documents</td>
+                  <td>Transmission clés et documentation</td>
+                  <td>Clés + dossier technique complet</td>
+                  <td>1 jour</td>
+                  <td>Chef de projet</td>
+                  <td>Client formé, documentation complète</td>
+                  <td>Documents incomplets, formation insuffisante</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="alert alert-warning mt-3">
+            <h6><i class="bi bi-exclamation-triangle me-2"></i>Checklist Réception Définitive :</h6>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="checkDeploy1">
+                  <label class="form-check-label" for="checkDeploy1">Tous les réseaux fonctionnels</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="checkDeploy2">
+                  <label class="form-check-label" for="checkDeploy2">Finitions conformes aux attentes</label>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="checkDeploy3">
+                  <label class="form-check-label" for="checkDeploy3">Garanties contractuelles remises</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="checkDeploy4">
+                  <label class="form-check-label" for="checkDeploy4">Dossier technique complet</label>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="checkDeploy5">
+                  <label class="form-check-label" for="checkDeploy5">Formation utilisateur effectuée</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="checkDeploy6">
+                  <label class="form-check-label" for="checkDeploy6">Clés et moyens d'accès fournis</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tableau Phase 6: Realisation -->
+    <div class="tab-pane fade" id="realisation-table">
+      <div class="card">
+        <div class="card-header" style="background: linear-gradient(135deg, #00cec9 0%, #81ecec 100%); color: white;">
+          <h4 class="mb-0"><i class="bi bi-graph-up-arrow me-2"></i>Phase 6: Realisation - Tableau de Référence</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th>#</th>
+                  <th>Activité</th>
+                  <th>Description</th>
+                  <th>Livrable</th>
+                  <th>Durée</th>
+                  <th>Responsable</th>
+                  <th>Critère de Validation</th>
+                  <th>Risques</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>6.1</td>
+                  <td>Évaluation Bénéfices</td>
+                  <td>Mesure des bénéfices réels vs prévus</td>
+                  <td>Rapport d'évaluation bénéfices</td>
+                  <td>5-7 jours</td>
+                  <td>Chef de projet</td>
+                  <td>Bénéfices ≥ 80% des objectifs</td>
+                  <td>Écart important entre prévu et réel</td>
+                </tr>
+                <tr>
+                  <td>6.2</td>
+                  <td>Audit Financier Final</td>
+                  <td>Réconciliation budget réel vs prévu</td>
+                  <td>Rapport financier final</td>
+                  <td>7-10 jours</td>
+                  <td>Comptable projet</td>
+                  <td>Écart budget ≤ 15%</td>
+                  <td>Dépassement budgétaire important</td>
+                </tr>
+                <tr>
+                  <td>6.3</td>
+                  <td>Évaluation Satisfaction</td>
+                  <td>Sondage satisfaction toutes parties</td>
+                  <td>Rapport satisfaction</td>
+                  <td>5-8 jours</td>
+                  <td>Chef de projet</td>
+                  <td>Satisfaction ≥ 4/5</td>
+                  <td>Mécontentement significatif</td>
+                </tr>
+                <tr>
+                  <td>6.4</td>
+                  <td>Retour d'Expérience</td>
+                  <td>Analyse succès et échecs</td>
+                  <td>Rapport REX complet</td>
+                  <td>10-12 jours</td>
+                  <td>Toute l'équipe</td>
+                  <td>Leçons apprises documentées</td>
+                  <td>Manque de transparence, oublis</td>
+                </tr>
+                <tr>
+                  <td>6.5</td>
+                  <td>Capitalisation Connaissances</td>
+                  <td>Documentation processus optimisés</td>
+                  <td>Base de connaissances projet</td>
+                  <td>8-10 jours</td>
+                  <td>Chef de projet</td>
+                  <td>Base consultable et utilisable</td>
+                  <td>Documentation incomplète ou obsolète</td>
+                </tr>
+                <tr>
+                  <td>6.6</td>
+                  <td>Transfert Responsabilités</td>
+                  <td>Transfert vers équipe maintenance</td>
+                  <td>PV de transfert</td>
+                  <td>3-5 jours</td>
+                  <td>Chef de projet</td>
+                  <td>Équipe maintenance autonome</td>
+                  <td>Manque de compétences maintenance</td>
+                </tr>
+                <tr>
+                  <td>6.7</td>
+                  <td>Clôture Administrative</td>
+                  <td>Clôture comptable, administrative</td>
+                  <td>PV de clôture projet</td>
+                  <td>5-7 jours</td>
+                  <td>Administrateur projet</td>
+                  <td>Toutes les obligations remplies</td>
+                  <td>Litiges non résolus, dettes</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="row mt-4">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header bg-info text-white">
+                  <h6 class="mb-0">Indicateurs Clés de Performance Finale</h6>
+                </div>
+                <div class="card-body">
+                  <div class="row text-center">
+                    <div class="col-md-3 mb-3">
+                      <div class="p-3 border rounded">
+                        <div class="fs-3 fw-bold text-primary" id="indicateurQualite">96%</div>
+                        <div class="small">Qualité livrable</div>
+                      </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                      <div class="p-3 border rounded">
+                        <div class="fs-3 fw-bold text-warning" id="indicateurBudget">+8%</div>
+                        <div class="small">Dépassement budget</div>
+                      </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                      <div class="p-3 border rounded">
+                        <div class="fs-3 fw-bold text-success" id="indicateurDelai">94%</div>
+                        <div class="small">Respect délai</div>
+                      </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                      <div class="p-3 border rounded">
+                        <div class="fs-3 fw-bold text-danger" id="indicateurSatisfaction">4.7/5</div>
+                        <div class="small">Satisfaction client</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="alert alert-success mt-3">
+            <h6><i class="bi bi-award me-2"></i>Bonnes Pratiques de Clôture :</h6>
+            <ul class="mb-0">
+              <li>Organiser une célébration de fin de projet avec toute l'équipe</li>
+              <li>Documenter au moins 5 leçons apprises à réutiliser</li>
+              <li>Mettre à jour les modèles et processus pour le prochain projet</li>
+              <li>Remercier individuellement chaque membre de l'équipe</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Téléchargement des Tableaux -->
+  <div class="card mt-4">
+    <div class="card-header bg-dark text-white">
+      <h5 class="mb-0"><i class="bi bi-download me-2"></i>Télécharger les Tableaux de Référence</h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <div class="d-grid gap-2">
+            <button class="btn btn-outline-primary" onclick="telechargerTableau('preproject')">
+              <i class="bi bi-file-earmark-spreadsheet me-2"></i>Télécharger Tableau Pre-project
+            </button>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="d-grid gap-2">
+            <button class="btn btn-outline-success" onclick="telechargerTableau('feasibility')">
+              <i class="bi bi-file-earmark-spreadsheet me-2"></i>Télécharger Tableau Feasibility
+            </button>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="d-grid gap-2">
+            <button class="btn btn-outline-warning" onclick="telechargerTableau('foundations')">
+              <i class="bi bi-file-earmark-spreadsheet me-2"></i>Télécharger Tableau Foundations
+            </button>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="d-grid gap-2">
+            <button class="btn btn-outline-info" onclick="telechargerTableau('development')">
+              <i class="bi bi-file-earmark-spreadsheet me-2"></i>Télécharger Tableau Development
+            </button>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="d-grid gap-2">
+            <button class="btn btn-outline-danger" onclick="telechargerTableau('deployment')">
+              <i class="bi bi-file-earmark-spreadsheet me-2"></i>Télécharger Tableau Deployment
+            </button>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="d-grid gap-2">
+            <button class="btn btn-outline-secondary" onclick="telechargerTableau('realisation')">
+              <i class="bi bi-file-earmark-spreadsheet me-2"></i>Télécharger Tableau Realisation
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="alert alert-info mt-3">
+        <p class="mb-0"><i class="bi bi-info-circle me-2"></i>Ces tableaux servent de référence pour construire votre propre plan de projet. Adaptez-les selon vos besoins spécifiques, la localisation géographique et le type de construction.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+    <!-- Section Afrique de l'Ouest -->
+    <section id="ouest-afrique" class="mb-5">
+      <h2 class="text-center mb-4">Adaptation Spécifique Afrique de l'Ouest</h2>
+      
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-header" style="background-color: #e67e22; color: white;">
+              <h5 class="mb-0"><i class="bi bi-thermometer-sun me-2"></i>Climat Tropical</h5>
+            </div>
+            <div class="card-body">
+              <ul>
+                <li>Priorité ventilation naturelle</li>
+                <li>Débord toiture important</li>
+                <li>Protection contre pluies intenses</li>
+                <li>Matériaux résistants humidité</li>
+                <li>Traitement anti-termites obligatoire</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-header" style="background-color: #27ae60; color: white;">
+              <h5 class="mb-0"><i class="bi bi-graph-up me-2"></i>Réalité Économique Locale</h5>
+            </div>
+            <div class="card-body">
+              <ul>
+                <li>Fluctuation prix ciment/fer</li>
+                <li>Main d'œuvre variable qualité</li>
+                <li>Informalité élevée</li>
+              </ul>
+              
+              <div class="alert alert-success mt-3">
+                <h6>Solutions :</h6>
+                <ul class="mb-0">
+                  <li>Contrôle régulier</li>
+                  <li>Achat groupé matériaux</li>
+                  <li>Stockage sécurisé</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-header" style="background-color: #8e44ad; color: white;">
+              <h5 class="mb-0"><i class="bi bi-shield-check me-2"></i>Risques Fonciers</h5>
+            </div>
+            <div class="card-body">
+              <ul>
+                <li>Multiplicité acteurs traditionnels</li>
+                <li>Systèmes coutumiers vs administratifs</li>
+              </ul>
+              
+              <div class="alert alert-warning mt-3">
+                <h6>Toujours vérifier :</h6>
+                <ol class="mb-0">
+                  <li>Au service des domaines</li>
+                  <li>Auprès autorité locale</li>
+                  <li>Faire acte notarié</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card mt-4">
+        <div class="card-header bg-danger text-white">
+          <h4 class="mb-0"><i class="bi bi-exclamation-triangle-fill me-2"></i>SAGESSE FINALE</h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-8">
+              <p class="fs-5">En Afrique de l'Ouest, le risque principal n'est pas technique.</p>
+              <p class="fs-5">C'est :</p>
+              <ul class="fs-5">
+                <li><strong>Juridique</strong> - Une maison mal sécurisée juridiquement peut être perdue totalement</li>
+                <li><strong>Financier</strong> - Une maison mal planifiée peut coûter 2x plus cher</li>
+                <li><strong>Relationnel</strong> - Les conflits peuvent arrêter un chantier pendant des mois</li>
+              </ul>
+            </div>
+            <div class="col-md-4 text-center">
+              <i class="bi bi-house-exclamation" style="font-size: 6rem; color: #e74c3c;"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Outils & Simulateurs -->
+    <section id="outils" class="mb-5">
+      <h2 class="text-center mb-4">Outils & Simulateurs</h2>
+      
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-header">
+              <h5 class="mb-0"><i class="bi bi-calendar-check me-2"></i>Planificateur de Chantier</h5>
+            </div>
+            <div class="card-body">
+              <p>Générez un planning personnalisé pour votre projet.</p>
+              <button class="btn btn-outline-primary w-100" onclick="genererPlanning()">
+                Générer un planning
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-header">
+              <h5 class="mb-0"><i class="bi bi-file-text me-2"></i>Générateur de Checklist</h5>
+            </div>
+            <div class="card-body">
+              <p>Créez une checklist personnalisée pour votre projet.</p>
+              <button class="btn btn-outline-success w-100" onclick="genererChecklistPerso()">
+                Créer ma checklist
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-header">
+              <h5 class="mb-0"><i class="bi bi-cash-coin me-2"></i>Suivi de Dépenses</h5>
+            </div>
+            <div class="card-body">
+              <p>Outil de suivi budgétaire en temps réel.</p>
+              <button class="btn btn-outline-warning w-100" onclick="ouvrirSuiviBudget()">
+                Ouvrir le suivi
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Matrice de Priorité Risque -->
+      <div class="card mt-4">
+        <div class="card-header">
+          <h4 class="mb-0"><i class="bi bi-diagram-3 me-2"></i>Matrice de Priorité des Risques (Synthèse)</h4>
+        </div>
+        <div class="card-body">
+          <table class="risk-matrix">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Impact</th>
+                <th>Probabilité</th>
+                <th>Priorité</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Foncier</td>
+                <td class="risk-critical">Très élevé</td>
+                <td class="risk-high">Élevée</td>
+                <td class="risk-critical">🔴 Critique</td>
+              </tr>
+              <tr>
+                <td>Budget</td>
+                <td class="risk-critical">Très élevé</td>
+                <td class="risk-critical">Très élevée</td>
+                <td class="risk-critical">🔴 Critique</td>
+              </tr>
+              <tr>
+                <td>Technique</td>
+                <td class="risk-high">Élevé</td>
+                <td class="risk-medium">Moyenne</td>
+                <td class="risk-high">🟠 Important</td>
+              </tr>
+              <tr>
+                <td>Relationnel</td>
+                <td class="risk-medium">Moyen</td>
+                <td class="risk-high">Élevée</td>
+                <td class="risk-high">🟠 Important</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Ressources -->
+    <section id="ressources" class="mb-5">
+      <h2 class="text-center mb-4">Ressources Supplémentaires</h2>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-header">
+              <h5 class="mb-0"><i class="bi bi-journal-bookmark me-2"></i>Documents Types à Télécharger</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Modèle de cahier des charges
+                  <button class="btn btn-sm btn-outline-primary">Télécharger</button>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Contrat type avec entrepreneur
+                  <button class="btn btn-sm btn-outline-primary">Télécharger</button>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Fiche de suivi de chantier
+                  <button class="btn btn-sm btn-outline-primary">Télécharger</button>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Checklist de réception
+                  <button class="btn btn-sm btn-outline-primary">Télécharger</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-header">
+              <h5 class="mb-0"><i class="bi bi-phone me-2"></i>Applications Recommandées</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div>
+                    <strong>Budget & Suivi</strong>
+                    <div class="text-muted">Gestion de budget chantier</div>
+                  </div>
+                  <span class="badge bg-success">Gratuit</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div>
+                    <strong>Plans 3D</strong>
+                    <div class="text-muted">Visualisation architecturale</div>
+                  </div>
+                  <span class="badge bg-success">Gratuit</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div>
+                    <strong>Checklist Pro</strong>
+                    <div class="text-muted">Gestion des tâches chantier</div>
+                  </div>
+                  <span class="badge bg-warning">Freemium</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0"><i class="bi bi-question-circle me-2"></i>FAQ - Questions Fréquentes</h5>
+        </div>
+        <div class="card-body">
+          <div class="accordion" id="faqAccordion">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                  Combien dois-je prévoir d'imprévus dans mon budget ?
+                </button>
+              </h2>
+              <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  <p>En Afrique de l'Ouest, il est recommandé de prévoir <strong>minimum 20% d'imprévus</strong> dans votre budget total. Cette marge couvre :</p>
+                  <ul>
+                    <li>Fluctuation des prix des matériaux</li>
+                    <li>Imprévus techniques (sol, fondations)</li>
+                    <li>Retards climatiques (saison des pluies)</li>
+                    <li>Évolutions de projet mineures</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                  Comment vérifier la légalité d'un terrain ?
+                </button>
+              </h2>
+              <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  <p>Procédez toujours à ces 3 vérifications :</p>
+                  <ol>
+                    <li><strong>Service des domaines :</strong> Vérifiez l'authenticité du titre foncier</li>
+                    <li><strong>Autorité locale :</strong> Vérifiez l'absence de litige et la constructibilité</li>
+                    <li><strong>Notaire :</strong> Faites un acte notarié pour sécuriser la transaction</li>
+                  </ol>
+                  <p class="mb-0">Ne jamais acheter sur la base d'une simple attestation de vente ou d'un accord verbal.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                  Puis-je utiliser des plans trouvés sur Internet ?
+                </button>
+              </h2>
+              <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  <p><strong>Déconseillé fortement.</strong> Les plans trouvés sur Internet :</p>
+                  <ul>
+                    <li>Ne sont pas adaptés au climat tropical (ventilation insuffisante)</li>
+                    <li>Ne respectent pas les normes locales de construction</li>
+                    <li>Ne tiennent pas compte des spécificités de votre terrain</li>
+                    <li>Peuvent entraîner des surcoûts structurels importants</li>
+                  </ul>
+                  <p class="mb-0"><strong>Solution :</strong> Faites adapter tout plan par un architecte local qui connaît le climat et les matériaux disponibles.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h5>Portail Immobilier Agile</h5>
+          <p>Votre guide pour réussir votre projet de construction en Afrique de l'Ouest.</p>
+          <p>Méthodes agiles appliquées à l'immobilier.</p>
+        </div>
+        
+        <div class="col-md-4">
+          <h5>Navigation rapide</h5>
+          <ul class="list-unstyled">
+            <li><a href="#erreurs" class="text-white text-decoration-none">Erreurs à éviter</a></li>
+            <li><a href="#checklist" class="text-white text-decoration-none">Checklist 360°</a></li>
+            <li><a href="#methodologie" class="text-white text-decoration-none">Méthodologie</a></li>
+            <li><a href="#agile" class="text-white text-decoration-none">Approche Agile</a></li>
+            <li><a href="#ouest-afrique" class="text-white text-decoration-none">Afrique de l'Ouest</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-md-4">
+          <h5>Contact & Support</h5>
+          <p>Des questions sur votre projet ?</p>
+          <button class="btn btn-outline-light" onclick="ouvrirFormulaireContact()">
+            <i class="bi bi-envelope me-2"></i>Nous contacter
+          </button>
+        </div>
+      </div>
+      
+      <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+      
+      <div class="text-center">
+        <p class="mb-0">© 2024 Portail Immobilier Agile - Tous droits réservés</p>
+        <p class="mb-0">Conçu avec <i class="bi bi-heart-fill text-danger"></i> pour les porteurs de projets immobiliers en Afrique</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal Contact -->
+  <div class="modal fade" id="contactModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Contact & Support</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p>Ce portail est un outil pédagogique. Pour un accompagnement personnalisé sur votre projet :</p>
+          <ul>
+            <li>Consultez un architecte certifié</li>
+            <li>Engagez un maître d'œuvre professionnel</li>
+            <li>Faites appel à un bureau d'études techniques</li>
+          </ul>
+          <p class="mb-0">Les informations fournies sont à titre indicatif et ne remplacent pas un conseil professionnel.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Gestion de la checklist interactive
+    function toggleChecklistItem(checkbox) {
+      const checklistItem = checkbox.closest('.checklist-item');
+      if (checkbox.checked) {
+        checklistItem.classList.add('completed');
+      } else {
+        checklistItem.classList.remove('completed');
+      }
+    }
+    
+    function resetChecklist() {
+      const checkboxes = document.querySelectorAll('.checklist-item input[type="checkbox"]');
+      checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+        checkbox.closest('.checklist-item').classList.remove('completed');
+      });
+      
+      alert('Checklist réinitialisée !');
+    }
+    
+    function printChecklist() {
+      const checkboxes = document.querySelectorAll('.checklist-item input[type="checkbox"]');
+      let completedCount = 0;
+      let totalCount = 0;
+      
+      checkboxes.forEach(checkbox => {
+        totalCount++;
+        if (checkbox.checked) completedCount++;
+      });
+      
+      const percentage = Math.round((completedCount / totalCount) * 100);
+      
+      alert(`Checklist prête pour impression !\n\nProgression : ${completedCount}/${totalCount} items (${percentage}%)\n\nUtilisez Ctrl+P pour imprimer la page.`);
+      window.print();
+    }
+    
+    // Calculateur de budget
+    function calculerBudget() {
+      const budgetBase = parseFloat(document.getElementById('budgetBase').value) || 0;
+      const contingence = parseFloat(document.getElementById('contingence').value) || 0;
+      const inflation = parseFloat(document.getElementById('inflation').value) || 0;
+      const dureeProjet = parseFloat(document.getElementById('dureeProjet').value) || 0;
+      
+      // Calcul des montants
+      const montantImprevu = budgetBase * (contingence / 100);
+      const montantInflation = budgetBase * (inflation / 100) * (dureeProjet / 12);
+      const budgetTotal = budgetBase + montantImprevu + montantInflation;
+      
+      // Affichage des résultats
+      document.getElementById('resultBase').textContent = formatCurrency(budgetBase);
+      document.getElementById('pourcentageImprevu').textContent = contingence;
+      document.getElementById('resultImprevu').textContent = formatCurrency(montantImprevu);
+      document.getElementById('pourcentageInflation').textContent = inflation;
+      document.getElementById('dureeProjetAffichee').textContent = dureeProjet;
+      document.getElementById('resultInflation').textContent = formatCurrency(montantInflation);
+      document.getElementById('resultTotal').textContent = formatCurrency(budgetTotal);
+      
+      // Message personnalisé
+      let message = "Budget calculé avec succès. ";
+      if (contingence < 15) {
+        message += "Attention : votre marge d'imprévus est faible pour l'Afrique de l'Ouest. ";
+      }
+      if (inflation > 8) {
+        message += "L'inflation élevée nécessite une révision budgétaire régulière. ";
+      }
+      message += "Pensez à réviser votre budget tous les 3 mois.";
+      
+      document.getElementById('messageBudget').textContent = message;
+      
+      // Afficher les résultats
+      document.getElementById('resultatsBudget').style.display = 'block';
+      
+      // Mettre à jour le graphique
+      const totalGraph = budgetTotal;
+      const terrainWidth = Math.round((budgetBase * 0.2 / totalGraph) * 100);
+      const grosOeuvreWidth = Math.round((budgetBase * 0.45 / totalGraph) * 100);
+      const secondOeuvreWidth = Math.round((budgetBase * 0.25 / totalGraph) * 100);
+      const imprevusWidth = Math.round((montantImprevu / totalGraph) * 100);
+      
+      document.getElementById('chartTerrain').style.width = terrainWidth + '%';
+      document.getElementById('chartTerrain').innerHTML = `<span class="chart-label">Terrain ${terrainWidth}%</span>`;
+      
+      document.getElementById('chartGrosOeuvre').style.width = grosOeuvreWidth + '%';
+      document.getElementById('chartGrosOeuvre').innerHTML = `<span class="chart-label">Gros œuvre ${grosOeuvreWidth}%</span>`;
+      
+      document.getElementById('chartSecondOeuvre').style.width = secondOeuvreWidth + '%';
+      document.getElementById('chartSecondOeuvre').innerHTML = `<span class="chart-label">Second œuvre ${secondOeuvreWidth}%</span>`;
+      
+      document.getElementById('chartImprevus').style.width = imprevusWidth + '%';
+      document.getElementById('chartImprevus').innerHTML = `<span class="chart-label">Imprévus ${imprevusWidth}%</span>`;
+    }
+    
+    function formatCurrency(amount) {
+      return new Intl.NumberFormat('fr-FR', { 
+        style: 'currency', 
+        currency: 'XOF',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      }).format(amount);
+    }
+    
+    // Outils interactifs
+    function genererPlanning() {
+      alert("Générateur de planning - Fonctionnalité en développement.\n\nPour l'instant, utilisez la méthodologie en 5 phases décrite ci-dessus.");
+    }
+    
+    function genererChecklistPerso() {
+      alert("Générateur de checklist personnalisée - Fonctionnalité en développement.\n\nPour l'instant, utilisez la checklist 360° complète fournie.");
+    }
+    
+    function ouvrirSuiviBudget() {
+      alert("Outil de suivi budgétaire - Fonctionnalité en développement.\n\nPour l'instant, utilisez le simulateur de budget ci-dessus.");
+    }
+    
+    function ouvrirFormulaireContact() {
+      const contactModal = new bootstrap.Modal(document.getElementById('contactModal'));
+      contactModal.show();
+    }
+    
+    // Initialisation
+    document.addEventListener('DOMContentLoaded', function() {
+      // Calcul initial du budget
+      calculerBudget();
+      
+      // Smooth scroll pour les ancres
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+      
+      // Animation des graphiques au scroll
+      const observerOptions = {
+        threshold: 0.5
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.transition = 'width 1.5s ease';
+          }
+        });
+      }, observerOptions);
+      
+      document.querySelectorAll('.chart-fill').forEach(chart => {
+        observer.observe(chart);
+      });
+    });
+    
+    // Fonction pour afficher/masquer les détails des erreurs
+    function toggleErrorDetails(errorId) {
+      const detailsElement = document.getElementById(errorId + '-details');
+      if (detailsElement) {
+        detailsElement.classList.toggle('d-none');
+      }
+    }
+  </script>
+  
+  
+  <script>
+// Fonction pour calculer le planning AgilePM
+function calculerPlanningAgilePM() {
+  const typeProjet = document.getElementById('typeProjet').value;
+  const surface = parseInt(document.getElementById('surfaceProjet').value) || 150;
+  const complexite = document.getElementById('complexiteProjet').value;
+  
+  // Facteurs de calcul
+  let facteurComplexite = 1;
+  switch(complexite) {
+    case 'simple': facteurComplexite = 0.8; break;
+    case 'moyen': facteurComplexite = 1; break;
+    case 'complexe': facteurComplexite = 1.3; break;
+  }
+  
+  let facteurType = 1;
+  switch(typeProjet) {
+    case 'maison_individuelle': facteurType = 1; break;
+    case 'villa_standing': facteurType = 1.2; break;
+    case 'immeuble_r2': facteurType = 1.5; break;
+    case 'batiment_commercial': facteurType = 1.3; break;
+  }
+  
+  // Calcul des durées (en semaines)
+  const preProject = Math.round(3 * facteurComplexite);
+  const feasibility = Math.round(6 * facteurComplexite);
+  const foundations = Math.round(4 * facteurComplexite);
+  
+  // Développement basé sur la surface
+  const devBaseWeeks = Math.max(16, Math.round(surface / 10));
+  const development = Math.round(devBaseWeeks * facteurType * facteurComplexite);
+  
+  const deployment = Math.round(3 * facteurComplexite);
+  const realisation = Math.round(4 * facteurComplexite);
+  
+  const totalWeeks = preProject + feasibility + foundations + development + deployment + realisation;
+  const totalMonths = (totalWeeks / 4.3).toFixed(1);
+  
+  // Mise à jour de l'affichage
+  const resultDiv = document.getElementById('planningResult');
+  resultDiv.innerHTML = `
+    <div class="row">
+      <div class="col-md-6">
+        <h6>Durées estimées :</h6>
+        <table class="table table-sm">
+          <tbody>
+            <tr><td>Pre-project</td><td>${preProject} semaines</td></tr>
+            <tr><td>Feasibility</td><td>${feasibility} semaines</td></tr>
+            <tr><td>Foundations</td><td>${foundations} semaines</td></tr>
+            <tr><td>Development</td><td>${development} semaines</td></tr>
+            <tr><td>Deployment</td><td>${deployment} semaines</td></tr>
+            <tr><td>Realisation</td><td>${realisation} semaines</td></tr>
+            <tr class="table-primary"><td><strong>Total</strong></td><td><strong>${totalWeeks} semaines (${totalMonths} mois)</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <h6>Recommandations :</h6>
+        <ul>
+          <li>${getRecommandation(typeProjet, complexite)}</li>
+          <li>Prévoir ${Math.round(totalWeeks * 0.2)} semaines de marge pour imprévus</li>
+          <li>Budget minimum : ${formatCurrency(surface * getPrixM2(typeProjet))}</li>
+          <li>Visites chantier : 1-2 fois par semaine minimum</li>
+        </ul>
+      </div>
+    </div>
+  `;
+  
+  // Mise à jour de la barre de progression
+  const pourcentagePreProject = (preProject / totalWeeks * 100).toFixed(1);
+  const pourcentageFeasibility = (feasibility / totalWeeks * 100).toFixed(1);
+  const pourcentageFoundations = (foundations / totalWeeks * 100).toFixed(1);
+  const pourcentageDevelopment = (development / totalWeeks * 100).toFixed(1);
+  const pourcentageDeployment = (deployment / totalWeeks * 100).toFixed(1);
+  const pourcentageRealisation = (realisation / totalWeeks * 100).toFixed(1);
+  
+  document.getElementById('progressPreProject').style.width = `${pourcentagePreProject}%`;
+  document.getElementById('progressPreProject').textContent = `Pre-project ${pourcentagePreProject}%`;
+  
+  document.getElementById('progressFeasibility').style.width = `${pourcentageFeasibility}%`;
+  document.getElementById('progressFeasibility').textContent = `Feasibility ${pourcentageFeasibility}%`;
+  
+  document.getElementById('progressFoundations').style.width = `${pourcentageFoundations}%`;
+  document.getElementById('progressFoundations').textContent = `Foundations ${pourcentageFoundations}%`;
+  
+  document.getElementById('progressDevelopment').style.width = `${pourcentageDevelopment}%`;
+  document.getElementById('progressDevelopment').textContent = `Development ${pourcentageDevelopment}%`;
+  
+  document.getElementById('progressDeployment').style.width = `${pourcentageDeployment}%`;
+  document.getElementById('progressDeployment').textContent = `Deployment ${pourcentageDeployment}%`;
+  
+  document.getElementById('progressRealisation').style.width = `${pourcentageRealisation}%`;
+  document.getElementById('progressRealisation').textContent = `Realisation ${pourcentageRealisation}%`;
+}
+
+function getRecommandation(type, complexite) {
+  const recommandations = {
+    'maison_individuelle': 'Engager un maître d\'œuvre pour superviser le chantier',
+    'villa_standing': 'Prévoir un architecte pour les finitions haut de gamme',
+    'immeuble_r2': 'Étude structure obligatoire avec bureau d\'études',
+    'batiment_commercial': 'Respect strict des normes ERP et accessibilité'
+  };
+  return recommandations[type] || 'Prévoir un suivi régulier et professionnel';
+}
+
+function getPrixM2(type) {
+  const prix = {
+    'maison_individuelle': 250000,
+    'villa_standing': 400000,
+    'immeuble_r2': 350000,
+    'batiment_commercial': 450000
+  };
+  return prix[type] || 300000;
+}
+
+function formatCurrency(amount) {
+  return new Intl.NumberFormat('fr-FR', { 
+    style: 'currency', 
+    currency: 'XOF',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  }).format(amount);
+}
+
+// Initialiser le planning au chargement
+document.addEventListener('DOMContentLoaded', function() {
+  if (document.getElementById('typeProjet')) {
+    calculerPlanningAgilePM();
+  }
+});
+</script>
+
+<!-- AJOUTER CES FONCTIONS JAVASCRIPT POUR L'INTERACTIVITÉ -->
+<script>
+// Fonction pour télécharger les tableaux
+function telechargerTableau(phase) {
+  const nomsPhases = {
+    'preproject': 'Pre-project',
+    'feasibility': 'Feasibility',
+    'foundations': 'Foundations',
+    'development': 'Development',
+    'deployment': 'Deployment',
+    'realisation': 'Realisation'
+  };
+  
+  const nomPhase = nomsPhases[phase] || 'Phase';
+  
+  // Créer un contenu CSV simplifié
+  let csvContent = "Phase AgilePM v3: " + nomPhase + "\n\n";
+  csvContent += "Activité,Description,Livrable,Durée,Responsable,Critère de Validation,Risques\n";
+  
+  // Données pour chaque phase
+  const donneesPhases = {
+    'preproject': [
+      ["Définition Vision", "Établir la vision du projet immobilier", "Énoncé de vision signé", "3-5 jours", "Maître d'ouvrage", "Vision claire, alignée avec besoins", "Vision floue ou contradictoire"],
+      ["Identification Parties Prenantes", "Cartographier tous les acteurs concernés", "Carte des parties prenantes", "2-3 jours", "Chef de projet", "Tous les acteurs identifiés avec rôles", "Oubli d'acteurs importants"],
+      ["Étude Faisabilité Initiale", "Évaluer la faisabilité préliminaire", "Rapport faisabilité initiale", "5-7 jours", "Architecte", "Projet techniquement et financièrement faisable", "Contraintes techniques non identifiées"]
+    ],
+    'feasibility': [
+      ["Étude de Sol", "Analyse géotechnique du terrain", "Rapport d'étude de sol", "10-15 jours", "Géotechnicien", "Type de fondations défini, portance vérifiée", "Sol instable, nappe phréatique haute"],
+      ["Étude Topographique", "Relevé précis du terrain", "Plan topographique", "5-7 jours", "Géomètre", "Plan précis avec courbes de niveau", "Erreur de mesure, obstacles non détectés"],
+      ["Analyse Climatique", "Étude vents dominants, ensoleillement", "Rapport d'orientation", "3-5 jours", "Architecte", "Orientation optimale déterminée", "Mauvaise orientation, surchauffe"]
+    ]
+  };
+  
+  // Récupérer les données de la phase
+  const donnees = donneesPhases[phase] || [
+    ["Activité 1", "Description exemple", "Livrable exemple", "5 jours", "Responsable", "Critère", "Risque"]
+  ];
+  
+  // Ajouter les données au CSV
+  donnees.forEach(row => {
+    csvContent += row.join(",") + "\n";
+  });
+  
+  // Créer un blob et télécharger
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement("a");
+  const url = URL.createObjectURL(blob);
+  
+  link.setAttribute("href", url);
+  link.setAttribute("download", `Tableau_AgilePM_${nomPhase}.csv`);
+  link.style.visibility = 'hidden';
+  
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  
+  // Notification
+  alert(`Tableau ${nomPhase} téléchargé! Vous pouvez l'ouvrir avec Excel ou Google Sheets.`);
+}
+
+// Initialiser les indicateurs dynamiques
+document.addEventListener('DOMContentLoaded', function() {
+  // Animer les indicateurs de performance
+  setTimeout(function() {
+    document.getElementById('indicateurQualite').textContent = '96%';
+    document.getElementById('indicateurBudget').textContent = '+8%';
+    document.getElementById('indicateurDelai').textContent = '94%';
+    document.getElementById('indicateurSatisfaction').textContent = '4.7/5';
+  }, 1000);
+  
+  // Activer les tooltips Bootstrap
+  const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+  tooltipTriggerList.map(function(tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+});
+
+// Fonction pour exporter tous les tableaux
+function exporterTousTableaux() {
+  if (confirm("Voulez-vous exporter tous les tableaux AgilePM v3 en un seul fichier Excel?")) {
+    alert("Fonctionnalité d'export complet en cours de développement. Utilisez les boutons individuels pour l'instant.");
+  }
+}
+</script>
+
+</body>
+</html>

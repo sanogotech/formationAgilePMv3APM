@@ -1,0 +1,2055 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maîtrisez AgilePM v3 - Guide Complet Projets Immobiliers</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <style>
+    :root {
+      --agilepm-blue: #2c3e50;
+      --agilepm-green: #27ae60;
+      --agilepm-orange: #e67e22;
+      --agilepm-purple: #8e44ad;
+      --agilepm-red: #e74c3c;
+      --agilepm-teal: #16a085;
+      --light-bg: #f8f9fa;
+      --dark-bg: #2c3e50;
+      --card-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    body {
+      background-color: var(--light-bg);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Navigation principale */
+    .main-nav {
+      background: linear-gradient(135deg, var(--agilepm-blue) 0%, #3498db 100%);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .main-nav .navbar-brand {
+      font-weight: 700;
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    .main-nav .nav-link {
+      color: rgba(255,255,255,0.9);
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .main-nav .nav-link:hover,
+    .main-nav .nav-link.active {
+      color: white;
+      background-color: rgba(255,255,255,0.1);
+      border-radius: 5px;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, var(--agilepm-blue) 0%, #34495e 100%);
+      color: white;
+      padding: 5rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+      background-size: cover;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Cartes de phases */
+    .phase-card {
+      border: none;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+      height: 100%;
+      border-top: 5px solid;
+    }
+
+    .phase-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .phase-1 { border-top-color: var(--agilepm-blue); }
+    .phase-2 { border-top-color: var(--agilepm-green); }
+    .phase-3 { border-top-color: var(--agilepm-orange); }
+    .phase-4 { border-top-color: var(--agilepm-purple); }
+    .phase-5 { border-top-color: var(--agilepm-red); }
+    .phase-6 { border-top-color: var(--agilepm-teal); }
+
+    /* Tableaux de référence */
+    .reference-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+
+    .reference-table th {
+      background-color: var(--agilepm-blue);
+      color: white;
+      font-weight: 600;
+      padding: 0.75rem;
+      text-align: left;
+    }
+
+    .reference-table td {
+      padding: 0.75rem;
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    .reference-table tr:nth-child(even) {
+      background-color: #f8f9fa;
+    }
+
+    .reference-table tr:hover {
+      background-color: rgba(52, 152, 219, 0.1);
+    }
+
+    /* Timeline AgilePM */
+    .agilepm-timeline {
+      position: relative;
+      padding: 2rem 0;
+    }
+
+    .agilepm-timeline::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--agilepm-blue), var(--agilepm-teal));
+      transform: translateX(-50%);
+    }
+
+    .timeline-phase {
+      position: relative;
+      width: 50%;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .timeline-phase:nth-child(odd) {
+      left: 0;
+      padding-right: 4rem;
+    }
+
+    .timeline-phase:nth-child(even) {
+      left: 50%;
+      padding-left: 4rem;
+    }
+
+    .timeline-phase::before {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: white;
+      border: 3px solid;
+      border-radius: 50%;
+      top: 2.5rem;
+    }
+
+    .timeline-phase:nth-child(odd)::before {
+      right: -10px;
+    }
+
+    .timeline-phase:nth-child(even)::before {
+      left: -10px;
+    }
+
+    /* Tooltip personnalisé */
+    .custom-tooltip {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .custom-tooltip .tooltip-content {
+      display: none;
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #333;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      white-space: nowrap;
+      z-index: 1000;
+      margin-bottom: 10px;
+    }
+
+    .custom-tooltip:hover .tooltip-content {
+      display: block;
+    }
+
+    /* Badges de niveau */
+    .level-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 15px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .level-beginner { background-color: #2ecc71; color: white; }
+    .level-intermediate { background-color: #3498db; color: white; }
+    .level-advanced { background-color: #9b59b6; color: white; }
+    .level-expert { background-color: #e74c3c; color: white; }
+
+    /* Section d'apprentissage */
+    .learning-card {
+      border-left: 5px solid;
+      background-color: white;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-radius: 0 8px 8px 0;
+      box-shadow: var(--card-shadow);
+    }
+
+    .learning-card.beginner { border-left-color: #2ecc71; }
+    .learning-card.intermediate { border-left-color: #3498db; }
+    .learning-card.advanced { border-left-color: #9b59b6; }
+
+    /* Simulation interactive */
+    .simulation-container {
+      background-color: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2rem;
+    }
+
+    .simulation-step {
+      background-color: #f8f9fa;
+      border-left: 4px solid var(--agilepm-blue);
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 0 5px 5px 0;
+    }
+
+    /* Footer */
+    .main-footer {
+      background-color: var(--dark-bg);
+      color: white;
+      padding: 3rem 0;
+      margin-top: 4rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .agilepm-timeline::before {
+        left: 20px;
+      }
+
+      .timeline-phase {
+        width: 100%;
+        padding-left: 3rem;
+        padding-right: 1rem;
+        left: 0 !important;
+      }
+
+      .timeline-phase::before {
+        left: 10px !important;
+        right: auto !important;
+      }
+
+      .hero-section {
+        padding: 3rem 0;
+      }
+    }
+
+    /* Animation des cartes */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 0.5s ease forwards;
+    }
+
+    /* Section certification */
+    .certification-badge {
+      width: 150px;
+      height: 150px;
+      background: linear-gradient(135deg, #3498db, #2c3e50);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    /* Zone de prise de notes */
+    .notes-area {
+      background: linear-gradient(135deg, #fff8e1, #fff3e0);
+      border: 2px dashed #ff9800;
+      border-radius: 10px;
+      padding: 1.5rem;
+      min-height: 200px;
+      margin: 1rem 0;
+    }
+
+    .notes-area:focus {
+      outline: none;
+      border-color: #e67e22;
+    }
+	
+	
+	/* AJOUTER À LA FIN DU STYLE EXISTANT */
+
+/* Style pour la timeline simple */
+.timeline-simple {
+  position: relative;
+  padding-left: 20px;
+}
+
+.timeline-item-simple {
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.timeline-item-simple:before {
+  content: "";
+  position: absolute;
+  left: -20px;
+  top: 0;
+  width: 12px;
+  height: 12px;
+  background-color: #3498db;
+  border-radius: 50%;
+}
+
+.timeline-item-simple:after {
+  content: "";
+  position: absolute;
+  left: -15px;
+  top: 12px;
+  width: 2px;
+  height: 100%;
+  background-color: #3498db;
+}
+
+.timeline-item-simple:last-child:after {
+  display: none;
+}
+
+.timeline-content {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 5px;
+  border-left: 3px solid #3498db;
+}
+
+/* Style pour les boutons de niveau */
+.btn-purple {
+  background-color: var(--agilepm-purple);
+  color: white;
+}
+
+.btn-purple:hover {
+  background-color: #7d3c98;
+  color: white;
+}
+
+.btn-teal {
+  background-color: var(--agilepm-teal);
+  color: white;
+}
+
+.btn-teal:hover {
+  background-color: #148f77;
+  color: white;
+}
+
+/* Style pour les indicateurs animés */
+@keyframes countUp {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.fs-3.fw-bold {
+  animation: countUp 0.5s ease-out;
+}
+
+/* Style pour la barre de progression */
+.progress-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+/* Style pour les notifications */
+.toast {
+  z-index: 1100;
+}
+
+/* Style pour les tableaux dans les modals */
+.modal .table {
+  font-size: 0.9rem;
+}
+
+.modal .table th {
+  font-size: 0.85rem;
+}
+
+/* Animation pour les cartes de phase */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.phase-card.new {
+  animation: pulse 2s infinite;
+}
+
+/* Responsive pour les modals */
+@media (max-width: 768px) {
+  .modal-lg {
+    margin: 10px;
+  }
+  
+  .timeline-simple {
+    padding-left: 15px;
+  }
+  
+  .timeline-item-simple:before {
+    left: -15px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <!-- Navigation principale -->
+  <nav class="main-nav navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="bi bi-house-gear me-2"></i>AgilePM v3 Immobilier
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#accueil">Accueil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#phases">Les 6 Phases</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#apprendre">Apprendre</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#outils">Outils</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#cas-pratiques">Cas Pratiques</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#certification">Certification</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="accueil" class="hero-section">
+    <div class="container position-relative">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <span class="hero-badge">
+            <i class="bi bi-award me-1"></i>Guide Complet
+          </span>
+          <h1 class="display-4 fw-bold mb-3">Maîtrisez AgilePM v3 pour Vos Projets Immobiliers</h1>
+          <p class="lead mb-4">Apprenez à appliquer la méthodologie AgilePM v3 à vos projets de construction, quelle que soit leur taille. De la maison individuelle au grand complexe immobilier.</p>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="#phases" class="btn btn-light btn-lg px-4">
+              <i class="bi bi-play-circle me-2"></i>Commencer l'apprentissage
+            </a>
+            <a href="#simulation" class="btn btn-outline-light btn-lg px-4">
+              <i class="bi bi-calculator me-2"></i>Essayer la simulation
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-6 text-center">
+          <div class="certification-badge mt-4">
+            <div>
+              <i class="bi bi-house-check" style="font-size: 3rem;"></i>
+              <div class="mt-2">AgilePM v3</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Introduction -->
+  <section class="py-5 bg-white">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center">
+          <h2 class="mb-4">Pourquoi AgilePM v3 pour l'Immobilier ?</h2>
+          <p class="lead mb-4">AgilePM v3 combine la rigueur de DSDM avec l'agilité de Scrum pour créer une approche structurée et adaptative parfaitement adaptée aux projets immobiliers.</p>
+          
+          <div class="row mt-5">
+            <div class="col-md-4 mb-4">
+              <div class="p-4">
+                <i class="bi bi-calendar-check fs-1 text-primary"></i>
+                <h4 class="mt-3">Délais Contrôlés</h4>
+                <p>Réduction de 30% des retards grâce aux itérations courtes</p>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4">
+              <div class="p-4">
+                <i class="bi bi-cash-coin fs-1 text-success"></i>
+                <h4 class="mt-3">Budget Maîtrisé</h4>
+                <p>Limitation des dépassements à moins de 10%</p>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4">
+              <div class="p-4">
+                <i class="bi bi-emoji-smile fs-1 text-warning"></i>
+                <h4 class="mt-3">Qualité Améliorée</h4>
+                <p>Détection précoce des problèmes, satisfaction client augmentée</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Les 6 Phases AgilePM v3 -->
+  <section id="phases" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-5">Les 6 Phases d'AgilePM v3 Appliquées à l'Immobilier</h2>
+      
+      <!-- Timeline AgilePM -->
+      <div class="agilepm-timeline">
+        
+        <!-- Phase 1: Pre-project -->
+        <div class="timeline-phase fade-in-up">
+          <div class="phase-card phase-1">
+            <div class="card-header" style="background-color: var(--agilepm-blue); color: white;">
+              <h4 class="mb-0"><i class="bi bi-bullseye me-2"></i>Phase 1 : Pre-project</h4>
+              <p class="mb-0 mt-1">Établissement de la vision</p>
+            </div>
+            <div class="card-body">
+              <h5><i class="bi bi-check-circle me-2 text-success"></i>Objectifs</h5>
+              <ul>
+                <li>Définir la vision du projet immobilier</li>
+                <li>Identifier les parties prenantes</li>
+                <li>Valider la faisabilité préliminaire</li>
+                <li>Prendre la décision Go/No Go</li>
+              </ul>
+              
+              <h5 class="mt-3"><i class="bi bi-clipboard-check me-2 text-primary"></i>Livrables Types</h5>
+              <table class="reference-table">
+                <thead>
+                  <tr>
+                    <th>Document</th>
+                    <th>Description</th>
+                    <th>Durée estimée</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Énoncé de vision</td>
+                    <td>Vision claire du projet immobilier</td>
+                    <td>3-5 jours</td>
+                  </tr>
+                  <tr>
+                    <td>Carte parties prenantes</td>
+                    <td>Tous les acteurs identifiés</td>
+                    <td>2-3 jours</td>
+                  </tr>
+                  <tr>
+                    <td>Étude faisabilité initiale</td>
+                    <td>Première évaluation technique/financière</td>
+                    <td>5-7 jours</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              <button class="btn btn-outline-primary btn-sm mt-3" onclick="showPhaseDetails(1)">
+                <i class="bi bi-arrow-right-circle me-1"></i>Voir le détail complet
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 2: Feasibility -->
+        <div class="timeline-phase fade-in-up">
+          <div class="phase-card phase-2">
+            <div class="card-header" style="background-color: var(--agilepm-green); color: white;">
+              <h4 class="mb-0"><i class="bi bi-search me-2"></i>Phase 2 : Feasibility</h4>
+              <p class="mb-0 mt-1">Étude de faisabilité approfondie</p>
+            </div>
+            <div class="card-body">
+              <h5><i class="bi bi-check-circle me-2 text-success"></i>Études Obligatoires</h5>
+              <ul>
+                <li>Étude de sol géotechnique</li>
+                <li>Étude topographique</li>
+                <li>Analyse financière détaillée</li>
+                <li>Vérification réglementaire</li>
+              </ul>
+              
+              <h5 class="mt-3"><i class="bi bi-exclamation-triangle me-2 text-warning"></i>Points d'Attention</h5>
+              <div class="alert alert-warning">
+                <ul class="mb-0">
+                  <li>L'étude de sol est non négociable</li>
+                  <li>Vérifier toutes les servitudes</li>
+                  <li>Prévoir une marge d'imprévus de 20% minimum</li>
+                </ul>
+              </div>
+              
+              <button class="btn btn-outline-success btn-sm mt-3" onclick="showPhaseDetails(2)">
+                <i class="bi bi-arrow-right-circle me-1"></i>Voir le détail complet
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 3: Foundations -->
+        <div class="timeline-phase fade-in-up">
+          <div class="phase-card phase-3">
+            <div class="card-header" style="background-color: var(--agilepm-orange); color: white;">
+              <h4 class="mb-0"><i class="bi bi-gear me-2"></i>Phase 3 : Foundations</h4>
+              <p class="mb-0 mt-1">Établissement des bases du projet</p>
+            </div>
+            <div class="card-body">
+              <h5><i class="bi bi-check-circle me-2 text-success"></i>Éléments Clés</h5>
+              <ul>
+                <li>Cahier des charges technique</li>
+                <li>Plans architecturaux définitifs</li>
+                <li>Contrats avec les entreprises</li>
+                <li>Planning détaillé de chantier</li>
+              </ul>
+              
+              <h5 class="mt-3"><i class="bi bi-tools me-2 text-primary"></i>Checklist</h5>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="foundationCheck1">
+                <label class="form-check-label" for="foundationCheck1">3 devis comparés pour chaque lot</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="foundationCheck2">
+                <label class="form-check-label" for="foundationCheck2">Visite de chantiers similaires</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="foundationCheck3">
+                <label class="form-check-label" for="foundationCheck3">Clauses pénalités incluses</label>
+              </div>
+              
+              <button class="btn btn-outline-warning btn-sm mt-3" onclick="showPhaseDetails(3)">
+                <i class="bi bi-arrow-right-circle me-1"></i>Voir le détail complet
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 4: Development -->
+        <div class="timeline-phase fade-in-up">
+          <div class="phase-card phase-4">
+            <div class="card-header" style="background-color: var(--agilepm-purple); color: white;">
+              <h4 class="mb-0"><i class="bi bi-arrow-repeat me-2"></i>Phase 4 : Development</h4>
+              <p class="mb-0 mt-1">Développement par itérations (Sprints)</p>
+            </div>
+            <div class="card-body">
+              <h5><i class="bi bi-kanban me-2 text-primary"></i>Structure en Sprints</h5>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="p-3 border rounded mb-2">
+                    <strong>Sprint 1-2</strong><br>
+                    <small>Terrassement & Fondations</small>
+                  </div>
+                  <div class="p-3 border rounded mb-2">
+                    <strong>Sprint 3-4</strong><br>
+                    <small>Élévation & Structure</small>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3 border rounded mb-2">
+                    <strong>Sprint 5-6</strong><br>
+                    <small>Toiture & Fermetures</small>
+                  </div>
+                  <div class="p-3 border rounded mb-2">
+                    <strong>Sprint 7-10</strong><br>
+                    <small>Second œuvre & Finitions</small>
+                  </div>
+                </div>
+              </div>
+              
+              <button class="btn btn-outline-purple btn-sm mt-3" style="border-color: var(--agilepm-purple); color: var(--agilepm-purple);" onclick="showPhaseDetails(4)">
+                <i class="bi bi-arrow-right-circle me-1"></i>Voir le détail complet
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 5: Deployment -->
+        <div class="timeline-phase fade-in-up">
+          <div class="phase-card phase-5">
+            <div class="card-header" style="background-color: var(--agilepm-red); color: white;">
+              <h4 class="mb-0"><i class="bi bi-truck me-2"></i>Phase 5 : Deployment</h4>
+              <p class="mb-0 mt-1">Déploiement et mise en service</p>
+            </div>
+            <div class="card-body">
+              <h5><i class="bi bi-clipboard-check me-2 text-success"></i>Étapes de Réception</h5>
+              <ol>
+                <li>Nettoyage final</li>
+                <li>Tests fonctionnels</li>
+                <li>Réception provisoire</li>
+                <li>Correction réserves</li>
+                <li>Réception définitive</li>
+                <li>Remise des clés</li>
+              </ol>
+              
+              <button class="btn btn-outline-danger btn-sm mt-3" onclick="showPhaseDetails(5)">
+                <i class="bi bi-arrow-right-circle me-1"></i>Voir le détail complet
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 6: Realisation -->
+        <div class="timeline-phase fade-in-up">
+          <div class="phase-card phase-6">
+            <div class="card-header" style="background-color: var(--agilepm-teal); color: white;">
+              <h4 class="mb-0"><i class="bi bi-graph-up-arrow me-2"></i>Phase 6 : Realisation</h4>
+              <p class="mb-0 mt-1">Évaluation et amélioration continue</p>
+            </div>
+            <div class="card-body">
+              <h5><i class="bi bi-bar-chart me-2 text-primary"></i>Indicateurs à Mesurer</h5>
+              <ul>
+                <li>Bénéfices réels vs prévus</li>
+                <li>Rentabilité financière</li>
+                <li>Satisfaction des parties</li>
+                <li>Qualité finale du bâtiment</li>
+              </ul>
+              
+              <h5 class="mt-3"><i class="bi bi-journal-text me-2 text-success"></i>Documentation à Produire</h5>
+              <ul>
+                <li>Retour d'expérience complet</li>
+                <li>Leçons apprises</li>
+                <li>Base de connaissances</li>
+                <li>Recommandations futures</li>
+              </ul>
+              
+              <button class="btn btn-outline-teal btn-sm mt-3" style="border-color: var(--agilepm-teal); color: var(--agilepm-teal);" onclick="showPhaseDetails(6)">
+                <i class="bi bi-arrow-right-circle me-1"></i>Voir le détail complet
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Apprentissage Progressif -->
+  <section id="apprendre" class="py-5 bg-white">
+    <div class="container">
+      <h2 class="text-center mb-5">Parcours d'Apprentissage AgilePM v3</h2>
+      
+      <div class="row">
+        <!-- Niveau Débutant -->
+        <div class="col-md-4 mb-4">
+          <div class="learning-card beginner">
+            <span class="level-badge level-beginner">Niveau Débutant</span>
+            <h4 class="mt-3"><i class="bi bi-play-circle me-2"></i>Fondamentaux</h4>
+            <p>Comprendre les concepts de base d'AgilePM v3</p>
+            <ul>
+              <li>Introduction aux 6 phases</li>
+              <li>Terminologie de base</li>
+              <li>Avantages pour l'immobilier</li>
+              <li>Exemples simples</li>
+            </ul>
+            <button class="btn btn-success btn-sm mt-2" onclick="startLearning('beginner')">
+              <i class="bi bi-play me-1"></i>Commencer
+            </button>
+          </div>
+        </div>
+        
+        <!-- Niveau Intermédiaire -->
+        <div class="col-md-4 mb-4">
+          <div class="learning-card intermediate">
+            <span class="level-badge level-intermediate">Niveau Intermédiaire</span>
+            <h4 class="mt-3"><i class="bi bi-gear me-2"></i>Mise en Pratique</h4>
+            <p>Appliquer AgilePM v3 à des cas concrets</p>
+            <ul>
+              <li>Études de faisabilité</li>
+              <li>Planification détaillée</li>
+              <li>Gestion des risques</li>
+              <li>Suivi de chantier</li>
+            </ul>
+            <button class="btn btn-primary btn-sm mt-2" onclick="startLearning('intermediate')">
+              <i class="bi bi-play me-1"></i>Commencer
+            </button>
+          </div>
+        </div>
+        
+        <!-- Niveau Avancé -->
+        <div class="col-md-4 mb-4">
+          <div class="learning-card advanced">
+            <span class="level-badge level-advanced">Niveau Avancé</span>
+            <h4 class="mt-3"><i class="bi bi-graph-up me-2"></i>Expertise</h4>
+            <p>Maîtriser les aspects avancés et l'optimisation</p>
+            <ul>
+              <li>Optimisation des processus</li>
+              <li>Gestion de portefeuille</li>
+              <li>Formation d'équipes</li>
+              <li>Certification AgilePM</li>
+            </ul>
+            <button class="btn btn-purple btn-sm mt-2" style="background-color: var(--agilepm-purple); color: white;" onclick="startLearning('advanced')">
+              <i class="bi bi-play me-1"></i>Commencer
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Zone de prise de notes -->
+      <div class="mt-5">
+        <h4 class="mb-3"><i class="bi bi-journal-text me-2"></i>Vos Notes d'Apprentissage</h4>
+        <div class="notes-area" contenteditable="true" id="learningNotes">
+          <p>Écrivez ici vos notes, questions et idées...</p>
+          <p>Exemple : Quelle phase est la plus critique pour un petit projet ?</p>
+        </div>
+        <div class="d-flex justify-content-end mt-2">
+          <button class="btn btn-outline-secondary btn-sm me-2" onclick="clearNotes()">
+            <i class="bi bi-trash me-1"></i>Effacer
+          </button>
+          <button class="btn btn-primary btn-sm" onclick="saveNotes()">
+            <i class="bi bi-save me-1"></i>Sauvegarder
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Outils et Simulations -->
+  <section id="outils" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-5">Outils Pratiques et Simulations</h2>
+      
+      <!-- Simulation interactive -->
+      <div id="simulation" class="simulation-container fade-in-up">
+        <h3 class="mb-4"><i class="bi bi-calculator me-2"></i>Simulation de Projet Immobilier</h3>
+        <p>Configurez votre projet et découvrez comment appliquer AgilePM v3.</p>
+        
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="projectType" class="form-label">Type de projet</label>
+              <select class="form-select" id="projectType" onchange="updateSimulation()">
+                <option value="maison">Maison individuelle</option>
+                <option value="villa">Villa standing</option>
+                <option value="immeuble">Immeuble R+2</option>
+                <option value="complexe">Complexe immobilier</option>
+              </select>
+            </div>
+            
+            <div class="mb-3">
+              <label for="projectSize" class="form-label">Surface (m²)</label>
+              <input type="range" class="form-range" id="projectSize" min="50" max="5000" value="150" oninput="updateSimulation()">
+              <div class="d-flex justify-content-between">
+                <small>50 m²</small>
+                <span id="sizeValue">150 m²</span>
+                <small>5000 m²</small>
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="projectBudget" class="form-label">Budget estimé (FCFA)</label>
+              <div class="input-group">
+                <input type="number" class="form-control" id="projectBudget" value="30000000" oninput="updateSimulation()">
+                <span class="input-group-text">FCFA</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="p-4 bg-white border rounded">
+              <h5>Résultats de la simulation</h5>
+              <div id="simulationResults">
+                <!-- Les résultats seront générés ici -->
+              </div>
+              <div class="progress mt-3" style="height: 25px;">
+                <div class="progress-bar" style="width: 10%;">Pre-project</div>
+                <div class="progress-bar bg-success" style="width: 15%;">Feasibility</div>
+                <div class="progress-bar bg-warning" style="width: 15%;">Foundations</div>
+                <div class="progress-bar bg-info" style="width: 40%;">Development</div>
+                <div class="progress-bar bg-danger" style="width: 15%;">Deployment</div>
+                <div class="progress-bar bg-teal" style="width: 5%;">Realisation</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Outils à télécharger -->
+      <div class="row mt-5">
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body text-center">
+              <i class="bi bi-file-earmark-spreadsheet fs-1 text-primary mb-3"></i>
+              <h5>Modèles Excel</h5>
+              <p>Téléchargez nos modèles de suivi de projet</p>
+              <button class="btn btn-outline-primary" onclick="downloadTemplate('excel')">
+                <i class="bi bi-download me-1"></i>Télécharger
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body text-center">
+              <i class="bi bi-clipboard-check fs-1 text-success mb-3"></i>
+              <h5>Checklists</h5>
+              <p>Checklists par phase pour ne rien oublier</p>
+              <button class="btn btn-outline-success" onclick="downloadTemplate('checklist')">
+                <i class="bi bi-download me-1"></i>Télécharger
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body text-center">
+              <i class="bi bi-calendar-week fs-1 text-warning mb-3"></i>
+              <h5>Plannings Types</h5>
+              <p>Modèles de planning AgilePM pour chantier</p>
+              <button class="btn btn-outline-warning" onclick="downloadTemplate('planning')">
+                <i class="bi bi-download me-1"></i>Télécharger
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Cas Pratiques -->
+  <section id="cas-pratiques" class="py-5 bg-white">
+    <div class="container">
+      <h2 class="text-center mb-5">Cas Pratiques Réels</h2>
+      
+      <div class="row">
+        <!-- Cas 1: Petite maison -->
+        <div class="col-md-6 mb-4">
+          <div class="card h-100">
+            <div class="card-header" style="background-color: #2ecc71; color: white;">
+              <h5 class="mb-0">Maison 120m² - Budget serré</h5>
+            </div>
+            <div class="card-body">
+              <p><strong>Contexte :</strong> Construction d'une maison individuelle avec budget limité</p>
+              <p><strong>Défi :</strong> Maintenir le budget tout en garantissant la qualité</p>
+              <p><strong>Solution AgilePM :</strong></p>
+              <ul>
+                <li>Phase Feasibility approfondie pour éviter les surprises</li>
+                <li>Sprints courts (2 semaines) pour ajustements rapides</li>
+                <li>Choix stratégiques des finitions par ordre de priorité</li>
+              </ul>
+              <p><strong>Résultat :</strong> Livraison à +8% du budget (vs +25% habituel)</p>
+              <button class="btn btn-sm btn-outline-success mt-2" onclick="openCaseStudy(1)">
+                <i class="bi bi-book me-1"></i>Voir l'étude complète
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Cas 2: Immeuble collectif -->
+        <div class="col-md-6 mb-4">
+          <div class="card h-100">
+            <div class="card-header" style="background-color: #3498db; color: white;">
+              <h5 class="mb-0">Immeuble R+3 - 12 appartements</h5>
+            </div>
+            <div class="card-body">
+              <p><strong>Contexte :</strong> Construction d'un immeuble avec plusieurs intervenants</p>
+              <p><strong>Défi :</strong> Coordination complexe, délais serrés</p>
+              <p><strong>Solution AgilePM :</strong></p>
+              <ul>
+                <li>Tableau Kanban central pour visualiser l'avancement</li>
+                <li>Réunions quotidiennes de 15 minutes avec tous les corps de métier</li>
+                <li>Validation par étapes avant paiement</li>
+              </ul>
+              <p><strong>Résultat :</strong> Livraison 3 semaines avant la date prévue</p>
+              <button class="btn btn-sm btn-outline-primary mt-2" onclick="openCaseStudy(2)">
+                <i class="bi bi-book me-1"></i>Voir l'étude complète
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Exercice interactif -->
+      <div class="card mt-5">
+        <div class="card-header bg-dark text-white">
+          <h5 class="mb-0"><i class="bi bi-pencil-square me-2"></i>Exercice Pratique : Planifiez Votre Projet</h5>
+        </div>
+        <div class="card-body">
+          <p>Imaginez votre projet immobilier et remplissez ce tableau :</p>
+          
+          <table class="table table-bordered">
+            <thead class="table-primary">
+              <tr>
+                <th>Phase</th>
+                <th>Durée estimée</th>
+                <th>Budget alloué</th>
+                <th>Responsable</th>
+                <th>Risque principal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Pre-project</td>
+                <td><input type="text" class="form-control form-control-sm" placeholder="ex: 2 semaines"></td>
+                <td><input type="text" class="form-control form-control-sm" placeholder="ex: 5% du budget"></td>
+                <td><input type="text" class="form-control form-control-sm" placeholder="ex: Vous-même"></td>
+                <td><input type="text" class="form-control form-control-sm" placeholder="ex: Terrain non constructible"></td>
+              </tr>
+              <tr>
+                <td>Feasibility</td>
+                <td><input type="text" class="form-control form-control-sm"></td>
+                <td><input type="text" class="form-control form-control-sm"></td>
+                <td><input type="text" class="form-control form-control-sm"></td>
+                <td><input type="text" class="form-control form-control-sm"></td>
+              </tr>
+              <!-- Ajouter les autres phases -->
+            </tbody>
+          </table>
+          
+          <button class="btn btn-primary mt-3" onclick="validateExercise()">
+            <i class="bi bi-check-circle me-1"></i>Valider mon exercice
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Certification -->
+  <section id="certification" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-5">Certification AgilePM v3 pour l'Immobilier</h2>
+      
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h3><i class="bi bi-award me-2 text-warning"></i>Devenez Expert Certifié</h3>
+          <p>Notre programme de certification vous permet de valider vos compétences en AgilePM v3 appliqué aux projets immobiliers.</p>
+          
+          <div class="mb-4">
+            <h5>Niveaux de certification :</h5>
+            <div class="d-flex align-items-center mb-2">
+              <span class="level-badge level-beginner me-3">Niveau 1</span>
+              <span>Fondamentaux AgilePM v3</span>
+            </div>
+            <div class="d-flex align-items-center mb-2">
+              <span class="level-badge level-intermediate me-3">Niveau 2</span>
+              <span>Pratique Immobilière</span>
+            </div>
+            <div class="d-flex align-items-center mb-2">
+              <span class="level-badge level-advanced me-3">Niveau 3</span>
+              <span>Expert & Formateur</span>
+            </div>
+          </div>
+          
+          <div class="d-grid gap-2">
+            <button class="btn btn-warning btn-lg" onclick="startCertification()">
+              <i class="bi bi-rocket-takeoff me-2"></i>Commencer la certification
+            </button>
+          </div>
+        </div>
+        
+        <div class="col-lg-6 text-center">
+          <div class="p-5">
+            <i class="bi bi-trophy" style="font-size: 8rem; color: #f39c12;"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <h5>AgilePM v3 Immobilier</h5>
+          <p>Votre guide complet pour maîtriser AgilePM v3 dans vos projets de construction.</p>
+          <p>Quelle que soit la taille de votre projet.</p>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+          <h5>Ressources</h5>
+          <ul class="list-unstyled">
+            <li><a href="#phases" class="text-white text-decoration-none">Les 6 phases</a></li>
+            <li><a href="#apprendre" class="text-white text-decoration-none">Apprentissage</a></li>
+            <li><a href="#outils" class="text-white text-decoration-none">Outils</a></li>
+            <li><a href="#cas-pratiques" class="text-white text-decoration-none">Cas pratiques</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+          <h5>Contact</h5>
+          <p>Des questions sur AgilePM v3 ?</p>
+          <button class="btn btn-outline-light" onclick="openContactForm()">
+            <i class="bi bi-envelope me-2"></i>Nous contacter
+          </button>
+        </div>
+      </div>
+      
+      <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+      
+      <div class="text-center">
+        <p class="mb-0">© 2024 Guide AgilePM v3 Immobilier - Tous droits réservés</p>
+        <p class="mb-0">Conçu pour les porteurs de projets de toutes tailles</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal pour les détails des phases -->
+  <div class="modal fade" id="phaseModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="phaseModalTitle">Détails de la phase</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="phaseModalContent">
+          Chargement...
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- AJOUTER AVANT LA BALISE </body> -->
+<div class="progress-container" id="progressContainer">
+  <h6><i class="bi bi-graph-up me-2"></i>Votre Progression</h6>
+  <div id="progressIndicator">
+    <!-- La progression sera injectée ici -->
+  </div>
+  <div class="mt-2">
+    <button class="btn btn-sm btn-outline-secondary w-100" onclick="showProgressDetails()">
+      <i class="bi bi-info-circle me-1"></i>Détails
+    </button>
+  </div>
+</div>
+
+<!-- Modal pour les détails de progression -->
+<div class="modal fade" id="progressModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Détails de votre progression</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div id="progressDetails">
+          <!-- Détails injectés ici -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="generateFinalReport()">
+          <i class="bi bi-download me-1"></i>Télécharger rapport
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+// Données des phases AgilePM
+const agilepmPhases = {
+  1: {
+    title: "Phase 1: Pre-project",
+    description: "Établissement de la vision et validation initiale",
+    details: `
+      <h4>Objectifs Principaux</h4>
+      <ul>
+        <li>Définir une vision claire et partagée du projet</li>
+        <li>Identifier toutes les parties prenantes</li>
+        <li>Évaluer la faisabilité préliminaire</li>
+        <li>Prendre la décision formelle de lancer le projet</li>
+      </ul>
+      
+      <h4 class="mt-4">Activités Clés pour l'Immobilier</h4>
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th>Activité</th>
+            <th>Description</th>
+            <th>Durée type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Définition vision</td>
+            <td>Atelier avec tous les décideurs</td>
+            <td>2-3 jours</td>
+          </tr>
+          <tr>
+            <td>Vérification terrain</td>
+            <td>Contrôle titre foncier, servitudes</td>
+            <td>3-5 jours</td>
+          </tr>
+          <tr>
+            <td>Étude marché</td>
+            <td>Analyse prix au m² local</td>
+            <td>4-7 jours</td>
+          </tr>
+          <tr>
+            <td>Décision Go/No Go</td>
+            <td>Réunion de validation</td>
+            <td>1 jour</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <div class="alert alert-info mt-3">
+        <h6><i class="bi bi-lightbulb me-2"></i>Conseil Pratique :</h6>
+        <p>Ne jamais sauter cette phase, même pour un petit projet. Une mauvaise vision initiale peut coûter cher plus tard.</p>
+      </div>
+    `
+  },
+  2: {
+    title: "Phase 2: Feasibility",
+    description: "Étude de faisabilité approfondie",
+    details: `
+      <h4>Études Obligatoires</h4>
+      <p>Cette phase est CRITIQUE pour éviter les mauvaises surprises :</p>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h6><i class="bi bi-geo-alt me-2 text-danger"></i>Étude de sol</h6>
+              <p class="small">Non négociable. Coût : 1-2% du budget terrain.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h6><i class="bi bi-calculator me-2 text-success"></i>Business plan</h6>
+              <p class="small">Détail financier avec 20% d'imprévus minimum.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <h4 class="mt-4">Checklist de Validation</h4>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="feasCheck1">
+        <label class="form-check-label" for="feasCheck1">Étude de sol réalisée par un géotechnicien certifié</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="feasCheck2">
+        <label class="form-check-label" for="feasCheck2">Permis de construire obtenable (pré-étude)</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="feasCheck3">
+        <label class="form-check-label" for="feasCheck3">Budget réaliste avec marge suffisante</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="feasCheck4">
+        <label class="form-check-label" for="feasCheck4">Orientation optimale validée par l'architecte</label>
+      </div>
+      
+      <div class="alert alert-warning mt-3">
+        <h6><i class="bi bi-exclamation-triangle me-2"></i>Attention :</h6>
+        <p>En Afrique de l'Ouest, prévoir des études supplémentaires pour : climat tropical, risques d'inondation, présence de termites.</p>
+      </div>
+    `
+  },
+  3: {
+    title: "Phase 3: Foundations",
+    description: "Établissement des bases solides du projet",
+    details: `
+      <h4>Fondations du Projet Immobilier</h4>
+      <p>Cette phase transforme la vision en plan d'action concret :</p>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h6><i class="bi bi-file-earmark-text me-2 text-primary"></i>Cahier des Charges</h6>
+              <p class="small">Document technique complet avec toutes les spécifications</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h6><i class="bi bi-building me-2 text-warning"></i>Plans Définitifs</h6>
+              <p class="small">Plans architecturaux et techniques validés</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <h4 class="mt-4">Tableau des Activités Clés</h4>
+      <table class="table table-sm table-striped">
+        <thead>
+          <tr>
+            <th>Activité</th>
+            <th>Description</th>
+            <th>Durée</th>
+            <th>Priorité</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Rédaction CDC</td>
+            <td>Cahier des charges technique complet</td>
+            <td>10-15 jours</td>
+            <td><span class="badge bg-danger">Haute</span></td>
+          </tr>
+          <tr>
+            <td>Élaboration plans</td>
+            <td>Plans architecturaux définitifs</td>
+            <td>15-20 jours</td>
+            <td><span class="badge bg-danger">Haute</span></td>
+          </tr>
+          <tr>
+            <td>Sélection entreprises</td>
+            <td>Appel d'offres et choix</td>
+            <td>15-20 jours</td>
+            <td><span class="badge bg-warning">Moyenne</span></td>
+          </tr>
+          <tr>
+            <td>Planning détaillé</td>
+            <td>Planning chantier semaine par semaine</td>
+            <td>5-7 jours</td>
+            <td><span class="badge bg-warning">Moyenne</span></td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <div class="alert alert-success mt-3">
+        <h6><i class="bi bi-check-circle me-2"></i>Bonnes Pratiques :</h6>
+        <ul class="mb-0">
+          <li>Obtenir minimum 3 devis comparables par lot de travaux</li>
+          <li>Visiter des chantiers en cours des entreprises candidates</li>
+          <li>Inclure des clauses de pénalités de retard (1% par semaine)</li>
+          <li>Prévoir une réserve pour variations de prix des matériaux</li>
+        </ul>
+      </div>
+    `
+  },
+  4: {
+    title: "Phase 4: Development",
+    description: "Développement par itérations agiles (Sprints)",
+    details: `
+      <h4>Structure en Sprints pour Chantier Immobilier</h4>
+      <p>Application des principes Scrum à la construction :</p>
+      
+      <div class="row text-center mb-4">
+        <div class="col-md-3">
+          <div class="p-3 border rounded">
+            <div class="fs-4 fw-bold text-primary">Sprints</div>
+            <small>2-3 semaines</small>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="p-3 border rounded">
+            <div class="fs-4 fw-bold text-success">Daily Stand-up</div>
+            <small>15 min / jour</small>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="p-3 border rounded">
+            <div class="fs-4 fw-bold text-warning">Revues Hebdo</div>
+            <small>Validation étapes</small>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="p-3 border rounded">
+            <div class="fs-4 fw-bold text-danger">Tableau Kanban</div>
+            <small>Visualisation avancement</small>
+          </div>
+        </div>
+      </div>
+      
+      <h4>Planning Type de Sprints pour Maison 120m²</h4>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead class="table-dark">
+            <tr>
+              <th>Sprint</th>
+              <th>Durée</th>
+              <th>Travaux</th>
+              <th>Livrable</th>
+              <th>Validation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Sprint 1-2</td>
+              <td>4 semaines</td>
+              <td>Terrassement & Fondations</td>
+              <td>Fondations coulées</td>
+              <td>Rapport géotechnique</td>
+            </tr>
+            <tr>
+              <td>Sprint 3-4</td>
+              <td>4 semaines</td>
+              <td>Élévation murs & Structure</td>
+              <td>Murs hors d'eau</td>
+              <td>Contrôle verticalité</td>
+            </tr>
+            <tr>
+              <td>Sprint 5-6</td>
+              <td>3 semaines</td>
+              <td>Toiture & Fermetures</td>
+              <td>Bâtiment hors d'air</td>
+              <td>Test d'étanchéité</td>
+            </tr>
+            <tr>
+              <td>Sprint 7-10</td>
+              <td>8 semaines</td>
+              <td>Second œuvre & Finitions</td>
+              <td>Maison habitable</td>
+              <td>Liste des réserves</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="alert alert-info mt-3">
+        <h6><i class="bi bi-lightbulb me-2"></i>Indicateurs de Suivi :</h6>
+        <ul class="mb-0">
+          <li>Avancement physique vs planning : Objectif ±5%</li>
+          <li>Qualité conforme : Objectif ≥95%</li>
+          <li>Incidents sécurité : Objectif 0</li>
+          <li>Variations budget : Objectif ≤10%</li>
+        </ul>
+      </div>
+    `
+  },
+  5: {
+    title: "Phase 5: Deployment",
+    description: "Déploiement, tests et réception",
+    details: `
+      <h4>Processus de Réception Immobilière</h4>
+      <p>Étapes cruciales pour une livraison réussie :</p>
+      
+      <div class="timeline-simple">
+        <div class="timeline-item-simple">
+          <div class="timeline-content">
+            <h6>1. Nettoyage Final</h6>
+            <p>Nettoyage complet du bâtiment et évacuation des déchets</p>
+            <small>Durée : 2-3 jours</small>
+          </div>
+        </div>
+        <div class="timeline-item-simple">
+          <div class="timeline-content">
+            <h6>2. Tests Fonctionnels</h6>
+            <p>Tests complets de tous les systèmes (électricité, plomberie, etc.)</p>
+            <small>Durée : 3-5 jours</small>
+          </div>
+        </div>
+        <div class="timeline-item-simple">
+          <div class="timeline-content">
+            <h6>3. Réception Provisoire</h6>
+            <p>Visite avec établissement de la liste des réserves</p>
+            <small>Durée : 1 jour</small>
+          </div>
+        </div>
+        <div class="timeline-item-simple">
+          <div class="timeline-content">
+            <h6>4. Correction Réserves</h6>
+            <p>Traitement de toutes les réserves identifiées</p>
+            <small>Durée : 5-15 jours</small>
+          </div>
+        </div>
+        <div class="timeline-item-simple">
+          <div class="timeline-content">
+            <h6>5. Réception Définitive</h6>
+            <p>Signature de la réception définitive</p>
+            <small>Durée : 1 jour</small>
+          </div>
+        </div>
+      </div>
+      
+      <h4 class="mt-4">Checklist de Réception Définitive</h4>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="checkRec1">
+            <label class="form-check-label" for="checkRec1">Tous les réseaux fonctionnels (eau, électricité, assainissement)</label>
+          </div>
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="checkRec2">
+            <label class="form-check-label" for="checkRec2">Finitions conformes aux plans et au cahier des charges</label>
+          </div>
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="checkRec3">
+            <label class="form-check-label" for="checkRec3">Garanties décennales et de parfait achèvement fournies</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="checkRec4">
+            <label class="form-check-label" for="checkRec4">Dossier technique complet remis (plans, notices, contacts)</label>
+          </div>
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="checkRec5">
+            <label class="form-check-label" for="checkRec5">Formation aux équipements spécifiques effectuée</label>
+          </div>
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="checkRec6">
+            <label class="form-check-label" for="checkRec6">Clés et moyens d'accès remis</label>
+          </div>
+        </div>
+      </div>
+      
+      <div class="alert alert-warning mt-3">
+        <h6><i class="bi bi-exclamation-triangle me-2"></i>Attention :</h6>
+        <p>Ne signez la réception définitive qu'après correction de TOUTES les réserves. Une fois signée, il devient beaucoup plus difficile de faire corriger les défauts.</p>
+      </div>
+    `
+  },
+  6: {
+    title: "Phase 6: Realisation",
+    description: "Évaluation des bénéfices et amélioration continue",
+    details: `
+      <h4>Mesure des Bénéfices et Capitalisation</h4>
+      <p>Phase essentielle pour apprendre et améliorer les futurs projets :</p>
+      
+      <div class="row text-center mb-4">
+        <div class="col-md-3 mb-3">
+          <div class="p-3 border rounded">
+            <div class="fs-3 fw-bold text-primary" id="benefitBudget">+8%</div>
+            <div class="small">Dépassement budget</div>
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <div class="p-3 border rounded">
+            <div class="fs-3 fw-bold text-success" id="benefitTime">94%</div>
+            <div class="small">Respect délais</div>
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <div class="p-3 border rounded">
+            <div class="fs-3 fw-bold text-warning" id="benefitQuality">4.7/5</div>
+            <div class="small">Satisfaction qualité</div>
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <div class="p-3 border rounded">
+            <div class="fs-3 fw-bold text-danger" id="benefitROI">18%</div>
+            <div class="small">Rentabilité projet</div>
+          </div>
+        </div>
+      </div>
+      
+      <h4>Retour d'Expérience (REX) Structuré</h4>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-header bg-success text-white">
+              <h6 class="mb-0">Ce qui a bien fonctionné</h6>
+            </div>
+            <div class="card-body">
+              <ul>
+                <li>Planification par sprints</li>
+                <li>Tableau Kanban chantier</li>
+                <li>Revues hebdomadaires</li>
+                <li>Validation par incréments</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-header bg-warning text-dark">
+              <h6 class="mb-0">À améliorer</h6>
+            </div>
+            <div class="card-body">
+              <ul>
+                <li>Estimation des délais</li>
+                <li>Gestion des intempéries</li>
+                <li>Communication avec sous-traitants</li>
+                <li>Contrôle qualité finitions</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-header bg-primary text-white">
+              <h6 class="mb-0">Actions correctives</h6>
+            </div>
+            <div class="card-body">
+              <ul>
+                <li>Prévoir 25% d'imprévus en zone tropicale</li>
+                <li>Visite quotidienne obligatoire</li>
+                <li>Photographier chaque étape</li>
+                <li>Valider paiements par jalons</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <h4 class="mt-4">Documentation de Clôture</h4>
+      <div class="alert alert-info">
+        <h6><i class="bi bi-folder me-2"></i>Documents à archiver :</h6>
+        <ul class="mb-0">
+          <li>Rapport final de projet avec indicateurs</li>
+          <li>Retour d'expérience complet</li>
+          <li>Base de connaissances (leçons apprises)</li>
+          <li>Dossier technique définitif</li>
+          <li>États financiers finaux</li>
+          <li>Garanties et assurances</li>
+        </ul>
+      </div>
+      
+      <div class="text-center mt-4">
+        <button class="btn btn-success" onclick="generateFinalReport()">
+          <i class="bi bi-file-earmark-pdf me-2"></i>Générer le Rapport Final
+        </button>
+      </div>
+    `
+  }
+};
+
+    // Variables globales
+    let userProgress = {
+      level: 'beginner',
+      completedPhases: [],
+      notes: '',
+      simulationData: {}
+    };
+
+    // Initialisation
+    document.addEventListener('DOMContentLoaded', function() {
+      // Charger la progression sauvegardée
+      loadProgress();
+      
+      // Initialiser la simulation
+      updateSimulation();
+      
+      // Activer les tooltips Bootstrap
+      const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+      tooltipTriggerList.map(function(tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+      
+      // Smooth scroll pour la navigation
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+      
+      // Animation au scroll
+      const observerOptions = {
+        threshold: 0.1
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('fade-in-up');
+          }
+        });
+      }, observerOptions);
+      
+      document.querySelectorAll('.timeline-phase, .simulation-container, .learning-card').forEach(element => {
+        observer.observe(element);
+      });
+    });
+
+    // Fonctions principales
+    function showPhaseDetails(phaseNumber) {
+      const phase = agilepmPhases[phaseNumber] || {
+        title: "Phase " + phaseNumber,
+        details: "<p>Détails à venir...</p>"
+      };
+      
+      document.getElementById('phaseModalTitle').textContent = phase.title;
+      document.getElementById('phaseModalContent').innerHTML = phase.details;
+      
+      const modal = new bootstrap.Modal(document.getElementById('phaseModal'));
+      modal.show();
+      
+      // Marquer comme consultée
+      if (!userProgress.completedPhases.includes(phaseNumber)) {
+        userProgress.completedPhases.push(phaseNumber);
+        saveProgress();
+      }
+    }
+
+    function updateSimulation() {
+      const projectType = document.getElementById('projectType').value;
+      const projectSize = document.getElementById('projectSize').value;
+      const projectBudget = document.getElementById('projectBudget').value;
+      
+      document.getElementById('sizeValue').textContent = projectSize + ' m²';
+      
+      // Calculs basés sur le type et la taille
+      let totalWeeks, totalBudget, recommendations;
+      
+      switch(projectType) {
+        case 'maison':
+          totalWeeks = Math.max(20, Math.round(projectSize / 10));
+          totalBudget = projectBudget;
+          recommendations = "Projet idéal pour débuter avec AgilePM. Focus sur la phase Feasibility.";
+          break;
+        case 'villa':
+          totalWeeks = Math.max(30, Math.round(projectSize / 8));
+          totalBudget = projectBudget * 1.3;
+          recommendations = "Attention aux finitions haut de gamme. Phase Development plus longue.";
+          break;
+        case 'immeuble':
+          totalWeeks = Math.max(40, Math.round(projectSize / 15));
+          totalBudget = projectBudget * 1.5;
+          recommendations = "Gouvernance essentielle. Nombreux intervenants à coordonner.";
+          break;
+        case 'complexe':
+          totalWeeks = Math.max(60, Math.round(projectSize / 20));
+          totalBudget = projectBudget * 2;
+          recommendations = "Nécessite un chef de projet dédié à temps plein.";
+          break;
+      }
+      
+      const resultsHTML = `
+        <div class="mb-3">
+          <strong>Type :</strong> ${document.getElementById('projectType').options[document.getElementById('projectType').selectedIndex].text}<br>
+          <strong>Surface :</strong> ${projectSize} m²<br>
+          <strong>Durée estimée :</strong> ${totalWeeks} semaines<br>
+          <strong>Budget recommandé :</strong> ${formatCurrency(totalBudget)}<br>
+        </div>
+        <div class="alert alert-info">
+          <strong>Recommandations :</strong><br>
+          ${recommendations}
+        </div>
+      `;
+      
+      document.getElementById('simulationResults').innerHTML = resultsHTML;
+      
+      // Sauvegarder les données
+      userProgress.simulationData = {
+        type: projectType,
+        size: projectSize,
+        budget: projectBudget
+      };
+      saveProgress();
+    }
+
+    function formatCurrency(amount) {
+      return new Intl.NumberFormat('fr-FR', { 
+        style: 'currency', 
+        currency: 'XOF',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      }).format(amount);
+    }
+
+    function startLearning(level) {
+      userProgress.level = level;
+      saveProgress();
+      
+      let message = "Bienvenue au niveau " + level + " !\n\n";
+      
+      switch(level) {
+        case 'beginner':
+          message += "Commencez par étudier la Phase 1 (Pre-project) puis la Phase 2 (Feasibility).";
+          break;
+        case 'intermediate':
+          message += "Excellent ! Étudiez maintenant les Phases 3 et 4 (Foundations et Development).";
+          break;
+        case 'advanced':
+          message += "Parfait ! Approfondissez les Phases 5 et 6 et préparez-vous à la certification.";
+          break;
+      }
+      
+      alert(message);
+      
+      // Rediriger vers la section appropriée
+      document.getElementById('phases').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function saveNotes() {
+      const notes = document.getElementById('learningNotes').innerText;
+      userProgress.notes = notes;
+      saveProgress();
+      alert("Notes sauvegardées !");
+    }
+
+    function clearNotes() {
+      if (confirm("Effacer toutes vos notes ?")) {
+        document.getElementById('learningNotes').innerHTML = "<p>Écrivez ici vos notes, questions et idées...</p>";
+        userProgress.notes = '';
+        saveProgress();
+      }
+    }
+
+    function downloadTemplate(type) {
+      const templates = {
+        excel: "Modèles de suivi de projet Excel",
+        checklist: "Checklists par phase",
+        planning: "Plannings types AgilePM"
+      };
+      
+      alert(`Téléchargement du template "${templates[type]}" en cours...\n\n(Environ 5 secondes, merci de patienter.)`);
+      
+      // Simulation de téléchargement
+      setTimeout(() => {
+        alert("Template téléchargé avec succès !");
+      }, 5000);
+    }
+
+    function openCaseStudy(number) {
+      const caseStudies = {
+        1: "Maison individuelle - Budget serré",
+        2: "Immeuble R+3 - Coordination complexe"
+      };
+      
+      alert(`Ouverture de l'étude de cas : ${caseStudies[number]}\n\nCette fonctionnalité sera disponible dans la version complète.`);
+    }
+
+    function validateExercise() {
+      alert("Exercice validé !\n\nVotre planification a été enregistrée. Continuez à pratiquer avec d'autres scénarios.");
+    }
+
+    function startCertification() {
+      const completedPhases = userProgress.completedPhases.length;
+      
+      if (completedPhases >= 4) {
+        alert("Félicitations ! Vous êtes prêt pour la certification.\n\nLancez le test final pour valider votre niveau.");
+        // Ici, on redirigerait vers une page de test
+      } else {
+        alert(`Vous avez étudié ${completedPhases} phases sur 6.\n\nContinuez votre apprentissage avant de passer la certification.`);
+      }
+    }
+
+    function openContactForm() {
+      alert("Formulaire de contact\n\nCette fonctionnalité sera disponible dans la version complète.\n\nEmail : contact@agilepm-immobilier.com");
+    }
+
+    // Sauvegarde locale
+    function saveProgress() {
+      localStorage.setItem('agilepmProgress', JSON.stringify(userProgress));
+    }
+
+    function loadProgress() {
+      const saved = localStorage.getItem('agilepmProgress');
+      if (saved) {
+        userProgress = JSON.parse(saved);
+        
+        // Mettre à jour l'interface si nécessaire
+        if (userProgress.notes) {
+          document.getElementById('learningNotes').innerText = userProgress.notes;
+        }
+      }
+    }
+
+    // Fonction pour calculer le pourcentage de complétion
+    function getCompletionPercentage() {
+      const totalPhases = 6;
+      const completed = userProgress.completedPhases.length;
+      return Math.round((completed / totalPhases) * 100);
+    }
+
+    // Afficher la progression dans la console (pour debug)
+    console.log("Portail AgilePM v3 Immobilier chargé");
+    console.log("Progression utilisateur :", userProgress);
+	
+	
+	
+
+// AJOUTER CETTE FONCTION POUR GÉNÉRER UN RAPPORT
+function generateFinalReport() {
+  const completion = getCompletionPercentage();
+  const phaseCount = userProgress.completedPhases.length;
+  
+  let report = "=== RAPPORT FINAL DE PROJET AGILEPM v3 ===\n\n";
+  report += `Date : ${new Date().toLocaleDateString()}\n`;
+  report += `Niveau atteint : ${userProgress.level}\n`;
+  report += `Phases étudiées : ${phaseCount}/6 (${completion}%)\n\n`;
+  
+  report += "=== PROGRESSION PAR PHASE ===\n";
+  for (let i = 1; i <= 6; i++) {
+    const completed = userProgress.completedPhases.includes(i);
+    report += `Phase ${i}: ${completed ? "✓" : "✗"}\n`;
+  }
+  
+  report += "\n=== NOTES PERSONNELLES ===\n";
+  report += userProgress.notes || "Aucune note enregistrée";
+  
+  report += "\n\n=== SIMULATION DE PROJET ===\n";
+  if (userProgress.simulationData) {
+    report += `Type : ${userProgress.simulationData.type}\n`;
+    report += `Surface : ${userProgress.simulationData.size} m²\n`;
+    report += `Budget : ${userProgress.simulationData.budget} FCFA\n`;
+  }
+  
+  // Créer et télécharger le rapport
+  const blob = new Blob([report], { type: 'text/plain;charset=utf-8' });
+  const link = document.createElement('a');
+  const url = URL.createObjectURL(blob);
+  
+  link.setAttribute('href', url);
+  link.setAttribute('download', `Rapport_AgilePM_v3_${new Date().toISOString().split('T')[0]}.txt`);
+  link.style.visibility = 'hidden';
+  
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  
+  alert("Rapport généré avec succès !");
+}
+
+// AJOUTER CETTE FONCTION POUR CALCULER LA PROGRESSION
+function updateProgressIndicator() {
+  const progress = getCompletionPercentage();
+  const indicator = document.getElementById('progressIndicator');
+  
+  if (indicator) {
+    indicator.innerHTML = `
+      <div class="progress" style="height: 20px;">
+        <div class="progress-bar" role="progressbar" style="width: ${progress}%">
+          ${progress}% complété
+        </div>
+      </div>
+      <small class="text-muted">${userProgress.completedPhases.length}/6 phases étudiées</small>
+    `;
+  }
+}
+
+// MODIFIER LA FONCTION showPhaseDetails POUR METTRE À JOUR LA PROGRESSION
+// Remplacer la fonction existante par :
+function showPhaseDetails(phaseNumber) {
+  const phase = agilepmPhases[phaseNumber] || {
+    title: "Phase " + phaseNumber,
+    details: "<p>Détails à venir...</p>"
+  };
+  
+  document.getElementById('phaseModalTitle').textContent = phase.title;
+  document.getElementById('phaseModalContent').innerHTML = phase.details;
+  
+  const modal = new bootstrap.Modal(document.getElementById('phaseModal'));
+  modal.show();
+  
+  // Marquer comme consultée
+  if (!userProgress.completedPhases.includes(phaseNumber)) {
+    userProgress.completedPhases.push(phaseNumber);
+    saveProgress();
+    updateProgressIndicator();
+    
+    // Animer les indicateurs de bénéfices
+    if (phaseNumber === 6) {
+      animateBenefitsIndicators();
+    }
+  }
+}
+
+// AJOUTER CETTE FONCTION POUR ANIMER LES INDICATEURS
+function animateBenefitsIndicators() {
+  setTimeout(() => {
+    document.getElementById('benefitBudget').textContent = '+8%';
+    document.getElementById('benefitTime').textContent = '94%';
+    document.getElementById('benefitQuality').textContent = '4.7/5';
+    document.getElementById('benefitROI').textContent = '18%';
+  }, 500);
+}
+
+// AJOUTER CETTE FONCTION POUR SAUVEGARDER LA SIMULATION
+function saveSimulation() {
+  const simulation = {
+    type: document.getElementById('projectType').value,
+    size: document.getElementById('projectSize').value,
+    budget: document.getElementById('projectBudget').value,
+    date: new Date().toISOString()
+  };
+  
+  userProgress.simulationData = simulation;
+  saveProgress();
+  
+  // Afficher un message de confirmation
+  const toast = document.createElement('div');
+  toast.className = 'position-fixed bottom-0 end-0 p-3';
+  toast.innerHTML = `
+    <div class="toast show" role="alert">
+      <div class="toast-header">
+        <strong class="me-auto">Simulation sauvegardée</strong>
+        <button type="button" class="btn-close" onclick="this.parentElement.parentElement.remove()"></button>
+      </div>
+      <div class="toast-body">
+        Votre simulation a été sauvegardée localement.
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+
+
+	
+  </script>
+</body>
+</html>

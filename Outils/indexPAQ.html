@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portail PAQ AgilePM v3 - Évaluation Complète</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --agile: #9b59b6;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(44, 62, 80, 0.85), rgba(52, 152, 219, 0.85)), 
+                        url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 25px;
+            border: none;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 12px 12px 0 0 !important;
+            font-weight: 600;
+            padding: 15px 20px;
+        }
+        
+        .agile-card .card-header {
+            background: linear-gradient(135deg, var(--agile), #8e44ad);
+        }
+        
+        .score-card {
+            text-align: center;
+            padding: 25px;
+        }
+        
+        .score-value {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        
+        .score-low { color: var(--danger); }
+        .score-medium { color: var(--warning); }
+        .score-high { color: var(--success); }
+        
+        .progress {
+            height: 22px;
+            margin: 15px 0;
+            border-radius: 11px;
+        }
+        
+        .progress-bar {
+            border-radius: 11px;
+        }
+        
+        .recommendation-item {
+            padding: 18px;
+            border-left: 5px solid var(--secondary);
+            margin-bottom: 18px;
+            background-color: rgba(52, 152, 219, 0.07);
+            border-radius: 0 8px 8px 0;
+            transition: all 0.3s;
+        }
+        
+        .recommendation-item:hover {
+            background-color: rgba(52, 152, 219, 0.12);
+            transform: translateX(5px);
+        }
+        
+        .roadmap-step {
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            border-left: 5px solid;
+        }
+        
+        .roadmap-step-urgent { border-left-color: var(--danger); background-color: rgba(231, 76, 60, 0.05); }
+        .roadmap-step-medium { border-left-color: var(--warning); background-color: rgba(243, 156, 18, 0.05); }
+        .roadmap-step-low { border-left-color: var(--success); background-color: rgba(39, 174, 96, 0.05); }
+        
+        .criteria-table th {
+            background-color: var(--light);
+            font-weight: 600;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .section-title {
+            border-bottom: 3px solid var(--secondary);
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            color: var(--primary);
+            font-weight: 700;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: var(--agile);
+        }
+        
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .floating-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 320px;
+            margin: 25px 0;
+        }
+        
+        .tab-pane {
+            padding: 25px 0;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--secondary);
+            border-color: var(--secondary);
+        }
+        
+        .evaluation-summary {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--secondary);
+        }
+        
+        .rex-item {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background-color: white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--agile);
+        }
+        
+        .usecase-card {
+            height: 100%;
+            transition: all 0.3s;
+        }
+        
+        .usecase-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin: 30px 0;
+        }
+        
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--secondary);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+            padding-left: 20px;
+        }
+        
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 3px solid var(--secondary);
+        }
+        
+        .phase-badge {
+            background: var(--agile);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .definition-list dt {
+            font-weight: 600;
+            color: var(--primary);
+            margin-top: 15px;
+        }
+        
+        .definition-list dd {
+            margin-left: 0;
+            padding-left: 15px;
+            border-left: 3px solid var(--light);
+        }
+        
+        .integration-box {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e9ecef;
+        }
+        
+        .integration-box h5 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 10px;
+        }
+        
+        .criteria-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .score-indicator {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .score-0 { background-color: var(--danger); }
+        .score-1 { background-color: var(--warning); }
+        .score-2 { background-color: var(--success); }
+        
+        .evaluation-controls {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-project-diagram me-2"></i>
+                Portail PAQ AgilePM v3
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#paq-explanation"><i class="fas fa-info-circle me-1"></i> Comprendre la PAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#evaluation"><i class="fas fa-clipboard-check me-1"></i> Évaluation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#rex"><i class="fas fa-chart-line me-1"></i> REx & Cas d'Usage</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#results"><i class="fas fa-chart-bar me-1"></i> Résultats</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#roadmap"><i class="fas fa-road me-1"></i> Feuille de Route</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="display-4 fw-bold">Questionnaire d'Approche de Projet AgilePM v3</h1>
+            <p class="lead mb-4">Outil de gouvernance et de faisabilité pour évaluer, prioriser et suivre vos projets Agile</p>
+            <div class="row justify-content-center mt-4">
+                <div class="col-md-8">
+                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <span class="badge bg-light text-dark p-2"><i class="fas fa-bullseye me-1"></i> Alignement stratégique</span>
+                        <span class="badge bg-light text-dark p-2"><i class="fas fa-exclamation-triangle me-1"></i> Identification des risques</span>
+                        <span class="badge bg-light text-dark p-2"><i class="fas fa-users me-1"></i> Évaluation des ressources</span>
+                        <span class="badge bg-light text-dark p-2"><i class="fas fa-chart-line me-1"></i> Prise de décision éclairée</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- PAQ Explanation Section -->
+        <section id="paq-explanation" class="mb-5">
+            <h2 class="section-title">Comprendre le Questionnaire d'Approche de Projet (PAQ)</h2>
+            
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="mb-0"><i class="fas fa-info-circle me-2"></i> Qu'est-ce que la PAQ ?</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Le <strong>Questionnaire d'Approche de Projet (PAQ)</strong> est un outil de gouvernance et de faisabilité essentiel dans le cadre de la méthodologie <strong>AgilePM® v3</strong>. Il permet d'évaluer systématiquement la préparation et la viabilité d'un projet avant son lancement officiel.</p>
+                            
+                            <div class="info-box mt-4">
+                                <h5><i class="fas fa-bullseye me-2"></i> Objectifs principaux de la PAQ</h5>
+                                <ul>
+                                    <li><strong>Alignement stratégique</strong> : Vérifier que le projet soutient les objectifs business</li>
+                                    <li><strong>Identification des risques</strong> : Détecter précocement les obstacles potentiels</li>
+                                    <li><strong>Évaluation des ressources</strong> : S'assurer de la disponibilité des compétences nécessaires</li>
+                                    <li><strong>Préparation organisationnelle</strong> : Évaluer la maturité Agile de l'organisation</li>
+                                    <li><strong>Décision éclairée</strong> : Fournir une base solide pour le passage en phase Foundations</li>
+                                </ul>
+                            </div>
+                            
+                            <h5 class="mt-4">Les 4 domaines d'évaluation de la PAQ</h5>
+                            <div class="row mt-3">
+                                <div class="col-md-6 mb-3">
+                                    <div class="integration-box">
+                                        <h6><i class="fas fa-bullseye me-2 text-primary"></i> Portée & Objectifs</h6>
+                                        <p class="mb-0">Définition claire des objectifs, alignement stratégique et livrables identifiés</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="integration-box">
+                                        <h6><i class="fas fa-users me-2 text-success"></i> Ressources & Compétences</h6>
+                                        <p class="mb-0">Disponibilité des ressources, assignation des rôles et gestion des dépendances</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="integration-box">
+                                        <h6><i class="fas fa-exclamation-triangle me-2 text-warning"></i> Risques & Dépendances</h6>
+                                        <p class="mb-0">Identification des risques, plans d'atténuation et évaluation des impacts</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="integration-box">
+                                        <h6><i class="fas fa-gavel me-2 text-info"></i> Gouvernance & Conformité</h6>
+                                        <p class="mb-0">Processus d'approbation, mécanismes de reporting et respect des standards</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h3 class="mb-0"><i class="fas fa-link me-2"></i> Intégration avec les autres artefacts AgilePM</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="integration-box">
+                                        <h5><i class="fas fa-sitemap me-2"></i> PBS/WBS</h5>
+                                        <p>La PAQ permet de mapper chaque livrable identifié vers la PBS (Product Breakdown Structure) et les tâches vers la WBS (Work Breakdown Structure).</p>
+                                        <span class="badge bg-primary">Traçabilité</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="integration-box">
+                                        <h5><i class="fas fa-sort-amount-down me-2"></i> MoSCoW</h5>
+                                        <p>L'évaluation PAQ aide à confirmer et prioriser les éléments Must-have en identifiant les risques liés aux livrables critiques.</p>
+                                        <span class="badge bg-primary">Priorisation</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="card agile-card">
+                        <div class="card-header">
+                            <h4 class="mb-0"><i class="fas fa-retweet me-2"></i> Cycle de vie PAQ</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <span class="phase-badge">Initialisation</span>
+                                    <h6 class="mt-2">Première évaluation</h6>
+                                    <p class="small">Évaluation initiale de faisabilité avec les parties prenantes principales</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <span class="phase-badge">Atelier PAQ</span>
+                                    <h6 class="mt-2">Session collaborative</h6>
+                                    <p class="small">Atelier avec PM, PO, Sponsor et BA pour compléter l'évaluation</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <span class="phase-badge">Décision</span>
+                                    <h6 class="mt-2">Go/No-Go</h6>
+                                    <p class="small">Décision basée sur le score PAQ pour passer en phase Foundations</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <span class="phase-badge">Itérations</span>
+                                    <h6 class="mt-2">Réévaluations</h6>
+                                    <p class="small">Réévaluation après chaque sprint ou changement majeur de portée</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h4 class="mb-0"><i class="fas fa-calculator me-2"></i> Méthodologie de Scoring</h4>
+                        </div>
+                        <div class="card-body">
+                            <p>Chaque sous-critère est évalué sur une échelle de 0 à 2 :</p>
+                            <dl class="definition-list">
+                                <dt>0 = Non adressé</dt>
+                                <dd>Le critère n'a pas été considéré ou traité</dd>
+                                
+                                <dt>1 = Partiellement adressé</dt>
+                                <dd>Le critère a été abordé mais nécessite des améliorations</dd>
+                                
+                                <dt>2 = Complètement adressé</dt>
+                                <dd>Le critère est pleinement satisfait avec des preuves tangibles</dd>
+                            </dl>
+                            
+                            <div class="mt-3 p-3 bg-light rounded">
+                                <strong>Score pondéré</strong> = Score × Poids<br>
+                                <strong>Score total maximum</strong> = 24 points
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REx & Use Cases Section -->
+        <section id="rex" class="mb-5">
+            <h2 class="section-title">Retours d'Expérience (REx) & Cas d'Usage</h2>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="mb-0"><i class="fas fa-chart-line me-2"></i> 10 Retours d'Expérience Clés</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="rex-item">
+                                <h6><i class="fas fa-clipboard-check me-2 text-success"></i> REx #1 : Réponses PAQ incomplètes</h6>
+                                <p class="mb-0">Planifiez des sessions dédiées de complétion PAQ avec toutes les parties prenantes pour éviter les réponses superficielles.</p>
+                            </div>
+                            
+                            <div class="rex-item">
+                                <h6><i class="fas fa-chart-bar me-2 text-warning"></i> REx #2 : Score gonflé</h6>
+                                <p class="mb-0">Utilisez des preuves objectives et recoupez avec PBS/WBS pour éviter la sur-estimation de la préparation.</p>
+                            </div>
+                            
+                            <div class="rex-item">
+                                <h6><i class="fas fa-project-diagram me-2 text-info"></i> REx #3 : Dépendances sous-analysées</h6>
+                                <p class="mb-0">Intégrez systématiquement la revue PBS/WBS pour identifier toutes les dépendances critiques.</p>
+                            </div>
+                            
+                            <div class="rex-item">
+                                <h6><i class="fas fa-shield-alt me-2 text-danger"></i> REx #4 : Atténuation des risques incomplète</h6>
+                                <p class="mb-0">Revoyez les éléments Must-have de MoSCoW liés pour identifier les risques sur les livrables critiques.</p>
+                            </div>
+                            
+                            <div class="rex-item">
+                                <h6><i class="fas fa-user-check me-2 text-primary"></i> REx #5 : Rôles non assignés</h6>
+                                <p class="mb-0">Assurez-vous que tous les rôles clés (PM, PO, BA, Sponsor) sont formellement assignés avant l'évaluation.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="rex-item">
+                                <h6><i class="fas fa-balance-scale me-2 text-success"></i> REx #6 : Gouvernance négligée</h6>
+                                <p class="mb-0">Impliquez activement les représentants de la gouvernance dans le processus PAQ.</p>
+                            </div>
+                            
+                            <div class="rex-item">
+                                <h6><i class="fas fa-sync-alt me-2 text-warning"></i> REx #7 : PAQ considérée comme ponctuelle</h6>
+                                <p class="mb-0">Utilisez la PAQ itérativement après chaque changement majeur de portée.</p>
+                            </div>
+                            
+                            <div class="rex-item">
+                                <h6><i class="fas fa-tasks me-2 text-info"></i> REx #8 : Livrables non traçables</h6>
+                                <p class="mb-0">Établissez explicitement le lien entre chaque livrable PAQ et les éléments PBS/WBS.</p>
+                            </div>
+                            
+                            <div class="rex-item">
+                                <h6><i class="fas fa-exclamation-circle me-2 text-danger"></i> REx #9 : Impacts des risques non quantifiés</h6>
+                                <p class="mb-0">Utilisez une matrice d'impact pour quantifier les conséquences des risques identifiés.</p>
+                            </div>
+                            
+                            <div class="rex-item">
+                                <h6><i class="fas fa-handshake me-2 text-primary"></i> REx #10 : Approbations non définies</h6>
+                                <p class="mb-0">Documentez clairement les processus d'approbation dans le Foundations Document.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h3 class="mb-0"><i class="fas fa-laptop-code me-2"></i> Cas d'Usage Concrets</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="card usecase-card h-100">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Projet Digital Transformation</h5>
+                                </div>
+                                <div class="card-body">
+                                    <h6>Contexte</h6>
+                                    <p>Migration d'un système legacy vers une plateforme cloud-native avec microservices.</p>
+                                    
+                                    <h6>Résultats PAQ</h6>
+                                    <ul>
+                                        <li>Score initial: 14/24 (Moyen)</li>
+                                        <li>Principales lacunes: Dépendances externes, compétences cloud</li>
+                                        <li>Score final après atelier: 20/24 (Élevé)</li>
+                                    </ul>
+                                    
+                                    <h6>Actions</h6>
+                                    <p>Formation équipe cloud, identification des API critiques, atelier de mapping PBS/WBS</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-4">
+                            <div class="card usecase-card h-100">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Application Mobile Retail</h5>
+                                </div>
+                                <div class="card-body">
+                                    <h6>Contexte</h6>
+                                    <p>Développement d'une application mobile pour une chaîne de retail avec fonctionnalités de paiement.</p>
+                                    
+                                    <h6>Résultats PAQ</h6>
+                                    <ul>
+                                        <li>Score initial: 10/24 (Faible)</li>
+                                        <li>Principales lacunes: Conformité PCI-DSS, risques sécurité</li>
+                                        <li>Score final: 17/24 (Élevé)</li>
+                                    </ul>
+                                    
+                                    <h6>Actions</h6>
+                                    <p>Audit sécurité, revue conformité, atelier risques avec expert sécurité</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-4">
+                            <div class="card usecase-card h-100">
+                                <div class="card-header">
+                                    <h5 class="mb-0">SaaS B2B</h5>
+                                </div>
+                                <div class="card-body">
+                                    <h6>Contexte</h6>
+                                    <p>Développement d'une plateforme SaaS pour la gestion des ressources humaines.</p>
+                                    
+                                    <h6>Résultats PAQ</h6>
+                                    <ul>
+                                        <li>Score initial: 18/24 (Élevé)</li>
+                                        <li>Points forts: Équipe expérimentée, objectifs clairs</li>
+                                        <li>Amélioration: Documentation des approbations</li>
+                                    </ul>
+                                    
+                                    <h6>Actions</h6>
+                                    <p>Renforcement processus gouvernance, définition des KPIs de succès</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Evaluation Section -->
+        <section id="evaluation" class="mb-5">
+            <h2 class="section-title">Évaluation du Projet</h2>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="mb-0">Informations du Projet</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="projectName" class="form-label">Nom du Projet</label>
+                            <input type="text" class="form-control" id="projectName" placeholder="Entrez le nom du projet">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="projectManager" class="form-label">Chef de Projet</label>
+                            <input type="text" class="form-control" id="projectManager" placeholder="Nom du chef de projet">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="projectSponsor" class="form-label">Sponsor</label>
+                            <input type="text" class="form-control" id="projectSponsor" placeholder="Nom du sponsor">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="projectDate" class="form-label">Date d'Évaluation</label>
+                            <input type="date" class="form-control" id="projectDate">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAQ Evaluation Form -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h3 class="mb-0">Questionnaire PAQ - Évaluation par Critères</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="nav nav-tabs" id="paqTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="scope-tab" data-bs-toggle="tab" data-bs-target="#scope" type="button" role="tab">Portée & Objectifs</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="resources-tab" data-bs-toggle="tab" data-bs-target="#resources-tab-pane" type="button" role="tab">Ressources & Compétences</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="risks-tab" data-bs-toggle="tab" data-bs-target="#risks-tab-pane" type="button" role="tab">Risques & Dépendances</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="governance-tab" data-bs-toggle="tab" data-bs-target="#governance-tab-pane" type="button" role="tab">Gouvernance & Conformité</button>
+                        </li>
+                    </ul>
+                    
+                    <div class="tab-content p-3 border border-top-0" id="paqTabContent">
+                        <!-- Scope & Objectives Tab -->
+                        <div class="tab-pane fade show active" id="scope" role="tabpanel" tabindex="0">
+                            <div class="criteria-section">
+                                <h5>Clarté des Objectifs</h5>
+                                <p class="text-muted">Les objectifs sont-ils spécifiques et mesurables ?</p>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="clarity" id="clarity-0" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger" for="clarity-0">Non traité (0)</label>
+                                    
+                                    <input type="radio" class="btn-check" name="clarity" id="clarity-1" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-warning" for="clarity-1">Partiel (1)</label>
+                                    
+                                    <input type="radio" class="btn-check" name="clarity" id="clarity-2" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-success" for="clarity-2">Complet (2)</label>
+                                </div>
+                                <div class="mt-2">
+                                    <small class="text-muted"><strong>Conseil :</strong> Vérifiez que les objectifs suivent la méthode SMART (Spécifique, Mesurable, Atteignable, Réaliste, Temporel)</small>
+                                </div>
+                            </div>
+                            
+                            <div class="criteria-section">
+                                <h5>Alignement Stratégique</h5>
+                                <p class="text-muted">Les objectifs s'alignent-ils sur la stratégie organisationnelle ?</p>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="alignment" id="alignment-0" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger" for="alignment-0">Non traité (0)</label>
+                                    
+                                    <input type="radio" class="btn-check" name="alignment" id="alignment-1" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-warning" for="alignment-1">Partiel (1)</label>
+                                    
+                                    <input type="radio" class="btn-check" name="alignment" id="alignment-2" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-success" for="alignment-2">Complet (2)</label>
+                                </div>
+                                <div class="mt-2">
+                                    <small class="text-muted"><strong>Conseil :</strong> Documentez explicitement comment le projet soutient les objectifs stratégiques de l'organisation</small>
+                                </div>
+                            </div>
+                            
+                            <div class="criteria-section">
+                                <h5>Livrables</h5>
+                                <p class="text-muted">Les livrables attendus sont-ils définis et traçables ?</p>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="deliverables" id="deliverables-0" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger" for="deliverables-0">Non traité (0)</label>
+                                    
+                                    <input type="radio" class="btn-check" name="deliverables" id="deliverables-1" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-warning" for="deliverables-1">Partiel (1)</label>
+                                    
+                                    <input type="radio" class="btn-check" name="deliverables" id="deliverables-2" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-success" for="deliverables-2">Complet (2)</label>
+                                </div>
+                                <div class="mt-2">
+                                    <small class="text-muted"><strong>Conseil :</strong> Établissez un lien clair entre chaque livrable et les éléments PBS/WBS correspondants</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Resources & Skills Tab -->
+                        <div class="tab-pane fade" id="resources-tab-pane" role="tabpanel" tabindex="0">
+                            <div class="criteria-section">
+                                <h5>Disponibilité des Ressources</h5>
+                                <p class="text-muted">Les rôles et compétences requis sont-ils disponibles ?</p>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="availability" id="availability-0" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger" for="availability-0">Non traité (0)</label>
+                                    
+                                    <input type="radio" class="btn-check" name="availability" id="availability-1" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-warning" for="availability-1">Partiel (1)</label>
+                                    
+                                    <input type="radio" class="btn-check" name="availability" id="availability-2" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-success" for="availability-2">Complet (2)</label>
+                                </div>
+                                <div class="mt-2">
+                                    <small class="text-muted"><strong>Conseil :</strong> Identifiez les compétences critiques et évaluez les écarts avec les ressources disponibles</small>
+                                </div>
+                            </div>
+                            
+                            <div class="criteria-section">
+                                <h5>Assignation des Rôles</h5>
+                                <p class="text-muted">Les rôles clés sont-ils assignés ?</p>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="assignments" id="assignments-0" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger" for="assignments-0">Non traité (0)</label>
+                                    
+                                    <input type="radio" class="btn-check" name="assignments" id="assignments-1" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-warning" for="assignments-1">Partiel (1)</label>
+                                    
+                                    <input type="radio" class="btn-check" name="assignments" id="assignments-2" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-success" for="assignments-2">Complet (2)</label>
+                                </div>
+                                <div class="mt-2">
+                                    <small class="text-muted"><strong>Conseil :</strong> Assurez-vous que les rôles Agile (Product Owner, Scrum Master, etc.) sont formellement assignés</small>
+                                </div>
+                            </div>
+                            
+                            <div class="criteria-section">
+                                <h5>Dépendances Externes</h5>
+                                <p class="text-muted">Les dépendances externes sont-elles connues ?</p>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="dependencies" id="dependencies-0" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger" for="dependencies-0">Non traité (0)</label>
+                                    
+                                    <input type="radio" class="btn-check" name="dependencies" id="dependencies-1" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-warning" for="dependencies-1">Partiel (1)</label>
+                                    
+                                    <input type="radio" class="btn-check" name="dependencies" id="dependencies-2" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-success" for="dependencies-2">Complet (2)</label>
+                                </div>
+                                <div class="mt-2">
+                                    <small class="text-muted"><strong>Conseil :</strong> Cartographiez toutes les dépendances externes (API, fournisseurs, autres équipes) et leurs impacts</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Risks & Dependencies Tab -->
+                        <div class="tab-pane fade" id="risks-tab-pane" role="tabpanel" tabindex="0">
+                            <div class="criteria-section">
+                                <h5>Identification des Risques</h5>
+                                <p class="text-muted">Les risques critiques sont-ils documentés ?</p>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="riskIdentification" id="riskIdentification-0" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger" for="riskIdentification-0">Non traité (0)</label>
+                                    
+                                    <input type="radio" class="btn-check" name="riskIdentification" id="riskIdentification-1" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-warning" for="riskIdentification-1">Partiel (1)</label>
+                                    
+                                    <input type="radio" class="btn-check" name="riskIdentification" id="riskIdentification-2" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-success" for="riskIdentification-2">Complet (2)</label>
+                                </div>
+                                <div class="mt-2">
+                                    <small class="text-muted"><strong>Conseil :</strong> Organisez un atelier d'identification des risques avec toutes les parties prenantes</small>
+                                </div>
+                            </div>
+                            
+                            <div class="criteria-section">
+                                <h5>Plans d'Atténuation</h5>
+                                <p class="text-muted">Les stratégies d'atténuation sont-elles définies ?</p>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="mitigationPlans" id="mitigationPlans-0" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger" for="mitigationPlans-0">Non traité (0)</label>
+                                    
+                                    <input type="radio" class="btn-check" name="mitigationPlans" id="mitigationPlans-1" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-warning" for="mitigationPlans-1">Partiel (1)</label>
+                                    
+                                    <input type="radio" class="btn-check" name="mitigationPlans" id="mitigationPlans-2" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-success" for="mitigationPlans-2">Complet (2)</label>
+                                </div>
+                                <div class="mt-2">
+                                    <small class="text-muted"><strong>Conseil :</strong> Développez des plans d'action concrets pour les 3-5 risques les plus critiques</small>
+                                </div>
+                            </div>
+                            
+                            <div class="criteria-section">
+                                <h5>Évaluation de l'Impact</h5>
+                                <p class="text-muted">Les impacts des risques sont-ils quantifiés ?</p>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="impactAssessment" id="impactAssessment-0" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger" for="impactAssessment-0">Non traité (0)</label>
+                                    
+                                    <input type="radio" class="btn-check" name="impactAssessment" id="impactAssessment-1" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-warning" for="impactAssessment-1">Partiel (1)</label>
+                                    
+                                    <input type="radio" class="btn-check" name="impactAssessment" id="impactAssessment-2" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-success" for="impactAssessment-2">Complet (2)</label>
+                                </div>
+                                <div class="mt-2">
+                                    <small class="text-muted"><strong>Conseil :</strong> Utilisez une matrice risque/impact pour prioriser les risques et leurs contre-mesures</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Governance & Compliance Tab -->
+                        <div class="tab-pane fade" id="governance-tab-pane" role="tabpanel" tabindex="0">
+                            <div class="criteria-section">
+                                <h5>Processus d'Approbation</h5>
+                                <p class="text-muted">Les processus d'approbation sont-ils définis ?</p>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="approvals" id="approvals-0" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger" for="approvals-0">Non traité (0)</label>
+                                    
+                                    <input type="radio" class="btn-check" name="approvals" id="approvals-1" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-warning" for="approvals-1">Partiel (1)</label>
+                                    
+                                    <input type="radio" class="btn-check" name="approvals" id="approvals-2" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-success" for="approvals-2">Complet (2)</label>
+                                </div>
+                                <div class="mt-2">
+                                    <small class="text-muted"><strong>Conseil :</strong> Documentez clairement qui doit approuver quoi, quand et comment dans le Foundations Document</small>
+                                </div>
+                            </div>
+                            
+                            <div class="criteria-section">
+                                <h5>Mécanismes de Reporting</h5>
+                                <p class="text-muted">Les mécanismes de reporting sont-ils en place ?</p>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="reporting" id="reporting-0" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger" for="reporting-0">Non traité (0)</label>
+                                    
+                                    <input type="radio" class="btn-check" name="reporting" id="reporting-1" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-warning" for="reporting-1">Partiel (1)</label>
+                                    
+                                    <input type="radio" class="btn-check" name="reporting" id="reporting-2" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-success" for="reporting-2">Complet (2)</label>
+                                </div>
+                                <div class="mt-2">
+                                    <small class="text-muted"><strong>Conseil :</strong> Définissez les tableaux de bord, les fréquences de reporting et les destinataires</small>
+                                </div>
+                            </div>
+                            
+                            <div class="criteria-section">
+                                <h5>Conformité</h5>
+                                <p class="text-muted">Les standards réglementaires et organisationnels sont-ils pris en compte ?</p>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="compliance" id="compliance-0" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger" for="compliance-0">Non traité (0)</label>
+                                    
+                                    <input type="radio" class="btn-check" name="compliance" id="compliance-1" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-warning" for="compliance-1">Partiel (1)</label>
+                                    
+                                    <input type="radio" class="btn-check" name="compliance" id="compliance-2" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-success" for="compliance-2">Complet (2)</label>
+                                </div>
+                                <div class="mt-2">
+                                    <small class="text-muted"><strong>Conseil :</strong> Identifiez toutes les exigences de conformité (RGPD, ISO, standards internes) dès le début</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="evaluation-controls text-center">
+                        <button id="calculateScore" class="btn btn-primary btn-lg">
+                            <i class="fas fa-calculator me-2"></i> Calculer le Score PAQ
+                        </button>
+                        <button id="resetEvaluation" class="btn btn-outline-secondary ms-2">
+                            <i class="fas fa-redo me-2"></i> Réinitialiser
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results" class="mb-5" style="display: none;">
+            <h2 class="section-title">Résultats de l'Évaluation</h2>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card score-card">
+                        <div class="card-header">
+                            <h4 class="mb-0">Score PAQ</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="scoreValue" class="score-value">0</div>
+                            <div id="scoreLevel" class="fw-bold mb-3">Niveau de Préparation</div>
+                            <div class="progress">
+                                <div id="scoreProgress" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                            </div>
+                            <p id="scoreDescription" class="mt-3">Le score sera calculé après évaluation</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="mb-0">Détail par Catégorie</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="categoryChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h4 class="mb-0">Recommandations</h4>
+                </div>
+                <div class="card-body">
+                    <div id="recommendationsList">
+                        <!-- Recommendations will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Roadmap Section -->
+        <section id="roadmap" class="mb-5" style="display: none;">
+            <h2 class="section-title">Feuille de Route</h2>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">Plan d'Action Recommandé</h4>
+                </div>
+                <div class="card-body">
+                    <div id="roadmapSteps">
+                        <!-- Roadmap steps will be populated here -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h4 class="mb-0">Tableau d'Analyse des Risques</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Risque</th>
+                                    <th>Zone PAQ Associée</th>
+                                    <th>Probabilité</th>
+                                    <th>Impact</th>
+                                    <th>Atténuation</th>
+                                    <th>Propriétaire</th>
+                                </tr>
+                            </thead>
+                            <tbody id="riskTableBody">
+                                <!-- Risk table will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Floating Action Button -->
+    <button id="exportBtn" class="btn btn-primary floating-btn" title="Exporter le Rapport">
+        <i class="fas fa-download"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Portail d'Évaluation de Projet PAQ</h5>
+                    <p>Basé sur AgilePM v3 - Questionnaire d'Approche de Projet</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>&copy; 2023 Tous droits réservés</p>
+                    <p class="small">Conforme aux bonnes pratiques AgilePM® v3</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // DOM Elements
+        const calculateScoreBtn = document.getElementById('calculateScore');
+        const resetEvaluationBtn = document.getElementById('resetEvaluation');
+        const resultsSection = document.getElementById('results');
+        const roadmapSection = document.getElementById('roadmap');
+        const scoreValue = document.getElementById('scoreValue');
+        const scoreLevel = document.getElementById('scoreLevel');
+        const scoreProgress = document.getElementById('scoreProgress');
+        const scoreDescription = document.getElementById('scoreDescription');
+        const recommendationsList = document.getElementById('recommendationsList');
+        const roadmapSteps = document.getElementById('roadmapSteps');
+        const riskTableBody = document.getElementById('riskTableBody');
+        const exportBtn = document.getElementById('exportBtn');
+        
+        // PAQ Criteria with weights
+        const paqCriteria = [
+            { id: 'clarity', area: 'Scope & Objectives', question: 'Les objectifs sont-ils spécifiques et mesurables ?', weight: 2 },
+            { id: 'alignment', area: 'Scope & Objectives', question: 'Les objectifs s\'alignent-ils sur la stratégie organisationnelle ?', weight: 2 },
+            { id: 'deliverables', area: 'Scope & Objectives', question: 'Les livrables attendus sont-ils définis et traçables ?', weight: 2 },
+            { id: 'availability', area: 'Resources & Skills', question: 'Les rôles et compétences requis sont-ils disponibles ?', weight: 2 },
+            { id: 'assignments', area: 'Resources & Skills', question: 'Les rôles clés sont-ils assignés ?', weight: 2 },
+            { id: 'dependencies', area: 'Resources & Skills', question: 'Les dépendances externes sont-elles connues ?', weight: 1 },
+            { id: 'riskIdentification', area: 'Risks & Dependencies', question: 'Les risques critiques sont-ils documentés ?', weight: 2 },
+            { id: 'mitigationPlans', area: 'Risks & Dependencies', question: 'Les stratégies d\'atténuation sont-elles définies ?', weight: 2 },
+            { id: 'impactAssessment', area: 'Risks & Dependencies', question: 'Les impacts des risques sont-ils quantifiés ?', weight: 1 },
+            { id: 'approvals', area: 'Governance & Compliance', question: 'Les processus d\'approbation sont-ils définis ?', weight: 2 },
+            { id: 'reporting', area: 'Governance & Compliance', question: 'Les mécanismes de reporting sont-ils en place ?', weight: 2 },
+            { id: 'compliance', area: 'Governance & Compliance', question: 'Les standards réglementaires et organisationnels sont-ils pris en compte ?', weight: 1 }
+        ];
+        
+        // Recommendations based on score
+        const recommendations = {
+            low: [
+                "Réévaluez la faisabilité du projet avant de continuer",
+                "Organisez un atelier PAQ avec toutes les parties prenantes",
+                "Identifiez et documentez tous les risques critiques",
+                "Établissez une cartographie PBS/WBS complète",
+                "Affectez les rôles clés manquants avant de procéder",
+                "Développez des plans d'atténuation pour les risques identifiés",
+                "Validez l'alignement stratégique avec le sponsor"
+            ],
+            medium: [
+                "Adressez les lacunes identifiées avant la phase Foundations",
+                "Effectuez des ajustements mineurs sur les éléments à faible score",
+                "Renforcez les plans d'atténuation des risques",
+                "Validez l'alignement stratégique avec le sponsor",
+                "Assurez-vous que toutes les dépendances externes sont documentées",
+                "Affinez la définition des objectifs et livrables",
+                "Confirmez la disponibilité des ressources critiques"
+            ],
+            high: [
+                "Le projet est prêt à passer à la phase Foundations",
+                "Affinez les éléments mineurs identifiés pendant l'évaluation",
+                "Maintenez la traçabilité entre PAQ, PBS/WBS et MoSCoW",
+                "Surveillez les risques identifiés pendant le projet",
+                "Planifiez des réévaluations PAQ après des changements majeurs de portée",
+                "Documentez les leçons apprises de l'évaluation PAQ",
+                "Communiquez les résultats aux parties prenantes"
+            ]
+        };
+        
+        // Roadmap steps based on score
+        const roadmapStepsData = {
+            low: [
+                { title: "Atelier PAQ d'urgence", description: "Organiser un atelier avec toutes les parties prenantes pour compléter l'évaluation PAQ", priority: "urgent" },
+                { title: "Analyse de faisabilité", description: "Réévaluer la faisabilité du projet basée sur les résultats PAQ", priority: "urgent" },
+                { title: "Cartographie PBS/WBS", description: "Développer une cartographie complète des livrables et tâches", priority: "urgent" },
+                { title: "Identification des risques", description: "Documenter tous les risques critiques et leurs impacts", priority: "medium" },
+                { title: "Assignation des rôles", description: "Affecter les rôles clés manquants identifiés dans l'évaluation", priority: "medium" },
+                { title: "Plan d'atténuation", description: "Développer des stratégies d'atténuation pour les risques identifiés", priority: "medium" },
+                { title: "Validation stratégique", description: "Confirmer l'alignement du projet avec la stratégie d'entreprise", priority: "low" }
+            ],
+            medium: [
+                { title: "Atelier de résolution des lacunes", description: "Traiter les éléments identifiés avec des scores faibles", priority: "urgent" },
+                { title: "Renforcement de la gouvernance", description: "Affiner les processus d'approbation et de reporting", priority: "medium" },
+                { title: "Plan d'atténuation des risques", description: "Développer des stratégies d'atténuation pour les risques identifiés", priority: "medium" },
+                { title: "Validation de l'alignement stratégique", description: "Confirmer l'alignement avec le sponsor du projet", priority: "medium" },
+                { title: "Documentation des dépendances", description: "Compléter la documentation des dépendances externes", priority: "low" },
+                { title: "Affinage des objectifs", description: "Préciser la définition des objectifs et livrables", priority: "low" },
+                { title: "Préparation phase Foundations", description: "Finaliser les éléments pour le passage en phase Foundations", priority: "low" }
+            ],
+            high: [
+                { title: "Lancement de la phase Foundations", description: "Démarrer la phase Foundations avec les résultats PAQ comme référence", priority: "urgent" },
+                { title: "Affinage des processus", description: "Améliorer les éléments identifiés avec des scores moyens", priority: "medium" },
+                { title: "Mise en place de la traçabilité", description: "Établir le lien entre PAQ, PBS/WBS et priorités MoSCoW", priority: "medium" },
+                { title: "Plan de surveillance des risques", description: "Mettre en place un mécanisme de surveillance des risques identifiés", priority: "low" },
+                { title: "Planification des réévaluations", description: "Planifier des réévaluations PAQ après des changements majeurs", priority: "low" },
+                { title: "Capitalisation des bonnes pratiques", description: "Documenter les pratiques efficaces identifiées", priority: "low" },
+                { title: "Communication des résultats", description: "Partager les résultats de l'évaluation avec l'ensemble des parties prenantes", priority: "low" }
+            ]
+        };
+        
+        // Risk analysis data
+        const riskAnalysisData = [
+            { risk: "Indisponibilité des API", area: "Ressources/Dépendances", likelihood: "Élevée", impact: "Élevé", mitigation: "Services simulés et solutions de secours", owner: "Responsable Dev" },
+            { risk: "Erreurs de réservation", area: "Portée/Livrables", likelihood: "Moyenne", impact: "Élevé", mitigation: "Tests automatisés QA", owner: "Responsable QA" },
+            { risk: "Demandes de changement", area: "Gouvernance/Approbations", likelihood: "Moyenne", impact: "Moyen", mitigation: "Alignement avec les revues de sprint", owner: "Chef de Projet" },
+            { risk: "Défaut de conformité", area: "Gouvernance/Conformité", likelihood: "Faible", impact: "Élevé", mitigation: "Revue des directives GDPR/ISO", owner: "Responsable Conformité" },
+            { risk: "Dépassement de budget", area: "Ressources/Compétences", likelihood: "Moyenne", impact: "Moyen", mitigation: "Surveillance rigoureuse et revues fréquentes", owner: "Chef de Projet" }
+        ];
+        
+        // Calculate PAQ score
+        function calculatePAQScore() {
+            let totalScore = 0;
+            let totalWeight = 0;
+            let areaScores = {
+                'Scope & Objectives': { score: 0, weight: 0 },
+                'Resources & Skills': { score: 0, weight: 0 },
+                'Risks & Dependencies': { score: 0, weight: 0 },
+                'Governance & Compliance': { score: 0, weight: 0 }
+            };
+            
+            paqCriteria.forEach(criterion => {
+                const radioButtons = document.getElementsByName(criterion.id);
+                let selectedValue = 0;
+                
+                for (let radio of radioButtons) {
+                    if (radio.checked) {
+                        selectedValue = parseInt(radio.value);
+                        break;
+                    }
+                }
+                
+                const weightedScore = selectedValue * criterion.weight;
+                totalScore += weightedScore;
+                totalWeight += criterion.weight;
+                
+                areaScores[criterion.area].score += weightedScore;
+                areaScores[criterion.area].weight += criterion.weight;
+            });
+            
+            return {
+                totalScore,
+                totalWeight,
+                maxScore: totalWeight * 2,
+                areaScores
+            };
+        }
+        
+        // Determine readiness level based on score
+        function getReadinessLevel(score) {
+            if (score <= 8) return 'low';
+            if (score <= 16) return 'medium';
+            return 'high';
+        }
+        
+        // Display results
+        function displayResults() {
+            const scoreData = calculatePAQScore();
+            const readinessLevel = getReadinessLevel(scoreData.totalScore);
+            
+            // Update score display
+            scoreValue.textContent = scoreData.totalScore;
+            scoreValue.className = `score-value score-${readinessLevel}`;
+            
+            // Update progress bar
+            const progressPercentage = (scoreData.totalScore / scoreData.maxScore) * 100;
+            scoreProgress.style.width = `${progressPercentage}%`;
+            scoreProgress.className = `progress-bar bg-${readinessLevel === 'low' ? 'danger' : readinessLevel === 'medium' ? 'warning' : 'success'}`;
+            
+            // Update level and description
+            const levelTexts = {
+                low: { text: 'Faible Préparation', description: 'Réévaluez la faisabilité; organisez un atelier PAQ' },
+                medium: { text: 'Préparation Moyenne', description: 'Adressez les lacunes; ajustements mineurs avant Foundations' },
+                high: { text: 'Haute Préparation', description: 'Prêt à procéder; affinements mineurs optionnels' }
+            };
+            
+            scoreLevel.textContent = levelTexts[readinessLevel].text;
+            scoreDescription.textContent = levelTexts[readinessLevel].description;
+            
+            // Display recommendations
+            displayRecommendations(readinessLevel);
+            
+            // Display roadmap
+            displayRoadmap(readinessLevel);
+            
+            // Display risk analysis
+            displayRiskAnalysis();
+            
+            // Show results and roadmap sections
+            resultsSection.style.display = 'block';
+            roadmapSection.style.display = 'block';
+            
+            // Scroll to results
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+            
+            // Create chart
+            createCategoryChart(scoreData.areaScores);
+        }
+        
+        // Display recommendations
+        function displayRecommendations(level) {
+            recommendationsList.innerHTML = '';
+            
+            recommendations[level].forEach(rec => {
+                const recElement = document.createElement('div');
+                recElement.className = 'recommendation-item';
+                recElement.innerHTML = `
+                    <i class="fas fa-check-circle text-success me-2"></i>
+                    ${rec}
+                `;
+                recommendationsList.appendChild(recElement);
+            });
+        }
+        
+        // Display roadmap
+        function displayRoadmap(level) {
+            roadmapSteps.innerHTML = '';
+            
+            roadmapStepsData[level].forEach(step => {
+                const stepElement = document.createElement('div');
+                stepElement.className = `roadmap-step roadmap-step-${step.priority}`;
+                stepElement.innerHTML = `
+                    <h5>${step.title}</h5>
+                    <p class="mb-0">${step.description}</p>
+                `;
+                roadmapSteps.appendChild(stepElement);
+            });
+        }
+        
+        // Display risk analysis
+        function displayRiskAnalysis() {
+            riskTableBody.innerHTML = '';
+            
+            riskAnalysisData.forEach(risk => {
+                const row = document.createElement('tr');
+                
+                // Determine likelihood color
+                let likelihoodClass = '';
+                if (risk.likelihood === 'Élevée') likelihoodClass = 'text-danger';
+                if (risk.likelihood === 'Moyenne') likelihoodClass = 'text-warning';
+                
+                // Determine impact color
+                let impactClass = '';
+                if (risk.impact === 'Élevé') impactClass = 'text-danger';
+                if (risk.impact === 'Moyen') impactClass = 'text-warning';
+                
+                row.innerHTML = `
+                    <td>${risk.risk}</td>
+                    <td>${risk.area}</td>
+                    <td class="${likelihoodClass}">${risk.likelihood}</td>
+                    <td class="${impactClass}">${risk.impact}</td>
+                    <td>${risk.mitigation}</td>
+                    <td>${risk.owner}</td>
+                `;
+                
+                riskTableBody.appendChild(row);
+            });
+        }
+        
+        // Create category chart
+        function createCategoryChart(areaScores) {
+            const ctx = document.getElementById('categoryChart').getContext('2d');
+            
+            const areas = Object.keys(areaScores);
+            const scores = areas.map(area => {
+                const maxAreaScore = areaScores[area].weight * 2;
+                return (areaScores[area].score / maxAreaScore) * 100;
+            });
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: areas,
+                    datasets: [{
+                        label: 'Score par Catégorie (%)',
+                        data: scores,
+                        backgroundColor: [
+                            'rgba(52, 152, 219, 0.7)',
+                            'rgba(46, 204, 113, 0.7)',
+                            'rgba(231, 76, 60, 0.7)',
+                            'rgba(155, 89, 182, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgb(52, 152, 219)',
+                            'rgb(46, 204, 113)',
+                            'rgb(231, 76, 60)',
+                            'rgb(155, 89, 182)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `Score: ${context.raw.toFixed(1)}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Reset evaluation
+        function resetEvaluation() {
+            // Clear all radio buttons
+            paqCriteria.forEach(criterion => {
+                const radioButtons = document.getElementsByName(criterion.id);
+                for (let radio of radioButtons) {
+                    radio.checked = false;
+                }
+            });
+            
+            // Hide results sections
+            resultsSection.style.display = 'none';
+            roadmapSection.style.display = 'none';
+            
+            // Scroll to evaluation section
+            document.getElementById('evaluation').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Export report
+        function exportReport() {
+            const projectName = document.getElementById('projectName').value || 'Projet sans nom';
+            const projectManager = document.getElementById('projectManager').value || 'Non spécifié';
+            const projectSponsor = document.getElementById('projectSponsor').value || 'Non spécifié';
+            const projectDate = document.getElementById('projectDate').value || new Date().toISOString().split('T')[0];
+            
+            const scoreData = calculatePAQScore();
+            const readinessLevel = getReadinessLevel(scoreData.totalScore);
+            
+            let reportContent = `
+                RAPPORT D'ÉVALUATION PAQ - ${projectName}
+                ===========================================
+                
+                Informations du Projet:
+                - Nom: ${projectName}
+                - Chef de Projet: ${projectManager}
+                - Sponsor: ${projectSponsor}
+                - Date d'Évaluation: ${projectDate}
+                
+                Résultats de l'Évaluation:
+                - Score PAQ: ${scoreData.totalScore}/${scoreData.maxScore}
+                - Niveau de Préparation: ${readinessLevel.toUpperCase()}
+                
+                Détail par Catégorie:
+            `;
+            
+            // Add category scores
+            Object.keys(scoreData.areaScores).forEach(area => {
+                const maxAreaScore = scoreData.areaScores[area].weight * 2;
+                const areaPercentage = (scoreData.areaScores[area].score / maxAreaScore) * 100;
+                reportContent += `\n- ${area}: ${scoreData.areaScores[area].score}/${maxAreaScore} (${areaPercentage.toFixed(1)}%)`;
+            });
+            
+            reportContent += `\n\nRecommandations:`;
+            
+            recommendations[readinessLevel].forEach((rec, index) => {
+                reportContent += `\n${index + 1}. ${rec}`;
+            });
+            
+            reportContent += `\n\nFeuille de Route:`;
+            
+            roadmapStepsData[readinessLevel].forEach((step, index) => {
+                reportContent += `\n${index + 1}. ${step.title}: ${step.description}`;
+            });
+            
+            // Create and download the report
+            const blob = new Blob([reportContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Rapport_PAQ_${projectName.replace(/\s+/g, '_')}_${projectDate}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        
+        // Event Listeners
+        calculateScoreBtn.addEventListener('click', displayResults);
+        resetEvaluationBtn.addEventListener('click', resetEvaluation);
+        exportBtn.addEventListener('click', exportReport);
+        
+        // Initialize date field with today's date
+        document.getElementById('projectDate').valueAsDate = new Date();
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
