@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgilePM v3 - Gestion de Projets Multi-Équipes VUCA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a237e;
+            --primary-light: #534bae;
+            --primary-dark: #000051;
+            --secondary: #00b8d4;
+            --success: #00c853;
+            --warning: #ffab00;
+            --danger: #ff1744;
+            --dark: #263238;
+            --light: #f5f7fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            color: var(--dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        /* Header & Navigation */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            color: var(--dark);
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%23ffffff" opacity="0.1"><polygon points="0,0 1000,50 1000,100 0,100"/></svg>');
+            background-size: cover;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            border-radius: 50%;
+            background: white;
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        .shape-1 {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .shape-2 {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            left: 80%;
+            animation-delay: 2s;
+        }
+        
+        .shape-3 {
+            width: 70px;
+            height: 70px;
+            top: 80%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+        
+        /* Cards & Sections */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+        }
+        
+        .card-modern {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: none;
+            transition: all 0.4s ease;
+            overflow: hidden;
+            height: 100%;
+        }
+        
+        .card-modern:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+        
+        .card-header-modern {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 1.5rem;
+            border-bottom: none;
+        }
+        
+        .card-body-modern {
+            padding: 2rem;
+        }
+        
+        .icon-container {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .icon-primary {
+            background: rgba(26, 35, 126, 0.1);
+            color: var(--primary);
+        }
+        
+        .icon-success {
+            background: rgba(0, 200, 83, 0.1);
+            color: var(--success);
+        }
+        
+        .icon-warning {
+            background: rgba(255, 171, 0, 0.1);
+            color: var(--warning);
+        }
+        
+        .icon-danger {
+            background: rgba(255, 23, 68, 0.1);
+            color: var(--danger);
+        }
+        
+        /* VUCA Section */
+        .vuca-card {
+            border-radius: 16px;
+            padding: 2rem;
+            color: white;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .vuca-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .vuca-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        
+        .vuca-card-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .vuca-volatility {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+        }
+        
+        .vuca-uncertainty {
+            background: linear-gradient(135deg, #4ecdc4 0%, #6ae2d9 100%);
+        }
+        
+        .vuca-complexity {
+            background: linear-gradient(135deg, #45b7d1 0%, #6ac9e2 100%);
+        }
+        
+        .vuca-ambiguity {
+            background: linear-gradient(135deg, #96ceb4 0%, #b4e2c9 100%);
+        }
+        
+        /* Table Styling */
+        .table-modern {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .table-modern thead th {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            border: none;
+            padding: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .table-modern tbody td {
+            padding: 1.2rem;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: middle;
+        }
+        
+        .table-modern tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .table-modern tbody tr:hover {
+            background-color: rgba(26, 35, 126, 0.03);
+        }
+        
+        /* Progress Bars */
+        .progress-modern {
+            height: 10px;
+            border-radius: 10px;
+            background: #e9ecef;
+            overflow: hidden;
+        }
+        
+        .progress-bar-modern {
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+        }
+        
+        /* Badges */
+        .badge-modern {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        
+        .badge-primary {
+            background: rgba(26, 35, 126, 0.1);
+            color: var(--primary);
+        }
+        
+        .badge-success {
+            background: rgba(0, 200, 83, 0.1);
+            color: var(--success);
+        }
+        
+        .badge-warning {
+            background: rgba(255, 171, 0, 0.1);
+            color: var(--warning);
+        }
+        
+        .badge-danger {
+            background: rgba(255, 23, 68, 0.1);
+            color: var(--danger);
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--primary), var(--primary-light));
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+            padding-left: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -0.5rem;
+            top: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px var(--primary);
+        }
+        
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer h5 {
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer ul li a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .card-body-modern {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-project-diagram me-2"></i>AgilePM v3
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#vuca">VUCA</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#principles">Principes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#phases">Phases</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#roles">Rôles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#strategies">Stratégies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary ms-2" href="#solutions">Solutions</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="hero-title">AgilePM v3 - Gestion de Projets Multi-Équipes en Environnement VUCA</h1>
+                    <p class="hero-subtitle">Maîtrisez la volatilité, l'incertitude, la complexité et l'ambiguïté avec le framework AgilePM v3 pour des projets multi-équipes performants</p>
+                    <div class="mt-4">
+                        <a href="#vuca" class="btn btn-light btn-lg me-3">
+                            <i class="fas fa-play-circle me-2"></i>Découvrir VUCA
+                        </a>
+                        <a href="#solutions" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-download me-2"></i>Télécharger le Guide
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <div class="hero-visual mt-5 mt-lg-0">
+                        <i class="fas fa-network-wired display-1 text-warning"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VUCA Section -->
+    <section id="vuca" class="py-5">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-title">Comprendre l'Environnement VUCA</h2>
+                    <p class="section-subtitle">Le nouveau contexte des projets complexes nécessite une approche adaptée</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="vuca-card vuca-volatility">
+                        <div class="vuca-card-content">
+                            <div class="icon-container bg-white text-danger mb-3">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <h3>Volatility</h3>
+                            <p class="mb-0">Changements rapides et fréquents dans le marché, la technologie, les priorités ou les besoins clients.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="vuca-card vuca-uncertainty">
+                        <div class="vuca-card-content">
+                            <div class="icon-container bg-white text-info mb-3">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            <h3>Uncertainty</h3>
+                            <p class="mb-0">Difficulté à prévoir les impacts et résultats d'une décision en raison d'informations partielles.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="vuca-card vuca-complexity">
+                        <div class="vuca-card-content">
+                            <div class="icon-container bg-white text-primary mb-3">
+                                <i class="fas fa-sitemap"></i>
+                            </div>
+                            <h3>Complexity</h3>
+                            <p class="mb-0">Multiplicité d'éléments interdépendants, de parties prenantes et de systèmes intégrés.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="vuca-card vuca-ambiguity">
+                        <div class="vuca-card-content">
+                            <div class="icon-container bg-white text-success mb-3">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <h3>Ambiguity</h3>
+                            <p class="mb-0">Informations contradictoires ou incomplètes, laissant plusieurs interprétations possibles.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-lg-10 mx-auto">
+                    <div class="card-modern">
+                        <div class="card-body-modern">
+                            <h4 class="mb-4">Exemple concret : Projet ERP multi-filiales</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2"><i class="fas fa-arrow-right text-primary me-2"></i>Exigences changeantes (Volatilité)</li>
+                                        <li class="mb-2"><i class="fas fa-arrow-right text-primary me-2"></i>Délais et budgets incertains (Incertitude)</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2"><i class="fas fa-arrow-right text-primary me-2"></i>Équipes et systèmes interdépendants (Complexité)</li>
+                                        <li class="mb-2"><i class="fas fa-arrow-right text-primary me-2"></i>Besoins métiers ambigus (Ambiguïté)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Principles Section -->
+    <section id="principles" class="py-5 bg-light">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-title">Principes Clés pour Multi-Équipes en VUCA</h2>
+                    <p class="section-subtitle">Les fondamentaux pour réussir dans des environnements complexes</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card-modern fade-in">
+                        <div class="card-body-modern">
+                            <div class="icon-container icon-primary">
+                                <i class="fas fa-layer-group"></i>
+                            </div>
+                            <h4>Livraison Incrémentale</h4>
+                            <p class="text-muted">Chaque Timebox produit un incrément intégrable et testable pour réduire les risques et obtenir du feedback rapide.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card-modern fade-in">
+                        <div class="card-body-modern">
+                            <div class="icon-container icon-success">
+                                <i class="fas fa-sort-amount-down"></i>
+                            </div>
+                            <h4>Priorisation MoSCoW</h4>
+                            <p class="text-muted">Focalisation sur les fonctionnalités Must pour limiter les risques et garantir la livraison de valeur critique.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card-modern fade-in">
+                        <div class="card-body-modern">
+                            <div class="icon-container icon-warning">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <h4>Timeboxes Orientées Outcome</h4>
+                            <p class="text-muted">Chaque phase ou sprint vise un résultat mesurable en valeur métier plutôt que de simples livrables.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card-modern fade-in">
+                        <div class="card-body-modern">
+                            <div class="icon-container icon-danger">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <h4>Rétrospectives Fréquentes</h4>
+                            <p class="text-muted">Ajustement continu basé sur le retour des utilisateurs et l'équipe pour améliorer constamment les processus.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card-modern fade-in">
+                        <div class="card-body-modern">
+                            <div class="icon-container icon-primary">
+                                <i class="fas fa-user-friends"></i>
+                            </div>
+                            <h4>Rôles Clairs et Gouvernance</h4>
+                            <p class="text-muted">PM, Technical Coordinator, Business Visionary et Team Leaders assurent une structure décisionnelle solide.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card-modern fade-in">
+                        <div class="card-body-modern">
+                            <div class="icon-container icon-success">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <h4>Backlog Centralisé (PRL)</h4>
+                            <p class="text-muted">Coordination des priorités et dépendances multi-équipes via un Product Requirements List partagé.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Phases Section -->
+    <section id="phases" class="py-5">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-title">Phases AgilePM v3 - Contexte Multi-Équipes</h2>
+                    <p class="section-subtitle">Un cycle de vie structuré pour gérer la complexité multi-équipes</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <div class="table-responsive">
+                        <table class="table table-modern">
+                            <thead>
+                                <tr>
+                                    <th>Phase</th>
+                                    <th>Focus Multi-Équipes</th>
+                                    <th>Activités Clés</th>
+                                    <th>Objectif VUCA</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Pre-Project</strong></td>
+                                    <td>Sélection des projets et équipes</td>
+                                    <td>Mini Business Case, Go/NoGo</td>
+                                    <td>Limiter volatilité et incertitude</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Feasibility</strong></td>
+                                    <td>Validation faisabilité technique multi-équipes</td>
+                                    <td>Feasibility Report, identification dépendances</td>
+                                    <td>Anticiper risques et contraintes</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Foundations</strong></td>
+                                    <td>Alignement vision, architecture, backlog global</td>
+                                    <td>PRL, SAD, Solution Approach</td>
+                                    <td>Réduire ambiguïté et complexité</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Exploration & Development</strong></td>
+                                    <td>Développement incrémental coordonné</td>
+                                    <td>Solution Increments, tests inter-équipes</td>
+                                    <td>Flexibilité et adaptation rapide</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Deployment</strong></td>
+                                    <td>Déploiement progressif multi-équipes</td>
+                                    <td>Deployment Plan, formation, readiness</td>
+                                    <td>Minimiser risques et erreurs opérationnelles</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Realisation</strong></td>
+                                    <td>Mesure des bénéfices (Outcome)</td>
+                                    <td>Benefits Review, KPI métier, adoption utilisateurs</td>
+                                    <td>Valider impact et ajuster priorités</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="card-modern mt-4">
+                        <div class="card-body-modern">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-lightbulb text-warning fa-2x me-3 mt-1"></i>
+                                <div>
+                                    <h5>Exemple Réel : Projet ERP multi-filiales</h5>
+                                    <p class="mb-0">La synchronisation des Timeboxes a réduit de 70% les conflits d'intégration et augmenté la livraison incrémentale de valeur.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roles Section -->
+    <section id="roles" class="py-5 bg-light">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-title">Rôles Multi-Équipes AgilePM v3</h2>
+                    <p class="section-subtitle">Une structure de gouvernance adaptée aux environnements complexes</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <div class="table-responsive">
+                        <table class="table table-modern">
+                            <thead>
+                                <tr>
+                                    <th>Rôle</th>
+                                    <th>Responsabilité Multi-Équipes</th>
+                                    <th>Erreur Fréquente</th>
+                                    <th>Correction</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Sponsor</strong></td>
+                                    <td>Décisions stratégiques, priorités globales</td>
+                                    <td>Ignoré dans le sprint</td>
+                                    <td>Toujours impliquer pour Go/NoGo</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Business Visionary</strong></td>
+                                    <td>Maintien de la vision et objectifs Outcome</td>
+                                    <td>Confondu avec PO</td>
+                                    <td>Vision stratégique, non opérationnelle</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Project Manager</strong></td>
+                                    <td>Coordination inter-équipes, planification globale</td>
+                                    <td>Confusion avec Scrum Master</td>
+                                    <td>PM supervise plusieurs équipes et dépendances</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Technical Coordinator</strong></td>
+                                    <td>Supervision architecture, intégration</td>
+                                    <td>Sous-utilisé</td>
+                                    <td>Gérer toutes les dépendances techniques</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Team Leader</strong></td>
+                                    <td>Facilitation intra-équipe</td>
+                                    <td>Confusion avec PM</td>
+                                    <td>Responsable d'une équipe, non du projet global</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Business Ambassador</strong></td>
+                                    <td>Liaison Visionary ↔ équipes</td>
+                                    <td>Ignoré</td>
+                                    <td>Garant du feedback utilisateur</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Solution Development Team</strong></td>
+                                    <td>Développement, tests, incréments intégrables</td>
+                                    <td>Équipe Scrum classique</td>
+                                    <td>Inclut Dev + Testers + Analystes</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strategies Section -->
+    <section id="strategies" class="py-5">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-title">12 Cas d'Agilité pour Faire Face à VUCA</h2>
+                    <p class="section-subtitle">Des stratégies concrètes pour chaque dimension VUCA</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <div class="table-responsive">
+                        <table class="table table-modern">
+                            <thead>
+                                <tr>
+                                    <th>Cas</th>
+                                    <th>Agilité</th>
+                                    <th>VUCA Adressé</th>
+                                    <th>Exemples</th>
+                                    <th>Bonnes Pratiques</th>
+                                    <th>Métriques</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Livraison incrémentale</td>
+                                    <td>Volatility</td>
+                                    <td>Timeboxes ERP 2 sem.</td>
+                                    <td>Feedback client rapide</td>
+                                    <td>% incréments livrés</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>MoSCoW</td>
+                                    <td>Uncertainty</td>
+                                    <td>Priorisation Must</td>
+                                    <td>Focus valeur critique</td>
+                                    <td>% Must complétés</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Timebox Outcome</td>
+                                    <td>Complexity</td>
+                                    <td>Exploration Finance/HR</td>
+                                    <td>Dashboard suivi</td>
+                                    <td>Détection conflits</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Rétrospective</td>
+                                    <td>Ambiguity</td>
+                                    <td>Review Timebox</td>
+                                    <td>Actions correctives</td>
+                                    <td>% actions implémentées</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Rôles clairs</td>
+                                    <td>Complexity</td>
+                                    <td>TC gère dépendances</td>
+                                    <td>Scrum of Scrums</td>
+                                    <td>% dépendances résolues</td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>Backlog PRL</td>
+                                    <td>Volatility</td>
+                                    <td>Backlog partagé HR/Finance</td>
+                                    <td>Transparence</td>
+                                    <td>% stories intégrées</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section id="solutions" class="py-5 bg-light">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-title">Solutions et Outils Recommandés</h2>
+                    <p class="section-subtitle">Les meilleures pratiques et outils pour implémenter AgilePM v3 en contexte VUCA</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card-modern">
+                        <div class="card-header-modern text-center">
+                            <h4 class="mb-0">Outils de Gestion</h4>
+                        </div>
+                        <div class="card-body-modern">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Jira pour le suivi multi-équipes</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Confluence pour la documentation</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Miro pour les ateliers collaboratifs</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Azure DevOps pour l'intégration</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Power BI pour les tableaux de bord</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card-modern">
+                        <div class="card-header-modern text-center">
+                            <h4 class="mb-0">Pratiques Essentielles</h4>
+                        </div>
+                        <div class="card-body-modern">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Scrum of Scrums hebdomadaire</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Timeboxes de 2-3 semaines</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Rétrospectives régulières</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Revue des dépendances</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Mesure continue des Outcomes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card-modern">
+                        <div class="card-header-modern text-center">
+                            <h4 class="mb-0">Formations Recommandées</h4>
+                        </div>
+                        <div class="card-body-modern">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Certification AgilePM v3</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Ateliers VUCA appliqués</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Coaching multi-équipes</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Formation outils collaboratifs</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Workshops de facilitation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="card-modern">
+                        <div class="card-body-modern">
+                            <h4 class="mb-3">Téléchargez le Guide Complet AgilePM v3</h4>
+                            <p class="text-muted mb-4">Obtenez notre guide détaillé avec toutes les bonnes pratiques, templates et études de cas pour réussir vos projets multi-équipes en environnement VUCA.</p>
+                            <a href="#" class="btn btn-primary btn-lg">
+                                <i class="fas fa-download me-2"></i>Télécharger le Guide
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5>AgilePM v3 - Multi-Équipes VUCA</h5>
+                    <p>Un framework complet pour gérer la complexité des projets multi-équipes dans des environnements volatiles, incertains, complexes et ambigus.</p>
+                    <div class="d-flex mt-4">
+                        <a href="#" class="text-white me-3"><i class="fab fa-linkedin fa-lg"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-youtube fa-lg"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h5>Ressources</h5>
+                    <ul>
+                        <li><a href="#">Guides PDF</a></li>
+                        <li><a href="#">Modèles</a></li>
+                        <li><a href="#">Études de cas</a></li>
+                        <li><a href="#">Webinaires</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h5>Formations</h5>
+                    <ul>
+                        <li><a href="#">AgilePM v3</a></li>
+                        <li><a href="#">Multi-Équipes</a></li>
+                        <li><a href="#">Gestion VUCA</a></li>
+                        <li><a href="#">Coaching</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5>Contact</h5>
+                    <ul>
+                        <li><i class="fas fa-envelope me-2"></i>contact@agilepm-v3.fr</li>
+                        <li><i class="fas fa-phone me-2"></i>+33 1 23 45 67 89</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i>Paris, France</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2023 AgilePM v3 Guide. Tous droits réservés.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">Framework certifié APMG International</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', fadeInOnScroll);
+        window.addEventListener('load', fadeInOnScroll);
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.08)';
+            }
+        });
+    </script>
+</body>
+</html>
