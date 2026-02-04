@@ -122,7 +122,36 @@ Scrum est un framework agile complémentaire à AgilePM, centré sur la **livrai
 3. **Foundations 🏗️** : planification, exigences, risques.
 4. **Exploration / Engineering 🔧** : développement itératif.
 5. **Deployment 🚀** : tests, formation, mise en production.
-6. **Post-Project 📚** : clôture et leçons apprises.
+6. **Réalisation (Realisation) ⚙️**
+
+## **6. Réalisation (Realisation) ⚙️**
+
+La phase **Réalisation** est le cœur du projet AgilePM : **les fonctionnalités planifiées sont développées, testées et livrées**. Elle transforme les plans et prototypes en solutions opérationnelles pour l’utilisateur final.
+
+### **Sous-phases :**
+
+| Sous-phase    | Objectif                                                                        | Activités clés                                                                                                                                                                 | Livrables / Tips                                                                                                                                          |
+| ------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Embed 🛠️** | Développer et intégrer les fonctionnalités dans l’environnement cible.          | - Développement itératif des fonctionnalités.<br>- Tests unitaires et d’intégration.<br>- Mise à jour des backlogs.<br>- Déploiement dans un environnement de test ou staging. | 💡 Tip : chaque incrément doit être fonctionnel et testable.<br>📌 Livrables : Incréments fonctionnels, Documentation technique, Mise à jour des risques. |
+| **Evolve 🔄** | Optimiser, adapter et stabiliser le produit avant la mise en production finale. | - Tests d’acceptation utilisateur (UAT).<br>- Correction des anomalies et ajustements.<br>- Formation des utilisateurs.<br>- Préparation du déploiement.                       | 💡 Tip : Impliquer les utilisateurs pour feedback rapide.<br>📌 Livrables : Solution validée, Guide utilisateur, Rapport de tests, Plan de déploiement.   |
+
+### **Points clés de la phase Réalisation :**
+
+* **Itérative et incrémentale** : les fonctionnalités sont livrées progressivement.
+* **Collaboration constante** : équipe + client pour ajustements rapides.
+* **Suivi et contrôle** : Burn-Up / Burn-Down Charts pour visualiser la progression.
+* **Gestion des risques** : surveiller tout problème technique ou fonctionnel.
+
+💡 **Tips généraux pour Realisation :**
+
+* Définir clairement les critères d’acceptation pour chaque fonctionnalité ✅
+* Ne jamais livrer un incrément incomplet ou non testé ⚠️
+* Documenter les décisions et changements pour la traçabilité 📚
+* Communiquer régulièrement sur la progression et les obstacles rencontrés 📢
+
+---
+
+
 
 💡 **Tips :**
 
